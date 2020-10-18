@@ -1,0 +1,9 @@
+{
+    "fields": [
+        {
+            "label": "Nom",
+            "name": "name",
+            "type": "input-text"
+        }
+    ]
+}

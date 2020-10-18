@@ -1,0 +1,74 @@
+{
+    "parameters": [
+        {
+            "name": "clinicalCaseId"
+        }
+    ],
+    "createCommand": "CreateClinicalImageCommand",
+    "updateCommand": "UpdateClinicalImageCommand",
+    "getQuery": "GetClinicalImageQuery",
+    "fields": [
+        {
+            "name": "name",
+            "type": "input-text"
+        },
+        {
+            "name": "imagingModality",
+            "type": "select-single"
+        },
+        {
+            "name": "isDefault",
+            "type": "select-single"
+        },
+        {
+            "name": "file",
+            "type": "input-file"
+        },
+        {
+            "name": "imageSettings",
+            "type": "viewer3D"
+        }
+    ],
+    "createCommandMappings": [
+        {
+            "source": "name",
+            "destination": "name"
+        },
+        {
+            "source": "imagingModality",
+            "destination": "imagingModalityId"
+        },
+        {
+            "source": "isDefault",
+            "destination": "default"
+        },
+        {
+            "source": "file.id",
+            "destination": "fileId"
+        },
+        {
+            "source": "form.clinicalCaseId",
+            "destination": "clinicalCaseId"
+        },
+        {
+            "source": "viewer3D.windowingMin",
+            "destination": "windowingMin"
+        },
+        {
+            "source": "viewer3D.windowingMax",
+            "destination": "windowingMax"
+        },
+        {
+            "source": "viewer3D.rangeMin",
+            "destination": "rangeMin"
+        },
+        {
+            "source": "viewer3D.rangeMax",
+            "destination": "rangeMax"
+        },
+        {
+            "source": "viewer3D.lut",
+            "destination": "lut"
+        }
+    ]
+}

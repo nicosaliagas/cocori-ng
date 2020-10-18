@@ -1,27 +1,39 @@
-# CocoriLibrary
+# CocoriLibrary : projet library
+
+2 projets : un projet de type library et un projet web angular classique 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
-## Development server
+## New project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+ng new my-first-project
 
-## Code scaffolding
+## Lancer le projet web et le projet library en même temps
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+`Créer un lien symbolique vers la lib`
 
-## Build
+npm run link
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+`Build lib & watch`
+dans une fenêtre cmd :
 
-## Running unit tests
+npm run build-lib-watch
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`Serve projet angular`
+dans une autre fenêtre cmd :
 
-## Running end-to-end tests
+ng serve
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Tests e2e via Cypress
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+npm install cypress --save-dev
+
+> run : npx cypress open
+> record tests e2e : npx cypress run --record --key 84330dcb-1088-4e89-bfc4-72d1c3f63c13
+
+`connecteurs`
+https://example.cypress.io/commands/connectors
+
+`lire un fichier json`
+https://example.cypress.io/commands/files
