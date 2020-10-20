@@ -1,8 +1,8 @@
-export interface SchemaDatas {
-    fields: SchemaFieldModel[];
+export interface SchemaDatasForm {
+    fields: SchemaFieldForm[];
 }
 
-export interface SchemaFieldModel {
+export interface SchemaFieldForm {
     label: string;
     name: string;
     type: string;

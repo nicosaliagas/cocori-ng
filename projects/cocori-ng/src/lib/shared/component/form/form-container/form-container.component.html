@@ -1,0 +1,6 @@
+<!-- utilier ngTemplateOutlet ex: https://blog.bitsrc.io/component-reusability-techniques-with-angular-727a6c603ad2 -->
+
+<form [formGroup]="currentForm" (ngSubmit)="validateFrom(currentForm)">
+    <ng-template #FormContainerRef></ng-template>
+    <button type="submit">Valider</button>
+</form>

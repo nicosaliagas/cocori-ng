@@ -4,6 +4,11 @@
             "label": "Nom",
             "name": "name",
             "type": "input-text"
+        },
+        {
+            "label": "Description",
+            "name": "description",
+            "type": "input-textarea"
         }
     ]
 }

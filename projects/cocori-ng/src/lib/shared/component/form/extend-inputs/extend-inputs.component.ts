@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { InputModel } from '../../../core/model/field-form.model';
+import { InputModel } from '../../../../core/model/field-form.model';
 
 @Component({
-    selector: 'ct-baseInputForm',
+    selector: 'extend-inputs-ng',
     template: '',
 })
 
-export abstract class BaseInputFormComponent {
+export abstract class ExtendInputsComponent {
     @Output() onComponentReady: EventEmitter<string> = new EventEmitter<string>();
 
     nameLabel: string;

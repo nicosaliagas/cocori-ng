@@ -1,9 +1,9 @@
 import { InputTextComponent } from './input-text/input-text.component';
-import { TextareaComponent } from './textarea/textarea.component';
+import { InputTextareaComponent } from './input-textarea/input-textarea.component';
 
 export const FormComponents: any[] = [
     InputTextComponent,
-    TextareaComponent,
+    InputTextareaComponent,
 ];
 
 export const TypesOfComponents = {
@@ -13,5 +13,5 @@ export const TypesOfComponents = {
 
 export const ListOfComponents = {
     [TypesOfComponents.INPUT_TEXTE]: InputTextComponent,
-    [TypesOfComponents.INPUT_TEXTAREA]: TextareaComponent,
+    [TypesOfComponents.INPUT_TEXTAREA]: InputTextareaComponent,
 };

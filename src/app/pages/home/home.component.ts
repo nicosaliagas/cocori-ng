@@ -1,13 +1,6 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {
-    GenerateFormService,
-    HttpService,
-    InjectComponentService,
-    InputModel,
-    SchemaDatas,
-    SchemaFieldModel,
-} from 'cocori-ng';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { GenerateFormService, HttpService, InjectComponentService, InputModel } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
@@ -17,7 +10,8 @@ import { map } from 'rxjs/internal/operators/map';
   providers: [GenerateFormService]
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
+  // @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
+
   interpretedForm: FormGroup;
   generatedForm: FormGroup;
   valuesInterpretedForm: any;
@@ -58,11 +52,6 @@ export class HomeComponent implements OnInit {
     this.chargementConfiguration();
   }
 
-  // public addChild2(childName: string, childControl: AbstractControl) {
-  public childAdded(nameControl: string) {
-    console.log(`composant ajouté : ${nameControl}`);
-  }
-
   validateFrom({ value, valid }: { value: any, valid: boolean }) {
     if (!valid) return;
 
@@ -75,37 +64,9 @@ export class HomeComponent implements OnInit {
       this.jsonParsed = `oops JSON.parse a généré une erreur... ${e}`;
       return ;
     }
-
-    /** on enlève les précédents composants ajoutés à la vue */
-    this.formContainerRef.clear();
-
-    /** */
-    this.interpretedForm = this.fb.group({});
-
-    /** construction du formulaire interprété */
-    this.buildFormInterpreted(this.jsonParsed);
   }
 
-  private buildFormInterpreted(schema: SchemaDatas) {
-
-    console.log("schema", schema);
-
-    schema.fields.forEach((field: SchemaFieldModel) => {
-      this.interpretedForm.addControl(field.name, new FormControl());
-
-      const configFieldForm: InputModel = { formGroup: this.interpretedForm, nameControl: field.name, nameLabel: field.label };
-
-      const componentToAdd = this.generateFormService.returnComponentClassFromType(field.type);
-
-      this.injectComponentService.loadAndAddComponent(componentToAdd, this.formContainerRef,
-        [{ config: configFieldForm }],
-        [{ onComponentReady: this.childAdded.bind(this) }]
-      );
-    });
-  }
-
-  valeursFrom({ value, valid }: { value: any, valid: boolean }) {
-    console.log("value 3", value);
-    this.valuesInterpretedForm = value;
+  formulaireInitialise(check: boolean) {
+    console.log("le formulaire est initialisé avec succès", check);
   }
 }
