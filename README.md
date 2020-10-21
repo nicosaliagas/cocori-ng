@@ -37,3 +37,11 @@ https://example.cypress.io/commands/connectors
 
 `lire un fichier json`
 https://example.cypress.io/commands/files
+
+## Erreurs
+
+1.
+Problème : A la compilation, le site utilisant la lib ne reconnait plus les balises ou attributs Form, Angular Material...
+Raison : il y a des imports erronés dans la lib cocori-ng,
+
+ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe

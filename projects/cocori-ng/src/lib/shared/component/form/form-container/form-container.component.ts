@@ -1,23 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs/internal/Subject';
 
 import { InputModel } from '../../../../core/model/field-form.model';
 import { SchemaDatasForm, SchemaFieldForm } from '../../../../core/model/schema-datas.model';
 import { GenerateFormService } from '../../../../core/service/generate-form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
+import { SubscriptionService } from '../../../../core/service/subscription.service';
 
 
 @Component({
     selector: 'form-container-ng',
     templateUrl: 'form-container.component.html',
-    providers: [GenerateFormService]
+    providers: [GenerateFormService, SubscriptionService]
 })
 
-export class FormContainerComponent implements OnInit {
+export class FormContainerComponent implements OnInit, OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
     currentForm: FormGroup;
     schemaDatasForm: SchemaDatasForm;
+    formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
 
     @Input()
     set config(schema: SchemaDatasForm) {
@@ -29,6 +32,7 @@ export class FormContainerComponent implements OnInit {
         this.currentForm = this.fb.group({});
         this.formContainerRef.clear();
 
+        this.initEventFormBuilded();
         this.buildCurrentForm();
     }
 
@@ -38,11 +42,16 @@ export class FormContainerComponent implements OnInit {
     constructor(
         public fb: FormBuilder,
         public injectComponentService: InjectComponentService,
+        public subscriptionService: SubscriptionService,
         public generateFormService: GenerateFormService) {
         this.currentForm = this.fb.group({});
     }
 
     ngOnInit() { }
+
+    ngOnDestroy() {
+        this.subscriptionService.unsubscribeAll();
+    }
 
     private buildCurrentForm() {
         this.schemaDatasForm.fields.forEach((field: SchemaFieldForm) => {
@@ -57,19 +66,25 @@ export class FormContainerComponent implements OnInit {
                 [{ onComponentReady: this.childAdded.bind(this) }]
             );
         });
+    }
 
-        console.log("test ", Object.keys(this.currentForm.controls));
+    private initEventFormBuilded() {
+        this.formBuildedSubject = new Subject<boolean>();
+        let formFieldsAdded: number = 0;
+
+        this.subscriptionService.subscribe = this.formBuildedSubject.subscribe((isBuilded: boolean) => {
+            formFieldsAdded++;
+
+            if (formFieldsAdded === this.schemaDatasForm.fields.length) {
+                this.onComponentReady.emit(true);
+            }
+        });
     }
 
     private childAdded(nameControl: string) {
         console.log(`composant ajouté : ${nameControl}`);
 
-        /** todo: faire ça avec un subject */
-        if (Object.keys(this.currentForm.controls).length === this.schemaDatasForm.fields.length) {
-            console.log("c'est good");
-
-            this.onComponentReady.emit(true);
-        }
+        this.formBuildedSubject.next(true);
     }
 
     validateFrom({ value, valid }: { value: any, valid: boolean }) {
