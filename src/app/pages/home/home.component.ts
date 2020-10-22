@@ -1,37 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { GenerateFormService, HttpService, InjectComponentService, InputModel } from 'cocori-ng';
+import { ComponentInputFormModel, HttpService } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'ct-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [GenerateFormService]
 })
 export class HomeComponent implements OnInit {
-  // @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
-
   interpretedForm: FormGroup;
   generatedForm: FormGroup;
   valuesInterpretedForm: any;
   jsonParsed: any;
   ready: boolean = false;
-  configGeneratedForm: InputModel;
+  componentInputConfig: ComponentInputFormModel;
 
   constructor(
     private fb: FormBuilder,
-    private httpService: HttpService,
-    private generateFormService: GenerateFormService,
-    private injectComponentService: InjectComponentService) {
+    private httpService: HttpService) {
 
-    this.interpretedForm = fb.group({});
+    this.interpretedForm = this.fb.group({});
 
-    this.generatedForm = fb.group({
+    this.generatedForm = this.fb.group({
       fieldJsonText: null
     });
 
-    this.configGeneratedForm = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
+    this.componentInputConfig = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
   }
 
   ngOnInit() { }
@@ -56,17 +51,22 @@ export class HomeComponent implements OnInit {
     if (!valid) return;
 
     try {
-      this.ready = true;
       this.jsonParsed = JSON.parse(value.fieldJsonText);
+
+      this.ready = true;
     } catch (e) {
       this.ready = false;
 
       this.jsonParsed = `oops JSON.parse a généré une erreur... ${e}`;
-      return ;
+      return;
     }
   }
 
-  formulaireInitialise(check: boolean) {
+  onComponentReady(check: boolean) {
     console.log("le formulaire est initialisé avec succès", check);
+  }
+
+  onFormulaireValidate(values: any) {
+    this.valuesInterpretedForm = values;
   }
 }

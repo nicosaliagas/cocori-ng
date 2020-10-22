@@ -13,9 +13,8 @@ export * from './lib/shared/component/form/input-textarea/input-textarea.compone
 export * from './lib/shared/component/form/form-container/form-container.component';
 
 export * from './lib/core/model/schema-datas.model';
-export * from './lib/core/model/field-form.model';
+export * from './lib/core/model/component-input-form.model';
 
-export * from './lib/core/service/generate-form.service';
 export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/http.service';
 export * from './lib/core/service/subscription.service';

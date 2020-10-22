@@ -11,7 +11,7 @@
   <div class="sub-frm">
     <div class="content-frm part">
       <form id="generatedForm" [formGroup]="generatedForm" (ngSubmit)="validateFrom(generatedForm)">
-        <input-textarea-ng [config]="configGeneratedForm" (onComponentReady)="addChild($event)"></input-textarea-ng>
+        <input-textarea-ng [config]="componentInputConfig" (onComponentReady)="addChild($event)"></input-textarea-ng>
         <button type="submit">Interpréter le contenu JSON</button>
       </form>
     </div>
@@ -20,15 +20,15 @@
     </div>
   </div>
 
-  <div class="sub-frm">
+  <div class="sub-frm" *ngIf="ready">
     <div class="content-frm part">
-      <form-container-ng [config]="jsonParsed" (onComponentReady)="formulaireInitialise($event)"></form-container-ng>
-      <!-- <form id="interpretedForm" [formGroup]="interpretedForm" (ngSubmit)="valeursFrom(interpretedForm)">
-        <ng-template #FormContainerRef></ng-template>
-        <button *ngIf="ready" type="submit">Valider Frm</button>
-      </form> -->
+      <form-container-ng 
+        [config]="jsonParsed" 
+        (onComponentReady)="onComponentReady($event)"
+        (onFormulaireValidate)="onFormulaireValidate($event)"
+        ></form-container-ng>
     </div>
-    <div class="result-frm part" *ngIf="ready">
+    <div class="result-frm part">
       <div>Résultats :</div>
       <div id="resultatInterpretedForm">{{valuesInterpretedForm | json}}</div>
     </div>

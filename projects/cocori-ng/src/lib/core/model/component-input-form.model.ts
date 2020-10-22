@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 
-export interface InputModel {
+export interface ComponentInputFormModel {
     nameLabel: string;
     formGroup: FormGroup;
     nameControl: string;

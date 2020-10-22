@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, V
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
-import { InputModel } from '../../../../core/model/field-form.model';
+import { ComponentInputFormModel } from '../../../../core/model/component-input-form.model';
 import { SchemaDatasForm, SchemaFieldForm } from '../../../../core/model/schema-datas.model';
-import { GenerateFormService } from '../../../../core/service/generate-form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
 
@@ -12,7 +11,7 @@ import { SubscriptionService } from '../../../../core/service/subscription.servi
 @Component({
     selector: 'form-container-ng',
     templateUrl: 'form-container.component.html',
-    providers: [GenerateFormService, SubscriptionService]
+    providers: [SubscriptionService]
 })
 
 export class FormContainerComponent implements OnInit, OnDestroy {
@@ -37,13 +36,12 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     }
 
     @Output() onComponentReady: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() onFormulaireValidated: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onFormulaireValidate: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
         public fb: FormBuilder,
         public injectComponentService: InjectComponentService,
-        public subscriptionService: SubscriptionService,
-        public generateFormService: GenerateFormService) {
+        public subscriptionService: SubscriptionService) {
         this.currentForm = this.fb.group({});
     }
 
@@ -57,11 +55,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         this.schemaDatasForm.fields.forEach((field: SchemaFieldForm) => {
             this.currentForm.addControl(field.name, new FormControl());
 
-            const configFieldForm: InputModel = { formGroup: this.currentForm, nameControl: field.name, nameLabel: field.label };
+            const configFieldForm: ComponentInputFormModel = { formGroup: this.currentForm, nameControl: field.name, nameLabel: field.label };
 
-            const componentToAdd = this.generateFormService.returnComponentClassFromType(field.type);
+            const componentToAdd = this.injectComponentService.returnComponentClassFromType(field.type);
 
-            this.injectComponentService.loadAndAddComponent(componentToAdd, this.formContainerRef,
+            this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
                 [{ config: configFieldForm }],
                 [{ onComponentReady: this.childAdded.bind(this) }]
             );
@@ -82,12 +80,14 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     }
 
     private childAdded(nameControl: string) {
-        console.log(`composant ajouté : ${nameControl}`);
+        // console.log(`composant ajouté : ${nameControl}`);
 
         this.formBuildedSubject.next(true);
     }
 
     validateFrom({ value, valid }: { value: any, valid: boolean }) {
-        console.log("FormContainerComponent > validateFrom", value)
+        if (valid) {
+            this.onFormulaireValidate.emit(value);
+        }
     }
 }

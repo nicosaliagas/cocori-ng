@@ -19,15 +19,15 @@ describe(`Génération d'un formulaire`, () => {
     it(`Génération d'un formulaire en succès`, () => {
         cy.get('#generatedForm input-textarea-ng textarea').clear().type(`{"fields": [{"label": "Nom", "name": "name", "type": "input-text"}]}`, { parseSpecialCharSequences: false });
         cy.get('form#generatedForm').submit();
-        cy.get('form#interpretedForm').should('be.visible');
+        cy.get('form-container-ng > form').should('be.visible');
         // cy.get('#interpretedForm input-text-ng').should('have.length', 1);
         // cy.get('#interpretedForm input-text-ng mat-label').should('have.text', 'Nom');
-        cy.get('#interpretedForm input-text-ng').then(($input) => {
+        cy.get('form-container-ng > form input-text-ng').then(($input) => {
             expect($input).to.have.length(1);
             expect($input).to.have.text('Nom');
         });
-        cy.get('#interpretedForm input-text-ng input[type=text]').clear().type(`aliagas`);
-        cy.get('form#interpretedForm').submit();
+        cy.get('form-container-ng > form input-text-ng input[type=text]').clear().type(`aliagas`);
+        cy.get('form-container-ng > form').submit();
         cy.get('#resultatInterpretedForm').contains('{ "name": "aliagas" }').should('be.visible');
     })
 
@@ -39,9 +39,9 @@ describe(`Génération d'un formulaire`, () => {
                 {"label": "Description", "name": "description", "type": "input-textarea"}
             ]}`, { parseSpecialCharSequences: false });
         cy.get('form#generatedForm').submit();
-        cy.get('form#interpretedForm').should('be.visible');
+        cy.get('form-container-ng > form').should('be.visible');
 
-        cy.get('#interpretedForm input-text-ng').then(($input) => {
+        cy.get('form-container-ng > form input-text-ng').then(($input) => {
             expect($input).to.have.length(2);
             expect($input.eq(0)).to.have.text('Nom');
             expect($input.eq(1)).to.have.text('Prénom');

@@ -1,5 +1,7 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 
+import { ListOfComponents } from '../../shared/component/form';
+
 export interface InputsComponent {
     [key: string]: any;
 }
@@ -16,7 +18,16 @@ export class InjectComponentService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
-    loadAndAddComponent(componentClass: any, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
+    returnComponentClassFromType(typeOfComponent: string): any {
+        if (!ListOfComponents.hasOwnProperty(typeOfComponent)) {
+            const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+            throw new Error(error);
+        } else {
+            return ListOfComponents[typeOfComponent];
+        }
+    }
+
+    loadAndAddComponentToContainer(componentClass: any, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
         const référenceComposant = viewContainerRef.createComponent(factory);
 

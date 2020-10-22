@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { InputModel } from '../../../../core/model/field-form.model';
+import { ComponentInputFormModel } from '../../../../core/model/component-input-form.model';
 
 @Component({
     selector: 'extend-inputs-ng',
@@ -16,7 +16,7 @@ export abstract class ExtendInputsComponent {
     nameControl: string;
 
     @Input()
-    set config(config: InputModel) {
+    set config(config: ComponentInputFormModel) {
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
