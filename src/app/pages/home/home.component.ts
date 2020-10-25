@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ComponentInputFormModel, HttpService } from 'cocori-ng';
+import { ComponentInputFormModel, FormBuilderService, HttpService } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'ct-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  providers: [FormBuilderService]
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
+
   interpretedForm: FormGroup;
   generatedForm: FormGroup;
   valuesInterpretedForm: any;
   jsonParsed: any;
   ready: boolean = false;
   componentInputConfig: ComponentInputFormModel;
+  configTest: any;
 
   constructor(
     private fb: FormBuilder,
+    private formBuilderService: FormBuilderService,
     private httpService: HttpService) {
 
     this.interpretedForm = this.fb.group({});
@@ -29,7 +34,9 @@ export class HomeComponent implements OnInit {
     this.componentInputConfig = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.initConfigTest();
+  }
 
   chargementConfiguration() {
     this.httpService.httpGet(`/assets/ressources/config-frm-abrege.json`)
@@ -66,7 +73,25 @@ export class HomeComponent implements OnInit {
     console.log("le formulaire est initialisé avec succès", check);
   }
 
-  onFormulaireValidate(values: any) {
+  onSubmit(values: any) {
     this.valuesInterpretedForm = values;
+  }
+
+  private initConfigTest() {
+    this.configTest = this.formBuilderService
+      .viewContainerRef(this.formContainerRef)
+      .onComponentReady(this.onComponentReady)
+      .addInput('nom', 'Nom', 'input-text')
+      .addInput('prenom', 'Prénom', 'input-textarea')
+      .addInput('test', 'Test', 'input-text')
+      ;
+  }
+
+  onComponentReadyTest(check: boolean) {
+    console.log("le formulaire test est initialisé avec succès", check);
+  }
+
+  onSubmitTest(values: any) {
+    console.log("test values", values);
   }
 }

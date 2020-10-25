@@ -36,7 +36,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     }
 
     @Output() onComponentReady: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() onFormulaireValidate: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
         public fb: FormBuilder,
@@ -87,7 +87,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
     validateFrom({ value, valid }: { value: any, valid: boolean }) {
         if (valid) {
-            this.onFormulaireValidate.emit(value);
+            this.onSubmit.emit(value);
         }
     }
 }

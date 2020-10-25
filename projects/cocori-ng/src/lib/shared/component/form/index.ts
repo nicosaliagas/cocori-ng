@@ -1,6 +1,11 @@
 import { InputTextComponent } from './input-text/input-text.component';
 import { InputTextareaComponent } from './input-textarea/input-textarea.component';
 
+export enum enumInputs {
+    TEXT = 0,
+    TEXTAREA = 1,
+}
+
 export const FormComponents: any[] = [
     InputTextComponent,
     InputTextareaComponent,
