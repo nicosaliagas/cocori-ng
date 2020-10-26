@@ -31,6 +31,4 @@ export abstract class ExtendInputsComponent {
 
         this.onComponentReady.emit(this.nameControl);
     }
-
-    // abstract initialise(): void;
 }

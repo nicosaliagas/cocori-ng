@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
-import { ComponentInputFormModel } from '../../../../core/model/component-input-form.model';
 import { SchemaDatasForm, SchemaFieldForm } from '../../../../core/model/schema-datas.model';
+import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
 
@@ -11,7 +11,7 @@ import { SubscriptionService } from '../../../../core/service/subscription.servi
 @Component({
     selector: 'form-container-ng',
     templateUrl: 'form-container.component.html',
-    providers: [SubscriptionService]
+    providers: [SubscriptionService, FormBuilderService]
 })
 
 export class FormContainerComponent implements OnInit, OnDestroy {
@@ -40,6 +40,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
     constructor(
         public fb: FormBuilder,
+        private formBuilderService: FormBuilderService,
         public injectComponentService: InjectComponentService,
         public subscriptionService: SubscriptionService) {
         this.currentForm = this.fb.group({});
@@ -52,18 +53,16 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     }
 
     private buildCurrentForm() {
+        const formBuilder: FormBuilderService =
+            this.formBuilderService
+                .viewContainerRef(this.formContainerRef) // todo tester sans
+                .onInputReady(this.childAdded.bind(this)); // todo tester sans
+
         this.schemaDatasForm.fields.forEach((field: SchemaFieldForm) => {
-            this.currentForm.addControl(field.name, new FormControl());
-
-            const configFieldForm: ComponentInputFormModel = { formGroup: this.currentForm, nameControl: field.name, nameLabel: field.label };
-
-            const componentToAdd = this.injectComponentService.returnComponentClassFromType(field.type);
-
-            this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
-                [{ config: configFieldForm }],
-                [{ onComponentReady: this.childAdded.bind(this) }]
-            );
+            formBuilder.addInput(field.name, field.label, field.type);
         });
+
+        this.currentForm = this.formBuilderService.form;
     }
 
     private initEventFormBuilded() {
@@ -79,9 +78,8 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         });
     }
 
+    /** composant aijouté au formulaire angular */
     private childAdded(nameControl: string) {
-        // console.log(`composant ajouté : ${nameControl}`);
-
         this.formBuildedSubject.next(true);
     }
 

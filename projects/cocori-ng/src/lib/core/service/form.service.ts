@@ -18,12 +18,20 @@ type AddInput<Builder, InputName extends string> =
 export class FormBuilderService<InputNames extends string = never> {
     private currentForm: FormGroup;
     private formContainerRef: ViewContainerRef;
-    private componentReadyCallback: Function;
+    private componentInputReadyCallback: Function;
 
     constructor(
         private fb: FormBuilder,
         private injectComponentService: InjectComponentService) {
         this.currentForm = this.fb.group({});
+    }
+
+    set form(form: FormGroup) {
+        this.currentForm = form;
+    }
+
+    get form(): FormGroup {
+        return this.currentForm;
     }
 
     viewContainerRef(containerRef: ViewContainerRef) {
@@ -32,8 +40,8 @@ export class FormBuilderService<InputNames extends string = never> {
         return this;
     }
 
-    onComponentReady(componentReadyCallback: Function) {
-        this.componentReadyCallback = componentReadyCallback;
+    onInputReady(componentInputReadyCallback: Function) {
+        this.componentInputReadyCallback = componentInputReadyCallback;
 
         return this;
     }
@@ -45,9 +53,13 @@ export class FormBuilderService<InputNames extends string = never> {
 
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(type);
 
+        console.log("is there ?", this.componentInputReadyCallback);
+
+        /** remplir la variable ici : le tab des outputs */
+
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
             [{ config: configFieldForm }],
-            [{ onComponentReady: this.componentReadyCallback.bind(this) }]
+            [{ onComponentReady: this.componentInputReadyCallback }]
         );
 
         return this as FormBuilderService as ReturnType;

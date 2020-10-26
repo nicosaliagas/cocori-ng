@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   private initConfigTest() {
     this.configTest = this.formBuilderService
       .viewContainerRef(this.formContainerRef)
-      .onComponentReady(this.onComponentReady)
+      .onInputReady(this.onComponentReady)
       .addInput('nom', 'Nom', 'input-text')
       .addInput('prenom', 'Prénom', 'input-textarea')
       .addInput('test', 'Test', 'input-text')
