@@ -1,6 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
+import { FieldType } from '../../shared/component/form';
 import { ComponentInputFormModel } from '../model/component-input-form.model';
 import { InjectComponentService } from './inject-component.service';
 
@@ -14,11 +15,17 @@ type AddInput<Builder, InputName extends string> =
     ? FormBuilderService<InputNames | InputName>
     : never
 
+type CallbackKeys = "onComponentReady";
+
+type CallbackFunction = {
+    [key in CallbackKeys]: Function
+}
+
 @Injectable()
 export class FormBuilderService<InputNames extends string = never> {
     private currentForm: FormGroup;
     private formContainerRef: ViewContainerRef;
-    private componentInputReadyCallback: Function;
+    private componentInputReadyCallback: CallbackFunction[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -41,25 +48,21 @@ export class FormBuilderService<InputNames extends string = never> {
     }
 
     onInputReady(componentInputReadyCallback: Function) {
-        this.componentInputReadyCallback = componentInputReadyCallback;
+        this.componentInputReadyCallback.push({ onComponentReady: componentInputReadyCallback });
 
         return this;
     }
 
-    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: string): ReturnType {
+    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: FieldType): ReturnType {
         this.currentForm.addControl(inputName, new FormControl());
 
         const configFieldForm: ComponentInputFormModel = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
 
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(type);
 
-        console.log("is there ?", this.componentInputReadyCallback);
-
-        /** remplir la variable ici : le tab des outputs */
-
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
             [{ config: configFieldForm }],
-            [{ onComponentReady: this.componentInputReadyCallback }]
+            this.componentInputReadyCallback
         );
 
         return this as FormBuilderService as ReturnType;

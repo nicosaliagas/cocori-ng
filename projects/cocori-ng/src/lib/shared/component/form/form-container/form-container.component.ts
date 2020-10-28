@@ -55,8 +55,8 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     private buildCurrentForm() {
         const formBuilder: FormBuilderService =
             this.formBuilderService
-                .viewContainerRef(this.formContainerRef) // todo tester sans
-                .onInputReady(this.childAdded.bind(this)); // todo tester sans
+                .viewContainerRef(this.formContainerRef)
+                .onInputReady(this.childAdded.bind(this));
 
         this.schemaDatasForm.fields.forEach((field: SchemaFieldForm) => {
             formBuilder.addInput(field.name, field.label, field.type);
