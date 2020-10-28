@@ -1,11 +1,23 @@
-import { InputTypes } from '../../shared/component/form';
+import { InputComponents } from '../../shared/component/form';
 
-export interface SchemaDatasForm {
-    fields: SchemaFieldForm[];
+export interface PageSchema {
+    forms: SchemaForm[],
+    commandMappings: CommandMappings[];
 }
 
-export interface SchemaFieldForm {
+export interface SchemaForm {
+    name: string;
+    fields: SchemaFields[];
+}
+
+export interface SchemaFields {
     label: string;
     name: string;
-    type: InputTypes;
+    type: InputComponents;
+}
+
+export interface CommandMappings {
+    label: string;
+    name: string;
+    type: InputComponents;
 }

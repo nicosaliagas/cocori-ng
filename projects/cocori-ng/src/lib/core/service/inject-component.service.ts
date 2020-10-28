@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 
-import { Field, FieldType, ListOfComponents } from '../../shared/component/form';
+import { ClasseComponents, InputClassesTypes, InputTypes } from '../../shared/component/form';
 
 export interface InputsComponent {
     [key: string]: any;
@@ -18,16 +18,16 @@ export class InjectComponentService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
-    returnComponentClassFromType<T extends FieldType, ReturnType extends Field<T>>(typeOfComponent: FieldType): ReturnType {
-        if (!ListOfComponents.hasOwnProperty(typeOfComponent)) {
+    returnComponentClassFromType<T extends InputTypes, ReturnType extends InputClassesTypes<T>>(typeOfComponent: InputTypes): ReturnType {
+        if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
             const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
             throw new Error(error);
         } else {
-            return ListOfComponents[typeOfComponent] as unknown as ReturnType;
+            return ClasseComponents[typeOfComponent] as unknown as ReturnType;
         }
     }
 
-    loadAndAddComponentToContainer<T extends FieldType>(componentClass: Field<T>, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
+    loadAndAddComponentToContainer<T extends InputTypes>(componentClass: InputClassesTypes<T>, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
         const référenceComposant = viewContainerRef.createComponent(factory);
 

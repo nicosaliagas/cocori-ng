@@ -1,7 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { FieldType } from '../../shared/component/form';
+import { InputTypes } from '../../shared/component/form';
 import { ComponentInputFormModel } from '../model/component-input-form.model';
 import { InjectComponentService } from './inject-component.service';
 
@@ -26,6 +26,7 @@ export class FormBuilderService<InputNames extends string = never> {
     private currentForm: FormGroup;
     private formContainerRef: ViewContainerRef;
     private componentInputReadyCallback: CallbackFunction[] = [];
+    private nameForm: string;
 
     constructor(
         private fb: FormBuilder,
@@ -41,6 +42,12 @@ export class FormBuilderService<InputNames extends string = never> {
         return this.currentForm;
     }
 
+    name(nameForm: string) {
+        this.nameForm = nameForm;
+
+        return this;
+    }
+
     viewContainerRef(containerRef: ViewContainerRef) {
         this.formContainerRef = containerRef;
 
@@ -53,7 +60,7 @@ export class FormBuilderService<InputNames extends string = never> {
         return this;
     }
 
-    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: FieldType): ReturnType {
+    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: InputTypes): ReturnType {
         this.currentForm.addControl(inputName, new FormControl());
 
         const configFieldForm: ComponentInputFormModel = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };

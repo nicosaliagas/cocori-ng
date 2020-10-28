@@ -6,19 +6,19 @@ export const ImportsFormComponents: any[] = [
     InputTextareaComponent,
 ];
 
-export enum InputTypes {
+export enum InputComponents {
     INPUT_TEXTE = 'input-text',
     INPUT_TEXTAREA = 'input-textarea',
 }
 
-export const ListOfComponents = {
-    [InputTypes.INPUT_TEXTE]: InputTextComponent,
-    [InputTypes.INPUT_TEXTAREA]: InputTextareaComponent,
+export const ClasseComponents = {
+    [InputComponents.INPUT_TEXTE]: InputTextComponent,
+    [InputComponents.INPUT_TEXTAREA]: InputTextareaComponent,
 };
 
-export type FieldType = InputTypes.INPUT_TEXTE | InputTypes.INPUT_TEXTAREA
+export type InputTypes = InputComponents.INPUT_TEXTE | InputComponents.INPUT_TEXTAREA
 
-export type Field<T extends FieldType> =
-    T extends InputTypes.INPUT_TEXTE ? InputTextComponent :
-    T extends InputTypes.INPUT_TEXTAREA ? InputTextareaComponent :
+export type InputClassesTypes<T extends InputTypes> =
+    T extends InputComponents.INPUT_TEXTE ? InputTextComponent :
+    T extends InputComponents.INPUT_TEXTAREA ? InputTextareaComponent :
     never

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, V
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
-import { SchemaDatasForm, SchemaFieldForm } from '../../../../core/model/schema-datas.model';
+import { SchemaFields, SchemaForm } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
@@ -18,11 +18,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
     currentForm: FormGroup;
-    schemaDatasForm: SchemaDatasForm;
+    schemaDatasForm: SchemaForm;
     formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
 
     @Input()
-    set config(schema: SchemaDatasForm) {
+    set config(schema: SchemaForm) {
         if (!schema) return;
 
         this.schemaDatasForm = schema;
@@ -55,10 +55,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     private buildCurrentForm() {
         const formBuilder: FormBuilderService =
             this.formBuilderService
+                .name(this.schemaDatasForm.name)
                 .viewContainerRef(this.formContainerRef)
                 .onInputReady(this.childAdded.bind(this));
 
-        this.schemaDatasForm.fields.forEach((field: SchemaFieldForm) => {
+        this.schemaDatasForm.fields.forEach((field: SchemaFields) => {
             formBuilder.addInput(field.name, field.label, field.type);
         });
 

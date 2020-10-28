@@ -1,4 +1,5 @@
 {
+    "name": "myBasicForm",
     "fields": [
         {
             "label": "Nom",
@@ -9,6 +10,20 @@
             "label": "Description",
             "name": "description",
             "type": "input-textarea"
+        }
+    ],
+    "buttons": [
+        {
+            "name": "save",
+            "submitForm": "basicForm",
+            "command": "UpdateClinicalImageCommand",
+            "redirectTo": "",
+            "commandMappings": [
+                {
+                    "source": "updateClinicalImageForm.id",
+                    "destination": "command.id"
+                }
+            ]
         }
     ]
 }

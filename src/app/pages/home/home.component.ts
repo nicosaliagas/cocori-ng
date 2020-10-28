@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ComponentInputFormModel, FormBuilderService, HttpService, InputTypes } from 'cocori-ng';
+import { ComponentInputFormModel, FormBuilderService, HttpService, InputComponents } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
@@ -81,9 +81,9 @@ export class HomeComponent implements OnInit {
     this.configTest = this.formBuilderService
       .viewContainerRef(this.formContainerRef)
       .onInputReady(this.onComponentReady)
-      .addInput('nom', 'Nom', InputTypes.INPUT_TEXTE)
-      .addInput('prenom', 'Prénom', InputTypes.INPUT_TEXTE)
-      .addInput('test', 'Zone', InputTypes.INPUT_TEXTAREA)
+      .addInput('nom', 'Nom', InputComponents.INPUT_TEXTE)
+      .addInput('prenom', 'Prénom', InputComponents.INPUT_TEXTE)
+      .addInput('test', 'Zone', InputComponents.INPUT_TEXTAREA)
       ;
   }
 
