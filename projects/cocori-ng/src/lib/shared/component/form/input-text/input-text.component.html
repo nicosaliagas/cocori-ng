@@ -1,9 +1,9 @@
 
 <!-- utilier ngTemplateOutlet ex: https://blog.bitsrc.io/component-reusability-techniques-with-angular-727a6c603ad2 -->
 
-<div [formGroup]="formGroup">
+<ng-container [formGroup]="formGroup">
     <mat-form-field>
         <mat-label>{{nameLabel}}</mat-label>
         <input type="text" matInput [formControlName]="nameControl"/>
     </mat-form-field>
-</div>
+</ng-container>

@@ -27,8 +27,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
         this.schemaDatasForm = schema;
 
-        /** on enlève les précédents composants ajoutés à la vue */
-        this.currentForm = this.fb.group({});
+        this.currentForm = this.formBuilderService.initForm();
         this.formContainerRef.clear();
 
         this.initEventFormBuilded();
@@ -40,10 +39,10 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
     constructor(
         public fb: FormBuilder,
-        private formBuilderService: FormBuilderService,
+        public formBuilderService: FormBuilderService,
         public injectComponentService: InjectComponentService,
         public subscriptionService: SubscriptionService) {
-        this.currentForm = this.fb.group({});
+        this.currentForm = this.formBuilderService.initForm();
     }
 
     ngOnInit() { }
@@ -55,7 +54,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     private buildCurrentForm() {
         const formBuilder: FormBuilderService =
             this.formBuilderService
-                .name(this.schemaDatasForm.name)
+                .nameForm(this.schemaDatasForm.name)
                 .viewContainerRef(this.formContainerRef)
                 .onInputReady(this.childAdded.bind(this));
 
@@ -63,9 +62,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
             formBuilder.addInput(field.name, field.label, field.type);
         });
 
+        /** todo: Utiliser une variable ou direct l'objet */
         this.currentForm = this.formBuilderService.form;
     }
 
+    /** lorsque tous les composants ont été initialisés avec succès */
     private initEventFormBuilded() {
         this.formBuildedSubject = new Subject<boolean>();
         let formFieldsAdded: number = 0;

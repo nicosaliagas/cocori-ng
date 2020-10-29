@@ -9,9 +9,10 @@ export * from './lib/shared/directive/default-image.directive';
 export * from './lib/shared/pipe/pretty-print.pipe';
 
 export * from './lib/shared/component/form/index';
+export * from './lib/shared/component/form/form-container/form-container.component';
+export * from './lib/shared/component/form/form-buttons/form-buttons.component';
 export * from './lib/shared/component/form/input-text/input-text.component';
 export * from './lib/shared/component/form/input-textarea/input-textarea.component';
-export * from './lib/shared/component/form/form-container/form-container.component';
 
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-input-form.model';

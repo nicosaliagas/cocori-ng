@@ -10,6 +10,8 @@ import { InjectComponentService } from './inject-component.service';
  * https://medium.com/@bensammons/building-a-fluent-interface-with-typescript-using-generics-in-typescript-3-4d206f00dba5
  */
 
+// type FormBuilder0<T> = Omit<_FormBuilder<T extends string ? T : never>, "addInput">;
+
 type AddInput<Builder, InputName extends string> =
     Builder extends FormBuilderService<infer InputNames>
     ? FormBuilderService<InputNames | InputName>
@@ -26,12 +28,12 @@ export class FormBuilderService<InputNames extends string = never> {
     private currentForm: FormGroup;
     private formContainerRef: ViewContainerRef;
     private componentInputReadyCallback: CallbackFunction[] = [];
-    private nameForm: string;
+    public name: string;
 
     constructor(
         private fb: FormBuilder,
         private injectComponentService: InjectComponentService) {
-        this.currentForm = this.fb.group({});
+        this.initForm();
     }
 
     set form(form: FormGroup) {
@@ -39,11 +41,17 @@ export class FormBuilderService<InputNames extends string = never> {
     }
 
     get form(): FormGroup {
-        return this.currentForm;
+        return this.currentForm
     }
 
-    name(nameForm: string) {
-        this.nameForm = nameForm;
+    initForm(): FormGroup {
+        this.currentForm = this.fb.group({});
+
+        return this.form;
+    }
+
+    nameForm(name: string) {
+        this.name = name;
 
         return this;
     }

@@ -2,12 +2,12 @@ import { InputComponents } from '../../shared/component/form';
 
 export interface PageSchema {
     forms: SchemaForm[],
-    commandMappings: CommandMappings[];
 }
 
 export interface SchemaForm {
     name: string;
     fields: SchemaFields[];
+    buttons: SchemaButtons[];
 }
 
 export interface SchemaFields {
@@ -16,8 +16,19 @@ export interface SchemaFields {
     type: InputComponents;
 }
 
-export interface CommandMappings {
-    label: string;
+/** Buttons */
+
+export interface SchemaButtons {
     name: string;
-    type: InputComponents;
+    submitForm: string;
+    command: string;
+    redirectTo: string;
+    commandMappings: CommandMappings[];
 }
+
+export interface CommandMappings {
+    source: string;
+    destination: string;
+}
+
+/** / Buttons */

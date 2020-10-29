@@ -15,7 +15,7 @@
     "buttons": [
         {
             "name": "save",
-            "submitForm": "basicForm",
+            "submitForm": "myBasicForm",
             "command": "UpdateClinicalImageCommand",
             "redirectTo": "",
             "commandMappings": [
