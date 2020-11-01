@@ -1,24 +1,31 @@
 import { InputComponents } from '../../shared/component/form';
 
+export interface Schema {
+    page: any,
+}
+
+/** Form */
+
 export interface PageSchema {
-    forms: SchemaForm[],
+    forms: FormSchema[],
+    buttons: ButtonSchema[],
 }
 
-export interface SchemaForm {
+export interface FormSchema {
     name: string;
-    fields: SchemaFields[];
-    buttons: SchemaButtons[];
+    fields: FieldSchema[];
 }
 
-export interface SchemaFields {
+export interface FieldSchema {
     label: string;
     name: string;
     type: InputComponents;
 }
+/** / Form */
 
 /** Buttons */
 
-export interface SchemaButtons {
+export interface ButtonSchema {
     name: string;
     submitForm: string;
     command: string;

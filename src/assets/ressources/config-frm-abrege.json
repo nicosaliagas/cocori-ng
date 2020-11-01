@@ -1,29 +1,37 @@
 {
-    "name": "myBasicForm",
-    "fields": [
-        {
-            "label": "Nom",
-            "name": "name",
-            "type": "input-text"
-        },
-        {
-            "label": "Description",
-            "name": "description",
-            "type": "input-textarea"
-        }
-    ],
-    "buttons": [
-        {
-            "name": "save",
-            "submitForm": "myBasicForm",
-            "command": "UpdateClinicalImageCommand",
-            "redirectTo": "",
-            "commandMappings": [
-                {
-                    "source": "updateClinicalImageForm.id",
-                    "destination": "command.id"
-                }
-            ]
-        }
-    ]
+    "page": {
+        "forms": [
+            {
+                "name": "myBasicForm",
+                "fields": [
+                    {
+                        "label": "Nom",
+                        "name": "name",
+                        "type": "input-text"
+                    },
+                    {
+                        "label": "Description",
+                        "name": "description",
+                        "type": "input-textarea"
+                    }
+                ]
+            }
+        ],
+        "buttons": [
+            {
+                "name": "save",
+                "submitForm": "myBasicForm",
+                "commandMappings": [
+                    {
+                        "source": "myBasicForm.name",
+                        "destination": "command.name"
+                    },
+                    {
+                        "source": "myBasicForm.description",
+                        "destination": "command.description"
+                    }
+                ]
+            }
+        ]
+    }
 }

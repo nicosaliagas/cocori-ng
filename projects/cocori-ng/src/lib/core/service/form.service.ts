@@ -2,7 +2,7 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { InputTypes } from '../../shared/component/form';
-import { ComponentInputFormModel } from '../model/component-input-form.model';
+import { ComponentInputFormModel } from '../model/component-inputs.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**
@@ -10,7 +10,7 @@ import { InjectComponentService } from './inject-component.service';
  * https://medium.com/@bensammons/building-a-fluent-interface-with-typescript-using-generics-in-typescript-3-4d206f00dba5
  */
 
-// type FormBuilder0<T> = Omit<_FormBuilder<T extends string ? T : never>, "addInput">;
+type FormBuilder0<T> = Omit<FormBuilderService<T extends string ? T : never>, "addInput">;
 
 type AddInput<Builder, InputName extends string> =
     Builder extends FormBuilderService<infer InputNames>
@@ -25,10 +25,10 @@ type CallbackFunction = {
 
 @Injectable()
 export class FormBuilderService<InputNames extends string = never> {
+    public name: string;
     private currentForm: FormGroup;
     private formContainerRef: ViewContainerRef;
     private componentInputReadyCallback: CallbackFunction[] = [];
-    public name: string;
 
     constructor(
         private fb: FormBuilder,
@@ -56,7 +56,7 @@ export class FormBuilderService<InputNames extends string = never> {
         return this;
     }
 
-    viewContainerRef(containerRef: ViewContainerRef) {
+    setViewContainerRef(containerRef: ViewContainerRef) {
         this.formContainerRef = containerRef;
 
         return this;
@@ -83,3 +83,5 @@ export class FormBuilderService<InputNames extends string = never> {
         return this as FormBuilderService as ReturnType;
     }
 }
+
+// const Builder: new <T>() => FormBuilder0<T> = FormBuilderService;

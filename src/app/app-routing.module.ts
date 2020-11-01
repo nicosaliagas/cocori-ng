@@ -8,6 +8,18 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule)
   },
+  {
+    path: 'generic-page',
+    loadChildren: () => import('./pages/generic-page/generic-page.module').then(mod => mod.GenericPageModule)
+  },
+  {
+    path: 'generic-form',
+    loadChildren: () => import('./pages/generic-form/generic-form.module').then(mod => mod.GenericFormModule)
+  },
+  {
+    path: 'static-form',
+    loadChildren: () => import('./pages/static-form/static-form.module').then(mod => mod.StaticFormModule)
+  },
 ];
 
 @NgModule({

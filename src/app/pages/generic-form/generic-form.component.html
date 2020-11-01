@@ -1,0 +1,27 @@
+<div class="formulaires">
+  <div class="sub-frm">
+    <div class="content-frm part">
+      <form id="generatedForm" [formGroup]="generatedForm" (ngSubmit)="validateFrom(generatedForm)">
+        <input-textarea-ng [config]="componentInputConfig" (onComponentReady)="addChild($event)"></input-textarea-ng>
+        <button mat-raised-button type="submit">Interpréter le contenu JSON</button>
+      </form>
+    </div>
+    <div *ngIf="jsonParsed" class="result-frm part">
+      <div id="jsonParsed" [innerHTML]="jsonParsed | prettyprint"></div>
+    </div>
+  </div>
+
+  <div class="sub-frm" *ngIf="ready">
+    <div class="content-frm part">
+      <form-container-ng 
+        [config]="jsonParsed" 
+        (onComponentReady)="onComponentReady($event)"
+        (onSubmit)="onSubmit($event)"
+        ></form-container-ng>
+    </div>
+    <div class="result-frm part">
+      <div>Résultats :</div>
+      <div id="resultatInterpretedForm">{{valuesInterpretedForm | json}}</div>
+    </div>
+  </div>
+</div>

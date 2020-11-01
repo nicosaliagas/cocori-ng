@@ -1,0 +1,33 @@
+{
+    "form": {
+        "name": "myBasicForm",
+        "fields": [
+            {
+                "label": "Nom",
+                "name": "name",
+                "type": "input-text"
+            },
+            {
+                "label": "Description",
+                "name": "description",
+                "type": "input-textarea"
+            }
+        ]
+    },
+    "buttons": [
+        {
+            "name": "save",
+            "submitForm": "myBasicForm",
+            "commandMappings": [
+                {
+                    "source": "myBasicForm.name",
+                    "destination": "command.name"
+                },
+                {
+                    "source": "myBasicForm.description",
+                    "destination": "command.description"
+                }
+            ]
+        }
+    ]
+}

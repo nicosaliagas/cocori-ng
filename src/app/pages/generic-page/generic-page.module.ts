@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule, MaterialSharedModule, SharedModule } from 'cocori-ng';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { GenericPageRoutingModule } from './generic-page-routing.module';
+import { GenericPageComponent } from './generic-page.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HomeRoutingModule,
+    GenericPageRoutingModule,
     CoreModule,
     SharedModule,
     MaterialSharedModule
   ],
-  declarations: [HomeComponent]
+  declarations: [GenericPageComponent]
 })
-export class HomeModule { }
+export class GenericPageModule { }

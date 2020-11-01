@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, V
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
-import { SchemaFields, SchemaForm } from '../../../../core/model/schema-datas.model';
+import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
+import { ButtonSchema, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
-
 
 @Component({
     selector: 'form-container-ng',
@@ -18,14 +18,21 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
     currentForm: FormGroup;
-    schemaDatasForm: SchemaForm;
+    schemaDatasForm: FormSchema;
     formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
+    schemaDatasButtons: ButtonSchema[];
 
     @Input()
-    set config(schema: SchemaForm) {
-        if (!schema) return;
+    set config(formSchema: FormContainerInputs) {
+        if (!formSchema) return;
 
-        this.schemaDatasForm = schema;
+        this.schemaDatasForm = formSchema.form;
+
+
+        /** todo: filtrer les boutons associés au formulaire en entrée */
+        const schemaDatasButtons = formSchema.buttons || [];
+
+        this.schemaDatasButtons = this.filterButtonsAssociatedOfForm(this.schemaDatasForm, "name", schemaDatasButtons, "submitForm");
 
         this.currentForm = this.formBuilderService.initForm();
         this.formContainerRef.clear();
@@ -55,10 +62,10 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         const formBuilder: FormBuilderService =
             this.formBuilderService
                 .nameForm(this.schemaDatasForm.name)
-                .viewContainerRef(this.formContainerRef)
+                .setViewContainerRef(this.formContainerRef)
                 .onInputReady(this.childAdded.bind(this));
 
-        this.schemaDatasForm.fields.forEach((field: SchemaFields) => {
+        this.schemaDatasForm.fields.forEach((field: FieldSchema) => {
             formBuilder.addInput(field.name, field.label, field.type);
         });
 
@@ -89,5 +96,17 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         if (valid) {
             this.onSubmit.emit(value);
         }
+    }
+
+    private filterButtonsAssociatedOfForm<A, KA extends keyof A, B, KB extends keyof B>(objA: A, keyA: KA, objB: B[], keyB: KB): B[] {
+        const tabOfB: B[] = [];
+
+        objB.forEach((B) => {
+            if (<unknown>B[keyB] === <unknown>objA[keyA]) {
+                tabOfB.push(B);
+            }
+        })
+
+        return tabOfB;
     }
 }

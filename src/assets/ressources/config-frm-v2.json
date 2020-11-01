@@ -30,7 +30,7 @@
                         //TODO resultMapping: { "source": "createSelectItemForm.outputs.id", "destination": "query.id" }}, un form doit avoir des paramètres de sortie ?
                         //TODO resultMapping: { "source": "createSelectItemForm.id", "destination": "query.id" }}, un form doit avoir des paramètres input/output ?
                         //si on expose le modèle alors on en sais pas si les paramètres son entrants ou sortants
-                        "getOptionQuery" : "GetSelectItemOptionsQuery" }
+                        "getOptionQuery" : "GetSelectItemOptionQuery" }
                   },
                   { "name": "default", "type": "select-single", "required": true, "datasource": { "type" : "enum", "value": "ImagingDefault" } },//TODO autres types de datasource        
                   { "name": "file", "type": "input-file", "required": true },//TODO brancher .api upload file        
@@ -42,8 +42,8 @@
                      { "source": "form.id", "destination": "query.id" } ],
                    "responseMappings": [
                      { "source": "response.name", "destination": "form.name" },
-                     { "source": "response.imagingModalityId", "destination": "form.imagingModality.selected.id" },//ou "source": "imagingModality.id", "destination": "forms.mainForm.imagingModality.selected.id"
-                     { "source": "response.imagingModalityName", "destination": "form.imagingModality.selected.name" },//ou "source": "imagingModality.name", "destination": "forms.mainForm.imagingModality.selected.name"
+                     { "source": "response.imagingModalityId", "destination": "form.imagingModality.id" },//ou "source": "imagingModality.id", "destination": "forms.mainForm.imagingModality.selected.id"
+                     { "source": "response.imagingModalityName", "destination": "form.imagingModality.name" },//ou "source": "imagingModality.name", "destination": "forms.mainForm.imagingModality.selected.name"
                      { "source": "response.default", "destination": "form.default.selected" },
                      { "source": "response.fileId", "destination": "form.file.id" },
                      { "source": "response.fileName", "destination": "form.file.name" },
@@ -62,7 +62,7 @@
               "commandMappings": [
                   { "source": "updateClinicalImageForm.id", "destination": "command.id" },//TODO ou command.id si on peut avoir plusieurs commandes dans même écran ?
                   { "source": "updateClinicalImageForm.name", "destination": "command.name" },
-                  { "source": "updateClinicalImageForm.imagingModality.selected.id", "destination": "command.imagingModalityId" },
+                  { "source": "updateClinicalImageForm.imagingModality.value", "destination": "command.imagingModalityId" },
                   { "source": "updateClinicalImageForm.default.selected", "destination": "command.default" },//pour les enum, est-ce que ca sera toujours 'id' ou 'value' ou rien ou est-ce dynamique suivant le model dans le select ?
                   { "source": "updateClinicalImageForm.file.id", "destination": "command.fileId" },
                   { "source": "updateClinicalImageForm.clinicalCaseId", "destination": "command.clinicalCaseId" },

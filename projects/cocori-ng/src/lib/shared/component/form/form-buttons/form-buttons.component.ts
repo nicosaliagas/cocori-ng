@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
-import { SchemaForm } from '../../../../core/model/schema-datas.model';
-import { FormBuilderService } from '../../../../core/service/form.service';
+import { ButtonSchema } from '../../../../core/model/schema-datas.model';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
 
 @Component({
@@ -11,32 +10,25 @@ import { SubscriptionService } from '../../../../core/service/subscription.servi
 })
 
 export class FormButtonsComponent implements OnInit, OnDestroy {
-    @ViewChild('ButtonsContainerRef', { static: true, read: ViewContainerRef }) buttonsContainerRef: ViewContainerRef;
+    @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) buttonsContainerRef: ViewContainerRef;
 
-    schemaDatasForm: SchemaForm;
+    schemaDatasButtons: ButtonSchema[];
 
     @Input()
-    set config(schema: SchemaForm) {
-        if (!schema) return;
+    set config(buttonsSchema: ButtonSchema[]) {
+        if (!buttonsSchema) return;
 
-        this.schemaDatasForm = schema;
+        this.schemaDatasButtons = buttonsSchema;
 
-        // this.buttonsContainerRef.clear();
-
-        this.buildCurrentForm();
+        console.log("schemaDatasButtons", this.schemaDatasButtons);
     }
 
     constructor(
-        public formBuilderService: FormBuilderService,
         public subscriptionService: SubscriptionService) { }
 
     ngOnInit() { }
 
     ngOnDestroy() {
         this.subscriptionService.unsubscribeAll();
-    }
-
-    private buildCurrentForm() {
-
     }
 }

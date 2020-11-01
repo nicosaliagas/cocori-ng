@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FormButtonsComponent } from './component/form/form-buttons/form-buttons.component';
+import { ImportsButtonsFormComponents } from './component/form/form-buttons';
 import { FormContainerComponent } from './component/form/form-container/form-container.component';
 import { InputTextComponent } from './component/form/input-text/input-text.component';
 import { InputTextareaComponent } from './component/form/input-textarea/input-textarea.component';
@@ -12,7 +12,7 @@ import { PrettyPrintPipe } from './pipe/pretty-print.pipe';
 
 export const ImportsFormComponents: any[] = [
     FormContainerComponent,
-    FormButtonsComponent,
+    ...ImportsButtonsFormComponents,
     InputTextComponent,
     InputTextareaComponent,
 ];

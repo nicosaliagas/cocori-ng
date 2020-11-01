@@ -18,7 +18,7 @@ export class HttpService {
         this.withCredentialsOption = avec;
     }
 
-    public httpGet(urlApi: string, datas?: Object): Observable<any> {
+    public httpGet<T>(urlApi: string, datas?: Object): Observable<T> {
         const options = {
             observe: 'response' as 'body',
             responseType: 'json' as 'json',
@@ -34,10 +34,10 @@ export class HttpService {
                 catchError((error: any) => {
                     return this.handleError(error);
                 }),
-            );
+            ) as Observable<T>;
     }
 
-    public httpPost(urlApi: string, datas: Object): Observable<any> {
+    public httpPost<T>(urlApi: string, datas: Object): Observable<T> {
         const options = {
             observe: 'response' as 'body',
             responseType: 'json' as 'json',
@@ -53,7 +53,7 @@ export class HttpService {
                 catchError((error: any) => {
                     return this.handleError(error);
                 }),
-            );
+            ) as Observable<T>;
     }
 
     protected extractData(res: Response) {

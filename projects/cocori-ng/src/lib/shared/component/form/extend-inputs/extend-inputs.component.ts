@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { ComponentInputFormModel } from '../../../../core/model/component-input-form.model';
+import { ComponentInputFormModel } from '../../../../core/model/component-inputs.model';
 
 @Component({
     selector: 'extend-inputs-ng',
