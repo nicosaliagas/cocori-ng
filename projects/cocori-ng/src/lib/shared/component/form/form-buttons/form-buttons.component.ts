@@ -1,8 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
-import { InputComponents } from '..';
-import { ButtonComponentInputs, TypeButtonEnum } from '../../../../core/model/component-inputs.model';
 import { ButtonSchema } from '../../../../core/model/schema-datas.model';
+import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
 
@@ -22,6 +21,7 @@ export class FormButtonsComponent implements OnInit, OnDestroy {
 
         if (!buttonsSchema) return;
 
+        console.log("current form", this.formBuilderService.form);
         console.log("schemaDatasButtons", buttonsSchema);
 
         if (buttonsSchema && buttonsSchema.length) {
@@ -31,29 +31,30 @@ export class FormButtonsComponent implements OnInit, OnDestroy {
 
     constructor(
         private injectComponentService: InjectComponentService,
+        public formBuilderService: FormBuilderService,
         public subscriptionService: SubscriptionService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     ngOnDestroy() {
         this.subscriptionService.unsubscribeAll();
     }
 
     buildView(buttons: ButtonSchema[]) {
-        // todo: faire une classe comme formService
+
+        const formBuilder: FormBuilderService = this.formBuilderService
+            .setViewContainerRef(this.buttonsContainerRef)
+            .onInputReady(this.buttonAddCallback.bind(this));
+
         buttons.forEach((button: ButtonSchema) => {
-            const configFieldForm: ButtonComponentInputs = { text: button.text, type: button.submit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON };
 
-            const componentToAdd = this.injectComponentService.returnComponentClassFromType(InputComponents.SUBMIT_BUTTON);
-
-            this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.buttonsContainerRef,
-                [{ config: configFieldForm }],
-                [this.buttonAddCallback.bind(this)]
-            );
+            formBuilder
+                .addButton(button.text, button.submit);
         })
     }
 
     buttonAddCallback(nameControl: string) {
-        console.log("buttonAddCallback !!", nameControl);
+        console.log("Bouton ajouté avec succès : ", nameControl);
     }
 }

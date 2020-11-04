@@ -2,6 +2,8 @@ import { FormGroup } from '@angular/forms';
 
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
+export type ConfigComponentInputs = InputComponentInputs | ButtonComponentInputs
+
 export interface InputComponentInputs {
     nameLabel: string;
     formGroup: FormGroup;

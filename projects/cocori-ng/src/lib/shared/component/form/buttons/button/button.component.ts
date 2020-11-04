@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { configdefault } from '../../../../../config/config.components';
 import { ButtonComponentInputs, TypeButtonEnum } from '../../../../../core/model/component-inputs.model';
@@ -8,8 +8,9 @@ import { ButtonComponentInputs, TypeButtonEnum } from '../../../../../core/model
     templateUrl: 'button.component.html',
     styleUrls: ['./button.component.scss']
 })
-export class ButtonComponent {
-
+export class ButtonComponent implements OnInit {
+    @Output() onComponentReady: EventEmitter<string> = new EventEmitter<string>();
+    
     @Input() text: string = configdefault.button.text;
     @Input() type: TypeButtonEnum = TypeButtonEnum.SUBMIT;
 
@@ -21,5 +22,9 @@ export class ButtonComponent {
 
         this.text = config.text;
         this.type = config.type;
+    }
+
+    ngOnInit() {
+        this.onComponentReady.emit(this.text);
     }
 }

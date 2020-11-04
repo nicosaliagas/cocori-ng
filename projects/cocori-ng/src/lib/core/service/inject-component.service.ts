@@ -37,6 +37,7 @@ export class InjectComponentService {
             }
         });
 
+        /** todo: tester si la prop output existe */
         outputs.forEach((output: OutputsComponent) => {
             for (const [key, value] of Object.entries(output)) {
                 (référenceComposant.instance)[key].subscribe(data => value(data));

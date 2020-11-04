@@ -1,8 +1,13 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { InputTypes } from '../../shared/component/form';
-import { InputComponentInputs } from '../model/component-inputs.model';
+import { InputComponents, InputTypes } from '../../shared/component/form';
+import {
+    ButtonComponentInputs,
+    ConfigComponentInputs,
+    InputComponentInputs,
+    TypeButtonEnum,
+} from '../model/component-inputs.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**
@@ -10,11 +15,14 @@ import { InjectComponentService } from './inject-component.service';
  * https://medium.com/@bensammons/building-a-fluent-interface-with-typescript-using-generics-in-typescript-3-4d206f00dba5
  */
 
-type FormBuilder0<T> = Omit<FormBuilderService<T extends string ? T : never>, "addInput">;
-
 type AddInput<Builder, InputName extends string> =
     Builder extends FormBuilderService<infer InputNames>
     ? FormBuilderService<InputNames | InputName>
+    : never
+
+type AddButton<Builder, ButtonName extends string> =
+    Builder extends FormBuilderService<infer ButtonNames>
+    ? FormBuilderService<ButtonNames | ButtonName>
     : never
 
 type CallbackKeys = "onComponentReady";
@@ -23,15 +31,17 @@ type CallbackFunction = {
     [key in CallbackKeys]: Function
 }
 
-@Injectable()
-export class FormBuilderService<InputNames extends string = never> {
+@Injectable({
+    providedIn: 'root',
+})
+export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never> {
     public name: string;
     private currentForm: FormGroup;
 
     constructor(
         private fb: FormBuilder,
-        private generateComponentViewService: GenerateComponentViewService,
-        private injectComponentService: InjectComponentService) {
+        private generateComponentViewService: GenerateComponentViewService
+    ) {
         this.initForm();
     }
 
@@ -76,6 +86,14 @@ export class FormBuilderService<InputNames extends string = never> {
 
         return this as FormBuilderService as ReturnType;
     }
+
+    addButton<ButtonName extends string, ReturnType extends AddInput<this, ButtonName>>(buttonName: Exclude<ButtonName, ButtonNames>, isTypeSubmit: boolean): ReturnType {
+        const configFieldForm: ButtonComponentInputs = { text: buttonName, type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON };
+
+        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configFieldForm);
+
+        return this as FormBuilderService as ReturnType;
+    }
 }
 
 @Injectable({
@@ -91,6 +109,11 @@ export class GenerateComponentViewService {
     setViewContainerRef(containerRef: ViewContainerRef) {
         this.formContainerRef = containerRef;
 
+        /** todo: à voir si je garde ça : faire plutôt une fonction d'ini */
+        this.componentInputReadyCallback.splice(0, this.componentInputReadyCallback.length);
+
+        console.log("componentInputReadyCallback", this.componentInputReadyCallback)
+
         return this;
     }
 
@@ -100,7 +123,7 @@ export class GenerateComponentViewService {
         return this;
     }
 
-    addComponentToView(componentType: InputTypes, componentConfig: InputComponentInputs) {
+    addComponentToView(componentType: InputTypes, componentConfig: ConfigComponentInputs) {
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,

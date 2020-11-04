@@ -89,6 +89,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
     /** composant aijouté au formulaire angular */
     private childAdded(nameControl: string) {
+        console.log("input ajouté avec succès : ", nameControl)
         this.formBuildedSubject.next(true);
     }
 
