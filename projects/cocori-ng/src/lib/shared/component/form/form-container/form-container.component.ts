@@ -32,7 +32,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         /** todo: filtrer les boutons associés au formulaire en entrée */
         const schemaDatasButtons = formSchema.buttons || [];
 
-        this.schemaDatasButtons = this.filterButtonsAssociatedOfForm(this.schemaDatasForm, "name", schemaDatasButtons, "submitForm");
+        this.schemaDatasButtons = this.filterButtonsAssociatedToForm(this.schemaDatasForm, "name", schemaDatasButtons, "formName");
 
         this.currentForm = this.formBuilderService.initForm();
         this.formContainerRef.clear();
@@ -98,7 +98,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         }
     }
 
-    private filterButtonsAssociatedOfForm<A, KA extends keyof A, B, KB extends keyof B>(objA: A, keyA: KA, objB: B[], keyB: KB): B[] {
+    private filterButtonsAssociatedToForm<A, KA extends keyof A, B, KB extends keyof B>(objA: A, keyA: KA, objB: B[], keyB: KB): B[] {
         const tabOfB: B[] = [];
 
         objB.forEach((B) => {

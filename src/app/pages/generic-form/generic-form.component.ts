@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ComponentInputFormModel, FormBuilderService, FormSchema, HttpService } from 'cocori-ng';
+import { FormBuilderService, FormSchema, HttpService, InputComponentInputs } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
@@ -15,7 +15,7 @@ export class GenericFormComponent implements OnInit {
   valuesInterpretedForm: any;
   jsonParsed: FormSchema | string;
   ready: boolean = false;
-  componentInputConfig: ComponentInputFormModel;
+  inputComponentInputs: InputComponentInputs;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,7 @@ export class GenericFormComponent implements OnInit {
       fieldJsonText: null
     });
 
-    this.componentInputConfig = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
+    this.inputComponentInputs = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
   }
 
   ngOnInit() { }

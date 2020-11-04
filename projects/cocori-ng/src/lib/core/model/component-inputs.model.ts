@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
-export interface ComponentInputFormModel {
+export interface InputComponentInputs {
     nameLabel: string;
     formGroup: FormGroup;
     nameControl: string;
@@ -16,4 +16,14 @@ export interface ComponentInputFormModel {
 export interface FormContainerInputs {
     form: FormSchema,
     buttons: ButtonSchema[],
+}
+
+export enum TypeButtonEnum {
+    SUBMIT = 'submit',
+    BUTTON = 'button',
+}
+
+export interface ButtonComponentInputs {
+    text: string,
+    type: TypeButtonEnum,
 }

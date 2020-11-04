@@ -16,8 +16,10 @@
     },
     "buttons": [
         {
+            "text": "Valider",
             "name": "save",
-            "submitForm": "myBasicForm",
+            "formName": "myBasicForm",
+            "submit": true,
             "commandMappings": [
                 {
                     "source": "myBasicForm.name",
@@ -28,6 +30,18 @@
                     "destination": "command.description"
                 }
             ]
+        },
+        {
+            "text": "Annuler",
+            "name": "cancel",
+            "formName": "myBasicForm",
+            "submit": false
+        },
+        {
+            "text": "Test Button",
+            "name": "test",
+            "formName": "myBasicForm",
+            "submit": false
         }
     ]
 }

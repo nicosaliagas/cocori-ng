@@ -19,6 +19,7 @@
       "dom"
     ],
     "paths": {
+      // "@lib/*": ["projects/cocori-ng/src/lib/*"],
       "cocori-ng": [
         "dist/cocori-ng/cocori-ng",
         "dist/cocori-ng"

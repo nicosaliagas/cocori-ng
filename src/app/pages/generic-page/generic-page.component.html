@@ -2,7 +2,7 @@
   <div class="sub-frm">
     <div class="content-frm part">
       <form id="generatedForm" [formGroup]="generatedForm" (ngSubmit)="validateFrom(generatedForm)">
-        <input-textarea-ng [config]="componentInputConfig" (onComponentReady)="addChild($event)"></input-textarea-ng>
+        <input-textarea-ng [config]="inputComponentInputs" (onComponentReady)="addChild($event)"></input-textarea-ng>
         <button type="submit">Interpréter le contenu JSON</button>
       </form>
     </div>

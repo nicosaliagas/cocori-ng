@@ -2,7 +2,7 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { InputTypes } from '../../shared/component/form';
-import { ComponentInputFormModel } from '../model/component-inputs.model';
+import { InputComponentInputs } from '../model/component-inputs.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**
@@ -27,11 +27,10 @@ type CallbackFunction = {
 export class FormBuilderService<InputNames extends string = never> {
     public name: string;
     private currentForm: FormGroup;
-    private formContainerRef: ViewContainerRef;
-    private componentInputReadyCallback: CallbackFunction[] = [];
 
     constructor(
         private fb: FormBuilder,
+        private generateComponentViewService: GenerateComponentViewService,
         private injectComponentService: InjectComponentService) {
         this.initForm();
     }
@@ -57,6 +56,39 @@ export class FormBuilderService<InputNames extends string = never> {
     }
 
     setViewContainerRef(containerRef: ViewContainerRef) {
+        this.generateComponentViewService.setViewContainerRef(containerRef);
+
+        return this;
+    }
+
+    onInputReady(componentInputReadyCallback: Function) {
+        this.generateComponentViewService.onInputReady(componentInputReadyCallback);
+
+        return this;
+    }
+
+    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: InputTypes): ReturnType {
+        this.currentForm.addControl(inputName, new FormControl());
+
+        const configFieldForm: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
+
+        this.generateComponentViewService.addComponentToView(type, configFieldForm);
+
+        return this as FormBuilderService as ReturnType;
+    }
+}
+
+@Injectable({
+    providedIn: 'root',
+})
+export class GenerateComponentViewService {
+    private formContainerRef: ViewContainerRef;
+    private componentInputReadyCallback: CallbackFunction[] = [];
+
+    constructor(private injectComponentService: InjectComponentService) {
+    }
+
+    setViewContainerRef(containerRef: ViewContainerRef) {
         this.formContainerRef = containerRef;
 
         return this;
@@ -68,20 +100,12 @@ export class FormBuilderService<InputNames extends string = never> {
         return this;
     }
 
-    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: InputTypes): ReturnType {
-        this.currentForm.addControl(inputName, new FormControl());
-
-        const configFieldForm: ComponentInputFormModel = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
-
-        const componentToAdd = this.injectComponentService.returnComponentClassFromType(type);
+    addComponentToView(componentType: InputTypes, componentConfig: InputComponentInputs) {
+        const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
-            [{ config: configFieldForm }],
+            [{ config: componentConfig }],
             this.componentInputReadyCallback
         );
-
-        return this as FormBuilderService as ReturnType;
     }
 }
-
-// const Builder: new <T>() => FormBuilder0<T> = FormBuilderService;

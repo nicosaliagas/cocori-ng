@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ImportsButtonsComponents } from './component/form/buttons';
 import { ImportsButtonsFormComponents } from './component/form/form-buttons';
 import { FormContainerComponent } from './component/form/form-container/form-container.component';
 import { InputTextComponent } from './component/form/input-text/input-text.component';
@@ -15,6 +16,7 @@ export const ImportsFormComponents: any[] = [
     ...ImportsButtonsFormComponents,
     InputTextComponent,
     InputTextareaComponent,
+    ...ImportsButtonsComponents
 ];
 
 @NgModule({

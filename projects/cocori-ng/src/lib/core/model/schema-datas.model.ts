@@ -26,10 +26,12 @@ export interface FieldSchema {
 /** Buttons */
 
 export interface ButtonSchema {
+    text: string;
     name: string;
-    submitForm: string;
+    formName: string;
     command: string;
     redirectTo: string;
+    submit: boolean;
     commandMappings: CommandMappings[];
 }
 
