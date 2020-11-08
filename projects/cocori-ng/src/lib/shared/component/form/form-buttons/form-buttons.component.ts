@@ -45,12 +45,11 @@ export class FormButtonsComponent implements OnInit, OnDestroy {
 
         const formBuilder: FormBuilderService = this.formBuilderService
             .setViewContainerRef(this.buttonsContainerRef)
-            .onInputReady(this.buttonAddCallback.bind(this));
 
         buttons.forEach((button: ButtonSchema) => {
 
             formBuilder
-                .addButton(button.text, button.submit);
+                .addButton(button.text, button.submit, this.buttonAddCallback.bind(this));
         })
     }
 

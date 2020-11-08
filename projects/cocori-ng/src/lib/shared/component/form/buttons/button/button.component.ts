@@ -9,8 +9,8 @@ import { ButtonComponentInputs, TypeButtonEnum } from '../../../../../core/model
     styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-    @Output() onComponentReady: EventEmitter<string> = new EventEmitter<string>();
-    
+    @Output() callback: EventEmitter<string> = new EventEmitter<string>();
+
     @Input() text: string = configdefault.button.text;
     @Input() type: TypeButtonEnum = TypeButtonEnum.SUBMIT;
 
@@ -25,6 +25,6 @@ export class ButtonComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.onComponentReady.emit(this.text);
+        this.callback.emit(this.text);
     }
 }

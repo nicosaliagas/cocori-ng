@@ -3,15 +3,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
-import { ButtonSchema, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
+import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
+import { MappingBuilderService } from '../../../../core/service/mapping.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
 
 @Component({
     selector: 'form-container-ng',
     templateUrl: 'form-container.component.html',
-    providers: [SubscriptionService, FormBuilderService]
+    providers: [SubscriptionService, FormBuilderService, MappingBuilderService]
 })
 
 export class FormContainerComponent implements OnInit, OnDestroy {
@@ -21,6 +22,8 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     schemaDatasForm: FormSchema;
     formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
     schemaDatasButtons: ButtonSchema[];
+
+    objectCommand: Object = {};
 
     @Input()
     set config(formSchema: FormContainerInputs) {
@@ -34,7 +37,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
         this.schemaDatasButtons = this.filterButtonsAssociatedToForm(this.schemaDatasForm, "name", schemaDatasButtons, "formName");
 
-        this.currentForm = this.formBuilderService.initForm();
+        this.currentForm = this.formBuilderService.init();
         this.formContainerRef.clear();
 
         this.initEventFormBuilded();
@@ -47,9 +50,10 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     constructor(
         public fb: FormBuilder,
         public formBuilderService: FormBuilderService,
+        public mappingBuilderService: MappingBuilderService,
         public injectComponentService: InjectComponentService,
         public subscriptionService: SubscriptionService) {
-        this.currentForm = this.formBuilderService.initForm();
+        this.currentForm = this.formBuilderService.init();
     }
 
     ngOnInit() { }
@@ -62,11 +66,10 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         const formBuilder: FormBuilderService =
             this.formBuilderService
                 .nameForm(this.schemaDatasForm.name)
-                .setViewContainerRef(this.formContainerRef)
-                .onInputReady(this.childAdded.bind(this));
+                .setViewContainerRef(this.formContainerRef);
 
         this.schemaDatasForm.fields.forEach((field: FieldSchema) => {
-            formBuilder.addInput(field.name, field.label, field.type);
+            formBuilder.addInput(field.name, field.label, field.type, this.childAdded.bind(this));
         });
 
         /** todo: Utiliser une variable ou direct l'objet */
@@ -96,6 +99,8 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     validateFrom({ value, valid }: { value: any, valid: boolean }) {
         if (valid) {
             this.onSubmit.emit(value);
+
+            this.mapFormValues(value);
         }
     }
 
@@ -109,5 +114,21 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         })
 
         return tabOfB;
+    }
+
+    private mapFormValues(valueForm: any) {
+        const commandMappings: CommandMappings[] = this.schemaDatasButtons
+            .find((button: ButtonSchema) => button.submit === true)
+            ?.commandMappings
+
+        this.mappingBuilderService.init();
+        this.mappingBuilderService.nameForm = this.schemaDatasForm.name;
+        this.mappingBuilderService.valuesForm = valueForm;
+
+        commandMappings.forEach((mapping: CommandMappings) => {
+            this.mappingBuilderService.map(mapping)
+        })
+
+        console.log("mapping result", this.mappingBuilderService.getMapping())
     }
 }

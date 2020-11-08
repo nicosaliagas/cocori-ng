@@ -23,11 +23,11 @@
             "commandMappings": [
                 {
                     "source": "myBasicForm.name",
-                    "destination": "command.name"
+                    "destination": "command.nom"
                 },
                 {
                     "source": "myBasicForm.description",
-                    "destination": "command.description"
+                    "destination": "command.détails"
                 }
             ]
         },

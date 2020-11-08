@@ -27,7 +27,12 @@ export class InjectComponentService {
         }
     }
 
-    loadAndAddComponentToContainer<T extends InputTypes>(componentClass: InputClassesTypes<T>, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
+    loadAndAddComponentToContainer<T extends InputTypes>(
+        componentClass: InputClassesTypes<T>,
+        viewContainerRef: ViewContainerRef,
+        inputs: InputsComponent[] = [],
+        outputs?: OutputsComponent
+    ) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
         const référenceComposant = viewContainerRef.createComponent(factory);
 
@@ -37,12 +42,17 @@ export class InjectComponentService {
             }
         });
 
-        /** todo: tester si la prop output existe */
-        outputs.forEach((output: OutputsComponent) => {
-            for (const [key, value] of Object.entries(output)) {
-                (référenceComposant.instance)[key].subscribe(data => value(data));
+        if(outputs) {
+            for (const [key, value] of Object.entries(outputs)) {
+                if(key && value && (référenceComposant.instance)[key]) (référenceComposant.instance)[key].subscribe(data => value(data));
             }
-        });
+        }
+
+        // outputs.forEach((output: OutputsComponent) => {
+        //     for (const [key, value] of Object.entries(output)) {
+        //         (référenceComposant.instance)[key].subscribe(data => value(data));
+        //     }
+        // });
 
         référenceComposant.changeDetectorRef.detectChanges();
 

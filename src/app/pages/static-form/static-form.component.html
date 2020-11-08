@@ -1,7 +1,12 @@
 <div class="formulaires">
   <div class="sub-frm">
     <div class="content-frm part">
-      <ng-template #FormContainerRef></ng-template>
+      <form id="generatedForm" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+        <ng-template #FormContainerRef></ng-template>
+      </form>
+    </div>
+    <div *ngIf="jsonParsed" class="result-frm part">
+      <div id="jsonParsed" [innerHTML]="jsonParsed | prettyprint"></div>
     </div>
   </div>
 </div>

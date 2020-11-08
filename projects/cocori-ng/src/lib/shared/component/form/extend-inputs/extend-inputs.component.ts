@@ -9,7 +9,7 @@ import { InputComponentInputs } from '../../../../core/model/component-inputs.mo
 })
 
 export abstract class ExtendInputsComponent {
-    @Output() onComponentReady: EventEmitter<string> = new EventEmitter<string>();
+    @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     nameLabel: string;
     formGroup: FormGroup;
@@ -29,6 +29,6 @@ export abstract class ExtendInputsComponent {
             throw new Error(`Données formulaire manquantes, formGroup : ${this.formGroup} - nameControl : ${this.nameControl}`);
         }
 
-        this.onComponentReady.emit(this.nameControl);
+        this.callback.emit(this.nameControl);
     }
 }

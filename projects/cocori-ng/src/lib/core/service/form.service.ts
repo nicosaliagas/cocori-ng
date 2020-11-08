@@ -1,7 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { InputComponents, InputTypes } from '../../shared/component/form';
+import { InputComponents, InputTypes, OutputCallback } from '../../shared/component/form';
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
@@ -16,20 +16,14 @@ import { InjectComponentService } from './inject-component.service';
  */
 
 type AddInput<Builder, InputName extends string> =
-    Builder extends FormBuilderService<infer InputNames>
-    ? FormBuilderService<InputNames | InputName>
+    Builder extends FormBuilderService<infer InputNames, infer ButtonNames>
+    ? FormBuilderService<InputNames | InputName, ButtonNames>
     : never
 
 type AddButton<Builder, ButtonName extends string> =
-    Builder extends FormBuilderService<infer ButtonNames>
-    ? FormBuilderService<ButtonNames | ButtonName>
+    Builder extends FormBuilderService<infer InputNames, infer ButtonNames>
+    ? FormBuilderService<InputNames, ButtonNames | ButtonName>
     : never
-
-type CallbackKeys = "onComponentReady";
-
-type CallbackFunction = {
-    [key in CallbackKeys]: Function
-}
 
 @Injectable({
     providedIn: 'root',
@@ -38,11 +32,13 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     public name: string;
     private currentForm: FormGroup;
 
+    // submitCallback: Subject<any>;
+
     constructor(
         private fb: FormBuilder,
         private generateComponentViewService: GenerateComponentViewService
     ) {
-        this.initForm();
+        this.init();
     }
 
     set form(form: FormGroup) {
@@ -53,8 +49,10 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm
     }
 
-    initForm(): FormGroup {
+    init(): FormGroup {
         this.currentForm = this.fb.group({});
+
+        // this.submitCallback = new Subject<boolean>();
 
         return this.form;
     }
@@ -71,26 +69,44 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
-    onInputReady(componentInputReadyCallback: Function) {
-        this.generateComponentViewService.onInputReady(componentInputReadyCallback);
+    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
+        inputName: Exclude<InputName, InputNames>,
+        inputLabel: string,
+        type: InputTypes,
+        callbackComponent?: OutputCallback
+    ): ReturnType {
 
-        return this;
-    }
+        if (type === InputComponents.INPUT_CUSTOM) {
 
-    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(inputName: Exclude<InputName, InputNames>, inputLabel: string, type: InputTypes): ReturnType {
-        this.currentForm.addControl(inputName, new FormControl());
+            const nestedFrom: FormGroup = this.fb.group({})
 
-        const configFieldForm: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
+            this.currentForm.addControl(inputName, new FormGroup({
+                rows: null
+            }));
+        } else {
+            this.currentForm.addControl(inputName, new FormControl());
+        }
 
-        this.generateComponentViewService.addComponentToView(type, configFieldForm);
+        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
+
+        this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }
 
-    addButton<ButtonName extends string, ReturnType extends AddInput<this, ButtonName>>(buttonName: Exclude<ButtonName, ButtonNames>, isTypeSubmit: boolean): ReturnType {
-        const configFieldForm: ButtonComponentInputs = { text: buttonName, type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON };
+    /** todo: name unique et typeSubmit : un seul à true */
+    addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
+        buttonName: Exclude<ButtonName, ButtonNames>,
+        isTypeSubmit: boolean,
+        callbackComponent?: OutputCallback
+    ): ReturnType {
+        const configInputComponent: ButtonComponentInputs = {
+            text: buttonName,
+            type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
+            // submitCallback: this.submitCallback
+        };
 
-        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configFieldForm);
+        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }
@@ -101,7 +117,6 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 })
 export class GenerateComponentViewService {
     private formContainerRef: ViewContainerRef;
-    private componentInputReadyCallback: CallbackFunction[] = [];
 
     constructor(private injectComponentService: InjectComponentService) {
     }
@@ -109,26 +124,15 @@ export class GenerateComponentViewService {
     setViewContainerRef(containerRef: ViewContainerRef) {
         this.formContainerRef = containerRef;
 
-        /** todo: à voir si je garde ça : faire plutôt une fonction d'ini */
-        this.componentInputReadyCallback.splice(0, this.componentInputReadyCallback.length);
-
-        console.log("componentInputReadyCallback", this.componentInputReadyCallback)
-
         return this;
     }
 
-    onInputReady(componentInputReadyCallback: Function) {
-        this.componentInputReadyCallback.push({ onComponentReady: componentInputReadyCallback });
-
-        return this;
-    }
-
-    addComponentToView(componentType: InputTypes, componentConfig: ConfigComponentInputs) {
+    addComponentToView(componentType: InputTypes, configComponent: ConfigComponentInputs, callback: OutputCallback) {
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
-            [{ config: componentConfig }],
-            this.componentInputReadyCallback
+            [{ config: configComponent }],
+            callback
         );
     }
 }
