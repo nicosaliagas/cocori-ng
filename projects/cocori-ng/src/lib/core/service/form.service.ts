@@ -76,13 +76,18 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         callbackComponent?: OutputCallback
     ): ReturnType {
 
-        if (type === InputComponents.INPUT_CUSTOM) {
+        if (type === InputComponents.INPUT_VIEWER) {
 
-            const nestedFrom: FormGroup = this.fb.group({})
+            /** mettre ça dans le composant */
+            const nestedFrom: FormGroup = this.fb.group({
+                windowingMin: null,
+                windowingMax: null,
+                rangeMin: null,
+                rangeMax: null,
+                lut: null
+            })
 
-            this.currentForm.addControl(inputName, new FormGroup({
-                rows: null
-            }));
+            this.currentForm.addControl(inputName, nestedFrom);
         } else {
             this.currentForm.addControl(inputName, new FormControl());
         }

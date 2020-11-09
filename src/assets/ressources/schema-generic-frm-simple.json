@@ -8,6 +8,11 @@
                 "type": "input-text"
             },
             {
+                "label": "Viewer3D",
+                "name": "viewer",
+                "type": "input-viewer"
+            },
+            {
                 "label": "Description",
                 "name": "description",
                 "type": "input-textarea"
