@@ -7,6 +7,11 @@ interface ParamsMapping {
     mappingKey: string;
 }
 
+interface SourceParamsMapping {
+    mappingName: string;
+    mappingKeys: string[];
+}
+
 type mapEntry = {
     [key in string]: valueType
 }
@@ -36,7 +41,7 @@ export class MappingBuilderService {
     }
 
     map(mapping: CommandMappings) {
-        const sourceMap: ParamsMapping = this.extractMappingParams(mapping.source);
+        const sourceMap: SourceParamsMapping = this.extractMappingSource(mapping.source);
         const sourceValue: valueType = this.getValueFromMapping(sourceMap);
 
         const destinationMap: ParamsMapping = this.extractMappingParams(mapping.destination);
@@ -52,20 +57,41 @@ export class MappingBuilderService {
         return this.commandMapped
     }
 
+    private extractMappingSource(mapping: string): SourceParamsMapping {
+        const m: string[] = mapping.split('.')
+        const firstElement: string = m.shift()
+
+        return <SourceParamsMapping>{ mappingName: firstElement, mappingKeys: m }
+    }
+
     private extractMappingParams(mapping: string): ParamsMapping {
         const m: string[] = mapping.split('.')
 
         return <ParamsMapping>{ mappingName: m[0], mappingKey: m[1] }
     }
 
-    private getValueFromMapping(source: ParamsMapping): valueType {
+    private getValueFromMapping(source: SourceParamsMapping): valueType {
         if (this.name === source.mappingName) {
-            if (source.mappingKey in this.values) {
-                return this.values[source.mappingKey]
-            }
+
+            let t: any
+
+            source.mappingKeys.forEach((key: string) => {
+                t = t ? t[key] : this.values[key]
+            })
+
+            return t
         }
 
         return undefined
     }
+    // private getValueFromMapping(source: ParamsMapping): valueType {
+    //     if (this.name === source.mappingName) {
+    //         if (source.mappingKey in this.values) {
+    //             return this.values[source.mappingKey]
+    //         }
+    //     }
+
+    //     return undefined
+    // }
 }
 

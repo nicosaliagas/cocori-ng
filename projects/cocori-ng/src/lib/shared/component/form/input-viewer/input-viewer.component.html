@@ -1,7 +1,7 @@
 <ng-container [formGroup]="formGroup">
     <mat-form-field>
         <mat-label>{{nameLabel}}</mat-label>
-        <ng-container [formGroupName]="subFormGroup">
+        <ng-container [formGroupName]="nameControl">
             <input type="text" matInput formControlName="windowingMin" />
         </ng-container>
     </mat-form-field>

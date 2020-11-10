@@ -12,7 +12,5 @@ export class InputTextComponent extends ExtendInputsComponent implements OnInit 
         super();
     }
 
-    ngOnInit() {
-        this.init();
-    }
+    ngOnInit() { }
 }

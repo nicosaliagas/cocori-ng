@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { InputComponents, InputTypes, OutputCallback } from '../../shared/component/form';
 import {
@@ -75,23 +75,6 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         type: InputTypes,
         callbackComponent?: OutputCallback
     ): ReturnType {
-
-        if (type === InputComponents.INPUT_VIEWER) {
-
-            /** mettre ça dans le composant */
-            const nestedFrom: FormGroup = this.fb.group({
-                windowingMin: null,
-                windowingMax: null,
-                rangeMin: null,
-                rangeMax: null,
-                lut: null
-            })
-
-            this.currentForm.addControl(inputName, nestedFrom);
-        } else {
-            this.currentForm.addControl(inputName, new FormControl());
-        }
-
         const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
 
         this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);

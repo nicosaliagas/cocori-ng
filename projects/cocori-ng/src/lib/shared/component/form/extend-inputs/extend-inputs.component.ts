@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { InputComponentInputs } from '../../../../core/model/component-inputs.model';
 
@@ -20,15 +20,23 @@ export abstract class ExtendInputsComponent {
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
+
+        this.addBasicForm();
     }
 
     constructor() { }
 
-    init() {
+    emitEvent() {
         if (!this.formGroup || !this.nameControl) {
             throw new Error(`Données formulaire manquantes, formGroup : ${this.formGroup} - nameControl : ${this.nameControl}`);
         }
 
         this.callback.emit(this.nameControl);
+    }
+
+    addBasicForm() {
+        this.formGroup.addControl(this.nameControl, new FormControl())
+
+        this.emitEvent()
     }
 }

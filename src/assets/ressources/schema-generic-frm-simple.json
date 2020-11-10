@@ -33,6 +33,14 @@
                 {
                     "source": "myBasicForm.description",
                     "destination": "command.détails"
+                },
+                {
+                    "source": "myBasicForm.viewer.windowingMin",
+                    "destination": "command.windowingMin"
+                },
+                {
+                    "source": "myBasicForm.viewer.windowingMax",
+                    "destination": "command.windowingMax"
                 }
             ]
         },

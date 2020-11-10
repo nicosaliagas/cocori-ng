@@ -13,6 +13,6 @@ export class InputTextareaComponent extends ExtendInputsComponent implements OnI
     }
 
     ngOnInit() {
-        this.init();
+        this.emitEvent();
     }
 }
