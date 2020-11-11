@@ -7,13 +7,13 @@ interface ParamsMapping {
     mappingKey: string;
 }
 
-interface SourceParamsMapping {
+interface ParamsMapping {
     mappingName: string;
     mappingKeys: string[];
 }
 
 type mapEntry = {
-    [key in string]: valueType
+    [key in string]: any
 }
 
 type valueType = string | number | Date
@@ -41,13 +41,13 @@ export class MappingBuilderService {
     }
 
     map(mapping: CommandMappings) {
-        const sourceMap: SourceParamsMapping = this.extractMappingSource(mapping.source);
+        const sourceMap: ParamsMapping = this.extractMappingParams(mapping.source);
         const sourceValue: valueType = this.getValueFromMapping(sourceMap);
 
         const destinationMap: ParamsMapping = this.extractMappingParams(mapping.destination);
 
         if (typeof sourceValue !== "undefined") {
-            this.commandMapped[destinationMap.mappingKey] = sourceValue
+            this.assign(this.commandMapped, destinationMap.mappingKeys, sourceValue)
         }
 
         return this
@@ -57,41 +57,43 @@ export class MappingBuilderService {
         return this.commandMapped
     }
 
-    private extractMappingSource(mapping: string): SourceParamsMapping {
-        const m: string[] = mapping.split('.')
-        const firstElement: string = m.shift()
-
-        return <SourceParamsMapping>{ mappingName: firstElement, mappingKeys: m }
-    }
-
     private extractMappingParams(mapping: string): ParamsMapping {
         const m: string[] = mapping.split('.')
+        const [firstElement, ...rest] = m
 
-        return <ParamsMapping>{ mappingName: m[0], mappingKey: m[1] }
+        return <ParamsMapping>{ mappingName: firstElement, mappingKeys: rest }
     }
 
-    private getValueFromMapping(source: SourceParamsMapping): valueType {
+    private getValueFromMapping(source: ParamsMapping): valueType {
         if (this.name === source.mappingName) {
 
-            let t: any
+            let value: any
 
             source.mappingKeys.forEach((key: string) => {
-                t = t ? t[key] : this.values[key]
+                value = value ? value[key] : this.values[key]
             })
 
-            return t
+            return value
         }
 
         return undefined
     }
-    // private getValueFromMapping(source: ParamsMapping): valueType {
-    //     if (this.name === source.mappingName) {
-    //         if (source.mappingKey in this.values) {
-    //             return this.values[source.mappingKey]
-    //         }
-    //     }
 
-    //     return undefined
-    // }
+    assign(obj: mapEntry, keyPath: string[], value: valueType) {
+        let key
+        let lastKeyIndex = keyPath.length - 1;
+
+        for (var i = 0; i < lastKeyIndex; ++i) {
+            key = keyPath[i];
+
+            if (!(key in obj)) {
+                obj[key] = {}
+            }
+
+            obj = obj[key];
+        }
+
+        obj[keyPath[lastKeyIndex]] = value;
+    }
 }
 

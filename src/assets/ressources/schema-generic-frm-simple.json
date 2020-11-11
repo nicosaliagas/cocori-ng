@@ -36,7 +36,7 @@
                 },
                 {
                     "source": "myBasicForm.viewer.windowingMin",
-                    "destination": "command.windowingMin"
+                    "destination": "command.viewer.props.windowingMin"
                 },
                 {
                     "source": "myBasicForm.viewer.windowingMax",

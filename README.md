@@ -45,3 +45,9 @@ Problème : A la compilation, le site utilisant la lib ne reconnait plus les bal
 Raison : il y a des imports erronés dans la lib cocori-ng,
 
 ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe
+
+
+## Ressources
+
+// dynamically-create-nested-objects
+https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
