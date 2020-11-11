@@ -8,6 +8,7 @@
     "cypress": "npx cypress open",
     "build-lib": "ng build --project=cocori-ng",
     "build-lib-watch": "ng build --project=cocori-ng --watch",
+    "test-lib": "ng build --project=cocori-ng --watch",
     "link": "cd dist\\cocori-ng && npm link",
     "test": "ng test",
     "lint": "ng lint",
