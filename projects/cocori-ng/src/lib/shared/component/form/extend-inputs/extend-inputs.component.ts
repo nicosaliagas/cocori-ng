@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { InputComponentInputs } from '../../../../core/model/component-inputs.model';
+import { DataSourceInput, InputComponentInputs } from '../../../../core/model/component-inputs.model';
 
 @Component({
     selector: 'extend-inputs-ng',
@@ -14,17 +14,20 @@ export abstract class ExtendInputsComponent {
     nameLabel: string;
     formGroup: FormGroup;
     nameControl: string;
+    dataSource: any;
 
-    @Input()
-    set config(config: InputComponentInputs) {
+    constructor() { }
+
+    configInput(config: InputComponentInputs) {
+
+        console.log("config", config)
+
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
 
-        this.addBasicForm();
+        this.dataSource = this.loadDataSource(config.dataSource)
     }
-
-    constructor() { }
 
     emitEvent() {
         if (!this.formGroup || !this.nameControl) {
@@ -34,9 +37,22 @@ export abstract class ExtendInputsComponent {
         this.callback.emit(this.nameControl);
     }
 
-    addBasicForm() {
+    addDefaultForm() {
         this.formGroup.addControl(this.nameControl, new FormControl())
 
         this.emitEvent()
+    }
+
+    loadDataSource(configDataSource: DataSourceInput) {
+        console.log(configDataSource)
+        if (configDataSource) {
+            return [
+                { value: 'steak-0', viewValue: 'Steak' },
+                { value: 'pizza-1', viewValue: 'Pizza' },
+                { value: 'tacos-2', viewValue: 'Tacos' }
+            ]
+        } else {
+            return null
+        }
     }
 }

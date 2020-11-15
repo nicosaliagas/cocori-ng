@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
+import { InputComponentInputs } from '../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
 
 @Component({
@@ -8,6 +9,13 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 })
 
 export class InputTextComponent extends ExtendInputsComponent implements OnInit {
+    @Input()
+    set config(config: InputComponentInputs) {
+        this.configInput(config)
+
+        this.addDefaultForm();
+    }
+
     constructor() {
         super();
     }

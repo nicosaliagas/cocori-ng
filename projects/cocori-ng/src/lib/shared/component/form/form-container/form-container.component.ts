@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
+import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
@@ -96,11 +97,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         this.formBuildedSubject.next(true);
     }
 
-    validateFrom({ value, valid }: { value: any, valid: boolean }) {
+    validateForm({ value, valid }: { value: Object, valid: boolean }) {
         if (valid) {
-            this.onSubmit.emit(value);
+            const mappedValues: Object = this.mapFormValues(value);
 
-            this.mapFormValues(value);
+            this.onSubmit.emit(<SubmitDatas>{ rawValues: value, mappedValues: mappedValues });
         }
     }
 
@@ -116,13 +117,13 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         return tabOfB;
     }
 
-    private mapFormValues(valueForm: any) {
+    private mapFormValues(valueForm: Object): Object {
         const commandMappings: CommandMappings[] = this.schemaDatasButtons
             .find((button: ButtonSchema) => button.submit === true)
             ?.commandMappings
 
         this.mappingBuilderService.init();
-        this.mappingBuilderService.nameForm = this.schemaDatasForm.name;
+        this.mappingBuilderService.setNameForm = this.schemaDatasForm.name;
         this.mappingBuilderService.valuesForm = valueForm;
 
         commandMappings.forEach((mapping: CommandMappings) => {
@@ -130,5 +131,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         })
 
         console.log("mapping result", this.mappingBuilderService.getMapping())
+
+        return this.mappingBuilderService.getMapping();
     }
 }

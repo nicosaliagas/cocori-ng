@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormBuilderService, FormSchema, HttpService, InputComponentInputs } from 'cocori-ng';
+import { FormBuilderService, FormSchema, HttpService, InputComponentInputs, SubmitDatas } from 'cocori-ng';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
@@ -12,7 +12,7 @@ import { map } from 'rxjs/internal/operators/map';
 export class GenericFormComponent implements OnInit {
   interpretedForm: FormGroup;
   generatedForm: FormGroup;
-  valuesInterpretedForm: any;
+  valuesInterpretedForm: SubmitDatas;
   jsonParsed: FormSchema | string;
   ready: boolean = false;
   inputComponentInputs: InputComponentInputs;
@@ -67,7 +67,10 @@ export class GenericFormComponent implements OnInit {
     console.log("le formulaire a été généré avec succès :)");
   }
 
-  onSubmit(values: any) {
-    this.valuesInterpretedForm = values;
+  onSubmit(submitValues: SubmitDatas) {
+
+    console.log("submitValues", submitValues)
+
+    this.valuesInterpretedForm = submitValues;
   }
 }

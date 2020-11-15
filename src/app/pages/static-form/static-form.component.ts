@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormBuilderService, InputComponents } from 'cocori-ng';
+import { DataSourceType, FormBuilderService, InputComponents } from 'cocori-ng';
 
 @Component({
   selector: 'ct-static-form',
@@ -29,9 +29,10 @@ export class StaticFormComponent implements OnInit {
   private buildForm() {
     this.formulaire = this.formBuilderService
       .setViewContainerRef(this.formContainerRef)
+      .addInput('civilite', 'Civilité', InputComponents.INPUT_SELECT, { type: DataSourceType.BRUTE, value: [] })
       .addInput('nom', 'Nom', InputComponents.INPUT_TEXT)
-      .addInput('prenom', 'Prénom', InputComponents.INPUT_TEXT, { callback: (control: string) => console.log('hello there : ', control) })
-      .addInput('zone', 'Zone', InputComponents.INPUT_TEXTAREA, { callback: this.onComponentReady })
+      .addInput('prenom', 'Prénom', InputComponents.INPUT_TEXT, null, { callback: (control: string) => console.log('hello there : ', control) })
+      .addInput('zone', 'Zone', InputComponents.INPUT_TEXTAREA, null, { callback: this.onComponentReady })
       .addButton('Valider', true, { callback: () => console.log("Bouton ajouté avec succès") })
       .addButton('Annuler', false, { callback: () => console.log("Bouton ajouté avec succès") })
       .form

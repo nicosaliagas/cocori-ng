@@ -5,6 +5,7 @@ import { InputComponents, InputTypes, OutputCallback } from '../../shared/compon
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
+    DataSourceInput,
     InputComponentInputs,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
@@ -73,9 +74,10 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         inputName: Exclude<InputName, InputNames>,
         inputLabel: string,
         type: InputTypes,
+        dataSource?: DataSourceInput,
         callbackComponent?: OutputCallback
     ): ReturnType {
-        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel };
+        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel, dataSource: dataSource };
 
         this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
 

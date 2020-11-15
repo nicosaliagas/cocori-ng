@@ -19,9 +19,15 @@
         (onSubmit)="onSubmit($event)"
         ></form-container-ng>
     </div>
-    <div class="result-frm part">
-      <div>Résultats :</div>
-      <div id="resultatInterpretedForm">{{valuesInterpretedForm | json}}</div>
+    <div class="result-frm" *ngIf="valuesInterpretedForm">
+      <div class="part">
+        <div>Raw values :</div>
+        <div id="resultatInterpretedForm">{{valuesInterpretedForm?.rawValues | json}}</div>
+      </div>
+      <div class="part">
+        <div>Mapped values :</div>
+        <div id="resultatInterpretedForm">{{valuesInterpretedForm?.mappedValues | json}}</div>
+      </div>
     </div>
   </div>
 </div>

@@ -18,9 +18,7 @@ export class InputViewerComponent extends ExtendInputsComponent implements OnIni
 
     @Input()
     set config(config: InputComponentInputs) {
-        this.nameLabel = config.nameLabel;
-        this.nameControl = config.nameControl;
-        this.formGroup = config.formGroup;
+        this.configInput(config)
 
         this.addForm()
     }
@@ -32,7 +30,7 @@ export class InputViewerComponent extends ExtendInputsComponent implements OnIni
     ngOnInit() {
     }
 
-    addForm() {
+    private addForm() {
         const nestedFrom: FormGroup = this.fb.group({
             windowingMin: null,
             windowingMax: null,
@@ -42,6 +40,10 @@ export class InputViewerComponent extends ExtendInputsComponent implements OnIni
         })
 
         this.formGroup.addControl(this.nameControl, nestedFrom)
+
+        // this.formGroup.get(this.nameControl).get('windowingMin').valueChanges.subscribe((valeur) => {
+        //     this.formGroup.get(this.nameControl).get('windowingMax').setValue(parseInt(valeur) + 2)
+        // })
 
         this.emitEvent()
     }

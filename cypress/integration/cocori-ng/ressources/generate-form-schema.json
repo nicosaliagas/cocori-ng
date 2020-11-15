@@ -1,0 +1,60 @@
+{
+    "form": {
+        "name": "myBasicForm",
+        "fields": [
+            {
+                "label": "Nom",
+                "name": "name",
+                "type": "input-text"
+            },
+            {
+                "label": "Viewer3D",
+                "name": "viewer",
+                "type": "input-viewer"
+            },
+            {
+                "label": "Description",
+                "name": "description",
+                "type": "input-textarea"
+            }
+        ]
+    },
+    "buttons": [
+        {
+            "text": "Valider",
+            "name": "save",
+            "formName": "myBasicForm",
+            "submit": true,
+            "commandMappings": [
+                {
+                    "source": "myBasicForm.name",
+                    "destination": "command.nom"
+                },
+                {
+                    "source": "myBasicForm.description",
+                    "destination": "command.détails"
+                },
+                {
+                    "source": "myBasicForm.viewer.windowingMin",
+                    "destination": "command.viewer.props.windowingMin"
+                },
+                {
+                    "source": "myBasicForm.viewer.windowingMax",
+                    "destination": "command.windowingMax"
+                }
+            ]
+        },
+        {
+            "text": "Annuler",
+            "name": "cancel",
+            "formName": "myBasicForm",
+            "submit": false
+        },
+        {
+            "text": "Test Button",
+            "name": "test",
+            "formName": "myBasicForm",
+            "submit": false
+        }
+    ]
+}

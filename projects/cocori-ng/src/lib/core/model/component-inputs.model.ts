@@ -8,6 +8,7 @@ export interface InputComponentInputs {
     nameLabel: string;
     formGroup: FormGroup;
     nameControl: string;
+    dataSource?: DataSourceInput;
     // legend: {
     //    position: string,
     //    label: (x, y) => string
@@ -18,6 +19,17 @@ export interface InputComponentInputs {
 export interface FormContainerInputs {
     form: FormSchema,
     buttons: ButtonSchema[],
+}
+
+export interface DataSourceInput {
+    type: DataSourceType,
+    value: any,
+}
+
+export enum DataSourceType {
+    ENUM = 'enum',
+    API = 'api',
+    BRUTE = 'brute',
 }
 
 export enum TypeButtonEnum {

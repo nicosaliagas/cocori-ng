@@ -4,25 +4,16 @@ import { CommandMappings } from '../model/schema-datas.model';
 
 interface ParamsMapping {
     mappingName: string;
-    mappingKey: string;
-}
-
-interface ParamsMapping {
-    mappingName: string;
     mappingKeys: string[];
-}
-
-type mapEntry = {
-    [key in string]: any
 }
 
 type valueType = string | number | Date
 
 @Injectable()
 export class MappingBuilderService {
-    private name: string;
+    private nameForm: string;
     private values: any;
-    private commandMapped: mapEntry = {};
+    private commandMapped: Object = {};
 
     constructor() { }
 
@@ -32,8 +23,8 @@ export class MappingBuilderService {
         return this
     }
 
-    set nameForm(name: string) {
-        this.name = name;
+    set setNameForm(name: string) {
+        this.nameForm = name;
     }
 
     set valuesForm(values: any) {
@@ -46,7 +37,8 @@ export class MappingBuilderService {
 
         const destinationMap: ParamsMapping = this.extractMappingParams(mapping.destination);
 
-        if (typeof sourceValue !== "undefined") {
+        /** sourceValue est undefined si la clé du formulaire est inconnu */
+        if (typeof sourceValue !== 'undefined') {
             this.assign(this.commandMapped, destinationMap.mappingKeys, sourceValue)
         }
 
@@ -54,7 +46,7 @@ export class MappingBuilderService {
     }
 
     getMapping() {
-        return this.commandMapped
+        return Object.entries(this.commandMapped).length === 0 ? null : this.commandMapped
     }
 
     private extractMappingParams(mapping: string): ParamsMapping {
@@ -65,12 +57,11 @@ export class MappingBuilderService {
     }
 
     private getValueFromMapping(source: ParamsMapping): valueType {
-        if (this.name === source.mappingName) {
+        let value: valueType = null
 
-            let value: any
-
+        if (this.nameForm === source.mappingName) {
             source.mappingKeys.forEach((key: string) => {
-                value = value ? value[key] : this.values[key]
+                value = value ? value[key] : ((key in this.values) ? this.values[key] : null)
             })
 
             return value
@@ -79,7 +70,7 @@ export class MappingBuilderService {
         return undefined
     }
 
-    assign(obj: mapEntry, keyPath: string[], value: valueType) {
+    private assign(obj: Object, keyPath: string[], value: valueType) {
         let key
         let lastKeyIndex = keyPath.length - 1;
 

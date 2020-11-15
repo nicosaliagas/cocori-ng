@@ -5,6 +5,12 @@ describe(`Génération d'un formulaire`, () => {
         cy.visit(`${Cypress.env('host')}/home`)
     })
 
+    it('Etre redirigé vers la page générant un formulaire dynamique', () => {
+        cy.get('button#btnGenerateDynamicForm').click().then(($input) => {
+            cy.location('pathname').should('eq', '/generic-form')
+        });
+    })
+
     it('Présence du formulaire', () => {
         cy.get('#generatedForm input-textarea-ng').should('exist');
     })
@@ -17,42 +23,58 @@ describe(`Génération d'un formulaire`, () => {
     })
 
     it(`Génération d'un formulaire en succès`, () => {
-        cy.get('#generatedForm input-textarea-ng textarea').clear().type(`{"fields": [{"label": "Nom", "name": "name", "type": "input-text"}]}`, { parseSpecialCharSequences: false });
-        cy.get('form#generatedForm').submit();
-        cy.get('form-container-ng > form').should('be.visible');
-        // cy.get('#interpretedForm input-text-ng').should('have.length', 1);
-        // cy.get('#interpretedForm input-text-ng mat-label').should('have.text', 'Nom');
-        cy.get('form-container-ng > form input-text-ng').then(($input) => {
-            expect($input).to.have.length(1);
-            expect($input).to.have.text('Nom');
-        });
-        cy.get('form-container-ng > form input-text-ng input[type=text]').clear().type(`aliagas`);
-        cy.get('form-container-ng > form').submit();
-        cy.get('#resultatInterpretedForm').contains('{ "name": "aliagas" }').should('be.visible');
+        cy.readFile('cypress/integration/cocori-ng/ressources/generate-form-schema.json').then((json) => {
+            expect(json).to.be.an('object')
+
+            // .its('test').should('eq', 5)
+
+            cy.get('#generatedForm input-textarea-ng textarea').clear()
+            cy.get('#generatedForm input-textarea-ng textarea').then(function (textarea) {
+                textarea.val(JSON.stringify(json))
+            })
+            cy.get('#generatedForm input-textarea-ng textarea').type(' ');
+            cy.get('form#generatedForm').submit();
+            cy.get('form-container-ng > form').should('be.visible');
+
+            // cy.get('form-container-ng > form input-text-ng').should('have.length', 1);
+            // cy.get('form-container-ng > form input-text-ng').should('have.text', 'Nom');
+
+            cy.get('form-container-ng > form input-text-ng').then(($input) => {
+                expect($input).to.have.length(1);
+                expect($input).to.have.text('Nom');
+                cy.get($input).find("input[type=text]").clear().type(`aliagas`);
+            });
+
+            cy.get('form-container-ng > form input-viewer-ng').then(($input) => {
+                expect($input).to.have.length(1);
+                expect($input).to.have.text('Viewer3D');
+                cy.get($input).find("input[type=text]").clear().type(10);
+            });
+
+            cy.get('form-container-ng > form input-textarea-ng').then(($input) => {
+                expect($input).to.have.length(1);
+                expect($input).to.have.text('Description');
+                cy.get($input).find("textarea").clear().type('ma superbe description');
+            });
+
+            cy.get('form-container-ng > form form-buttons-ng').then(($input) => {
+                expect($input).to.have.length(1);
+
+                // todo: tester si le bouton est de type submit
+                cy.get($input).find("button-ng").then(($buttons) => {
+                    expect($buttons).to.have.length(3);
+
+                    expect($buttons[1]).to.have.text("Annuler");
+                    expect($buttons[2]).to.have.text("Test Button");
+
+                    expect($buttons[0]).to.have.text("Valider");
+
+                    // cy.get('form-container-ng > form').submit();
+                    cy.get($buttons[0]).click().then(() => {
+                        cy.get('.result-frm').should('be.visible');
+                    });
+                });
+            });
+        })
     })
-
-    it(`Génération d'un formulaire complexe en succès`, () => {
-        cy.get('#generatedForm input-textarea-ng textarea').clear().type(`
-            {"fields": [
-                {"label": "Nom", "name": "name", "type": "input-text"},
-                {"label": "Prénom", "name": "firstname", "type": "input-text"},
-                {"label": "Description", "name": "description", "type": "input-textarea"}
-            ]}`, { parseSpecialCharSequences: false });
-        cy.get('form#generatedForm').submit();
-        cy.get('form-container-ng > form').should('be.visible');
-
-        cy.get('form-container-ng > form input-text-ng').then(($input) => {
-            expect($input).to.have.length(2);
-            expect($input.eq(0)).to.have.text('Nom');
-            expect($input.eq(1)).to.have.text('Prénom');
-        });
-    })
-
-    // it('Lecture fichier Json', () => {
-    //     // cy.readFile('src/assets/ressources/config-frm-abrege.json').then((json) => {
-    //     cy.readFile('cypress/integration/cocori-ng/ressources/config-frm.json').then((json) => {
-    //         expect(json).to.be.an('object')
-    //     })
-    //         .its('test').should('eq', 5)
-    // })
 })

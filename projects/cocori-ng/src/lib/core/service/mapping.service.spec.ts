@@ -14,17 +14,42 @@ describe('Service : MappingBuilder', () => {
 
     it('la classe service doit être correctement instanciée', () => {
         expect(mappingBuilderService).toBeTruthy();
-        expect(mappingBuilderService.getMapping()).toEqual({})
+        expect(mappingBuilderService.getMapping()).toBeNull()
     });
 
-    it(`trouver un bloc widgets qui suit un bloc donné`, () => {
-        mappingBuilderService.nameForm = "test"
-        mappingBuilderService.valuesForm = { key: "one" }
+    it(`il n'y a pas de nom de formulaire défini`, () => {
+        mappingBuilderService.valuesForm = {}
+
+        const commandMappings = []
+
+        commandMappings.forEach((mapping: CommandMappings) => {
+            mappingBuilderService.map(mapping)
+        })
+
+        expect(mappingBuilderService.getMapping()).toBeNull()
+    });
+
+    it(`il n'y a pas de règle de mapping définie`, () => {
+        mappingBuilderService.setNameForm = "form"
+        mappingBuilderService.valuesForm = {}
+
+        const commandMappings = []
+
+        commandMappings.forEach((mapping: CommandMappings) => {
+            mappingBuilderService.map(mapping)
+        })
+
+        expect(mappingBuilderService.getMapping()).toBeNull()
+    });
+
+    it(`le nom du formulaire ne correspond pas à celui du mapping`, () => {
+        mappingBuilderService.setNameForm = "unknownTest"
+        mappingBuilderService.valuesForm = {}
 
         const commandMappings = [
             {
                 "source": "test.key",
-                "destination": "command.nom"
+                "destination": "command.keyValue"
             }
         ]
 
@@ -32,20 +57,41 @@ describe('Service : MappingBuilder', () => {
             mappingBuilderService.map(mapping)
         })
 
-        expect(mappingBuilderService.getMapping()).toEqual({ nom: "one" })
+        expect(mappingBuilderService.getMapping()).toBeNull()
     });
 
-    // it(`trouver un bloc widgets qui suit un bloc donné`, () => {
-    //     expect(mappingBuilderService.blocWidgetsSuivant('id0')).toBeNull();
-    //     expect(mappingBuilderService.blocWidgetsSuivant('id1').id).toEqual('id2');
-    //     expect(mappingBuilderService.blocWidgetsSuivant('id3').id).toEqual('id4');
-    //     expect(mappingBuilderService.blocWidgetsSuivant('id4')).toBeNull();
-    // });
+    it(`génère correctement l'objet commande`, () => {
+        mappingBuilderService.setNameForm = "test"
+        mappingBuilderService.valuesForm = { key: "keyone", key2: "keytwo", key3: "keytrois" }
 
-    // it(`je mets ma page en mode modification`, () => {
-    //     expect(mappingBuilderService.contenu.mode).toEqual(ModeEntité.création);
-    //     mappingBuilderService.mettrePageModeModification();
-    //     expect(mappingBuilderService.contenu.mode).toEqual(ModeEntité.modification);
-    // });
+        const commandMappings = [
+            {
+                "source": "test.key",
+                "destination": "command.keyValue"
+            },
+            {
+                "source": "test.key2",
+                "destination": "command.keyValue"
+            },
+            {
+                "source": "test.unknownKey",
+                "destination": "command.unknownValue"
+            },
+            {
+                "source": "test.key2",
+                "destination": "command.prop.subprop.key2Value"
+            },
+            {
+                "source": "test.key3",
+                "destination": "command.prop.subprop.key3Value"
+            }
+        ]
+
+        commandMappings.forEach((mapping: CommandMappings) => {
+            mappingBuilderService.map(mapping)
+        })
+
+        expect(mappingBuilderService.getMapping()).toEqual({ keyValue: "keytwo", unknownValue: null, prop: { subprop: { key2Value: "keytwo", key3Value: "keytrois" } } })
+    });
 })
 
