@@ -3,6 +3,28 @@
         "name": "myBasicForm",
         "fields": [
             {
+                "label": "Cicilité",
+                "name": "civilite",
+                "type": "input-select",
+                "dataSource": {
+                    "type": "brute",
+                    "value": [
+                        {
+                            "value": "hamburger",
+                            "viewValue": "Hamburger Vegi"
+                        },
+                        {
+                            "value": "pizza",
+                            "viewValue": "Pizza"
+                        },
+                        {
+                            "value": "quiche",
+                            "viewValue": "Quiche"
+                        }
+                    ]
+                }
+            },
+            {
                 "label": "Nom",
                 "name": "name",
                 "type": "input-text"

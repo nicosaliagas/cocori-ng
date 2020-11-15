@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'static-form',
     loadChildren: () => import('./pages/static-form/static-form.module').then(mod => mod.StaticFormModule)
   },
+  {
+    path: 'static-inputs-chained',
+    loadChildren: () => import('./pages/static-inputs-chained/static-inputs-chained.module').then(mod => mod.StaticInputsChainedModule)
+  },
 ];
 
 @NgModule({

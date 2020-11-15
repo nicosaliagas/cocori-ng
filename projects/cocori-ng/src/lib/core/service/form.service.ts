@@ -5,10 +5,10 @@ import { InputComponents, InputTypes, OutputCallback } from '../../shared/compon
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
-    DataSourceInput,
     InputComponentInputs,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
+import { DataSourceInput } from '../model/data-source.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**

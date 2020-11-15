@@ -23,6 +23,7 @@ export * from './lib/shared/component/form/input-select/input-select.component';
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
 export * from './lib/core/model/form-datas.model';
+export * from './lib/core/model/data-source.model';
 
 export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/http.service';

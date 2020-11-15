@@ -70,7 +70,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
                 .setViewContainerRef(this.formContainerRef);
 
         this.schemaDatasForm.fields.forEach((field: FieldSchema) => {
-            formBuilder.addInput(field.name, field.label, field.type, this.childAdded.bind(this));
+            formBuilder.addInput(field.name, field.label, field.type, field.dataSource, this.childAdded.bind(this));
         });
 
         /** todo: Utiliser une variable ou direct l'objet */

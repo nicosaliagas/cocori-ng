@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { DataSourceInput, InputComponentInputs } from '../../../../core/model/component-inputs.model';
+import { InputComponentInputs } from '../../../../core/model/component-inputs.model';
+import { DataSourceInput } from '../../../../core/model/data-source.model';
 
 @Component({
     selector: 'extend-inputs-ng',
@@ -19,9 +20,6 @@ export abstract class ExtendInputsComponent {
     constructor() { }
 
     configInput(config: InputComponentInputs) {
-
-        console.log("config", config)
-
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
@@ -44,13 +42,11 @@ export abstract class ExtendInputsComponent {
     }
 
     loadDataSource(configDataSource: DataSourceInput) {
-        console.log(configDataSource)
+
+        /** todo: prendre en compte le type de la datasource */
+
         if (configDataSource) {
-            return [
-                { value: 'steak-0', viewValue: 'Steak' },
-                { value: 'pizza-1', viewValue: 'Pizza' },
-                { value: 'tacos-2', viewValue: 'Tacos' }
-            ]
+            return configDataSource.value
         } else {
             return null
         }

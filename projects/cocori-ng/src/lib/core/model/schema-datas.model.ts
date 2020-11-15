@@ -1,4 +1,5 @@
 import { InputComponents } from '../../shared/component/form';
+import { DataSourceInput } from './data-source.model';
 
 export interface Schema {
     page: any,
@@ -20,6 +21,7 @@ export interface FieldSchema {
     label: string;
     name: string;
     type: InputComponents;
+    dataSource: DataSourceInput;
 }
 /** / Form */
 

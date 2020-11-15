@@ -1,5 +1,6 @@
 import { FormGroup } from '@angular/forms';
 
+import { DataSourceInput } from './data-source.model';
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
 export type ConfigComponentInputs = InputComponentInputs | ButtonComponentInputs | any
@@ -19,17 +20,6 @@ export interface InputComponentInputs {
 export interface FormContainerInputs {
     form: FormSchema,
     buttons: ButtonSchema[],
-}
-
-export interface DataSourceInput {
-    type: DataSourceType,
-    value: any,
-}
-
-export enum DataSourceType {
-    ENUM = 'enum',
-    API = 'api',
-    BRUTE = 'brute',
 }
 
 export enum TypeButtonEnum {
