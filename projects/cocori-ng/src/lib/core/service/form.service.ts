@@ -1,14 +1,15 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { config } from 'rxjs';
 
 import { InputComponents, InputTypes, OutputCallback } from '../../shared/component/form';
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
+    ConfigInput,
     InputComponentInputs,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
-import { DataSourceInput } from '../model/data-source.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**
@@ -26,10 +27,40 @@ type AddButton<Builder, ButtonName extends string> =
     ? FormBuilderService<InputNames, ButtonNames | ButtonName>
     : never
 
+type InferInputNames<Builder> =
+    Builder extends FormBuilderService<infer InputNames>
+    ? InputNames
+    : never
+
+type AddNodeName<Builder, NodeName extends string> =
+    Builder extends FormBuilderService<infer InputNames, infer ButtonNames, infer NodeNames>
+    ? FormBuilderService<InputNames, ButtonNames, NodeNames | NodeName>
+    : never
+
+export class ConfigInputBuilder {
+
+    private newConfig: ConfigInput;
+
+    constructor() {
+        this.newConfig = {}
+    }
+
+    /** todo: ajouter unicité de l'option addOption */
+    addOption<K extends keyof ConfigInput, V extends ConfigInput[K]>(key: K, value: V) {
+        this.newConfig[key as string] = value
+
+        return this
+    }
+
+    get config() {
+        return this.newConfig
+    }
+}
+
 @Injectable({
     providedIn: 'root',
 })
-export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never> {
+export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never, NodeNames extends string = never,> {
     public name: string;
     private currentForm: FormGroup;
 
@@ -70,16 +101,28 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
+    // addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
+    //     inputName: Exclude<InputName, InputNames>,
+    //     inputLabel: string,
+    //     type: InputTypes,
+    //     dataSource?: DataSourceInput,
+    //     callbackComponent?: OutputCallback
+    // ): ReturnType {
+    //     const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel, dataSource: dataSource };
+
+    //     this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
+
+    //     return this as FormBuilderService as ReturnType;
+    // }
+
     addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
-        inputLabel: string,
-        type: InputTypes,
-        dataSource?: DataSourceInput,
-        callbackComponent?: OutputCallback
+        cb: ConfigInputBuilder
     ): ReturnType {
-        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel, dataSource: dataSource };
 
-        this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
+        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: cb.config.inputs.nameLabel, dataSource: cb.config.inputs.dataSource };
+
+        this.generateComponentViewService.addComponentToView(cb.config.type, configInputComponent, cb.config.callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }

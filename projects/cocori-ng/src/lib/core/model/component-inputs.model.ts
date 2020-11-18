@@ -1,15 +1,24 @@
 import { FormGroup } from '@angular/forms';
 
+import { InputTypes, OutputCallback } from '../../shared/component/form';
 import { DataSourceInput } from './data-source.model';
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
 export type ConfigComponentInputs = InputComponentInputs | ButtonComponentInputs | any
 
+type InputComponentInputsLight = Pick<InputComponentInputs, "nameLabel" | "dataSource">;
+
+export interface ConfigInput {
+    inputs?: InputComponentInputsLight,
+    type?: InputTypes,
+    callbackComponent?: OutputCallback
+}
+
 export interface InputComponentInputs {
-    nameLabel: string;
-    formGroup: FormGroup;
-    nameControl: string;
-    dataSource?: DataSourceInput;
+    nameLabel: string,
+    formGroup: FormGroup,
+    nameControl: string,
+    dataSource?: DataSourceInput,
     // legend: {
     //    position: string,
     //    label: (x, y) => string

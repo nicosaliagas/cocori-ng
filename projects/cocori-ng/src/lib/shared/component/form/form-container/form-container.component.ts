@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
-import { FormBuilderService } from '../../../../core/service/form.service';
+import { ConfigInputBuilder, FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 import { SubscriptionService } from '../../../../core/service/subscription.service';
@@ -70,7 +70,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
                 .setViewContainerRef(this.formContainerRef);
 
         this.schemaDatasForm.fields.forEach((field: FieldSchema) => {
-            formBuilder.addInput(field.name, field.label, field.type, field.dataSource, this.childAdded.bind(this));
+            formBuilder.addInput(field.name, new ConfigInputBuilder()
+                .addOption('inputs', { nameLabel: field.label, dataSource: field.dataSource })
+                .addOption('callbackComponent', this.childAdded.bind(this))
+                .addOption('type', field.type)
+            );
         });
 
         /** todo: Utiliser une variable ou direct l'objet */
