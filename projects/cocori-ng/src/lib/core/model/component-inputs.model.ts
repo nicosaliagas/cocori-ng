@@ -6,10 +6,12 @@ import { ButtonSchema, FormSchema } from './schema-datas.model';
 
 export type ConfigComponentInputs = InputComponentInputs | ButtonComponentInputs | any
 
-type InputComponentInputsLight = Pick<InputComponentInputs, "nameLabel" | "dataSource">;
+export type InputComponentInputsLight = Pick<InputComponentInputs, "nameLabel" | "dataSource" | "inRelationWith">;
+
+export type NameControl = string
 
 export interface ConfigInput {
-    inputs?: InputComponentInputsLight,
+    input?: InputComponentInputsLight,
     type?: InputTypes,
     callbackComponent?: OutputCallback
 }
@@ -17,8 +19,9 @@ export interface ConfigInput {
 export interface InputComponentInputs {
     nameLabel: string,
     formGroup: FormGroup,
-    nameControl: string,
+    nameControl: NameControl,
     dataSource?: DataSourceInput,
+    inRelationWith?: NameControl
     // legend: {
     //    position: string,
     //    label: (x, y) => string

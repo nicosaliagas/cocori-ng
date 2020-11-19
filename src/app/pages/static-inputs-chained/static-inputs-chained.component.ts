@@ -30,10 +30,15 @@ export class StaticInputsChainedComponent implements OnInit {
     this.formulaire = this.formBuilderService
       .setViewContainerRef(this.formContainerRef)
       .addInput('regimes', new ConfigInputBuilder()
-        .addOption('inputs', { nameLabel: 'Régime alimentaire', dataSource: { type: DataSourceType.BRUTE, value: [{ value: "vegi", viewValue: "Végétarien" }, { value: "vegetalien", viewValue: "Végétalien" }, { value: "aucun", viewValue: "Aucun" }] } })
+        .addOption('input', { nameLabel: 'Régime alimentaire', dataSource: { type: DataSourceType.BRUTE, value: [{ value: "vegi", viewValue: "Végétarien" }, { value: "vegetalien", viewValue: "Végétalien" }, { value: "aucun", viewValue: "Aucun" }] } })
         .addOption('type', InputComponents.INPUT_SELECT))
       .addInput('plat', new ConfigInputBuilder()
-        .addOption('inputs', { nameLabel: 'Plat', dataSource: { type: DataSourceType.BRUTE, value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza bacon" }, { value: "quiche", viewValue: "Quiche aux herbes" }] } })
+        .addOption('input',
+          {
+            nameLabel: 'Plat',
+            inRelationWith: "regimes",
+            dataSource: { type: DataSourceType.BRUTE, value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza bacon" }, { value: "quiche", viewValue: "Quiche aux herbes" }] }
+          })
         .addOption('type', InputComponents.INPUT_SELECT))
       .addButton('Valider', true, { callback: () => console.log("Bouton ajouté avec succès") })
       .addButton('Annuler', false, { callback: () => console.log("Bouton ajouté avec succès") })

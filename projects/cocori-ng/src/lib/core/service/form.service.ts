@@ -8,6 +8,7 @@ import {
     ConfigComponentInputs,
     ConfigInput,
     InputComponentInputs,
+    NameControl,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
 import { InjectComponentService } from './inject-component.service';
@@ -46,6 +47,7 @@ export class ConfigInputBuilder {
     }
 
     /** todo: ajouter unicité de l'option addOption */
+    /** todo: mettre des méthodes */
     addOption<K extends keyof ConfigInput, V extends ConfigInput[K]>(key: K, value: V) {
         this.newConfig[key as string] = value
 
@@ -109,18 +111,22 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     //     callbackComponent?: OutputCallback
     // ): ReturnType {
     //     const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel, dataSource: dataSource };
-
     //     this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
-
     //     return this as FormBuilderService as ReturnType;
     // }
 
-    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
+    addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
         cb: ConfigInputBuilder
     ): ReturnType {
 
-        const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: cb.config.inputs.nameLabel, dataSource: cb.config.inputs.dataSource };
+        const configInputComponent: InputComponentInputs = {
+            formGroup: this.currentForm,
+            nameControl: inputName,
+            nameLabel: cb.config.input.nameLabel,
+            dataSource: cb.config.input.dataSource,
+            inRelationWith: cb.config.input.inRelationWith
+        };
 
         this.generateComponentViewService.addComponentToView(cb.config.type, configInputComponent, cb.config.callbackComponent);
 

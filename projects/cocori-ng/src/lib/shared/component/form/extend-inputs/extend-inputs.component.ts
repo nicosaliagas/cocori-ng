@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { InputComponentInputs } from '../../../../core/model/component-inputs.model';
+import { InputComponentInputs, NameControl } from '../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../core/model/data-source.model';
 
 @Component({
@@ -14,8 +14,9 @@ export abstract class ExtendInputsComponent {
 
     nameLabel: string;
     formGroup: FormGroup;
-    nameControl: string;
+    nameControl: NameControl;
     dataSource: any;
+    inRelationWith: NameControl;
 
     constructor() { }
 
@@ -25,12 +26,17 @@ export abstract class ExtendInputsComponent {
         this.formGroup = config.formGroup;
 
         this.dataSource = this.loadDataSource(config.dataSource)
+        this.inRelationWith = config.inRelationWith
+
+        console.log("inRelationWith", this.inRelationWith)
     }
 
     emitEvent() {
         if (!this.formGroup || !this.nameControl) {
             throw new Error(`Données formulaire manquantes, formGroup : ${this.formGroup} - nameControl : ${this.nameControl}`);
         }
+
+        this.inRelatioNWith()
 
         this.callback.emit(this.nameControl);
     }
@@ -49,6 +55,17 @@ export abstract class ExtendInputsComponent {
             return configDataSource.value
         } else {
             return null
+        }
+    }
+
+    inRelatioNWith() {
+        if (this.inRelationWith && typeof this.inRelationWith !== 'undefined') {
+
+            console.log("inRelationWith>>", this.inRelationWith, this.formGroup)
+
+            this.formGroup.get(this.inRelationWith).valueChanges.subscribe((parentValue) => {
+                console.log("Parent Value ", parentValue);
+            })
         }
     }
 }

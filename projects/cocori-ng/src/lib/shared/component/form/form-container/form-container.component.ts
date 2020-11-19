@@ -71,7 +71,11 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
         this.schemaDatasForm.fields.forEach((field: FieldSchema) => {
             formBuilder.addInput(field.name, new ConfigInputBuilder()
-                .addOption('inputs', { nameLabel: field.label, dataSource: field.dataSource })
+                .addOption('input', {
+                    nameLabel: field.label,
+                    inRelationWith: field.inRelationWith,
+                    dataSource: field.dataSource
+                })
                 .addOption('callbackComponent', this.childAdded.bind(this))
                 .addOption('type', field.type)
             );
