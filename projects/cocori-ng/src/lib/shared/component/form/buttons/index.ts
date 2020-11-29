@@ -1,5 +1,5 @@
-import { ButtonComponent } from './button/button.component';
+// import { ButtonComponent } from './button/button.component';
 
-export const ImportsButtonsComponents: any[] = [
-    ButtonComponent,
-];
+// export const ImportsButtonsComponents: any[] = [
+//     ButtonComponent,
+// ];

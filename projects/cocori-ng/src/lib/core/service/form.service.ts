@@ -6,11 +6,11 @@ import { InputComponents, InputTypes, OutputCallback } from '../../shared/compon
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
-    ConfigInput,
     InputComponentInputs,
     NameControl,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
+import { DataSourceInput } from '../model/data-source.model';
 import { InjectComponentService } from './inject-component.service';
 
 /**
@@ -33,29 +33,43 @@ type InferInputNames<Builder> =
     ? InputNames
     : never
 
-type AddNodeName<Builder, NodeName extends string> =
-    Builder extends FormBuilderService<infer InputNames, infer ButtonNames, infer NodeNames>
-    ? FormBuilderService<InputNames, ButtonNames, NodeNames | NodeName>
-    : never
+class ConfigBuilder<Builder> {
 
-export class ConfigInputBuilder {
+    _nameLabel: string;
+    _inRelationWith: string;
+    _type: InputTypes;
+    _dataSource: DataSourceInput;
+    _callbackComponent: OutputCallback;
 
-    private newConfig: ConfigInput;
-
-    constructor() {
-        this.newConfig = {}
-    }
-
-    /** todo: ajouter unicité de l'option addOption */
-    /** todo: mettre des méthodes */
-    addOption<K extends keyof ConfigInput, V extends ConfigInput[K]>(key: K, value: V) {
-        this.newConfig[key as string] = value
+    nameLabel(nameLabel: string) {
+        this._nameLabel = nameLabel
 
         return this
     }
 
-    get config() {
-        return this.newConfig
+    inRelationWith<InputName extends InferInputNames<Builder>>(inputName: InputName) {
+        this._inRelationWith = inputName
+
+        return this
+    }
+
+    dataSource(dataSource: DataSourceInput) {
+        this._dataSource = dataSource
+
+        return this
+    }
+
+    // todo: ajouter options en fonction du type ?
+    typeInput(type: InputTypes) {
+        this._type = type
+
+        return this
+    }
+
+    outputCallback(outputCallback: OutputCallback) {
+        this._callbackComponent = outputCallback
+
+        return this
     }
 }
 
@@ -72,7 +86,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         private fb: FormBuilder,
         private generateComponentViewService: GenerateComponentViewService
     ) {
-        this.init();
+        this.newForm()
     }
 
     set form(form: FormGroup) {
@@ -83,12 +97,10 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm
     }
 
-    init(): FormGroup {
+    newForm() {
         this.currentForm = this.fb.group({});
 
-        // this.submitCallback = new Subject<boolean>();
-
-        return this.form;
+        return this.currentForm;
     }
 
     nameForm(name: string) {
@@ -98,11 +110,12 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     }
 
     setViewContainerRef(containerRef: ViewContainerRef) {
-        this.generateComponentViewService.setViewContainerRef(containerRef);
+        this.generateComponentViewService.setViewContainerRef(containerRef)
 
         return this;
     }
 
+    /** v.1 */
     // addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
     //     inputName: Exclude<InputName, InputNames>,
     //     inputLabel: string,
@@ -115,20 +128,42 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     //     return this as FormBuilderService as ReturnType;
     // }
 
+    /** v.2 */
+    // addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
+    //     inputName: Exclude<InputName, InputNames>,
+    //     cb: ConfigInputBuilder
+    // ): ReturnType {
+
+    //     const configInputComponent: InputComponentInputs = {
+    //         formGroup: this.currentForm,
+    //         nameControl: inputName,
+    //         nameLabel: cb.config.input.nameLabel,
+    //         dataSource: cb.config.input.dataSource,
+    //         inRelationWith: cb.config.input.inRelationWith
+    //     };
+
+    //     this.generateComponentViewService.addComponentToView(cb.config.type, configInputComponent, cb.config.callbackComponent);
+
+    //     return this as FormBuilderService as ReturnType;
+    // }
+
+    /** v.3 */
     addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
-        cb: ConfigInputBuilder
+        configBuilder: (((b: ConfigBuilder<this>) => ConfigBuilder<this>) | ((c: ConfigBuilder<this>) => ConfigBuilder<this>))
     ): ReturnType {
+
+        const builder = configBuilder(new ConfigBuilder);
 
         const configInputComponent: InputComponentInputs = {
             formGroup: this.currentForm,
             nameControl: inputName,
-            nameLabel: cb.config.input.nameLabel,
-            dataSource: cb.config.input.dataSource,
-            inRelationWith: cb.config.input.inRelationWith
+            nameLabel: builder._nameLabel,
+            dataSource: builder._dataSource,
+            inRelationWith: builder._inRelationWith
         };
 
-        this.generateComponentViewService.addComponentToView(cb.config.type, configInputComponent, cb.config.callbackComponent);
+        this.generateComponentViewService.addComponentToView(builder._type, configInputComponent, builder._callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }
