@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 
-import { ClasseComponents, InputClassesTypes, InputTypes } from '../../shared/component/form';
+import { ClasseComponents, InputComponents } from '../../shared/component/form';
 
 export interface InputsComponent {
     [key: string]: any;
@@ -18,17 +18,26 @@ export class InjectComponentService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
-    returnComponentClassFromType<T extends InputTypes, ReturnType extends InputClassesTypes<T>>(typeOfComponent: InputTypes): ReturnType {
+    returnComponentClassFromType(typeOfComponent: InputComponents) {
         if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
             const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
             throw new Error(error);
         } else {
-            return ClasseComponents[typeOfComponent] as unknown as ReturnType;
+            return ClasseComponents[typeOfComponent];
         }
     }
 
-    loadAndAddComponentToContainer<T extends InputTypes>(
-        componentClass: InputClassesTypes<T>,
+    // returnComponentClassFromType<T extends InputComponents, ReturnType extends InputClassesTypes<T>>(typeOfComponent: InputComponents): ReturnType {
+    //     if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
+    //         const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+    //         throw new Error(error);
+    //     } else {
+    //         return ClasseComponents[typeOfComponent] as unknown as ReturnType;
+    //     }
+    // }
+
+    loadAndAddComponentToContainer<T extends InputComponents>(
+        componentClass: typeof ClasseComponents[T],
         viewContainerRef: ViewContainerRef,
         inputs: InputsComponent[] = [],
         outputs?: OutputsComponent
@@ -42,9 +51,9 @@ export class InjectComponentService {
             }
         });
 
-        if(outputs) {
+        if (outputs) {
             for (const [key, value] of Object.entries(outputs)) {
-                if(key && value && (référenceComposant.instance)[key]) (référenceComposant.instance)[key].subscribe(data => value(data));
+                if (key && value && (référenceComposant.instance)[key]) (référenceComposant.instance)[key].subscribe(data => value(data));
             }
         }
 

@@ -17,6 +17,7 @@ export * from './lib/shared/component/form/form-buttons/form-buttons.component';
 export * from './lib/shared/component/form/buttons/button/button.component';
 export * from './lib/shared/component/form/input-text/input-text.component';
 export * from './lib/shared/component/form/input-password/input-password.component';
+export * from './lib/shared/component/form/input-password/eye-option-password.component';
 export * from './lib/shared/component/form/input-textarea/input-textarea.component';
 export * from './lib/shared/component/form/input-viewer/input-viewer.component';
 export * from './lib/shared/component/form/input-select/input-select.component';

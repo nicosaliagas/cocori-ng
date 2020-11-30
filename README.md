@@ -25,6 +25,12 @@ dans une autre fenêtre cmd :
 ng serve
 
 
+## Librairie Utilisée
+
+- Angular Material
+- Angular Material Design Icons
+
+
 ## Tests e2e via Cypress
 
 npm install cypress --save-dev

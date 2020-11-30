@@ -9,6 +9,9 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 })
 
 export class InputPasswordComponent extends ExtendInputsComponent implements OnInit {
+
+    type: string = "password"
+
     @Input()
     set config(config: InputComponentInputs) {
         this.configInput(config)
@@ -21,4 +24,8 @@ export class InputPasswordComponent extends ExtendInputsComponent implements OnI
     }
 
     ngOnInit() { }
+
+    revealPassword(answer: boolean) {
+        this.type = answer ? 'text' : 'password'
+    }
 }

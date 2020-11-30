@@ -1,14 +1,13 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { config } from 'rxjs';
 
-import { InputComponents, InputTypes, OutputCallback } from '../../shared/component/form';
+import { InputComponents, OutputCallback } from '../../shared/component/form';
 import {
-    ButtonComponentInputs,
-    ConfigComponentInputs,
-    InputComponentInputs,
-    NameControl,
-    TypeButtonEnum,
+  ButtonComponentInputs,
+  ConfigComponentInputs,
+  InputComponentInputs,
+  NameControl,
+  TypeButtonEnum,
 } from '../model/component-inputs.model';
 import { DataSourceInput } from '../model/data-source.model';
 import { InjectComponentService } from './inject-component.service';
@@ -37,7 +36,7 @@ class ConfigBuilder<Builder> {
 
     _nameLabel: string;
     _inRelationWith: string;
-    _type: InputTypes;
+    _type: InputComponents;
     _dataSource: DataSourceInput;
     _callbackComponent: OutputCallback;
 
@@ -59,8 +58,7 @@ class ConfigBuilder<Builder> {
         return this
     }
 
-    // todo: ajouter options en fonction du type ?
-    typeInput(type: InputTypes) {
+    typeInput(type: InputComponents) {
         this._type = type
 
         return this
@@ -150,7 +148,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     /** v.3 */
     addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
-        configBuilder: (((b: ConfigBuilder<this>) => ConfigBuilder<this>) | ((c: ConfigBuilder<this>) => ConfigBuilder<this>))
+        configBuilder: (b: ConfigBuilder<this>) => ConfigBuilder<this>
     ): ReturnType {
 
         const builder = configBuilder(new ConfigBuilder);
@@ -201,7 +199,7 @@ export class GenerateComponentViewService {
         return this;
     }
 
-    addComponentToView(componentType: InputTypes, configComponent: ConfigComponentInputs, callback: OutputCallback) {
+    addComponentToView(componentType: InputComponents, configComponent: ConfigComponentInputs, callback: OutputCallback) {
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
