@@ -13,7 +13,7 @@ export class InputTextComponent extends ExtendInputsComponent implements OnInit 
     set config(config: InputComponentInputs) {
         this.configInput(config)
 
-        this.addDefaultForm();
+        this.addControlForm();
     }
 
     constructor() {

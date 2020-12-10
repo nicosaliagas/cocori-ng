@@ -3,6 +3,7 @@
  */
 
 export * from './lib/config/config.components';
+export * from './lib/config/config.events';
 
 export * from './lib/shared/shared.module';
 export * from './lib/shared/material-shared.module';
@@ -22,6 +23,9 @@ export * from './lib/shared/component/form/input-textarea/input-textarea.compone
 export * from './lib/shared/component/form/input-viewer/input-viewer.component';
 export * from './lib/shared/component/form/input-select/input-select.component';
 
+export * from './lib/shared/component/error-handler/index';
+export * from './lib/shared/component/error-handler/input-error-handler/input-error-handler.component';
+
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
 export * from './lib/core/model/form-datas.model';
@@ -31,5 +35,7 @@ export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/http.service';
 export * from './lib/core/service/subscription.service';
 export * from './lib/core/service/form.service';
+export * from './lib/core/service/validators.service';
+export * from './lib/core/service/broadcast-event.service';
 
 export * from './lib/core/core.module';

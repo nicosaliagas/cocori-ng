@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 import { InputComponentInputs, NameControl } from '../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../core/model/data-source.model';
@@ -17,6 +17,7 @@ export abstract class ExtendInputsComponent {
     nameControl: NameControl;
     dataSource: any;
     inRelationWith: NameControl;
+    validators: ValidatorFn[];
 
     constructor() { }
 
@@ -27,8 +28,7 @@ export abstract class ExtendInputsComponent {
 
         this.dataSource = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
-
-        console.log("inRelationWith", this.inRelationWith)
+        this.validators = config.validators
     }
 
     emitEvent() {
@@ -41,8 +41,8 @@ export abstract class ExtendInputsComponent {
         this.callback.emit(this.nameControl);
     }
 
-    addDefaultForm() {
-        this.formGroup.addControl(this.nameControl, new FormControl())
+    addControlForm() {
+        this.formGroup.addControl(this.nameControl, new FormControl(null, this.validators))
 
         this.emitEvent()
     }

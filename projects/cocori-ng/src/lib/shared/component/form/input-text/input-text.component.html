@@ -5,4 +5,5 @@
         <mat-label>{{nameLabel}}</mat-label>
         <input type="text" matInput [formControlName]="nameControl" />
     </mat-form-field>
+    <input-error-handler [form]="formGroup" [controlName]="nameControl"></input-error-handler>
 </ng-container>

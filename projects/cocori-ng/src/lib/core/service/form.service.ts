@@ -1,16 +1,19 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { ConfigEvents } from '../../config/config.events';
 import { InputComponents, OutputCallback } from '../../shared/component/form';
 import {
-  ButtonComponentInputs,
-  ConfigComponentInputs,
-  InputComponentInputs,
-  NameControl,
-  TypeButtonEnum,
+    ButtonComponentInputs,
+    ConfigComponentInputs,
+    InputComponentInputs,
+    NameControl,
+    TypeButtonEnum,
 } from '../model/component-inputs.model';
 import { DataSourceInput } from '../model/data-source.model';
+import { BroadcastEventService } from './broadcast-event.service';
 import { InjectComponentService } from './inject-component.service';
+import { ValidatorsService } from './validators.service';
 
 /**
  * https://www.typescriptlang.org/play?#code/C4TwDgpgBAggTgcwK4FsIDtgBVwQM4A8WAfFALxRZQQAewGAJnlABQB0HUAhongFxQAlugBmEOFACqASnKlhYiQCUoAfikD0EAG7iA3AChQkKEohgANlwDGEM8CRx0OSAQDyAGigA5UhXYcXALwyGiYLvjuxLJkpN6GRrhQAEJIghYM4gQA0tR0jMwA1hAgAPYiUADCpejWcBD0qemZcH5QAN4GUFAA2pJC6FDZALoC-bT06ExQAOQARmkZM2pVNXUNEE0Z4n3DUAJmljZ2DY7OuARd3au19Y2LLbseV91bLQQAojTWFkiZOV5JKQJgUoFpdBJ1PMHssBF8fn8IACpMRiFc0QBfBIiJC1YCCGpQBbNcQsaQCN5ZeG-f7FMoVaq3DaUuBeaHNGaojpXO5nMEQADuN3W9xJcDJ3GYXHQIEMGIMBh+XDwzEZIs2D3E3O6XDJAmAAAtBMxOtcoLynFBDcbDN15Vc5nqrUaTS9zadLda8LaoPbusSMk68MA4MIENrrhbBjMRKVSjMffL7QGWmS2LrpGxHZmU2S9FAAPQFqClQoGFOknNpjNZh55wvF0vlzXinN16T5ovUOBwUpwZti6tp3Mdhvd3v9iutrPD9ud4viCcD7bTms1kfz8d95epqt72vNetdxfbqdD-fZg+B0fHnunlvn9PD2eHm8Lu9wIA
@@ -32,13 +35,20 @@ type InferInputNames<Builder> =
     ? InputNames
     : never
 
-class ConfigBuilder<Builder> {
+class InputConfigBuilder<Builder> {
 
+    _isRequired: boolean;
     _nameLabel: string;
     _inRelationWith: string;
     _type: InputComponents;
     _dataSource: DataSourceInput;
     _callbackComponent: OutputCallback;
+
+    isRequired() {
+        this._isRequired = true
+
+        return this
+    }
 
     nameLabel(nameLabel: string) {
         this._nameLabel = nameLabel
@@ -71,6 +81,24 @@ class ConfigBuilder<Builder> {
     }
 }
 
+class ButtonConfigBuilder<Builder> {
+
+    _isTypeSubmit: boolean;
+    _callbackComponent: OutputCallback;
+
+    isTypeSubmit(is: boolean = true) {
+        this._isTypeSubmit = is
+
+        return this
+    }
+
+    outputCallback(outputCallback: OutputCallback) {
+        this._callbackComponent = outputCallback
+
+        return this
+    }
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -82,6 +110,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     constructor(
         private fb: FormBuilder,
+        private broadcastEventService: BroadcastEventService,
         private generateComponentViewService: GenerateComponentViewService
     ) {
         this.newForm()
@@ -148,39 +177,69 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     /** v.3 */
     addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
-        configBuilder: (b: ConfigBuilder<this>) => ConfigBuilder<this>
+        configBuilder: (b: InputConfigBuilder<this>) => InputConfigBuilder<this>
     ): ReturnType {
 
-        const builder = configBuilder(new ConfigBuilder);
+        const builder = configBuilder(new InputConfigBuilder);
 
+        /** on formalise la configuration du champ input */
         const configInputComponent: InputComponentInputs = {
             formGroup: this.currentForm,
             nameControl: inputName,
             nameLabel: builder._nameLabel,
             dataSource: builder._dataSource,
-            inRelationWith: builder._inRelationWith
+            inRelationWith: builder._inRelationWith,
+            validators: []
         };
+
+        /** on traite la validation du champ input */
+
+        if (builder._isRequired) {
+            configInputComponent.validators.push(ValidatorsService.require)
+        }
 
         this.generateComponentViewService.addComponentToView(builder._type, configInputComponent, builder._callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }
 
-    /** todo: name unique et typeSubmit : un seul à true */
+    /** v.1 */
+    // addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
+    //     buttonName: Exclude<ButtonName, ButtonNames>,
+    //     isTypeSubmit: boolean,
+    //     callbackComponent?: OutputCallback
+    // ): ReturnType {
+    //     const configInputComponent: ButtonComponentInputs = {
+    //         text: buttonName,
+    //         type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
+    //         onClickSubmit: this.onClickSubmitCallback.bind(this)
+    //     };
+
+    //     this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, callbackComponent);
+
+    //     return this as FormBuilderService as ReturnType;
+    // }
+
     addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
         buttonName: Exclude<ButtonName, ButtonNames>,
-        isTypeSubmit: boolean,
-        callbackComponent?: OutputCallback
+        configBuilder: (b: ButtonConfigBuilder<this>) => ButtonConfigBuilder<this>
     ): ReturnType {
+
+        const builder = configBuilder(new ButtonConfigBuilder);
+
         const configInputComponent: ButtonComponentInputs = {
             text: buttonName,
-            type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
-            // submitCallback: this.submitCallback
+            type: builder._isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
+            onClickSubmit: this.onClickSubmitCallback.bind(this)
         };
 
-        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, callbackComponent);
+        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, builder._callbackComponent);
 
         return this as FormBuilderService as ReturnType;
+    }
+
+    private onClickSubmitCallback() {
+        this.broadcastEventService.broadcast({ eventCode: ConfigEvents.FORM_SUBMITTED, eventData: this.name })
     }
 }
 

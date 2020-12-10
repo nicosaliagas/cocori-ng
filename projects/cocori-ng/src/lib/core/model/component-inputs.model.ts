@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 
 import { DataSourceInput } from './data-source.model';
 import { ButtonSchema, FormSchema } from './schema-datas.model';
@@ -11,6 +11,7 @@ export interface InputComponentInputs {
     nameLabel: string,
     formGroup: FormGroup,
     nameControl: NameControl,
+    validators: ValidatorFn[];
     dataSource?: DataSourceInput,
     inRelationWith?: NameControl
 }
@@ -28,4 +29,5 @@ export enum TypeButtonEnum {
 export interface ButtonComponentInputs {
     text: string,
     type: TypeButtonEnum,
+    onClickSubmit: Function,
 }

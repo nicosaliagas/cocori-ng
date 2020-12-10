@@ -29,6 +29,7 @@ ng serve
 
 - Angular Material
 - Angular Material Design Icons
+- MomentJs : npm i moment
 
 
 ## Tests e2e via Cypress

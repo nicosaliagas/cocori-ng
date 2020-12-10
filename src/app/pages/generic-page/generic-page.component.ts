@@ -28,7 +28,12 @@ export class GenericPageComponent implements OnInit {
       fieldJsonText: null
     });
 
-    this.inputComponentInputs = { formGroup: this.generatedForm, nameLabel: "Contenu du JSON ici", nameControl: 'fieldJsonText' };
+    this.inputComponentInputs = {
+      formGroup: this.generatedForm,
+      nameLabel: "Contenu du JSON ici",
+      nameControl: 'fieldJsonText',
+      validators: []
+    };
   }
 
   ngOnInit() { }

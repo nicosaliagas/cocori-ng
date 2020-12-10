@@ -14,6 +14,8 @@ export class ButtonComponent implements OnInit {
     @Input() text: string = configdefault.button.text;
     @Input() type: TypeButtonEnum = TypeButtonEnum.SUBMIT;
 
+    onClickSubmit: Function;
+
     constructor() { }
 
     @Input()
@@ -22,9 +24,14 @@ export class ButtonComponent implements OnInit {
 
         this.text = config.text;
         this.type = config.type;
+        this.onClickSubmit = config.onClickSubmit;
     }
 
     ngOnInit() {
         this.callback.emit(this.text);
+    }
+
+    onClick() {
+        if (this.type === TypeButtonEnum.SUBMIT) this.onClickSubmit()
     }
 }

@@ -44,8 +44,11 @@ export class StaticInputsChainedComponent implements OnInit {
           type: DataSourceType.BRUTE,
           value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza bacon" }, { value: "quiche", viewValue: "Quiche aux herbes" }]
         }))
-      .addButton('Valider', true, { callback: () => console.log("Bouton ajouté avec succès") })
-      .addButton('Annuler', false, { callback: () => console.log("Bouton ajouté avec succès") })
+      .addButton('Valider', config => config
+        .isTypeSubmit()
+        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
+      .addButton('Annuler', config => config
+        .isTypeSubmit(false))
       .form
   }
 

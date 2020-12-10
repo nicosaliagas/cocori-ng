@@ -13,7 +13,7 @@ export class InputTextareaComponent extends ExtendInputsComponent implements OnI
     set config(config: InputComponentInputs) {
         this.configInput(config)
 
-        this.addDefaultForm();
+        this.addControlForm();
     }
 
     constructor() {

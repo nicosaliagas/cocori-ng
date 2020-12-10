@@ -13,7 +13,7 @@ export class InputSelectComponent extends ExtendInputsComponent implements OnIni
     set config(config: InputComponentInputs) {
         this.configInput(config)
 
-        this.addDefaultForm()
+        this.addControlForm()
     }
 
     constructor() {

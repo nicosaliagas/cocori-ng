@@ -28,8 +28,10 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
+      .nameForm("Form Static")
       .setViewContainerRef(this.formContainerRef)
       .addInput('plat', config => config
+        .isRequired()
         .nameLabel('Plat')
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
@@ -37,6 +39,7 @@ export class StaticFormComponent implements OnInit {
           value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza" }, { value: "quiche", viewValue: "Quiche" }]
         }))
       .addInput('nom', config => config
+        .isRequired()
         .nameLabel('Nom')
         .typeInput(InputComponents.INPUT_TEXT))
       .addInput('prenom', config => config
@@ -49,8 +52,11 @@ export class StaticFormComponent implements OnInit {
         .nameLabel('Zone')
         .typeInput(InputComponents.INPUT_TEXTAREA)
         .outputCallback({ callback: this.onComponentReady }))
-      .addButton('Valider', true, { callback: () => console.log("Bouton ajouté avec succès") })
-      .addButton('Annuler', false, { callback: () => console.log("Bouton ajouté avec succès") })
+      .addButton('Valider', config => config
+        .isTypeSubmit()
+        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
+      .addButton('Annuler', config => config
+        .isTypeSubmit(false))
       .form
   }
 
