@@ -4,16 +4,23 @@ import { filter, map } from 'rxjs/internal/operators';
 import { Subject } from 'rxjs/internal/Subject';
 
 interface BroadcastEvent {
-    eventCode: string;
+    eventKeys: EventKeys;
     eventData?: any;
 }
+
+interface Event<T> {
+    eventKey: string;
+    event: Observable<T>;
+}
+
+type EventKeys = (string | number)[];
 
 @Injectable({
     providedIn: 'root',
 })
 export class BroadcastEventService {
     private _eventBus: Subject<BroadcastEvent>;
-    private _tableauEcoute: any[] = [];
+    private _broadcastedEvents: Event<any>[] = [];
 
     constructor() {
         this._eventBus = new Subject<BroadcastEvent>();
@@ -23,33 +30,33 @@ export class BroadcastEventService {
         this._eventBus.next(event);
     }
 
-    listen<T>(eventCode: string): Observable<T> {
-        if (!this.déjàEnEcoute(eventCode)) {
-            const évènement: any = this._eventBus.asObservable()
+    listen<T>(keys: EventKeys): Observable<T> {
+        const eventKey: string = keys.join("-")
+
+        if (!this.isEventKnown(eventKey)) {
+            const newEvent: Observable<T> = this._eventBus.asObservable()
                 .pipe(
-                    filter(event => event.eventCode === eventCode),
-                    map(event => <T>event.eventData),
+                    filter(event => (event.eventKeys.join("-")) === eventKey),
+                    map(event => event.eventData),
                 );
 
-            const obs: any = { "code": eventCode, "évènement": évènement };
+            this._broadcastedEvents.push(<Event<T>>{ eventKey: eventKey, event: newEvent });
 
-            this._tableauEcoute.push(obs);
-
-            return évènement;
+            return newEvent;
         } else {
-            return this.évènementEnEcoute(eventCode);
+            return this.returnEvent(eventKey);
         }
     }
 
-    private déjàEnEcoute(code: string): boolean {
-        const index = this._tableauEcoute.findIndex(entrée => entrée.code === code);
+    private isEventKnown(eventKey: string): boolean {
+        const index = this._broadcastedEvents.findIndex(entrée => entrée.eventKey === eventKey);
 
         return index >= 0;
     }
 
-    private évènementEnEcoute(code: string): any {
-        const obs = this._tableauEcoute.find(entrée => entrée.code === code);
+    private returnEvent<T>(eventKey: string): Observable<T> {
+        const event = this._broadcastedEvents.find(event => event.eventKey === eventKey);
 
-        return obs.évènement;
+        return event.event;
     }
 }

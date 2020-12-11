@@ -28,7 +28,7 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
-      .nameForm("Form Static")
+      .identityForm("0C8ADB54-B801-49E2-BF06-1B1C44470BF7", "Form Static")
       .setViewContainerRef(this.formContainerRef)
       .addInput('plat', config => config
         .isRequired()

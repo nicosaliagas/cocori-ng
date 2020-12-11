@@ -14,6 +14,7 @@ export interface PageSchema {
 }
 
 export interface FormSchema {
+    id: string;
     name: string;
     fields: FieldSchema[];
 }

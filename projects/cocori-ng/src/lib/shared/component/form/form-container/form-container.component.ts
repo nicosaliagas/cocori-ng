@@ -66,7 +66,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     private buildCurrentForm() {
         const formBuilder: FormBuilderService =
             this.formBuilderService
-                .nameForm(this.schemaDatasForm.name)
+                .identityForm(this.schemaDatasForm.id, this.schemaDatasForm.name)
                 .setViewContainerRef(this.formContainerRef);
 
         this.schemaDatasForm.fields.forEach((field: FieldSchema) => {

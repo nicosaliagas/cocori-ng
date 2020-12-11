@@ -1,3 +1,3 @@
 export const ConfigEvents = {
-    FORM_SUBMITTED: "Form Submitted",
+    FORM_SUBMITTED: "FORM_SUBMITTED",
 };

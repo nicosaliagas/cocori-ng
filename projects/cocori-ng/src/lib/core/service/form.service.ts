@@ -1,6 +1,7 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
+import { configdefault } from '../../config/config.components';
 import { ConfigEvents } from '../../config/config.events';
 import { InputComponents, OutputCallback } from '../../shared/component/form';
 import {
@@ -103,7 +104,9 @@ class ButtonConfigBuilder<Builder> {
     providedIn: 'root',
 })
 export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never, NodeNames extends string = never,> {
+    public formId: string;
     public name: string;
+
     private currentForm: FormGroup;
 
     // submitCallback: Subject<any>;
@@ -130,8 +133,11 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm;
     }
 
-    nameForm(name: string) {
+    identityForm(id: string, name: string) {
+        this.formId = id;
         this.name = name;
+
+        this.currentForm.addControl(configdefault.form.keyId, new FormControl(this.formId))
 
         return this;
     }
@@ -239,7 +245,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     }
 
     private onClickSubmitCallback() {
-        this.broadcastEventService.broadcast({ eventCode: ConfigEvents.FORM_SUBMITTED, eventData: this.name })
+        this.broadcastEventService.broadcast({ eventKeys: [ConfigEvents.FORM_SUBMITTED, this.formId], eventData: this.form })
     }
 }
 

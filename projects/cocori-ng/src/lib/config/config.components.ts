@@ -1,5 +1,8 @@
 
 export const configdefault = {
+    form: {
+        keyId: "formId"
+    },
     button: {
         text: "Valider"
     },
