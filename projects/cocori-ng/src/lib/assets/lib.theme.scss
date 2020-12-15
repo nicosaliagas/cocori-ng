@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+
+@mixin lib-theme($config-or-theme, $palette-green, $palette-blue) {
+
+    $config: mat-get-color-config($config-or-theme);
+
+    $primary: map-get($config, primary);
+    $accent: map-get($config, accent);
+    $warn: map-get($config, warn);
+
+    .error {
+        color: mat-color($warn, 200);
+    }
+
+    .success {
+        color: mat-color($palette-green, 200);
+    }
+
+    .info {
+        color: mat-color($palette-blue, 200);
+    }
+
+    .mat-snack-bar-container {
+        margin-bottom: 20px !important;
+
+        &.succesToast {
+            background-color: mat-color($palette-green, 200);
+        }
+
+        &.errorToast {
+            background-color: mat-color($warn, 200);
+        }
+
+        &.infoToast {
+            background-color: mat-color($palette-blue, 200);
+        }
+
+        .mat-simple-snackbar-action {
+            color: rgba(255, 255, 255, .7);
+
+            .mat-button-focus-overlay {
+                opacity: .1;
+            }
+
+            .mat-button:hover .mat-button-focus-overlay,
+            .mat-stroked-button:hover .mat-button-focus-overlay {
+                opacity: .2;
+            }
+        }
+    }
+}

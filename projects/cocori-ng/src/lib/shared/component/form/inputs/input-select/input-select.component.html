@@ -1,0 +1,17 @@
+<!-- utilier ngTemplateOutlet ex: https://blog.bitsrc.io/component-reusability-techniques-with-angular-727a6c603ad2 -->
+
+<input-container-ng [templateRef]="nestedComponentRef" [form]="formGroup" [controlName]="nameControl">
+</input-container-ng>
+
+<ng-template #nestedComponentRef>
+    <ng-container [formGroup]="formGroup">
+        <mat-form-field>
+            <mat-label>{{nameLabel}}</mat-label>
+            <mat-select [formControlName]="nameControl">
+                <mat-option *ngFor="let item of dataSource" [value]="item.value">
+                    {{item.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+</ng-template>

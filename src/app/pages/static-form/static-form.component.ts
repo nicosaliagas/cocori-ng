@@ -46,9 +46,11 @@ export class StaticFormComponent implements OnInit {
         .nameLabel('Prénom')
         .typeInput(InputComponents.INPUT_TEXT))
       .addInput('password', config => config
+        .isRequired()
         .nameLabel('Mot de passe')
         .typeInput(InputComponents.INPUT_PASSWORD))
       .addInput('zone', config => config
+        .isRequired()
         .nameLabel('Zone')
         .typeInput(InputComponents.INPUT_TEXTAREA)
         .outputCallback({ callback: this.onComponentReady }))

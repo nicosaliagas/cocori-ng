@@ -24,5 +24,12 @@ Run `ng test cocori-ng` to execute the unit tests via [Karma](https://karma-runn
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 
+## Gestion du theme de la librairie
+
+- cocori-ng.theme.scss : appelle le mixin lib-theme (lib.theme.scss) avec en paramètre :
+    - le theme principal de l'application front
+    - la palette avec les couleurs verte
+
+
 ## Angular Material
 ng add @angular/material

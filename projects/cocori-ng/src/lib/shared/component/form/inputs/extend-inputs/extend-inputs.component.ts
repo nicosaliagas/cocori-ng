@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
-import { InputComponentInputs, NameControl } from '../../../../core/model/component-inputs.model';
-import { DataSourceInput } from '../../../../core/model/data-source.model';
+import { InputComponentInputs, NameControl } from '../../../../../core/model/component-inputs.model';
+import { DataSourceInput } from '../../../../../core/model/data-source.model';
 
 @Component({
     selector: 'extend-inputs-ng',

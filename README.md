@@ -8,6 +8,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ng new my-first-project
 
+## Create component
+
+ng g component input-container --display-block=true --skip-import=true --style=scss
+
 ## Lancer le projet web et le projet library en même temps
 
 `Créer un lien symbolique vers la lib`
@@ -30,6 +34,12 @@ ng serve
 - Angular Material
 - Angular Material Design Icons
 - MomentJs : npm i moment
+
+
+## Initialise le thème de la lib Cocori-ng
+
+@import 'cocori-ng/cocori-ng.theme.scss';
+@include cocori-ng-theme($theme-principal, $palette-green);
 
 
 ## Tests e2e via Cypress

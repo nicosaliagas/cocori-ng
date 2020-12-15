@@ -1,12 +1,14 @@
 import { ButtonComponent } from './buttons/button/button.component';
-import { InputPasswordComponent } from './input-password/input-password.component';
-import { InputSelectComponent } from './input-select/input-select.component';
-import { InputTextComponent } from './input-text/input-text.component';
-import { InputTextareaComponent } from './input-textarea/input-textarea.component';
-import { InputViewerComponent } from './input-viewer/input-viewer.component';
+import { InputContainerComponent } from './inputs/input-container/input-container.component';
+import { InputPasswordComponent } from './inputs/input-password/input-password.component';
+import { InputSelectComponent } from './inputs/input-select/input-select.component';
+import { InputTextComponent } from './inputs/input-text/input-text.component';
+import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.component';
+import { InputViewerComponent } from './inputs/input-viewer/input-viewer.component';
 
 
-export const ImportComponentsFormInputs: any[] = [
+export const ModuleImportFormInputs: any[] = [
+    InputContainerComponent,
     InputTextComponent,
     InputPasswordComponent,
     InputTextareaComponent,

@@ -6,21 +6,27 @@ import { DateFunctions } from '../helper/date.function';
 import { HelperFunctions } from '../helper/helper.function';
 import { UtilsUpload } from '../helper/utils.upload.service';
 
+export interface ValidtionError {
+    key: string;
+    value?: any;
+    message?: string;
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class ValidatorsService {
 
-    public static getValidatorErrorMessage(nomValidateur: string, messageDErreurPerso?: string, valeurValidateur?: any): any {
+    public getValidationErrorMessage(error: ValidtionError): any {
 
         const configClésErreurs: any = {
-            'required': (!messageDErreurPerso ? 'Veuillez saisir ce champ' : messageDErreurPerso),
+            'required': (!error.message ? 'Veuillez saisir ce champ' : error.message),
             'invalidEmailAddress': 'L\'adresse e-mail n\'est pas valide.',
             'invalidCodePostal': 'Le code postal n\'est pas valide.',
             'invalidDate': "La date n'est pas valide.",
             'invalidHeure': "L'heure n'est pas au bon format.",
             'invalideDateHeure': "La date/heure n'est pas valide.",
-            'regexInvalide': (!valeurValidateur.formatRegexEnClair ? 'Le format attendu est incorrect.' : `Fomat attendu : ${valeurValidateur.formatRegexEnClair}.`),
+            'regexInvalide': (!error.value.formatRegexEnClair ? 'Le format attendu est incorrect.' : `Fomat attendu : ${error.value.formatRegexEnClair}.`),
             'invalidTypeMime': "Le type du document n'est pas accepté.",
             'invalidTailleTotaleUpload': `La taille totale des pièces jointes est atteinte.`,
             'invalidTailleUpload': `La taille limite de la pièce jointe est atteinte.`,
@@ -40,7 +46,7 @@ export class ValidatorsService {
             'auMoinsUnChampRequis': 'Veuillez saisir au moins un critère de recherche.'
         };
 
-        return configClésErreurs[nomValidateur];
+        return configClésErreurs[error.key];
     }
 
     public static require(control: FormControl): any {
