@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@import "~@angular/material/theming";
+
+// always include only once per project
+@include mat-core();
+
+// Define your application's custom theme.
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+
+
+$mat-warn: (main: #ea1d1d,
+    lighter: #ffb3b3,
+    darker: #ea1d1d,
+    200: #ea1d1d,
+    contrast : (main: #ffffff,
+        lighter: #ffffff,
+        darker: #ffffff,
+    ));
+
+$warn: mat-palette($mat-warn, main, lighter, darker);
+
+$mat-green: (main: #85ccac,
+    lighter: #b6e0cd,
+    darker: #088548,
+    200: #85ccac,
+    contrast : (main: #000000,
+        lighter: #000000,
+        darker: #000000,
+    ));
+
+$palette-green: mat-palette($mat-green, main, lighter, darker);
+
+$mat-blue: (main: #90CAF9,
+    lighter: #BBDEFB,
+    darker: #2196F3,
+    200: #90CAF9,
+    contrast : (main: #000000,
+        lighter: #000000,
+        darker: #000000,
+    ));
+
+$palette-blue: mat-palette($mat-blue, main, lighter, darker);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+/** import lib and component themes */
+@import 'cocori-ng/cocori-ng.theme.scss';
+@include cocori-ng-theme($theme, $palette-green, $palette-blue);
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($theme);

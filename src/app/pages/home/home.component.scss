@@ -1,0 +1,10 @@
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 25px 50px;
+    justify-content: center;
+
+    .mat-raised-button {
+        margin: 0 20px;
+    }
+}

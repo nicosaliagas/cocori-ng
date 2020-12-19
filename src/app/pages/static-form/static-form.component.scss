@@ -1,0 +1,30 @@
+.formulaires {
+    display: flex;
+    width: 100%;
+
+    .sub-frm {
+        display: flex;
+        flex-direction: column;
+
+        width: 600px;
+        margin: 0 50px;
+
+        .part {
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .content-frm {
+            background-color: #fafafa;
+        }
+
+        .result-frm {
+            background-color: #c4c4c4;
+        }
+
+        ::ng-deep .mat-form-field {
+            width: 100%;
+        }
+    }
+}

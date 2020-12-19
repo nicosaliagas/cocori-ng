@@ -1,0 +1,11 @@
+<input-container-ng [templateRef]="nestedComponentRef" [form]="formGroup" [controlName]="nameControl">
+</input-container-ng>
+
+<ng-template #nestedComponentRef>
+    <ng-container [formGroup]="formGroup">
+        <mat-form-field>
+            <mat-label>{{nameLabel}}</mat-label>
+            <textarea matInput [formControlName]="nameControl" rows="10"></textarea>
+        </mat-form-field>
+    </ng-container>
+</ng-template>

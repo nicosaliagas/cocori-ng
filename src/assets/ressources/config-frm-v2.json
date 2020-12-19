@@ -1,0 +1,83 @@
+{
+    "page" : {//une page peut contenir plusieurs blocs, les onglets sont des blocs ?
+        // "inputs" : [
+        //     { "name": "clinicalCaseId", "type": "guid", "location" : "url"},//location : url/localStrorage/jwt
+        //     { "name": "id", "type": "guid", "location" : "url" }
+        // ],
+        "url": "clinicalCase/{clinicalCaseId}/clinicalImage/{id}",
+        "initMappings": [ //TODO est-ce que ca peut remplacer les inputs ci-dessus ?
+            { "source": "url.Id", "destination": "updateClinicalImageForm.id" },//location : url/localStrorage/jwt
+            { "source": "url.clinicalCaseId", "destination": "updateClinicalImageForm.id" }
+        ],
+        "forms" : [
+            { "name": "updateClinicalImageForm", 
+              "fields": [
+                  { "name": "id", "type": "hidden"},//ca permet de définir le champs id dans le modèle du form, mais c'est moche non ? avoir une notion de model explicite ?
+                  { "name": "clinicalCaseId", "type": "hidden"},//ca permet de définir le champs clinicalCaseId dans le modèle du form
+                  { "name": "name", "type": "input-text", "required": true },
+                  { "name": "imagingModality", "type": "select-single", "required": true, 
+                    "datasource": {//TODO .api pour charger données + comment afficher valeur archivée depuis response + template des éléments
+                        "type" : "selectItem",//TODO en fait c'est datasource de type query 
+                        "itemType": "SelectItemType.ImagingModality",
+                        "searchQuery": "SearchSelectItemOptionsQuery" },//TODO en fait c'est une query avec un queryMapping: { "source": "SelectItemType.ImagingModality", "destination": "type" }
+                    "createEntry": { //pour créer à la volée une nouvelle entrée
+                        "enabled" : true,
+                        //on référence un form défini dans une autre page ou de manière globale
+                        //on veut passer en entrée au formulaire le type du SelectItem (qui ne sera pas modifiable dans ce composant contrairement au composant de création normal) 
+                        //donc faut du mapping: { "source": "SelectItemType.ImagingModality", "destination": "createSelectItemForm.inputs.type" } --version avec paramètre inputs
+                        //donc faut du mapping: { "source": "SelectItemType.ImagingModality", "destination": "createSelectItemForm.type" } --version mappé sur model du form
+                        "createComp": "createSelectItemForm",
+                        //TODO resultMapping: { "source": "createSelectItemForm.outputs.id", "destination": "query.id" }}, un form doit avoir des paramètres de sortie ?
+                        //TODO resultMapping: { "source": "createSelectItemForm.id", "destination": "query.id" }}, un form doit avoir des paramètres input/output ?
+                        //si on expose le modèle alors on en sais pas si les paramètres son entrants ou sortants
+                        "getOptionQuery" : "GetSelectItemOptionQuery" }
+                  },
+                  { "name": "default", "type": "select-single", "required": true, "datasource": { "type" : "enum", "value": "ImagingDefault" } },//TODO autres types de datasource        
+                  { "name": "file", "type": "input-file", "required": true },//TODO brancher .api upload file        
+                  { "name": "imageSettings", "type": "viewer3D", "required": true } ],
+               "datasource": {
+                   "type" : "query",//TODO peut etre une query ou des données en dur pour démo
+                   "query" : "GetClinicalImageQuery",
+                   "queryMappings": [
+                     { "source": "form.id", "destination": "query.id" } ],
+                   "responseMappings": [
+                     { "source": "response.name", "destination": "form.name" },
+                     { "source": "response.imagingModalityId", "destination": "form.imagingModality.id" },//ou "source": "imagingModality.id", "destination": "forms.mainForm.imagingModality.selected.id"
+                     { "source": "response.imagingModalityName", "destination": "form.imagingModality.name" },//ou "source": "imagingModality.name", "destination": "forms.mainForm.imagingModality.selected.name"
+                     { "source": "response.default", "destination": "form.default.selected" },
+                     { "source": "response.fileId", "destination": "form.file.id" },
+                     { "source": "response.fileName", "destination": "form.file.name" },
+                     { "source": "response.windowingMin", "destination": "form.imageSettings.windowingMin" },//TODO pour découpler le form et son model ?
+                     { "source": "response.windowingMax", "destination": "form.imageSettings.windowingMax" },
+                     { "source": "response.rangeMin", "destination": "form.imageSettings.rangeMin" },
+                     { "source": "response.rangeMax", "destination": "form.imageSettings.rangeMax" },
+                     { "source": "response.lut", "destination": "form.imageSettings.lut" }
+              ]}}
+        ],
+        "buttons" :  [
+            { "name": "save", //TODO : est-ce qu'on peut avoir plusieurs commandes à appeler sur une action ?
+              "submitForm": "mainForm", 
+              "command": "UpdateClinicalImageCommand", 
+              "redirectTo": "",//TODO rediriger vers page précédente/vers page de modification après une création.
+              "commandMappings": [
+                  { "source": "updateClinicalImageForm.id", "destination": "command.id" },//TODO ou command.id si on peut avoir plusieurs commandes dans même écran ?
+                  { "source": "updateClinicalImageForm.name", "destination": "command.name" },
+                  { "source": "updateClinicalImageForm.imagingModality.value", "destination": "command.imagingModalityId" },
+                  { "source": "updateClinicalImageForm.default.selected", "destination": "command.default" },//pour les enum, est-ce que ca sera toujours 'id' ou 'value' ou rien ou est-ce dynamique suivant le model dans le select ?
+                  { "source": "updateClinicalImageForm.file.id", "destination": "command.fileId" },
+                  { "source": "updateClinicalImageForm.clinicalCaseId", "destination": "command.clinicalCaseId" },
+                  { "source": "updateClinicalImageForm.imageSettings.windowingMin", "destination": "command.windowingMin" },
+                  { "source": "updateClinicalImageForm.imageSettings.windowingMax", "destination": "command.windowingMax" },
+                  { "source": "updateClinicalImageForm.imageSettings.rangeMin", "destination": "command.rangeMin" },
+                  { "source": "updateClinicalImageForm.imageSettings.rangeMax", "destination": "command.rangeMax" },
+                  { "source": "updateClinicalImageForm.imageSettings.lut", "destination": "command.lut" }
+            ]}
+        ],
+        "links" : [],//liens vers d'autres pages 
+        "outputs": [
+            //TODO : pour retourner l'id du truc créé à l'appelant
+        ]
+    },
+
+    //TODO gérer les boutons/liens dans les tableaux ? une ligne = un bloc ?
+}
