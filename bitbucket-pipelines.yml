@@ -1,0 +1,17 @@
+# This is a sample build configuration for Other.
+# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: atlassian/default-image:2
+
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - pipe: atlassian/ssh-run:0.2.7
+              variables:
+                SSH_USER: 'debian'
+                SERVER: '51.83.99.232'
+                COMMAND: 'nohup ~/ci-cd/cocori-ng/start_build_deploy_master.sh > /dev/null 2>&1'
