@@ -9,10 +9,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule)
   },
   {
-    path: 'generic-page',
-    loadChildren: () => import('./pages/generic-page/generic-page.module').then(mod => mod.GenericPageModule)
-  },
-  {
     path: 'generic-form',
     loadChildren: () => import('./pages/generic-form/generic-form.module').then(mod => mod.GenericFormModule)
   },
@@ -23,6 +19,10 @@ const routes: Routes = [
   {
     path: 'static-inputs-chained',
     loadChildren: () => import('./pages/static-inputs-chained/static-inputs-chained.module').then(mod => mod.StaticInputsChainedModule)
+  },
+  {
+    path: 'modal-page',
+    loadChildren: () => import('./pages/modal-page/modal-page.module').then(mod => mod.ModalPageModule)
   },
 ];
 

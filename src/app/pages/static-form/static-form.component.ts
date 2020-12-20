@@ -28,7 +28,6 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
-      .identityForm("0C8ADB54-B801-49E2-BF06-1B1C44470BF7", "Form Static")
       .setViewContainerRef(this.formContainerRef)
       .addInput('plat', config => config
         .isRequired()
@@ -45,6 +44,9 @@ export class StaticFormComponent implements OnInit {
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .typeInput(InputComponents.INPUT_TEXT))
+      .addInput('email', config => config
+        .nameLabel('Email')
+        .typeInput(InputComponents.INPUT_EMAIL))
       .addInput('password', config => config
         .isRequired()
         .nameLabel('Mot de passe')

@@ -38,7 +38,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
 
         this.schemaDatasButtons = this.filterButtonsAssociatedToForm(this.schemaDatasForm, "name", schemaDatasButtons, "formName");
 
-        this.currentForm = this.formBuilderService.newForm();
+        this.currentForm = this.formBuilderService.initializeForm();
         this.formContainerRef.clear();
 
         this.initEventFormBuilded();
@@ -54,7 +54,7 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         public mappingBuilderService: MappingBuilderService,
         public injectComponentService: InjectComponentService,
         public subscriptionService: SubscriptionService) {
-        this.currentForm = this.formBuilderService.newForm();
+        this.currentForm = this.formBuilderService.initializeForm();
     }
 
     ngOnInit() { }

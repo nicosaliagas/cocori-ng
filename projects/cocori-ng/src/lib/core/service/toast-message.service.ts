@@ -21,7 +21,7 @@ export class ToastMessageService {
     return this;
   }
 
-  error(message: string, temps: number = this.visibleDuration, callback?: () => void) {
+  error(message: string, temps: number = null, callback?: () => void) {
     this.gestionMessage(callback, message, 1, temps);
   }
 

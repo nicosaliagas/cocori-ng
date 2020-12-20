@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs/internal/observable/throwError';
@@ -9,13 +9,21 @@ import { catchError, map } from 'rxjs/internal/operators';
 })
 export class HttpService {
     protected withCredentialsOption: boolean = false;
+    httpWithoutInterceptor: HttpClient;
 
     constructor(
-        private http: HttpClient
-    ) { }
+        private http: HttpClient,
+        private httpBackend: HttpBackend
+    ) {
+        this.httpWithoutInterceptor = new HttpClient(httpBackend);
+    }
 
     public set withCredentials(avec: boolean) {
         this.withCredentialsOption = avec;
+    }
+
+    private formatErrors(error: any) {
+        return throwError(error.error);
     }
 
     public httpGet<T>(urlApi: string, datas?: Object): Observable<T> {
@@ -32,29 +40,49 @@ export class HttpService {
                 //     this.notifieFrmTraitementEnCours(false);
                 // }),
                 catchError((error: any) => {
-                    return this.handleError(error);
+                    return this.formatErrors(error);
                 }),
             ) as Observable<T>;
     }
 
-    public httpPost<T>(urlApi: string, datas: Object): Observable<T> {
-        const options = {
-            observe: 'response' as 'body',
-            responseType: 'json' as 'json',
-            withCredentials: this.withCredentialsOption
-        };
-
-        return this.http.post(encodeURI(urlApi), datas, options)
-            .pipe(
-                map(this.extractData.bind(this)),
-                // tap(() => {
-                //     this.notifieFrmTraitementEnCours(false);
-                // }),
-                catchError((error: any) => {
-                    return this.handleError(error);
-                }),
-            ) as Observable<T>;
+    post<T>(path: string, body: Object = {}, options: Object = {}): Observable<T> {
+        return this.http.post(
+            `${path}`,
+            JSON.stringify(body),
+            options
+        ).pipe(
+            map(this.extractData.bind(this))
+        ) as Observable<T>;
     }
+
+    _post<T>(path: string, body: Object = {}, options: Object = {}): Observable<T> {
+        return this.httpWithoutInterceptor.post(
+            `${path}`,
+            JSON.stringify(body),
+            options
+        ).pipe(
+            map(this.extractData.bind(this)),
+            catchError(this.formatErrors)
+        ) as Observable<T>;
+    }
+
+    // public httpPost<T>(urlApi: string, datas: Object): Observable<T> {
+    //     const options = {
+    //         observe: 'response' as 'body',
+    //         responseType: 'json' as 'json',
+    //         withCredentials: this.withCredentialsOption
+    //     };
+    //     return this.http.post(encodeURI(urlApi), datas, options)
+    //         .pipe(
+    //             map(this.extractData.bind(this)),
+    //             // tap(() => {
+    //             //     this.notifieFrmTraitementEnCours(false);
+    //             // }),
+    //             catchError((error: any) => {
+    //                 return this.formatErrors(error);
+    //             }),
+    //         ) as Observable<T>;
+    // }
 
     protected extractData(res: Response) {
         const body: any = (<any>res.body);
@@ -65,11 +93,7 @@ export class HttpService {
             return typeof res.body === 'string' ? JSON.parse(<any>res.body) : res.body;
         }
 
-        return res.body;
-    }
-
-    protected handleError(erreurs: any) {
-        return throwError(erreurs);
+        return res;
     }
 
     protected construireUrl(parametres: any): HttpParams {

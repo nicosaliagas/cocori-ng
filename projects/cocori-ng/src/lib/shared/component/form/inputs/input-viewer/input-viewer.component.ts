@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { InputComponentInputs, NameControl } from '../../../../../core/model/component-inputs.model';
+import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class InputViewerComponent extends ExtendInputsComponent implements OnIni
     nameControl: NameControl;
 
     @Input()
-    set config(config: InputComponentInputs) {
+    set config(config: ConfigInputComponent) {
         this.configInput(config)
 
         this.addForm()

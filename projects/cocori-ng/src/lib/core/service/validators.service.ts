@@ -21,7 +21,7 @@ export class ValidatorsService {
 
         const configClésErreurs: any = {
             'required': (!error.message ? 'Veuillez saisir ce champ' : error.message),
-            'invalidEmailAddress': 'L\'adresse e-mail n\'est pas valide.',
+            'invalidEmailAddress': 'L\'e-mail n\'est pas valide.',
             'invalidCodePostal': 'Le code postal n\'est pas valide.',
             'invalidDate': "La date n'est pas valide.",
             'invalidHeure': "L'heure n'est pas au bon format.",

@@ -32,6 +32,6 @@ export class ButtonComponent implements OnInit {
     }
 
     onClick() {
-        if (this.type === TypeButtonEnum.SUBMIT) this.onClickSubmit()
+        if (this.type === TypeButtonEnum.SUBMIT && this.onClickSubmit) this.onClickSubmit()
     }
 }

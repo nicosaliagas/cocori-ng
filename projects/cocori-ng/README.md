@@ -15,6 +15,10 @@ Run `ng build cocori-ng` to build the project. The build artifacts will be store
 
 After building your library with `ng build cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm publish`.
 
+## Package lib
+
+After building your library with `ng build cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
+
 ## Running unit tests
 
 Run `ng test cocori-ng` to execute the unit tests via [Karma](https://karma-runner.github.io).
