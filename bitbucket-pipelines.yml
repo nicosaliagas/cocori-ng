@@ -7,11 +7,11 @@ image: atlassian/default-image:2
 
 pipelines:
   branches:
-    develop:
+    master:
       - step:
           script:
             - pipe: atlassian/ssh-run:0.2.7
               variables:
                 SSH_USER: 'debian'
                 SERVER: '51.83.99.232'
-                COMMAND: 'nohup ~/ci-cd/cocori-ng/start_build_deploy_develop.sh > /dev/null 2>&1'
+                COMMAND: 'nohup ~/ci-cd/cocori-ng/start_build_install_master.sh > /dev/null 2>&1'
