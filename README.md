@@ -8,6 +8,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ng new my-first-project
 
+## Génération CLI
+
+ng g component errors-form-container --display-block=true --skip-import=true --style=scss
+
 ## Lancer le projet web et le projet library en même temps
 
 `Créer un lien symbolique vers la lib`
@@ -24,6 +28,22 @@ dans une autre fenêtre cmd :
 
 ng serve
 
+## Package lib
+
+After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
+
+## Librairie Utilisée
+
+- Angular Material
+- Angular Material Design Icons
+- MomentJs : npm i moment
+
+
+## Initialise le thème de la lib Cocori-ng
+
+@import 'cocori-ng/cocori-ng.theme.scss';
+@include cocori-ng-theme($theme-principal, $palette-green);
+
 
 ## Tests e2e via Cypress
 
@@ -37,3 +57,17 @@ https://example.cypress.io/commands/connectors
 
 `lire un fichier json`
 https://example.cypress.io/commands/files
+
+## Erreurs
+
+1.
+Problème : A la compilation, le site utilisant la lib ne reconnait plus les balises ou attributs Form, Angular Material...
+Raison : il y a des imports erronés dans la lib cocori-ng,
+
+ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe
+
+
+## Ressources
+
+// dynamically-create-nested-objects
+https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by

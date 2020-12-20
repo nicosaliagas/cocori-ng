@@ -1,0 +1,15 @@
+<div class="header">
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+</div>
+<form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+    <div mat-dialog-content>
+        <p class="dialog-message">{{ data.message }}</p>
+        <ng-template #FormContainerRef></ng-template>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button type="button" (click)="cancel()">{{ data.cancelText }}</button>
+        <button *ngIf="data.withForm === false" mat-button type="button" (click)="confirm()" cdkFocusInitial>{{
+            data.confirmText }}</button>
+        <button *ngIf="data.withForm" mat-button type="submit" cdkFocusInitial>{{ data.confirmText }}</button>
+    </div>
+</form>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CoreModule, SharedModule } from 'cocori-ng';
+import { CoreModule, MaterialSharedModule, SharedModule } from 'cocori-ng';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -13,7 +13,8 @@ import { HomeComponent } from './home.component';
     ReactiveFormsModule,
     HomeRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    MaterialSharedModule
   ],
   declarations: [HomeComponent]
 })

@@ -15,6 +15,10 @@ Run `ng build cocori-ng` to build the project. The build artifacts will be store
 
 After building your library with `ng build cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm publish`.
 
+## Package lib
+
+After building your library with `ng build cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
+
 ## Running unit tests
 
 Run `ng test cocori-ng` to execute the unit tests via [Karma](https://karma-runner.github.io).
@@ -22,6 +26,13 @@ Run `ng test cocori-ng` to execute the unit tests via [Karma](https://karma-runn
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## Gestion du theme de la librairie
+
+- cocori-ng.theme.scss : appelle le mixin lib-theme (lib.theme.scss) avec en paramètre :
+    - le theme principal de l'application front
+    - la palette avec les couleurs verte
 
 
 ## Angular Material

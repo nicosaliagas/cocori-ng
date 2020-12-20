@@ -1,5 +1,7 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 
+import { ClasseComponents, InputComponents } from '../../shared/component/form';
+
 export interface InputsComponent {
     [key: string]: any;
 }
@@ -16,8 +18,31 @@ export class InjectComponentService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
-    loadAndAddComponent(componentClass: any, viewContainerRef: ViewContainerRef, inputs: InputsComponent[] = [], outputs: OutputsComponent[] = []) {
-        const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
+    returnComponentClassFromType(typeOfComponent: InputComponents) {
+        if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
+            const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+            throw new Error(error);
+        } else {
+            return ClasseComponents[typeOfComponent];
+        }
+    }
+
+    // returnComponentClassFromType<T extends InputComponents, ReturnType extends InputClassesTypes<T>>(typeOfComponent: InputComponents): ReturnType {
+    //     if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
+    //         const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+    //         throw new Error(error);
+    //     } else {
+    //         return ClasseComponents[typeOfComponent] as unknown as ReturnType;
+    //     }
+    // }
+
+    loadAndAddComponentToContainer<T extends InputComponents>(
+        componentClass: typeof ClasseComponents[T],
+        viewContainerRef: ViewContainerRef,
+        inputs: InputsComponent[] = [],
+        outputs?: OutputsComponent
+    ) {
+        const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
         const référenceComposant = viewContainerRef.createComponent(factory);
 
         inputs.forEach((input: InputsComponent) => {
@@ -26,11 +51,17 @@ export class InjectComponentService {
             }
         });
 
-        outputs.forEach((output: OutputsComponent) => {
-            for (const [key, value] of Object.entries(output)) {
-                (référenceComposant.instance)[key].subscribe(data => value(data));
+        if (outputs) {
+            for (const [key, value] of Object.entries(outputs)) {
+                if (key && value && (référenceComposant.instance)[key]) (référenceComposant.instance)[key].subscribe(data => value(data));
             }
-        });
+        }
+
+        // outputs.forEach((output: OutputsComponent) => {
+        //     for (const [key, value] of Object.entries(output)) {
+        //         (référenceComposant.instance)[key].subscribe(data => value(data));
+        //     }
+        // });
 
         référenceComposant.changeDetectorRef.detectChanges();
 

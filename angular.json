@@ -23,11 +23,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "stylePreprocessorOptions": {
+              "includePaths": ["dist"]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
+              "./node_modules/material-design-icons/iconfont/material-icons.css",
               "src/assets/scss/styles.scss"
             ],
             "scripts": []
@@ -43,7 +47,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -131,7 +134,7 @@
       "prefix": "ct",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/cocori-ng/tsconfig.lib.json",
             "project": "projects/cocori-ng/ng-package.json"
