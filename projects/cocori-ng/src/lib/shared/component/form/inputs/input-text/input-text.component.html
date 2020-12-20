@@ -9,7 +9,9 @@
     </ng-container>
 </input-container-ng> -->
 
-<input-container-ng [templateRef]="nestedComponentRef" [form]="formGroup" [controlName]="nameControl">
+
+
+<!-- <input-container-ng [templateRef]="nestedComponentRef" [form]="formGroup" [controlName]="nameControl">
 </input-container-ng>
 
 <ng-template #nestedComponentRef>
@@ -19,4 +21,12 @@
             <input type="text" matInput [formControlName]="nameControl" />
         </mat-form-field>
     </ng-container>
-</ng-template>
+</ng-template> -->
+
+<ng-container [formGroup]="formGroup">
+    <mat-form-field>
+        <mat-label>{{nameLabel}}</mat-label>
+        <input type="text" matInput [formControlName]="nameControl" />
+        <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
+    </mat-form-field>
+</ng-container>

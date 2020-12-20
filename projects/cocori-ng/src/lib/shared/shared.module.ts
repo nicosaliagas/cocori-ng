@@ -7,6 +7,7 @@ import { ModuleImportFormInputs } from './component/form';
 import { ImportsButtonsFormComponents } from './component/form/form-buttons';
 import { FormContainerComponent } from './component/form/form-container/form-container.component';
 import { EyeOptionPasswordComponent } from './component/form/inputs/input-password/eye-option-password.component';
+import { ImportModalComponent } from './component/modal';
 import { DefaultImageDirective } from './directive/default-image.directive';
 import { MaterialSharedModule } from './material-shared.module';
 import { PrettyPrintPipe } from './pipe/pretty-print.pipe';
@@ -16,6 +17,7 @@ export const ImportsFormComponents: any[] = [
     FormContainerComponent,
     ...ModuleImportFormInputs,
     ...ImportComponentErrorHandler,
+    ...ImportModalComponent,
     ...ImportsButtonsFormComponents,
     EyeOptionPasswordComponent
 ];

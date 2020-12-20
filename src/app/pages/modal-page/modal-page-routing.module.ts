@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GenericPageComponent } from './generic-page.component';
+import { ModalPageComponent } from './modal-page.component';
 
 const routes: Routes = [
-  { path: '', component: GenericPageComponent }
+  { path: '', component: ModalPageComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GenericPageRoutingModule { }
+export class ModalPageRoutingModule { }

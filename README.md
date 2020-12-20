@@ -8,9 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ng new my-first-project
 
-## Create component
+## Génération CLI
 
-ng g component input-container --display-block=true --skip-import=true --style=scss
+ng g component errors-form-container --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 
@@ -28,6 +28,9 @@ dans une autre fenêtre cmd :
 
 ng serve
 
+## Package lib
+
+After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
 
 ## Librairie Utilisée
 

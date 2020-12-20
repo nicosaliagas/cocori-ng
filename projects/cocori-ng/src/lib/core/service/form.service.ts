@@ -7,7 +7,7 @@ import { InputComponents, OutputCallback } from '../../shared/component/form';
 import {
     ButtonComponentInputs,
     ConfigComponentInputs,
-    InputComponentInputs,
+    ConfigInputComponent,
     NameControl,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
@@ -104,10 +104,11 @@ class ButtonConfigBuilder<Builder> {
     providedIn: 'root',
 })
 export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never, NodeNames extends string = never,> {
-    public formId: string;
-    public name: string;
+    public formId: string; /** error handler */
+    public name: string; /** mapping details */
 
     private currentForm: FormGroup;
+    private configsInputComponent: ConfigInputComponent[];
 
     // submitCallback: Subject<any>;
 
@@ -116,7 +117,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         private broadcastEventService: BroadcastEventService,
         private generateComponentViewService: GenerateComponentViewService
     ) {
-        this.newForm()
+        this.initializeForm()
     }
 
     set form(form: FormGroup) {
@@ -127,18 +128,36 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm
     }
 
-    newForm() {
+    get configs(): ConfigInputComponent[] {
+        return this.configsInputComponent
+    }
+
+    initializeForm() {
         this.currentForm = this.fb.group({});
+        this.configsInputComponent = new Array()
+
+        this.identityForm(this.generateGuid())
 
         return this.currentForm;
     }
 
-    identityForm(id: string, name: string) {
+    /** todo: à déplacer */
+    private generateGuid(): string {
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+            this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
+
+    private s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+
+    identityForm(id: string, name?: string) {
         this.formId = id;
         this.name = name;
 
         this.currentForm.addControl(configdefault.form.keyId, new FormControl(this.formId))
-
         return this;
     }
 
@@ -189,12 +208,14 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         const builder = configBuilder(new InputConfigBuilder);
 
         /** on formalise la configuration du champ input */
-        const configInputComponent: InputComponentInputs = {
+        const configInputComponent: ConfigInputComponent = {
+            type: builder._type,
             formGroup: this.currentForm,
             nameControl: inputName,
             nameLabel: builder._nameLabel,
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
+            callbackComponent: builder._callbackComponent,
             validators: []
         };
 
@@ -204,9 +225,20 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             configInputComponent.validators.push(ValidatorsService.require)
         }
 
-        this.generateComponentViewService.addComponentToView(builder._type, configInputComponent, builder._callbackComponent);
+        this.configsInputComponent.push(configInputComponent)
+
+        this.generateComponentViewService.addComponentToView(configInputComponent.type, configInputComponent, configInputComponent.callbackComponent);
 
         return this as FormBuilderService as ReturnType;
+    }
+
+    generateFormInView() {
+        if (this.generateComponentViewService.getViewContainerRef()) {
+            this.configsInputComponent.forEach((conf: ConfigInputComponent) => {
+                this.generateComponentViewService.addComponentToView(conf.type, conf, conf.callbackComponent);
+            })
+        }
+        return this
     }
 
     /** v.1 */
@@ -236,7 +268,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         const configInputComponent: ButtonComponentInputs = {
             text: buttonName,
             type: builder._isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
-            onClickSubmit: this.onClickSubmitCallback.bind(this)
+            onClickSubmit: this.onClickSubmit.bind(this)
         };
 
         this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, builder._callbackComponent);
@@ -244,7 +276,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this as FormBuilderService as ReturnType;
     }
 
-    private onClickSubmitCallback() {
+    onClickSubmit() {
         this.broadcastEventService.broadcast({ eventKeys: [ConfigEvents.FORM_SUBMITTED, this.formId], eventData: this.form })
     }
 }
@@ -264,7 +296,14 @@ export class GenerateComponentViewService {
         return this;
     }
 
+    getViewContainerRef(): ViewContainerRef {
+        return this.formContainerRef
+    }
+
     addComponentToView(componentType: InputComponents, configComponent: ConfigComponentInputs, callback: OutputCallback) {
+
+        if (!this.getViewContainerRef()) return;
+
         const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,

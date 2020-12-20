@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
-import { InputComponentInputs, NameControl } from '../../../../../core/model/component-inputs.model';
+import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../../core/model/data-source.model';
+import { ValidatorsService } from '../../../../../core/service/validators.service';
 
 @Component({
     selector: 'extend-inputs-ng',
@@ -21,7 +22,7 @@ export abstract class ExtendInputsComponent {
 
     constructor() { }
 
-    configInput(config: InputComponentInputs) {
+    configInput(config: ConfigInputComponent) {
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
@@ -29,6 +30,8 @@ export abstract class ExtendInputsComponent {
         this.dataSource = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
         this.validators = config.validators
+
+        this.nameLabel += this.isControlRequired() ? ' *' : ''
     }
 
     emitEvent() {
@@ -67,5 +70,11 @@ export abstract class ExtendInputsComponent {
                 console.log("Parent Value ", parentValue);
             })
         }
+    }
+
+    private isControlRequired(): boolean {
+        const d = this.validators.find((validatorFn) => validatorFn === ValidatorsService.require)
+
+        return typeof d === 'undefined' ? false : true
     }
 }

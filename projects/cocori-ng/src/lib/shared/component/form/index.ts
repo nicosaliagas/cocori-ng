@@ -1,5 +1,6 @@
 import { ButtonComponent } from './buttons/button/button.component';
 import { InputContainerComponent } from './inputs/input-container/input-container.component';
+import { InputEmailComponent } from './inputs/input-email/input-email.component';
 import { InputPasswordComponent } from './inputs/input-password/input-password.component';
 import { InputSelectComponent } from './inputs/input-select/input-select.component';
 import { InputTextComponent } from './inputs/input-text/input-text.component';
@@ -9,6 +10,7 @@ import { InputViewerComponent } from './inputs/input-viewer/input-viewer.compone
 
 export const ModuleImportFormInputs: any[] = [
     InputContainerComponent,
+    InputEmailComponent,
     InputTextComponent,
     InputPasswordComponent,
     InputTextareaComponent,
@@ -19,6 +21,7 @@ export const ModuleImportFormInputs: any[] = [
 
 export enum InputComponents {
     INPUT_TEXT = 'input-text',
+    INPUT_EMAIL = 'input-email',
     INPUT_PASSWORD = 'input-password',
     INPUT_TEXTAREA = 'input-textarea',
     INPUT_VIEWER = 'input-viewer',
@@ -28,6 +31,7 @@ export enum InputComponents {
 
 export const ClasseComponents = {
     [InputComponents.INPUT_TEXT]: InputTextComponent,
+    [InputComponents.INPUT_EMAIL]: InputEmailComponent,
     [InputComponents.INPUT_PASSWORD]: InputPasswordComponent,
     [InputComponents.INPUT_TEXTAREA]: InputTextareaComponent,
     [InputComponents.INPUT_VIEWER]: InputViewerComponent,
