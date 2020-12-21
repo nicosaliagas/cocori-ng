@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
@@ -8,12 +9,11 @@ import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../..
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
-import { SubscriptionService } from '../../../../core/service/subscription.service';
 
 @Component({
     selector: 'form-container-ng',
     templateUrl: 'form-container.component.html',
-    providers: [SubscriptionService, FormBuilderService, MappingBuilderService]
+    providers: [FormBuilderService, MappingBuilderService]
 })
 
 export class FormContainerComponent implements OnInit, OnDestroy {
@@ -25,6 +25,8 @@ export class FormContainerComponent implements OnInit, OnDestroy {
     schemaDatasButtons: ButtonSchema[];
 
     objectCommand: Object = {};
+
+    private subscriptions = new Subscription();
 
     @Input()
     set config(formSchema: FormContainerInputs) {
@@ -52,15 +54,14 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         public fb: FormBuilder,
         public formBuilderService: FormBuilderService,
         public mappingBuilderService: MappingBuilderService,
-        public injectComponentService: InjectComponentService,
-        public subscriptionService: SubscriptionService) {
+        public injectComponentService: InjectComponentService) {
         this.currentForm = this.formBuilderService.initializeForm();
     }
 
     ngOnInit() { }
 
     ngOnDestroy() {
-        this.subscriptionService.unsubscribeAll();
+        this.subscriptions.unsubscribe()
     }
 
     private buildCurrentForm() {
@@ -87,13 +88,13 @@ export class FormContainerComponent implements OnInit, OnDestroy {
         this.formBuildedSubject = new Subject<boolean>();
         let formFieldsAdded: number = 0;
 
-        this.subscriptionService.subscribe = this.formBuildedSubject.subscribe((isBuilded: boolean) => {
+        this.subscriptions.add(this.formBuildedSubject.subscribe((isBuilded: boolean) => {
             formFieldsAdded++;
 
             if (formFieldsAdded === this.schemaDatasForm.fields.length) {
                 this.onComponentReady.emit(true);
             }
-        });
+        }))
     }
 
     /** composant aijouté au formulaire angular */

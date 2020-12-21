@@ -39,7 +39,6 @@ export * from './lib/core/model/modal.model';
 
 export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/http.service';
-export * from './lib/core/service/subscription.service';
 export * from './lib/core/service/form.service';
 export * from './lib/core/service/validators.service';
 export * from './lib/core/service/broadcast-event.service';

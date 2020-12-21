@@ -1,17 +1,15 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { ButtonSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
-import { SubscriptionService } from '../../../../core/service/subscription.service';
 
 @Component({
     selector: 'form-buttons-ng',
     templateUrl: 'form-buttons.component.html',
-    providers: [SubscriptionService]
 })
 
-export class FormButtonsComponent implements OnInit, OnDestroy {
+export class FormButtonsComponent implements OnInit {
     @ViewChild('ButtonsContainerRef', { static: true, read: ViewContainerRef }) buttonsContainerRef: ViewContainerRef;
 
     @Input()
@@ -31,14 +29,9 @@ export class FormButtonsComponent implements OnInit, OnDestroy {
 
     constructor(
         private injectComponentService: InjectComponentService,
-        public formBuilderService: FormBuilderService,
-        public subscriptionService: SubscriptionService) { }
+        public formBuilderService: FormBuilderService) { }
 
     ngOnInit() {
-    }
-
-    ngOnDestroy() {
-        this.subscriptionService.unsubscribeAll();
     }
 
     buildView(buttons: ButtonSchema[]) {

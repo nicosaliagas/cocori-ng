@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { merge, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/internal/operators';
 import { map } from 'rxjs/internal/operators/map';
 
 import { configdefault } from '../../../../config/config.components';
@@ -13,13 +13,9 @@ import { ValidatorsService, ValidtionError } from '../../../../core/service/vali
 @Component({
     selector: '[error-handler]',
     template: `
-        <ng-container *ngIf="errorMessage">
-            <!-- <span class="error">{{errorMessage}}</span> -->
+        <ng-container *ngIf="(errorMessage$ | async) as errorMessage">
             <mat-error>{{errorMessage}}</mat-error>
         </ng-container>
-        <!-- <i *ngIf="errorMessage" (click)="toastMessage()" [title]="errorMessage" class="error material-icons">
-            <ng-container>error_outline</ng-container>
-        </i> -->
     `,
     styleUrls: ['./input-error-handler.component.scss']
 })
@@ -29,7 +25,8 @@ export class InputErrorHandlerComponent implements OnInit, OnDestroy {
     @Input() controlName: string;
 
     private formId: string;
-    public errorMessage: string;
+
+    errorMessage$: any;
 
     constructor(
         private broadcastEventService: BroadcastEventService,
@@ -48,12 +45,11 @@ export class InputErrorHandlerComponent implements OnInit, OnDestroy {
     ngOnDestroy() { }
 
     private mergeObservables(onSubmitObs: Observable<unknown>, valueChangesObs: Observable<unknown>) {
-        merge(
+        this.errorMessage$ = merge(
             onSubmitObs,
             valueChangesObs
         )
             .pipe(
-                tap(() => { this.errorMessage = null }),
                 filter((value: any) => this.form.get(this.controlName).errors !== null),
                 map((value: any) => this.form.get(this.controlName).errors),
                 map((formError: ValidationErrors) => {
@@ -62,12 +58,8 @@ export class InputErrorHandlerComponent implements OnInit, OnDestroy {
                     /** pour déclencher l'erreur angular material */
                     this.form.get(this.controlName).markAsTouched()
 
-                    this.errorMessage = this.validatorsService.getValidationErrorMessage(<ValidtionError>{ key: errorKey, value: formError[errorKey] })
+                    return this.validatorsService.getValidationErrorMessage(<ValidtionError>{ key: errorKey, value: formError[errorKey] })
                 })
-            ).subscribe()
-    }
-
-    toastMessage() {
-        this.toastMessageService.error(this.errorMessage)
+            )
     }
 }

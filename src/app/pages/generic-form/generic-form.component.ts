@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigInputComponent, FormBuilderService, FormSchema, HttpService, InputComponents, SubmitDatas } from 'cocori-ng';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
 @Component({
@@ -16,6 +17,8 @@ export class GenericFormComponent implements OnInit {
   jsonParsed: FormSchema | string;
   ready: boolean = false;
   inputComponentInputs: ConfigInputComponent;
+
+  jsonParsed$: Observable<FormSchema | string>;
 
   constructor(
     private fb: FormBuilder,
@@ -39,14 +42,15 @@ export class GenericFormComponent implements OnInit {
 
   ngOnInit() { }
 
-  chargementConfiguration() {
-    this.httpService.httpGet<FormSchema>(`/assets/ressources/schema-generic-frm-simple.json`)
+  private chargementConfiguration() {
+    this.jsonParsed$ = this.httpService.httpGet<FormSchema>(`/assets/ressources/schema-generic-frm-simple.json`)
       .pipe(
         map((configuration: FormSchema) => {
-          this.jsonParsed = configuration;
           this.generatedForm.get("fieldJsonText").setValue(JSON.stringify(configuration));
+
+          return configuration;
         })
-      ).subscribe();
+      )
   }
 
   public addChild(nameControl: string) {

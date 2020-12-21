@@ -8,7 +8,7 @@
           <button mat-raised-button type="submit">Interpréter le contenu JSON</button>
         </form>
       </div>
-      <div *ngIf="jsonParsed" class="result-frm part">
+      <div *ngIf="(jsonParsed$ | async) as jsonParsed" class="result-frm part">
         <div id="jsonParsed" [innerHTML]="jsonParsed | prettyprint"></div>
       </div>
     </div>
