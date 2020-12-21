@@ -24,6 +24,7 @@ export class GenericFormComponent implements OnInit {
     this.interpretedForm = this.fb.group({});
 
     this.generatedForm = this.fb.group({
+      formId: 'CCA49AB0-F823-4587-9A65-08977E80E341',
       fieldJsonText: null
     });
 

@@ -1,7 +1,63 @@
 <div class="container-page">
-    <div class="titre-page">Tester l'intégration de différents type de modal :</div>
-    <div class="actions">
-        <button-ng text="Modal de confirmation" (click)="openModalConfirmation()"></button-ng>
-        <button-ng text="Modal avec formulaire" (click)="openModalForm()"></button-ng>
+    <div class="titre-page">Intégration de différents type de modal</div>
+
+    <div class="modal-page">
+        <div class="actions">
+            <div class="button">
+                <button-ng text="Modal de confirmation" (click)="openModalConfirmation()"></button-ng>
+            </div>
+            <terminal-code-preview>
+                <textarea rows="20" spellcheck=false readonly>
+    optionsModalConfirmation: ModalOptionsModel = {
+        withForm: false,
+        title: "Information",
+        message: 'Simple information test, happy ?',
+        cancelText: "LEAVE ME ALONE",
+        confirmText: 'OK, COOL'
+    };
+
+    openModalConfirmation() {
+        this.dialogService.open(this.optionsModalConfirmation);
+    
+        this.dialogService.confirmed<boolean>().subscribe(retourModal => {
+          console.log("Fermeture de la modal avec en retour : ", retourModal)
+        });
+    }
+                </textarea>
+            </terminal-code-preview>
+        </div>
+        <div class="actions">
+            <div class="button">
+                <button-ng text="Modal avec formulaire" (click)="openModalForm()"></button-ng>
+            </div>
+            <terminal-code-preview>
+                <textarea rows="20" spellcheck=false readonly>
+    optionsModalFormulaire: ModalOptionsModel = {
+        withForm: true,
+        title: "Mot de passe oublié",
+        message: 'Vous recevrez la procédure de renouvellement de votre mot de passe par email :',
+        cancelText: 'Annuler',
+        confirmText: 'Valider'
+    };
+
+    private buildForm() {
+        this.formBuilderService
+          .addInput('email', config => config
+            .nameLabel('Email')
+            .isRequired()
+            .typeInput(InputComponents.INPUT_EMAIL))
+          .configs
+    }
+
+    openModalForm() {
+        this.dialogService.open(this.optionsModalFormulaire);
+    
+        this.dialogService.confirmed<EmailModalModel>().subscribe(retourModal => {
+          console.log("Fermeture de la modal avec en retour : ", retourModal)
+        });
+    }
+                </textarea>
+            </terminal-code-preview>
+        </div>
     </div>
 </div>

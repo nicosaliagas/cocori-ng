@@ -1,12 +1,56 @@
-<div class="formulaires">
-  <div class="sub-frm">
-    <div class="content-frm part">
-      <form id="generatedForm" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
-        <ng-template #FormContainerRef></ng-template>
-      </form>
+<div class="container-page">
+  <div class="titre-page">Champs inputs chaînés dans un formulaire</div>
+  <div class="formulaires">
+    <div class="sub-frm">
+      <div class="content-frm part">
+        <form id="generatedForm" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+          <ng-template #FormContainerRef></ng-template>
+        </form>
+      </div>
+      <div *ngIf="jsonParsed" class="result-frm part">
+        <div id="jsonParsed" [innerHTML]="jsonParsed | prettyprint"></div>
+      </div>
     </div>
-    <div *ngIf="jsonParsed" class="result-frm part">
-      <div id="jsonParsed" [innerHTML]="jsonParsed | prettyprint"></div>
+    <div class="sub-frm">
+      <terminal-code-preview>
+        <textarea rows="20" spellcheck=false readonly>
+    this.formBuilderService
+      .setViewContainerRef(this.formContainerRef)
+      .addInput('plat', config => config
+        .isRequired()
+        .nameLabel('Plat')
+        .typeInput(InputComponents.INPUT_SELECT)
+        .dataSource({
+          type: DataSourceType.BRUTE,
+          value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza" }, { value: "quiche", viewValue: "Quiche" }]
+        }))
+      .addInput('nom', config => config
+        .isRequired()
+        .nameLabel('Nom')
+        .typeInput(InputComponents.INPUT_TEXT))
+      .addInput('prenom', config => config
+        .nameLabel('Prénom')
+        .typeInput(InputComponents.INPUT_TEXT))
+      .addInput('email', config => config
+        .nameLabel('Email')
+        .typeInput(InputComponents.INPUT_EMAIL))
+      .addInput('password', config => config
+        .isRequired()
+        .nameLabel('Mot de passe')
+        .typeInput(InputComponents.INPUT_PASSWORD))
+      .addInput('zone', config => config
+        .isRequired()
+        .nameLabel('Zone')
+        .typeInput(InputComponents.INPUT_TEXTAREA)
+        .outputCallback({ callback: this.onComponentReady }))
+      .addButton('Valider', config => config
+        .isTypeSubmit()
+        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
+      .addButton('Annuler', config => config
+        .isTypeSubmit(false))
+      .form
+        </textarea>
+      </terminal-code-preview>
     </div>
   </div>
 </div>
