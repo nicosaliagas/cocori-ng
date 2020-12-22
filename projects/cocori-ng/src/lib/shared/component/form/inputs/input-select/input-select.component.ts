@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'input-select-ng',
     templateUrl: 'input-select.component.html',
 })

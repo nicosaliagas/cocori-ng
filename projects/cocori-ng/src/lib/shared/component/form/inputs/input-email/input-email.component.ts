@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'input-email-ng',
     templateUrl: 'input-email.component.html',
 })

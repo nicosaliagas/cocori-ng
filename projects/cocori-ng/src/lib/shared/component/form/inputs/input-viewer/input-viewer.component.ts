@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'input-viewer-ng',
     templateUrl: 'input-viewer.component.html',
 })
