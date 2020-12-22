@@ -4,5 +4,9 @@
 #It's called from a remote ssh call using COMMAND : 'cd ~/build-deploy/scripts; nohup ./start_build_deploy_pre.sh > /dev/null 2>&1' 
 #The current script is required because if we add a trailing '&' in the COMMAND of bitbucket pipeline nothing happen
 
-~/ci-cd/cocori-ng/build_install_master.sh &
+buildId="cocoring."`date +%Y%m%d.%H%M%S`
+branch="master"
+
+cd ~/ci-cd/cocori-ng
+./build_install.sh $buildId $branch &
 
