@@ -14,14 +14,16 @@ ng g component errors-form-container --display-block=true --skip-import=true --s
 
 ## Lancer le projet web et le projet library en même temps
 
-`Créer un lien symbolique vers la lib`
-
-npm run link
-
 `Build lib & watch`
 dans une fenêtre cmd :
 
 npm run build-lib-watch
+
+`Créer un lien symbolique vers la lib`
+
+cd dist\cocori-ng
+
+npm link
 
 `Serve projet angular`
 dans une autre fenêtre cmd :
