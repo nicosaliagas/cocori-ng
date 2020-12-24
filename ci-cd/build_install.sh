@@ -99,8 +99,11 @@ if [ -d "$libArtifactPath" ]; then
     echoAndRun rm -rf $libArtifactPath &>> $logFile
 fi
 echoAndRun mkdir -p $libArtifactPath &>> $logFile
-echoAndRun cp -R $srcPath/$projectName/* $libArtifactPath &>> $logFile
-echoAndRun cd $libArtifactPath &>> $logFile
+
+echod "Copy $srcPath/$projectName/* into $libArtifactPath"
+cp -R $srcPath/$projectName/* $libArtifactPath &>> $logFile
+
+echoAndRun cd $libArtifactPath/dist/$projectName &>> $logFile
 echoAndRun sudo npm link &>> $logFile
 
 echo "
