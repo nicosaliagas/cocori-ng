@@ -13,6 +13,7 @@ export class ButtonComponent implements OnInit {
 
     @Input() text: string = configdefault.button.text;
     @Input() type: TypeButtonEnum = TypeButtonEnum.SUBMIT;
+    @Input() class: string;
 
     onClickSubmit: Function;
 
