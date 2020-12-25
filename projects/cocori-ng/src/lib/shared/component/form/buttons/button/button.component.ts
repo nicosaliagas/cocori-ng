@@ -12,7 +12,7 @@ export class ButtonComponent implements OnInit {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     @Input() text: string = configdefault.button.text;
-    @Input() type: TypeButtonEnum = TypeButtonEnum.SUBMIT;
+    @Input() type: string = TypeButtonEnum.SUBMIT;
     @Input() class: string;
 
     onClickSubmit: Function;
