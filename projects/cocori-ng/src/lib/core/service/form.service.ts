@@ -138,7 +138,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this.identityForm(this.generateGuid())
 
-        return this.currentForm;
+        return this;
     }
 
     /** todo: à déplacer */
