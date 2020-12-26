@@ -21,7 +21,7 @@ export class HttpService {
         this.withCredentialsOption = avec;
     }
 
-    get<T>(path: string, params: Object): Observable<T> {
+    get<T>(path: string, params?: Object): Observable<T> {
         return this.http.get(`${path}`, { params: this.buildUrlParams(params) })
             .pipe(
                 map(this.extractData.bind(this))

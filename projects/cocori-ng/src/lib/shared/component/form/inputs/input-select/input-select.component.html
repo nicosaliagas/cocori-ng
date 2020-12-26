@@ -2,8 +2,8 @@
     <mat-form-field [appearance]="appearance">
         <mat-label>{{nameLabel}}</mat-label>
         <mat-select [formControlName]="nameControl">
-            <mat-option *ngFor="let item of dataSource" [value]="item.value">
-                {{item.viewValue}}
+            <mat-option *ngFor="let item of (dataSource$ | async)" [value]="item.id">
+                {{item.name}}
             </mat-option>
         </mat-select>
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>

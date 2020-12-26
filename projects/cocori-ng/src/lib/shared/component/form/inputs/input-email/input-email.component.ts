@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
@@ -21,8 +21,8 @@ export class InputEmailComponent extends ExtendInputsComponent implements OnInit
         this.addControlForm();
     }
 
-    constructor() {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     ngOnInit() { }

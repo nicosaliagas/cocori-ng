@@ -167,39 +167,6 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
-    /** v.1 */
-    // addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
-    //     inputName: Exclude<InputName, InputNames>,
-    //     inputLabel: string,
-    //     type: InputTypes,
-    //     dataSource?: DataSourceInput,
-    //     callbackComponent?: OutputCallback
-    // ): ReturnType {
-    //     const configInputComponent: InputComponentInputs = { formGroup: this.currentForm, nameControl: inputName, nameLabel: inputLabel, dataSource: dataSource };
-    //     this.generateComponentViewService.addComponentToView(type, configInputComponent, callbackComponent);
-    //     return this as FormBuilderService as ReturnType;
-    // }
-
-    /** v.2 */
-    // addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
-    //     inputName: Exclude<InputName, InputNames>,
-    //     cb: ConfigInputBuilder
-    // ): ReturnType {
-
-    //     const configInputComponent: InputComponentInputs = {
-    //         formGroup: this.currentForm,
-    //         nameControl: inputName,
-    //         nameLabel: cb.config.input.nameLabel,
-    //         dataSource: cb.config.input.dataSource,
-    //         inRelationWith: cb.config.input.inRelationWith
-    //     };
-
-    //     this.generateComponentViewService.addComponentToView(cb.config.type, configInputComponent, cb.config.callbackComponent);
-
-    //     return this as FormBuilderService as ReturnType;
-    // }
-
-    /** v.3 */
     addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
         configBuilder: (b: InputConfigBuilder<this>) => InputConfigBuilder<this>
@@ -240,23 +207,6 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         }
         return this
     }
-
-    /** v.1 */
-    // addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
-    //     buttonName: Exclude<ButtonName, ButtonNames>,
-    //     isTypeSubmit: boolean,
-    //     callbackComponent?: OutputCallback
-    // ): ReturnType {
-    //     const configInputComponent: ButtonComponentInputs = {
-    //         text: buttonName,
-    //         type: isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
-    //         onClickSubmit: this.onClickSubmitCallback.bind(this)
-    //     };
-
-    //     this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, callbackComponent);
-
-    //     return this as FormBuilderService as ReturnType;
-    // }
 
     addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
         buttonName: Exclude<ButtonName, ButtonNames>,

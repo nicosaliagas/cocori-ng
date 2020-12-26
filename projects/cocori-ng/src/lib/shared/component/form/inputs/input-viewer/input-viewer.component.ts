@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
@@ -24,8 +24,8 @@ export class InputViewerComponent extends ExtendInputsComponent implements OnIni
         this.addForm()
     }
 
-    constructor(private fb: FormBuilder,) {
-        super();
+    constructor(private fb: FormBuilder, injector: Injector) {
+        super(injector);
     }
 
     ngOnInit() {

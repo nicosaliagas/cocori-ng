@@ -14,6 +14,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
             font-size: 20px;
             cursor: pointer;
             position: absolute;
+            transform: translateY(-25%);
         }
     `]
 })

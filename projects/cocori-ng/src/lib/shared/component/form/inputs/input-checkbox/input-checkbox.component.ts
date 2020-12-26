@@ -5,11 +5,11 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-textarea-ng',
-    templateUrl: 'input-textarea.component.html',
+    selector: 'input-checkbox-ng',
+    templateUrl: 'input-checkbox.component.html',
 })
 
-export class InputTextareaComponent extends ExtendInputsComponent implements OnInit {
+export class InputCheckboxComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)

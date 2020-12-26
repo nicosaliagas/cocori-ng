@@ -34,7 +34,7 @@ export class StaticInputsChainedComponent implements OnInit {
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
-          value: [{ value: "vegi", viewValue: "Végétarien" }, { value: "vegetalien", viewValue: "Végétalien" }, { value: "aucun", viewValue: "Aucun" }]
+          value: [{ id: "vegi", name: "Végétarien" }, { id: "vegetalien", name: "Végétalien" }, { id: "aucun", name: "Aucun" }]
         }))
       .addInput('plat', config => config
         .nameLabel('Plat')
@@ -42,7 +42,7 @@ export class StaticInputsChainedComponent implements OnInit {
         .inRelationWith('regimes')
         .dataSource({
           type: DataSourceType.BRUTE,
-          value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza bacon" }, { value: "quiche", viewValue: "Quiche aux herbes" }]
+          value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza bacon" }, { id: "quiche", name: "Quiche aux herbes" }]
         }))
       .addButton('Valider', config => config
         .isTypeSubmit()

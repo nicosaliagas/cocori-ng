@@ -22,6 +22,7 @@ export * from './lib/shared/component/form/inputs/input-container/input-containe
 export * from './lib/shared/component/form/inputs/input-password/input-password.component';
 export * from './lib/shared/component/form/inputs/input-password/eye-option-password.component';
 export * from './lib/shared/component/form/inputs/input-textarea/input-textarea.component';
+export * from './lib/shared/component/form/inputs/input-checkbox/input-checkbox.component';
 export * from './lib/shared/component/form/inputs/input-viewer/input-viewer.component';
 export * from './lib/shared/component/form/inputs/input-select/input-select.component';
 

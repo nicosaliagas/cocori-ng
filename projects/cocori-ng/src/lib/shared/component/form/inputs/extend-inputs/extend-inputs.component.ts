@@ -1,13 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
 
 import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
-import { DataSourceInput } from '../../../../../core/model/data-source.model';
+import { DataSourceInput, DataSourceType } from '../../../../../core/model/data-source.model';
+import { HttpService } from '../../../../../core/service/http.service';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
 
 @Component({
     selector: 'extend-inputs-ng',
     template: '',
+    host: { 'class': 'input-form' }
 })
 
 export abstract class ExtendInputsComponent {
@@ -16,19 +20,22 @@ export abstract class ExtendInputsComponent {
     nameLabel: string;
     formGroup: FormGroup;
     nameControl: NameControl;
-    dataSource: any;
+    dataSource$: Observable<any>;
     inRelationWith: NameControl;
     validators: ValidatorFn[];
     appearance: string = 'outline'
+    httpService: HttpService;
 
-    constructor() { }
+    constructor(injector: Injector) {
+        this.httpService = injector.get(HttpService);
+    }
 
     configInput(config: ConfigInputComponent) {
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
 
-        this.dataSource = this.loadDataSource(config.dataSource)
+        this.dataSource$ = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
         this.validators = config.validators
 
@@ -51,18 +58,25 @@ export abstract class ExtendInputsComponent {
         this.emitEvent()
     }
 
-    loadDataSource(configDataSource: DataSourceInput) {
+    loadDataSource(configDataSource: DataSourceInput): Observable<any> {
+        if (!configDataSource) return;
 
-        /** todo: prendre en compte le type de la datasource */
+        switch (configDataSource.type) {
+            case DataSourceType.BRUTE:
+                return of(configDataSource.value)
+                break;
 
-        if (configDataSource) {
-            return configDataSource.value
-        } else {
-            return null
+            case DataSourceType.API:
+                return this.getDataSource(<string>configDataSource.value)
+                break;
+
+            default:
+                return null
+                break;
         }
     }
 
-    inRelatioNWith() {
+    private inRelatioNWith() {
         if (this.inRelationWith && typeof this.inRelationWith !== 'undefined') {
 
             console.log("inRelationWith>>", this.inRelationWith, this.formGroup)
@@ -77,5 +91,9 @@ export abstract class ExtendInputsComponent {
         const d = this.validators.find((validatorFn) => validatorFn === ValidatorsService.require)
 
         return typeof d === 'undefined' ? false : true
+    }
+
+    private getDataSource(api: string): Observable<any> {
+        return this.httpService.get(api)
     }
 }

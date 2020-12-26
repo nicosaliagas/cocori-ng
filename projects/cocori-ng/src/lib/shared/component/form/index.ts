@@ -1,4 +1,5 @@
 import { ButtonComponent } from './buttons/button/button.component';
+import { InputCheckboxComponent } from './inputs/input-checkbox/input-checkbox.component';
 import { InputContainerComponent } from './inputs/input-container/input-container.component';
 import { InputEmailComponent } from './inputs/input-email/input-email.component';
 import { InputPasswordComponent } from './inputs/input-password/input-password.component';
@@ -16,12 +17,14 @@ export const ModuleImportFormInputs: any[] = [
     InputTextareaComponent,
     InputViewerComponent,
     InputSelectComponent,
+    InputCheckboxComponent,
     ButtonComponent
 ]
 
 export enum InputComponents {
     INPUT_TEXT = 'input-text',
     INPUT_EMAIL = 'input-email',
+    INPUT_CHECKBOX = 'input-checkbox',
     INPUT_PASSWORD = 'input-password',
     INPUT_TEXTAREA = 'input-textarea',
     INPUT_VIEWER = 'input-viewer',
@@ -32,6 +35,7 @@ export enum InputComponents {
 export const ClasseComponents = {
     [InputComponents.INPUT_TEXT]: InputTextComponent,
     [InputComponents.INPUT_EMAIL]: InputEmailComponent,
+    [InputComponents.INPUT_CHECKBOX]: InputCheckboxComponent,
     [InputComponents.INPUT_PASSWORD]: InputPasswordComponent,
     [InputComponents.INPUT_TEXTAREA]: InputTextareaComponent,
     [InputComponents.INPUT_VIEWER]: InputViewerComponent,

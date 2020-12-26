@@ -43,7 +43,7 @@ export class GenericFormComponent implements OnInit {
   ngOnInit() { }
 
   private chargementConfiguration() {
-    this.jsonParsed$ = this.httpService.httpGet<FormSchema>(`/assets/ressources/schema-generic-frm-simple.json`)
+    this.jsonParsed$ = this.httpService.get<FormSchema>(`/assets/ressources/schema-generic-frm-simple.json`)
       .pipe(
         map((configuration: FormSchema) => {
           this.generatedForm.get("fieldJsonText").setValue(JSON.stringify(configuration));

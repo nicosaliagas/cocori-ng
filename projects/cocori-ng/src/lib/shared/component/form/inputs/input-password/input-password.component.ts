@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
@@ -20,8 +20,8 @@ export class InputPasswordComponent extends ExtendInputsComponent implements OnI
         this.addControlForm();
     }
 
-    constructor() {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     ngOnInit() { }

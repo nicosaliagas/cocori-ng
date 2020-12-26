@@ -9,7 +9,9 @@ import { DataSourceType, FormBuilderService, InputComponents } from 'cocori-ng';
   providers: [FormBuilderService]
 })
 export class StaticFormComponent implements OnInit {
-  @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
+  @ViewChild('FormContainerRef1', { static: true, read: ViewContainerRef }) formContainerRef1: ViewContainerRef;
+  @ViewChild('FormContainerRef2', { static: true, read: ViewContainerRef }) formContainerRef2: ViewContainerRef;
+  @ViewChild('FormContainerRef3', { static: true, read: ViewContainerRef }) formContainerRef3: ViewContainerRef;
 
   formulaire: FormGroup;
   jsonParsed: any;
@@ -28,14 +30,22 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
-      .setViewContainerRef(this.formContainerRef)
-      .addInput('plat', config => config
+      .setViewContainerRef(this.formContainerRef1)
+      .addInput('brute', config => config
         .isRequired()
-        .nameLabel('Plat')
+        .nameLabel('Datasource - brute')
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
-          value: [{ value: "hamburger", viewValue: "Hamburger Vegi" }, { value: "pizza", viewValue: "Pizza" }, { value: "quiche", viewValue: "Quiche" }]
+          value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
+        }))
+      .addInput('api', config => config
+        .isRequired()
+        .nameLabel('Datasource - API')
+        .typeInput(InputComponents.INPUT_SELECT)
+        .dataSource({
+          type: DataSourceType.API,
+          value: "https://localhost:5000/select-items/LastDegree/options"
         }))
       .addInput('nom', config => config
         .isRequired()
@@ -44,6 +54,7 @@ export class StaticFormComponent implements OnInit {
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .typeInput(InputComponents.INPUT_TEXT))
+      .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
         .typeInput(InputComponents.INPUT_EMAIL))
@@ -56,6 +67,10 @@ export class StaticFormComponent implements OnInit {
         .nameLabel('Zone')
         .typeInput(InputComponents.INPUT_TEXTAREA)
         .outputCallback({ callback: this.onComponentReady }))
+      .addInput('condition', config => config
+        .nameLabel("J'ai lu et accepte les conditions")
+        .typeInput(InputComponents.INPUT_CHECKBOX))
+      .setViewContainerRef(this.formContainerRef3)
       .addButton('Valider', config => config
         .isTypeSubmit()
         .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))

@@ -1,11 +1,18 @@
-
 <div class="container-page">
   <div class="titre-page">Construction d'un formulaire statique</div>
   <div class="formulaires">
     <div class="sub-frm">
       <div class="content-frm part">
         <form id="generatedForm" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
-          <ng-template #FormContainerRef></ng-template>
+          <div>
+            <ng-template #FormContainerRef1></ng-template>
+          </div>
+          <div>
+            <ng-template #FormContainerRef2></ng-template>
+          </div>
+          <div>
+            <ng-template #FormContainerRef3></ng-template>
+          </div>
         </form>
       </div>
       <div *ngIf="jsonParsed" class="result-frm part">
