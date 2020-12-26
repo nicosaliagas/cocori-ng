@@ -37,7 +37,7 @@ function error() {
 ##################################################################################
 " >> $logFile
     if [ "$sendEmail" = true ] ; then
-        cat <(echo -e "Subject:[$projectName]: Build for branch $branch encountered error\nTo:$emailReceivers") $logFile | msmtp -t
+        cat <(echo -e "Subject:[$projectName]:🥵Build/Install for branch $branch encountered error\nTo:$emailReceivers") $logFile | msmtp -t
     fi
     return 1
 }
@@ -116,5 +116,5 @@ echo "
 " &>> $logFile
 
 if [ "$sendEmail" = true ] ; then
-    cat <(echo -e "Subject:[$projectName]: Build/Install for branch $branch done with success\nTo:$emailReceivers") $logFile | msmtp -t
+    cat <(echo -e "Subject:[$projectName]:✅Build/Install for branch $branch done with success\nTo:$emailReceivers") $logFile | msmtp -t
 fi
