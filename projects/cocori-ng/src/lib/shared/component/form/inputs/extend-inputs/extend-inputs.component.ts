@@ -19,6 +19,7 @@ export abstract class ExtendInputsComponent {
     dataSource: any;
     inRelationWith: NameControl;
     validators: ValidatorFn[];
+    appearance: string = 'outline'
 
     constructor() { }
 

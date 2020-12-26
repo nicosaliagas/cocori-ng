@@ -24,7 +24,7 @@
 </ng-template> -->
 
 <ng-container [formGroup]="formGroup">
-    <mat-form-field>
+    <mat-form-field [appearance]="appearance">
         <mat-label>{{nameLabel}}</mat-label>
         <input type="text" matInput [formControlName]="nameControl" />
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
