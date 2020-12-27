@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DataSourceType, FormBuilderService, InputComponents } from 'cocori-ng';
+import { DataSourceType, FormBuilderService, HttpService, InputComponents } from 'cocori-ng';
 
 @Component({
   selector: 'ct-static-form',
@@ -17,7 +17,8 @@ export class StaticFormComponent implements OnInit {
   jsonParsed: any;
 
   constructor(
-    private formBuilderService: FormBuilderService
+    private formBuilderService: FormBuilderService,
+    private httpService: HttpService
   ) { }
 
   ngOnInit() {
@@ -54,6 +55,9 @@ export class StaticFormComponent implements OnInit {
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .typeInput(InputComponents.INPUT_TEXT))
+      .addInput('age', config => config
+        .nameLabel('Age')
+        .typeInput(InputComponents.INPUT_NUMBER))
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
@@ -85,5 +89,11 @@ export class StaticFormComponent implements OnInit {
     console.log("values", value);
 
     this.jsonParsed = value;
+  }
+
+  onClick() {
+    this.httpService.get("https://localhost:5000/select-items/LastDegree/options").subscribe((values) => {
+      console.log("call ", values)
+    })
   }
 }

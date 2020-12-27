@@ -1,1 +1,1 @@
-<button mat-raised-button [ngClass]="class" type="{{type}}" disabled="false" (click)="onClick()">{{text}}</button>
+<button mat-raised-button [ngClass]="class" [class.spinner]="isLoading" type="{{type}}" [disabled]="isLoading" (click)="onClick()">{{text}}</button>

@@ -23,6 +23,7 @@ export * from './lib/shared/component/form/inputs/input-password/input-password.
 export * from './lib/shared/component/form/inputs/input-password/eye-option-password.component';
 export * from './lib/shared/component/form/inputs/input-textarea/input-textarea.component';
 export * from './lib/shared/component/form/inputs/input-checkbox/input-checkbox.component';
+export * from './lib/shared/component/form/inputs/input-number/input-number.component';
 export * from './lib/shared/component/form/inputs/input-viewer/input-viewer.component';
 export * from './lib/shared/component/form/inputs/input-select/input-select.component';
 
@@ -38,6 +39,7 @@ export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';
 
+export * from './lib/core/service/loading-interceptor.service';
 export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/http.service';
 export * from './lib/core/service/form.service';

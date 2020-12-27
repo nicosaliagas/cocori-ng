@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 import { configdefault } from '../../../../../config/config.components';
 import { ButtonComponentInputs, TypeButtonEnum } from '../../../../../core/model/component-inputs.model';
+import { LoadingService } from '../../../../../core/service/loading.service';
 
 @Component({
     selector: 'button-ng',
     templateUrl: 'button.component.html',
     styleUrls: ['./button.component.scss']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     @Input() text: string = configdefault.button.text;
@@ -17,7 +19,14 @@ export class ButtonComponent implements OnInit {
 
     onClickSubmit: Function;
 
-    constructor() { }
+    subscription: Subscription;
+    isLoading: boolean = false;
+
+    constructor(private loadingService: LoadingService) {
+        this.subscription = this.loadingService.httpLoading().subscribe((isLoading: boolean) => {
+            this.isLoading = isLoading
+        })
+    }
 
     @Input()
     set config(config: ButtonComponentInputs) {
@@ -30,6 +39,10 @@ export class ButtonComponent implements OnInit {
 
     ngOnInit() {
         this.callback.emit(this.text);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe()
     }
 
     onClick() {
