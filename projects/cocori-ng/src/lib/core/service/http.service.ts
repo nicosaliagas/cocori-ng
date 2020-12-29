@@ -35,6 +35,22 @@ export class HttpService {
             ) as Observable<T>;
     }
 
+    put<T>(path: string, body: Object = {}): Observable<any> {
+        return this.http.put(
+            `${path}`,
+            JSON.stringify(body)
+        ).pipe(
+            map(this.extractData.bind(this))
+        ) as Observable<T>;
+    }
+
+    _put<T>(path: string, body: Object = {}): Observable<T> {
+        return this.httpWithoutInterceptor.put(`${path}`, JSON.stringify(body))
+            .pipe(
+                map(this.extractData.bind(this))
+            ) as Observable<T>;
+    }
+
     post<T>(path: string, body: Object = {}, options: Object = {}): Observable<T> {
         return this.http.post(
             `${path}`,
