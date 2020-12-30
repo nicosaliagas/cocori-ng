@@ -72,6 +72,8 @@ export class HttpService {
     }
 
     protected extractData(res: Response) {
+        if (!res) return res
+
         const body: any = (<any>res.body);
 
         if (res.status === 204) return res.body;
