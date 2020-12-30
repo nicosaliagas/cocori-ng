@@ -9,8 +9,10 @@ export * from './lib/shared/shared.module';
 export * from './lib/shared/material-shared.module';
 
 export * from './lib/shared/directive/default-image.directive';
+export * from './lib/shared/directive/previous-page.directive';
 
 export * from './lib/shared/pipe/pretty-print.pipe';
+export * from './lib/shared/pipe/variable-html.pipe';
 
 export * from './lib/shared/component/form/index';
 export * from './lib/shared/component/form/form-container/form-container.component';

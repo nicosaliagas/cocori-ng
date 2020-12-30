@@ -8,9 +8,9 @@ import { ImportsButtonsFormComponents } from './component/form/form-buttons';
 import { FormContainerComponent } from './component/form/form-container/form-container.component';
 import { EyeOptionPasswordComponent } from './component/form/inputs/input-password/eye-option-password.component';
 import { ImportModalComponent } from './component/modal';
-import { DefaultImageDirective } from './directive/default-image.directive';
+import { ModuleImportDirectives } from './directive';
 import { MaterialSharedModule } from './material-shared.module';
-import { PrettyPrintPipe } from './pipe/pretty-print.pipe';
+import { ModuleImportPipes } from './pipe';
 
 // import { ImportsButtonsComponents } from './component/form/buttons';
 export const ImportsFormComponents: any[] = [
@@ -25,8 +25,8 @@ export const ImportsFormComponents: any[] = [
 @NgModule({
     declarations: [
         ...ImportsFormComponents,
-        DefaultImageDirective,
-        PrettyPrintPipe
+        ...ModuleImportPipes,
+        ...ModuleImportDirectives,
     ],
     imports: [
         CommonModule,
@@ -36,8 +36,8 @@ export const ImportsFormComponents: any[] = [
     ],
     exports: [
         ...ImportsFormComponents,
-        DefaultImageDirective,
-        PrettyPrintPipe
+        ...ModuleImportPipes,
+        ...ModuleImportDirectives,
     ]
 })
 export class SharedModule { }
