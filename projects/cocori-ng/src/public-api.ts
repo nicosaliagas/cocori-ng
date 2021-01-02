@@ -41,8 +41,12 @@ export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';
 
-export * from './lib/core/service/loading-interceptor.service';
+export * from './lib/core/service/interceptors/loading-interceptor.service';
+export * from './lib/core/service/interceptors/request-interceptor.service';
+
 export * from './lib/core/service/inject-component.service';
+export * from './lib/core/service/storage.service';
+export * from './lib/core/service/token.service';
 export * from './lib/core/service/http.service';
 export * from './lib/core/service/form.service';
 export * from './lib/core/service/validators.service';

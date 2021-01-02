@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/internal/operators';
 
-import { LoadingService } from './loading.service';
+import { LoadingService } from '../loading.service';
 
 @Injectable({
     providedIn: 'root'
