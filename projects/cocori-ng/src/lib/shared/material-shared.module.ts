@@ -22,7 +22,25 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [],
   imports: [
-    MatFormFieldModule
+    MatMenuModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    MatBadgeModule,
+    MatDialogModule,
+    MatInputModule,
+    MatRippleModule,
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatDividerModule
   ],
   exports: [
     MatMenuModule,

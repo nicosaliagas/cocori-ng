@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ImportComponentErrorHandler } from './component/error-handler';
@@ -40,4 +40,10 @@ export const ImportsFormComponents: any[] = [
         ...ModuleImportDirectives,
     ]
 })
-export class SharedModule { }
+export class SharedModule {
+    static racine(): ModuleWithProviders<SharedModule> {
+        return {
+          ngModule: SharedModule,
+        };
+      }
+}
