@@ -25,6 +25,7 @@ export abstract class ExtendInputsComponent {
     validators: ValidatorFn[];
     appearance: string = 'outline'
     httpService: HttpService;
+    styleCompact: boolean;
 
     constructor(injector: Injector) {
         this.httpService = injector.get(HttpService);
@@ -34,6 +35,7 @@ export abstract class ExtendInputsComponent {
         this.nameLabel = config.nameLabel;
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
+        this.styleCompact = config.styleCompact;
 
         this.dataSource$ = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith

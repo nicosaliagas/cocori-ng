@@ -39,6 +39,7 @@ type InferInputNames<Builder> =
 class InputConfigBuilder<Builder> {
 
     _isRequired: boolean;
+    _styleCompact: boolean = false;
     _nameLabel: string;
     _inRelationWith: string;
     _type: InputComponents;
@@ -47,6 +48,12 @@ class InputConfigBuilder<Builder> {
 
     isRequired() {
         this._isRequired = true
+
+        return this
+    }
+
+    styleCompact() {
+        this._styleCompact = true
 
         return this
     }
@@ -182,6 +189,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             nameLabel: builder._nameLabel,
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
+            styleCompact: builder._styleCompact,
             callbackComponent: builder._callbackComponent,
             validators: []
         };

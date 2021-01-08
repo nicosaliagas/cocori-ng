@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import { TokenService } from '../token.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestInterceptorService implements HttpInterceptor {
 
   constructor(private tokenService: TokenService,) { }

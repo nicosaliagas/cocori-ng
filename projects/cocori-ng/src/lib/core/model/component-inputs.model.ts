@@ -14,6 +14,7 @@ export interface ConfigInputComponent {
     formGroup: FormGroup,
     nameControl: NameControl,
     validators: ValidatorFn[];
+    styleCompact?: boolean,
     dataSource?: DataSourceInput,
     inRelationWith?: NameControl
     callbackComponent?: OutputCallback
