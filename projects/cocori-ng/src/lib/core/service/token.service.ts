@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TokenService {
 
@@ -33,12 +33,12 @@ export class TokenService {
         this.storageService.deleteLocalStorageItem('accessToken');
     }
 
-    decryptAccessToken() {
+    decryptAccessToken<T>(): T {
         if (this.accessToken) {
             const base64Array: string[] = this.accessToken.split('.');
             const decodedToken = JSON.parse(window.atob(base64Array[1]));
             return decodedToken;
         }
-        return '';
+        return null;
     }
 }

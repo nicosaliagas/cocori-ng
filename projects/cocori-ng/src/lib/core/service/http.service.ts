@@ -17,25 +17,25 @@ export class HttpService {
         this.httpWithoutInterceptor = new HttpClient(httpBackend);
     }
 
-    public set withCredentials(avec: boolean) {
-        this.withCredentialsOption = avec;
+    public set withCredentials(value: boolean) {
+        this.withCredentialsOption = value;
     }
 
     get<T>(path: string, params?: Object): Observable<T> {
-        return this.http.get(`${path}`, { params: this.buildUrlParams(params) })
+        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
     }
 
     _get<T>(path: string, params: Object): Observable<T> {
-        return this.httpWithoutInterceptor.get(`${path}`, { params: this.buildUrlParams(params) })
+        return this.httpWithoutInterceptor.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
     }
 
-    put<T>(path: string, body: Object = {}): Observable<any> {
+    put<T>(path: string, body: Object = { withCredentials: this.withCredentialsOption }): Observable<any> {
         return this.http.put(
             `${path}`,
             JSON.stringify(body)
@@ -44,14 +44,14 @@ export class HttpService {
         ) as Observable<T>;
     }
 
-    _put<T>(path: string, body: Object = {}): Observable<T> {
+    _put<T>(path: string, body: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
         return this.httpWithoutInterceptor.put(`${path}`, JSON.stringify(body))
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
     }
 
-    post<T>(path: string, body: Object = {}, options: Object = {}): Observable<T> {
+    post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
         return this.http.post(
             `${path}`,
             JSON.stringify(body),
@@ -61,7 +61,7 @@ export class HttpService {
         ) as Observable<T>;
     }
 
-    _post<T>(path: string, body: Object = {}, options: Object = {}): Observable<T> {
+    _post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
         return this.httpWithoutInterceptor.post(
             `${path}`,
             JSON.stringify(body),
