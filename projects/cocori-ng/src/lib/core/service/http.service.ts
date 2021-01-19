@@ -28,7 +28,7 @@ export class HttpService {
             ) as Observable<T>;
     }
 
-    _get<T>(path: string, params: Object): Observable<T> {
+    _get<T>(path: string, params?: Object): Observable<T> {
         return this.httpWithoutInterceptor.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
             .pipe(
                 map(this.extractData.bind(this))

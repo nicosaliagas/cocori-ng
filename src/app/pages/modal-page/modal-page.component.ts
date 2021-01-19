@@ -24,7 +24,7 @@ export class ModalPageComponent implements OnInit {
   optionsModalConfirmation: ModalOptionsModel = {
     withForm: false,
     title: "Information",
-    message: 'Simple information test, happy ?',
+    message: 'Simple information test, <b>happy</b> <a target="_blank" href="http://www.google.fr">Google</a> ?',
     cancelText: "LEAVE ME ALONE",
     confirmText: 'OK, COOL'
   };

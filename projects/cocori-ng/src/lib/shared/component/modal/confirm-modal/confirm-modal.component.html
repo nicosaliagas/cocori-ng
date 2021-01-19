@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
     <div mat-dialog-content>
-        <p class="dialog-message">{{ data.message }}</p>
+        <p class="dialog-message" [innerHtml]="data.message | variableHtml"></p>
         <ng-template #FormContainerRef></ng-template>
     </div>
     <div mat-dialog-actions>

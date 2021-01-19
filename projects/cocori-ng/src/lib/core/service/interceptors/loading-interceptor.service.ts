@@ -17,24 +17,21 @@ export class LoadingInterceptorService {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    
     if (this.activeRequests === 0) {
       this.loadingScreenService.startLoading();
     }
-
+    
     this.activeRequests++;
 
     return next.handle(request).pipe(
       finalize(() => {
         this.activeRequests--;
+
         if (this.activeRequests === 0) {
           this.loadingScreenService.stopLoading();
         }
       })
     );
-  }
-
-  forceFinalize() {
-    this.activeRequests = 0;
-    this.loadingScreenService.stopLoading();
   }
 }

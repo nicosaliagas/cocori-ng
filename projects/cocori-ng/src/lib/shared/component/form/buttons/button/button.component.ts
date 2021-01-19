@@ -23,7 +23,7 @@ export class ButtonComponent implements OnInit, OnDestroy {
     isLoading: boolean = false;
 
     constructor(private loadingService: LoadingService) {
-        this.subscription = this.loadingService.httpLoading().subscribe((isLoading: boolean) => {
+        this.subscription = this.loadingService.subject.subscribe((isLoading: boolean) => {
             this.isLoading = isLoading
         })
     }
