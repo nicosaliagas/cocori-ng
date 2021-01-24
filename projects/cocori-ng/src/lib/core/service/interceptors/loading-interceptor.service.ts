@@ -10,6 +10,7 @@ import { LoadingService } from '../loading.service';
 })
 export class LoadingInterceptorService {
   activeRequests: number = 0;
+  timer: any;
 
   constructor(private loadingScreenService: LoadingService) {}
 
@@ -17,12 +18,17 @@ export class LoadingInterceptorService {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    
     if (this.activeRequests === 0) {
       this.loadingScreenService.startLoading();
     }
-    
+
     this.activeRequests++;
+
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.forceFinalize();
+    }, 5000);
 
     return next.handle(request).pipe(
       finalize(() => {
@@ -30,8 +36,16 @@ export class LoadingInterceptorService {
 
         if (this.activeRequests === 0) {
           this.loadingScreenService.stopLoading();
+
+          clearTimeout(this.timer);
         }
       })
     );
+  }
+
+  forceFinalize() {
+    console.log("forced to finalize")
+    this.activeRequests = 0;
+    this.loadingScreenService.stopLoading();
   }
 }
