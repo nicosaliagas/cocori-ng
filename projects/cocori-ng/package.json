@@ -2,6 +2,7 @@
   "name": "cocori-ng",
   "version": "0.0.1",
   "dependencies": {
+    "resize-observer-polyfill": "*",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {

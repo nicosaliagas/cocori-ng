@@ -10,6 +10,7 @@ export * from './lib/shared/material-shared.module';
 
 export * from './lib/shared/directive/default-image.directive';
 export * from './lib/shared/directive/previous-page.directive';
+export * from './lib/shared/directive/ellipsis.directive';
 
 export * from './lib/shared/pipe/pretty-print.pipe';
 export * from './lib/shared/pipe/variable-html.pipe';
