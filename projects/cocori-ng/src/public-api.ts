@@ -44,6 +44,7 @@ export * from './lib/core/model/modal.model';
 
 export * from './lib/core/service/interceptors/loading-interceptor.service';
 export * from './lib/core/service/interceptors/request-interceptor.service';
+export * from './lib/core/service/interceptors/global-error-interceptor.service';
 
 export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/storage.service';

@@ -44,7 +44,6 @@ export class LoadingInterceptorService {
   }
 
   forceFinalize() {
-    console.log("forced to finalize")
     this.activeRequests = 0;
     this.loadingScreenService.stopLoading();
   }
