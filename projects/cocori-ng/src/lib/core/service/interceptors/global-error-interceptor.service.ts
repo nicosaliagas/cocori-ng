@@ -1,13 +1,12 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalErrorInterceptorService implements ErrorHandler {
 
-  public globalErrorsHandlerSubject: Subject<boolean> = new Subject<boolean>();
+  // public globalErrorsHandlerSubject: Subject<boolean> = new Subject<boolean>();
   
   constructor(private injector: Injector) { }
 
@@ -16,13 +15,14 @@ export class GlobalErrorInterceptorService implements ErrorHandler {
 
     const router = this.injector.get(Router);
 
-    console.error("global errors:");
+    console.error("handleError errors:");
+    
     console.error(error.stack.toString());
 
     if (chunkFailedMessage.test(error.message)) {
-      console.log("Reload page errors chunk versions")
+      console.log("Page reloaded cause : errors chunk versions")
       
-      this.globalErrorsHandlerSubject.next(true)
+      // this.globalErrorsHandlerSubject.next(true)
 
       window.location.reload();
     }

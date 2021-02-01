@@ -23,7 +23,7 @@ npm run build-lib-watch
 
 cd dist\cocori-ng
 
-npm link
+sudo npm link
 
 `Serve projet angular`
 dans une autre fenêtre cmd :
