@@ -50,7 +50,7 @@ export class GlobalErrorInterceptorService implements ErrorHandler {
       this.storageService.setSessionStorageItem('reloadPage', <ReloadPageModel>{ date: reloadPage.date, count: reloadPage.count + 1 })
     } else {
 
-      message = `Veuillez communiquer cette erreur à l'administrateur du site : \n ${message}`
+      message = `Veuillez communiquer cette erreur à l'administrateur du site : \n\n ${message}`
 
       alert(message)
 
