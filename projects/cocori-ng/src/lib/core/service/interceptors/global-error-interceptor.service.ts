@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { StorageService } from '../storage.service';
 
-const LIMIT_MAX_RELOAD: number = 5
-const TIME_MAX_RELOAD: number = 60 // secondes
+const LIMIT_MAX_RELOAD: number = 2
+const TIME_MAX_RELOAD: number = 30 // secondes
 
 export interface ReloadPageModel {
   date: Date,
@@ -35,20 +35,25 @@ export class GlobalErrorInterceptorService implements ErrorHandler {
 
     if (chunkFailedMessage.test(error.message)) {
       // this.globalErrorsHandlerSubject.next(true)
-      this.handleReloadPage()
+      this.handleReloadPage(error.message.toString())
     }
   }
 
-  private handleReloadPage() {
+  private handleReloadPage(message: string) {
     console.log('%cPage reloaded : errors chunk versions', 'color: blue;')
 
     const reloadPage: ReloadPageModel = this.storageService.getSessionStorageItem('reloadPage');
 
     if (!reloadPage) {
       this.storageService.setSessionStorageItem('reloadPage', <ReloadPageModel>{ date: new Date(), count: 1 })
-    } else if (reloadPage.count <= LIMIT_MAX_RELOAD && (new Date().getTime() - new Date(reloadPage.date).getTime()) / 1000 < TIME_MAX_RELOAD) {
+    } else if (reloadPage.count < LIMIT_MAX_RELOAD && (new Date().getTime() - new Date(reloadPage.date).getTime()) / 1000 < TIME_MAX_RELOAD) {
       this.storageService.setSessionStorageItem('reloadPage', <ReloadPageModel>{ date: reloadPage.date, count: reloadPage.count + 1 })
     } else {
+
+      message = `Veuillez communiquer cette erreur à l'administrateur du site : \n ${message}`
+
+      alert(message)
+
       this.storageService.deleteSessionStorageItem('reloadPage')
       return;
     }
