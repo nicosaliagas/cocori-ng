@@ -24,7 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     MatMenuModule,
     MatListModule,
-    MatFormFieldModule,
+    MatFormFieldModule, /** A SUPPRIMER */
     MatButtonModule,
     MatRadioModule,
     MatSlideToggleModule,

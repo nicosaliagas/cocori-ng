@@ -61,7 +61,7 @@ describe(`Génération d'un formulaire`, () => {
                 expect($input).to.have.length(1);
 
                 // todo: tester si le bouton est de type submit
-                cy.get($input).find("button-ng").then(($buttons) => {
+                cy.get($input).find("cocoring-button").then(($buttons) => {
                     expect($buttons).to.have.length(3);
 
                     expect($buttons[1]).to.have.text("Annuler");

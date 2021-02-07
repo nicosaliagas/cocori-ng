@@ -24,8 +24,13 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "stylePreprocessorOptions": {
-              "includePaths": ["dist"]
+              "includePaths": [
+                "dist"
+              ]
             },
+            "allowedCommonJsDependencies": [
+              "rxjs"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

@@ -4,7 +4,7 @@
     <div class="sub-frm">
       <div class="content-frm part">
         <form id="generatedForm" [formGroup]="generatedForm" (ngSubmit)="validateFrom(generatedForm)">
-          <input-textarea-ng [config]="inputComponentInputs" (callback)="addChild($event)"></input-textarea-ng>
+          <cocoring-textarea [config]="inputComponentInputs" (callback)="addChild($event)"></cocoring-textarea>
           <button mat-raised-button type="submit">Interpréter le contenu JSON</button>
         </form>
       </div>
@@ -15,11 +15,11 @@
 
     <div class="sub-frm" *ngIf="ready">
       <div class="content-frm part">
-        <form-container-ng 
+        <cocoring-form-container 
           [config]="jsonParsed" 
           (onComponentReady)="onComponentReady($event)"
           (onSubmit)="onSubmit($event)"
-          ></form-container-ng>
+          ></cocoring-form-container>
       </div>
       <div class="result-frm" *ngIf="valuesInterpretedForm">
         <div class="part">

@@ -5,11 +5,11 @@ import { FormBuilderService } from '../../../../core/service/form.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 
 @Component({
-    selector: 'form-buttons-ng',
-    templateUrl: 'form-buttons.component.html',
+    selector: 'cocoring-buttons-group',
+    templateUrl: 'cocoring-buttons-group.component.html',
 })
 
-export class FormButtonsComponent implements OnInit {
+export class CocoringButtonsGroupComponent implements OnInit {
     @ViewChild('ButtonsContainerRef', { static: true, read: ViewContainerRef }) buttonsContainerRef: ViewContainerRef;
 
     @Input()

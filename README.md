@@ -25,8 +25,8 @@ cd dist\cocori-ng
 
 sudo npm link
 
-`Serve projet angular`
-dans une autre fenêtre cmd :
+`Il est possible de lancer le projet Angular pour tester la librairie`
+dans une autre fenêtre cmd, lancer la commande : 
 
 ng serve
 
@@ -45,6 +45,21 @@ After building your library with `ng build --project=cocori-ng`, go to the dist 
 
 @import 'cocori-ng/cocori-ng.theme.scss';
 @include cocori-ng-theme($theme-principal, $palette-green);
+
+
+**********************
+## Optimize Bundle Size
+**********************
+https://medium.com/angular-in-depth/optimize-angular-bundle-size-in-4-steps-4a3b3737bf45
+
+
+Installer le bundle analyser de Webpack
+
+npm install -g webpack-bundle-analyzer
+
+build : ng build --stats-json
+
+lancer l'interface avec les stats : webpack-bundle-analyzer dist/EventBoulle/stats.json
 
 
 ## Tests e2e via Cypress

@@ -5,11 +5,11 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-textarea-ng',
-    templateUrl: 'input-textarea.component.html',
+    selector: 'cocoring-textarea',
+    templateUrl: 'cocoring-textarea.component.html',
 })
 
-export class InputTextareaComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringTextareaComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)

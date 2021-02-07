@@ -3,5 +3,5 @@
 <form [formGroup]="currentForm" (ngSubmit)="validateForm(currentForm)">
     <h1>{{formBuilderService.name}}</h1>
     <ng-template #FormContainerRef></ng-template>
-    <form-buttons-ng *ngIf="schemaDatasButtons.length" [config]="schemaDatasButtons"></form-buttons-ng>
+    <cocoring-buttons-group *ngIf="schemaDatasButtons.length" [config]="schemaDatasButtons"></cocoring-buttons-group>
 </form>

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 import { configdefault } from '../../config/config.components';
-import { DateFunctions } from '../helper/date.function';
 import { HelperFunctions } from '../helper/helper.function';
 import { UtilsUpload } from '../helper/utils.upload.service';
 
+// import { DateFunctions } from '../helper/date.function';
 export interface ValidtionError {
     key: string;
     value?: any;
@@ -89,132 +89,132 @@ export class ValidatorsService {
     /**
      * La date à valider est au format string : jj/mm/aaaa
      */
-    public static dateValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const str = control.value;
+    //     const str = control.value;
 
-        const dateValide: boolean = DateFunctions.validerDateJJMMAAAA(str);
+    //     const dateValide: boolean = DateFunctions.validerDateJJMMAAAA(str);
 
-        return dateValide ? null : { 'invalidDate': true };
-    }
+    //     return dateValide ? null : { 'invalidDate': true };
+    // }
 
     /**
      * La date à valider est au format UTC : 1982-11-06T00:00:00Z
      */
-    public static dateValidateurUTC(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateValidateurUTC(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const str = control.value;
+    //     const str = control.value;
 
-        const dateValide: boolean = DateFunctions.validerDateUTC(str);
+    //     const dateValide: boolean = DateFunctions.validerDateUTC(str);
 
-        return dateValide ? null : { 'invalidDate': true };
-    }
+    //     return dateValide ? null : { 'invalidDate': true };
+    // }
 
     // l'heure est au format 11h12
-    public static heureValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static heureValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const str = control.value;
+    //     const str = control.value;
 
-        if (DateFunctions.validerUneHeure(str)) {
-            return null;
-        } else {
-            return { 'invalidHeure': true };
-        }
-    }
+    //     if (DateFunctions.validerUneHeure(str)) {
+    //         return null;
+    //     } else {
+    //         return { 'invalidHeure': true };
+    //     }
+    // }
 
     // la date heure est au format 01/01/2018 à 12h14
-    public static dateHeureValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateHeureValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const str: string = control.value;
+    //     const str: string = control.value;
 
-        const valeurSplit: string[] = str.split(configdefault.date.dateTimeSeparator);
+    //     const valeurSplit: string[] = str.split(configdefault.date.dateTimeSeparator);
 
-        const dateValide: boolean = DateFunctions.validerDateJJMMAAAA(valeurSplit[0]);
-        const heureValide: boolean = DateFunctions.validerUneHeure(valeurSplit[1]);
+    //     const dateValide: boolean = DateFunctions.validerDateJJMMAAAA(valeurSplit[0]);
+    //     const heureValide: boolean = DateFunctions.validerUneHeure(valeurSplit[1]);
 
-        if (!dateValide) {
-            return { 'invalidDate': true };
-        } else if (!heureValide) {
-            return { 'invalidHeure': true };
-        } else {
-            return null;
-        }
-    }
+    //     if (!dateValide) {
+    //         return { 'invalidDate': true };
+    //     } else if (!heureValide) {
+    //         return { 'invalidHeure': true };
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     /**
      * La date à valider est au format UTC : 1982-11-06T15:15:15Z
      * invalideDateHeure
      */
-    public static dateHeureValidateurUTC(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateHeureValidateurUTC(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const str = control.value;
+    //     const str = control.value;
 
-        const dateValide: boolean = DateFunctions.validerDateUTC(str);
+    //     const dateValide: boolean = DateFunctions.validerDateUTC(str);
 
-        return dateValide ? null : { 'invalideDateHeure': true };
+    //     return dateValide ? null : { 'invalideDateHeure': true };
 
-    }
+    // }
 
-    public static datePasséeValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static datePasséeValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
+    //     const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
 
-        if (dates[0] >= dates[1]) {
-            return {
-                'datePasseeInvalide': true
-            };
-        }
+    //     if (dates[0] >= dates[1]) {
+    //         return {
+    //             'datePasseeInvalide': true
+    //         };
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
-    public static dateFutureValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateFutureValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
+    //     const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
 
-        if (dates[0] <= dates[1]) {
-            return {
-                'dateFutureInvalide': true
-            };
-        }
+    //     if (dates[0] <= dates[1]) {
+    //         return {
+    //             'dateFutureInvalide': true
+    //         };
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
-    public static datePasséeOuPrésenteValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static datePasséeOuPrésenteValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
+    //     const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
 
-        if (dates[0] > dates[1]) {
-            return {
-                'datePasseeOuPresenteInvalide': true
-            };
-        }
+    //     if (dates[0] > dates[1]) {
+    //         return {
+    //             'datePasseeOuPresenteInvalide': true
+    //         };
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
-    public static dateFutureOuPrésenteValidateur(control: FormControl): any {
-        if (!control.value) return null;
+    // public static dateFutureOuPrésenteValidateur(control: FormControl): any {
+    //     if (!control.value) return null;
 
-        const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
+    //     const dates: Date[] = DateFunctions.validateurDatesAides(control.value);
 
-        if (dates[0] < dates[1]) {
-            return {
-                'dateFutureOuPresenteInvalide': true
-            };
-        }
+    //     if (dates[0] < dates[1]) {
+    //         return {
+    //             'dateFutureOuPresenteInvalide': true
+    //         };
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     /** / VALIDATEURS DATES */
 

@@ -8,6 +8,7 @@
     "cypress": "npx cypress open",
     "build-lib": "ng build --project=cocori-ng --watch",
     "test-lib": "ng test --project=cocori-ng --watch",
+    "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/cocori-library/stats.json",
     "link": "cd dist\\cocori-ng && npm link",
     "test": "ng test",
     "lint": "ng lint",
@@ -26,7 +27,6 @@
     "@angular/platform-browser-dynamic": "~11.0.3",
     "@angular/router": "~11.0.3",
     "material-design-icons": "^3.0.1",
-    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

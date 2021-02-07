@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 
-import { configdefault } from '../../../../../config/config.components';
-import { ButtonComponentInputs, TypeButtonEnum } from '../../../../../core/model/component-inputs.model';
-import { LoadingService } from '../../../../../core/service/loading.service';
+import { configdefault } from '../../../config/config.components';
+import { ButtonComponentInputs, TypeButtonEnum } from '../../../core/model/component-inputs.model';
+import { LoadingService } from '../../../core/service/loading.service';
 
 @Component({
-    selector: 'button-ng',
-    templateUrl: 'button.component.html',
-    styleUrls: ['./button.component.scss']
+    selector: 'cocoring-button',
+    templateUrl: 'cocoring-button.component.html',
+    styleUrls: ['./cocoring-button.component.scss']
 })
-export class ButtonComponent implements OnInit, OnDestroy {
+export class CocoringButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     @Input() text: string = configdefault.button.text;

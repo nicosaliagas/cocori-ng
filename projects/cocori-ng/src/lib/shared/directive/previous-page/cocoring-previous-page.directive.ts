@@ -2,9 +2,9 @@ import { Location } from '@angular/common';
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[previousPage]'
+    selector: '[cocoring-previousPage]'
 })
-export class PreviousPageDirective {
+export class CocoringPreviousPageDirective {
     constructor(private location: Location) { }
 
     @HostListener('click')

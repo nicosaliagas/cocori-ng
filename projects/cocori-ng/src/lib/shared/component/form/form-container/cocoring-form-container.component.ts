@@ -11,12 +11,12 @@ import { InjectComponentService } from '../../../../core/service/inject-componen
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 
 @Component({
-    selector: 'form-container-ng',
-    templateUrl: 'form-container.component.html',
+    selector: 'cocoring-form-container',
+    templateUrl: 'cocoring-form-container.component.html',
     providers: [FormBuilderService, MappingBuilderService]
 })
 
-export class FormContainerComponent implements OnInit, OnDestroy {
+export class CocoringFormContainerComponent implements OnInit, OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
     currentForm: FormGroup;

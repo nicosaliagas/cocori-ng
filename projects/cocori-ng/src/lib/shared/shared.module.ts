@@ -2,23 +2,17 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ImportComponentErrorHandler } from './component/error-handler';
+import { CocoringInputErrorModule } from './component/error-handler/input-error-handler/cocoring-input-error.module';
 import { ModuleImportFormInputs } from './component/form';
-import { ImportsButtonsFormComponents } from './component/form/form-buttons';
-import { FormContainerComponent } from './component/form/form-container/form-container.component';
 import { EyeOptionPasswordComponent } from './component/form/inputs/input-password/eye-option-password.component';
 import { ImportModalComponent } from './component/modal';
 import { ModuleImportDirectives } from './directive';
 import { MaterialSharedModule } from './material-shared.module';
 import { ModuleImportPipes } from './pipe';
 
-// import { ImportsButtonsComponents } from './component/form/buttons';
 export const ImportsFormComponents: any[] = [
-    FormContainerComponent,
     ...ModuleImportFormInputs,
-    ...ImportComponentErrorHandler,
     ...ImportModalComponent,
-    ...ImportsButtonsFormComponents,
     EyeOptionPasswordComponent
 ];
 
@@ -32,7 +26,9 @@ export const ImportsFormComponents: any[] = [
         CommonModule,
         MaterialSharedModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        MaterialSharedModule,
+        CocoringInputErrorModule
     ],
     exports: [
         ...ImportsFormComponents,

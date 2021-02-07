@@ -1,4 +1,4 @@
-import { ButtonComponent } from './buttons/button/button.component';
+import { CocoringButtonComponent } from '../button/cocoring-button.component';
 import { InputCheckboxComponent } from './inputs/input-checkbox/input-checkbox.component';
 import { InputContainerComponent } from './inputs/input-container/input-container.component';
 import { InputEmailComponent } from './inputs/input-email/input-email.component';
@@ -6,7 +6,7 @@ import { InputNumberComponent } from './inputs/input-number/input-number.compone
 import { InputPasswordComponent } from './inputs/input-password/input-password.component';
 import { InputSelectComponent } from './inputs/input-select/input-select.component';
 import { InputTextComponent } from './inputs/input-text/input-text.component';
-import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.component';
+import { CocoringTextareaComponent } from './inputs/input-textarea/cocoring-textarea.component';
 import { InputViewerComponent } from './inputs/input-viewer/input-viewer.component';
 
 
@@ -15,12 +15,10 @@ export const ModuleImportFormInputs: any[] = [
     InputEmailComponent,
     InputTextComponent,
     InputPasswordComponent,
-    InputTextareaComponent,
     InputViewerComponent,
     InputNumberComponent,
     InputSelectComponent,
     InputCheckboxComponent,
-    ButtonComponent
 ]
 
 export enum InputComponents {
@@ -41,10 +39,10 @@ export const ClasseComponents = {
     [InputComponents.INPUT_CHECKBOX]: InputCheckboxComponent,
     [InputComponents.INPUT_NUMBER]: InputNumberComponent,
     [InputComponents.INPUT_PASSWORD]: InputPasswordComponent,
-    [InputComponents.INPUT_TEXTAREA]: InputTextareaComponent,
+    [InputComponents.INPUT_TEXTAREA]: CocoringTextareaComponent,
     [InputComponents.INPUT_VIEWER]: InputViewerComponent,
     [InputComponents.INPUT_SELECT]: InputSelectComponent,
-    [InputComponents.BUTTON]: ButtonComponent,
+    [InputComponents.BUTTON]: CocoringButtonComponent,
 };
 
 export type OutputComponents = "callback";

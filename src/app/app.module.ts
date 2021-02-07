@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GlobalErrorInterceptorService, LoadingInterceptorService, MaterialSharedModule } from 'cocori-ng';
+import { GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +18,13 @@ import { AppComponent } from './app.component';
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    FormsModule,
+    MatSnackBarModule,
+    MatDialogModule,
     AppRoutingModule,
-    MaterialSharedModule
   ],
   providers: [
     {

@@ -17,10 +17,10 @@ import { ValidatorsService, ValidtionError } from '../../../../core/service/vali
             <mat-error>{{errorMessage}}</mat-error>
         </ng-container>
     `,
-    styleUrls: ['./input-error-handler.component.scss']
+    styleUrls: ['./cocoring-input-error.component.scss']
 })
 
-export class InputErrorHandlerComponent implements OnInit, OnDestroy {
+export class CocoringInputErrorComponent implements OnInit, OnDestroy {
     @Input() form: FormGroup;
     @Input() controlName: string;
 
