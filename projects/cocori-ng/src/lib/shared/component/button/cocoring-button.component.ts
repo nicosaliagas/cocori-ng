@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 
 import { configdefault } from '../../../config/config.components';
 import { ButtonComponentInputs, TypeButtonEnum } from '../../../core/model/component-inputs.model';

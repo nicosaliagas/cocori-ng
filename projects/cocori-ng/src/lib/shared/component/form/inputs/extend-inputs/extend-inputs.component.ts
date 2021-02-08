@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Injector, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
+import { Observable, of } from 'rxjs';
 
 import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput, DataSourceType } from '../../../../../core/model/data-source.model';

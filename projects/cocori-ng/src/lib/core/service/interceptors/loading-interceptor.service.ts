@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/internal/operators';
+import { finalize } from 'rxjs/operators';
 
 import { LoadingService } from '../loading.service';
 

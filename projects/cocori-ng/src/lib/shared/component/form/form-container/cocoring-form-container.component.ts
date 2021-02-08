@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs/internal/Subject';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subject, Subscription } from 'rxjs';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';

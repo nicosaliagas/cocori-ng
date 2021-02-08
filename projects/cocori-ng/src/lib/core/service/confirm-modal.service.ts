@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
-import { take } from 'rxjs/internal/operators/take';
+import { map, take } from 'rxjs/operators';
 
 import { CocoringConfirmModalComponent } from '../../shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 import { ModalOptionsModel } from '../model/modal.model';

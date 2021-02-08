@@ -1,8 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { merge, Observable } from 'rxjs';
-import { filter } from 'rxjs/internal/operators';
-import { map } from 'rxjs/internal/operators/map';
+import { filter, map } from 'rxjs/operators';
 
 import { configdefault } from '../../../../config/config.components';
 import { ConfigEvents } from '../../../../config/config.events';

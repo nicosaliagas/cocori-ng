@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigInputComponent, FormBuilderService, FormSchema, HttpService, InputComponents, SubmitDatas } from 'cocori-ng';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ct-generic-form',
