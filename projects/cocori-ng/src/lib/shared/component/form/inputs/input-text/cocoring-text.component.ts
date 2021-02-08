@@ -5,11 +5,11 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-checkbox-ng',
-    templateUrl: 'input-checkbox.component.html',
+    selector: 'cocoring-text',
+    templateUrl: 'cocoring-text.component.html',
 })
 
-export class InputCheckboxComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringTextComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)

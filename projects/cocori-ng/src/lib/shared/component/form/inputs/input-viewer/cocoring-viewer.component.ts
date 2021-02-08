@@ -6,11 +6,11 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-viewer-ng',
-    templateUrl: 'input-viewer.component.html',
+    selector: 'cocoring-viewer-ng',
+    templateUrl: 'cocoring-viewer.component.html',
 })
 
-export class InputViewerComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringViewerComponent extends ExtendInputsComponent implements OnInit {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     nameLabel: string;

@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  Inject,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    Component,
+    HostListener,
+    Inject,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -15,11 +15,11 @@ import { FormBuilderService } from '../../../../core/service/form.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'confirm-modal-ng',
-  templateUrl: './confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.scss']
+  selector: 'cocoring-confirm-modal',
+  templateUrl: './cocoring-confirm-modal.component.html',
+  styleUrls: ['./cocoring-confirm-modal.component.scss']
 })
-export class ConfirmModalComponent implements OnInit {
+export class CocoringConfirmModalComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
   formulaire: FormGroup;
@@ -27,7 +27,7 @@ export class ConfirmModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ModalOptionsModel,
     private fb: FormBuilder,
-    private mdDialogRef: MatDialogRef<ConfirmModalComponent>,
+    private mdDialogRef: MatDialogRef<CocoringConfirmModalComponent>,
     private formBuilderService: FormBuilderService) {
     this.formulaire = this.fb.group({})
   }

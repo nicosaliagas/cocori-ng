@@ -23,36 +23,44 @@ export * from './lib/shared/component/form/form-container/cocoring-form-containe
 export * from './lib/shared/component/form/form-buttons/cocoring-buttons-group.component';
 export * from './lib/shared/component/form/form-buttons/cocoring-buttons-group.module';
 
+export * from './lib/shared/component/form/inputs/input-text/cocoring-text.component';
+export * from './lib/shared/component/form/inputs/input-text/cocoring-text.module';
 
+export * from './lib/shared/component/form/inputs/input-select/cocoring-select.component';
+export * from './lib/shared/component/form/inputs/input-select/cocoring-select.module';
 
+export * from './lib/shared/component/form/inputs/input-password/cocoring-password-eye.component';
+export * from './lib/shared/component/form/inputs/input-password/cocoring-password.component';
+export * from './lib/shared/component/form/inputs/input-password/cocoring-password.module';
+
+export * from './lib/shared/component/form/inputs/input-number/cocoring-number.component';
+export * from './lib/shared/component/form/inputs/input-number/cocoring-number.module';
+
+export * from './lib/shared/component/form/inputs/input-email/cocoring-email.component';
+export * from './lib/shared/component/form/inputs/input-email/cocoring-email.module';
+
+export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.component';
+export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.module';
+
+export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.component';
+export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.module';
+
+export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
+export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
+
+export * from './lib/shared/pipe/variable-html/cocoring-variable-html.pipe';
+export * from './lib/shared/pipe/variable-html/cocoring-variable-html.module';
+
+export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.directive';
+export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.module';
+
+export * from './lib/shared/directive/default-image/cocoring-default-image.directive';
+export * from './lib/shared/directive/default-image/cocoring-default-image.module';
 
 export * from './lib/config/config.components';
 export * from './lib/config/config.events';
 
-export * from './lib/shared/material-shared.module';
-export * from './lib/shared/shared.module';
-
-export * from './lib/shared/directive/default-image.directive';
-export * from './lib/shared/directive/ellipsis.directive';
-
-export * from './lib/shared/pipe/variable-html.pipe';
-
 export * from './lib/shared/component/form/index';
-
-
-export * from './lib/shared/component/form/inputs/input-text/input-text.component';
-export * from './lib/shared/component/form/inputs/input-email/input-email.component';
-export * from './lib/shared/component/form/inputs/input-container/input-container.component';
-export * from './lib/shared/component/form/inputs/input-password/input-password.component';
-export * from './lib/shared/component/form/inputs/input-password/eye-option-password.component';
-export * from './lib/shared/component/form/inputs/input-checkbox/input-checkbox.component';
-export * from './lib/shared/component/form/inputs/input-number/input-number.component';
-export * from './lib/shared/component/form/inputs/input-viewer/input-viewer.component';
-export * from './lib/shared/component/form/inputs/input-select/input-select.component';
-
-
-export * from './lib/shared/component/modal/index';
-export * from './lib/shared/component/modal/confirm-modal/confirm-modal.component';
 
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
@@ -73,5 +81,3 @@ export * from './lib/core/service/validators.service';
 export * from './lib/core/service/broadcast-event.service';
 export * from './lib/core/service/toast-message.service';
 export * from './lib/core/service/confirm-modal.service';
-
-export * from './lib/core/core.module';

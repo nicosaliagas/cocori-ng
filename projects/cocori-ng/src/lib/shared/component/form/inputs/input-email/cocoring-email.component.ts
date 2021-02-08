@@ -6,11 +6,11 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-email-ng',
-    templateUrl: 'input-email.component.html',
+    selector: 'cocoring-email',
+    templateUrl: 'cocoring-email.component.html',
 })
 
-export class InputEmailComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringEmailComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
 

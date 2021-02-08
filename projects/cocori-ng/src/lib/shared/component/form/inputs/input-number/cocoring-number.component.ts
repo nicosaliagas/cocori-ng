@@ -5,16 +5,16 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-select-ng',
-    templateUrl: 'input-select.component.html',
+    selector: 'cocoring-number',
+    templateUrl: 'cocoring-number.component.html',
 })
 
-export class InputSelectComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringNumberComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)
 
-        this.addControlForm()
+        this.addControlForm();
     }
 
     constructor(injector: Injector) {

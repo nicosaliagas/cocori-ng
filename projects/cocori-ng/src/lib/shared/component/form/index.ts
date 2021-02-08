@@ -1,25 +1,12 @@
 import { CocoringButtonComponent } from '../button/cocoring-button.component';
-import { InputCheckboxComponent } from './inputs/input-checkbox/input-checkbox.component';
-import { InputContainerComponent } from './inputs/input-container/input-container.component';
-import { InputEmailComponent } from './inputs/input-email/input-email.component';
-import { InputNumberComponent } from './inputs/input-number/input-number.component';
-import { InputPasswordComponent } from './inputs/input-password/input-password.component';
-import { InputSelectComponent } from './inputs/input-select/input-select.component';
-import { InputTextComponent } from './inputs/input-text/input-text.component';
+import { CocoringCheckboxComponent } from './inputs/input-checkbox/cocoring-checkbox.component';
+import { CocoringEmailComponent } from './inputs/input-email/cocoring-email.component';
+import { CocoringNumberComponent } from './inputs/input-number/cocoring-number.component';
+import { CocoringPasswordComponent } from './inputs/input-password/cocoring-password.component';
+import { CocoringSelectComponent } from './inputs/input-select/cocoring-select.component';
+import { CocoringTextComponent } from './inputs/input-text/cocoring-text.component';
 import { CocoringTextareaComponent } from './inputs/input-textarea/cocoring-textarea.component';
-import { InputViewerComponent } from './inputs/input-viewer/input-viewer.component';
-
-
-export const ModuleImportFormInputs: any[] = [
-    InputContainerComponent,
-    InputEmailComponent,
-    InputTextComponent,
-    InputPasswordComponent,
-    InputViewerComponent,
-    InputNumberComponent,
-    InputSelectComponent,
-    InputCheckboxComponent,
-]
+import { CocoringViewerComponent } from './inputs/input-viewer/cocoring-viewer.component';
 
 export enum InputComponents {
     INPUT_TEXT = 'input-text',
@@ -34,14 +21,14 @@ export enum InputComponents {
 }
 
 export const ClasseComponents = {
-    [InputComponents.INPUT_TEXT]: InputTextComponent,
-    [InputComponents.INPUT_EMAIL]: InputEmailComponent,
-    [InputComponents.INPUT_CHECKBOX]: InputCheckboxComponent,
-    [InputComponents.INPUT_NUMBER]: InputNumberComponent,
-    [InputComponents.INPUT_PASSWORD]: InputPasswordComponent,
+    [InputComponents.INPUT_TEXT]: CocoringTextComponent,
+    [InputComponents.INPUT_EMAIL]: CocoringEmailComponent,
+    [InputComponents.INPUT_CHECKBOX]: CocoringCheckboxComponent,
+    [InputComponents.INPUT_NUMBER]: CocoringNumberComponent,
+    [InputComponents.INPUT_PASSWORD]: CocoringPasswordComponent,
     [InputComponents.INPUT_TEXTAREA]: CocoringTextareaComponent,
-    [InputComponents.INPUT_VIEWER]: InputViewerComponent,
-    [InputComponents.INPUT_SELECT]: InputSelectComponent,
+    [InputComponents.INPUT_VIEWER]: CocoringViewerComponent,
+    [InputComponents.INPUT_SELECT]: CocoringSelectComponent,
     [InputComponents.BUTTON]: CocoringButtonComponent,
 };
 

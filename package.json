@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "cypress": "npx cypress open",
+    "build:lib": "ng build --project=cocori-ng",
+    "build:lib:watch": "ng build --project=cocori-ng --watch",
     "build-lib": "ng build --project=cocori-ng --watch",
     "test-lib": "ng test --project=cocori-ng --watch",
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/cocori-library/stats.json",

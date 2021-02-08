@@ -5,7 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     name: 'variableHtml',
     pure: false
 })
-export class VariableHtmlPipe implements PipeTransform {
+export class CocoringVariableHtmlPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {
     }
     transform(texteHtml: string): SafeHtml {

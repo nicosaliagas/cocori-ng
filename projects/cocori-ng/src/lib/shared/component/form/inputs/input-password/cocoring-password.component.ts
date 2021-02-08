@@ -5,11 +5,14 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-number-ng',
-    templateUrl: 'input-number.component.html',
+    selector: 'cocoring-password',
+    templateUrl: 'cocoring-password.component.html',
 })
 
-export class InputNumberComponent extends ExtendInputsComponent implements OnInit {
+export class CocoringPasswordComponent extends ExtendInputsComponent implements OnInit {
+
+    type: string = "password"
+
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)
@@ -22,4 +25,8 @@ export class InputNumberComponent extends ExtendInputsComponent implements OnIni
     }
 
     ngOnInit() { }
+
+    revealPassword(answer: boolean) {
+        this.type = answer ? 'text' : 'password'
+    }
 }

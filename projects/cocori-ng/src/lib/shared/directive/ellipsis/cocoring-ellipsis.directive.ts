@@ -29,7 +29,7 @@ import { take } from 'rxjs/operators';
     selector: '[ellipsis]',
     exportAs: 'ellipsis'
 })
-export class EllipsisDirective implements OnChanges, OnDestroy, AfterViewInit {
+export class CocoringEllipsisDirective implements OnChanges, OnDestroy, AfterViewInit {
     /**
      * The original text (not truncated yet)
      */
@@ -229,7 +229,7 @@ export class EllipsisDirective implements OnChanges, OnDestroy, AfterViewInit {
         // store the original contents of the element:
         this.elem = this.elementRef.nativeElement;
         if (typeof this.ellipsisContent !== 'undefined' && this.ellipsisContent !== null) {
-            this.originalText = EllipsisDirective.convertEllipsisInputToString(this.ellipsisContent);
+            this.originalText = CocoringEllipsisDirective.convertEllipsisInputToString(this.ellipsisContent);
         } else if (!this.originalText) {
             this.originalText = this.elem.textContent.trim();
         }
@@ -265,11 +265,11 @@ export class EllipsisDirective implements OnChanges, OnDestroy, AfterViewInit {
         if (this.elem
             && typeof this.ellipsisContent !== 'undefined'
             && (
-                this.originalText !== EllipsisDirective.convertEllipsisInputToString(this.ellipsisContent)
+                this.originalText !== CocoringEllipsisDirective.convertEllipsisInputToString(this.ellipsisContent)
                 || moreAnchorRequiresChange
             )
         ) {
-            this.originalText = EllipsisDirective.convertEllipsisInputToString(this.ellipsisContent);
+            this.originalText = CocoringEllipsisDirective.convertEllipsisInputToString(this.ellipsisContent);
             this.applyEllipsis();
         }
     }
@@ -440,7 +440,7 @@ export class EllipsisDirective implements OnChanges, OnDestroy, AfterViewInit {
         this.removeResizeListeners$.next();
 
         // Find the best length by trial and error:
-        const maxLength = EllipsisDirective.numericBinarySearch(this.originalText.length, curLength => {
+        const maxLength = CocoringEllipsisDirective.numericBinarySearch(this.originalText.length, curLength => {
             this.truncateText(curLength);
             return !this.isOverflowing;
         });

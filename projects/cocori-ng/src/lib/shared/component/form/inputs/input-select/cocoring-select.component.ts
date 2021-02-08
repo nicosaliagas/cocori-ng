@@ -5,19 +5,16 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'input-password-ng',
-    templateUrl: 'input-password.component.html',
+    selector: 'cocoring-select',
+    templateUrl: 'cocoring-select.component.html',
 })
 
-export class InputPasswordComponent extends ExtendInputsComponent implements OnInit {
-
-    type: string = "password"
-
+export class CocoringSelectComponent extends ExtendInputsComponent implements OnInit {
     @Input()
     set config(config: ConfigInputComponent) {
         this.configInput(config)
 
-        this.addControlForm();
+        this.addControlForm()
     }
 
     constructor(injector: Injector) {
@@ -25,8 +22,4 @@ export class InputPasswordComponent extends ExtendInputsComponent implements OnI
     }
 
     ngOnInit() { }
-
-    revealPassword(answer: boolean) {
-        this.type = answer ? 'text' : 'password'
-    }
 }

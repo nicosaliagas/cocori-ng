@@ -9,7 +9,7 @@ import { HttpService } from '../../../../../core/service/http.service';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
 
 @Component({
-    selector: 'extend-inputs-ng',
+    selector: 'extend-inputs',
     template: '',
     host: { 'class': 'input-form' }
 })

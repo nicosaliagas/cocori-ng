@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { take } from 'rxjs/internal/operators/take';
 
-import { ConfirmModalComponent } from '../../shared/component/modal/confirm-modal/confirm-modal.component';
+import { CocoringConfirmModalComponent } from '../../shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 import { ModalOptionsModel } from '../model/modal.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ConfirmModalService {
-    dialogRef: MatDialogRef<ConfirmModalComponent>;
+    dialogRef: MatDialogRef<CocoringConfirmModalComponent>;
 
     constructor(private dialog: MatDialog) { }
 
     public open(options: ModalOptionsModel) {
-        this.dialogRef = this.dialog.open(ConfirmModalComponent, {
+        this.dialogRef = this.dialog.open(CocoringConfirmModalComponent, {
             data: <ModalOptionsModel>{
                 withForm: options.withForm,
                 title: options.title,
