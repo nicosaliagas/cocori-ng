@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResponsiveToolbarComponent } from './responsive-toolbar.component';
+import { ToolbarComponent } from './toolbar.component';
 
 describe('ResponsiveToolbarComponent', () => {
-  let component: ResponsiveToolbarComponent;
-  let fixture: ComponentFixture<ResponsiveToolbarComponent>;
+  let component: ToolbarComponent;
+  let fixture: ComponentFixture<ToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResponsiveToolbarComponent ]
+      declarations: [ ToolbarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResponsiveToolbarComponent);
+    fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

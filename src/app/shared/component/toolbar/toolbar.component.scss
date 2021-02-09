@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  background-color: white;
+  padding: 1.25rem !important;
+  height: 74px !important;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+
+  .mat-button {
+    text-transform: uppercase;
+  }
+}
+
+.toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  /* For macOS/iOS Safari */
+  top: 0;
+  /* Sets the sticky toolbar to be on top */
+  z-index: 1000;
+  /* Ensure that your app's content doesn't overlap the toolbar */
+
+  .toolbar-icon {
+    display: flex;
+    align-items: center;
+
+    .burger-menu {
+      cursor: pointer;
+      margin-right: 1.25rem;
+      font-size: 1.75rem;
+      line-height: 1;
+      width: 1em;
+      height: 1em;
+    }
+
+    .logo {
+      border-left: 1px solid #edf1f7;
+      padding: 0 1.25rem;
+      font-size: 1.75rem;
+      white-space: nowrap;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

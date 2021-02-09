@@ -3,10 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'lib-demo', pathMatch: 'full' },
   {
-    path: 'home',
+    path: 'readme',
     loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule)
+  },
+  {
+    path: 'lib-demo',
+    loadChildren: () => import('./pages/lib-demo/lib-demo.module').then(mod => mod.LibDemoModule)
   },
   {
     path: 'generic-form',

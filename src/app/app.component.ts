@@ -15,8 +15,7 @@ export class AppComponent {
   sidenavContent: ElementRef;
   
   menuItems: ToolbarItem[] = [
-    { label: 'Documentation', linkTo: '/home' },
-    { label: 'Démos', linkTo: '/home' },
+    { label: 'Démos', linkTo: '/lib-demo' },
   ];
 
   subscription: Subscription = new Subscription();

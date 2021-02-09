@@ -17,12 +17,12 @@ import { GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ResponsiveToolbarComponent } from './shared/component/responsive-toolbar/responsive-toolbar.component';
+import { ToolbarComponent } from './shared/component/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResponsiveToolbarComponent
+    ToolbarComponent
   ],
   imports: [
     CommonModule,

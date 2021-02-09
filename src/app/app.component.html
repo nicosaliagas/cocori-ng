@@ -1,8 +1,9 @@
+<app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="over" position="end">
+    <mat-sidenav #sidenav mode="side" position="start" opened>
         <mat-toolbar (click)="sidenav.close()">
             <mat-toolbar-row>
-                <img src="/assets/img/logo-cock-white.png" />
+                <img class="logo" src="/assets/img/logo-cock-white.png" />
                 <img src="/assets/fichiers-svg/white-close-bt.svg" />
             </mat-toolbar-row>
         </mat-toolbar>
@@ -11,10 +12,13 @@
                 [routerLink]="item.linkTo ? [item.linkTo] : []" (click)="sidenav.close()">
                 {{item.label}}
             </a>
+            <a mat-list-item href="https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md" target="_blank" (click)="sidenav.close()">
+                Readme
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content #sidenavContent>
-        <responsive-toolbar-ng (toggleSidenav)="sidenav.toggle()"></responsive-toolbar-ng>
+        <!-- <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar> -->
         <div class="main">
             <router-outlet></router-outlet>
         </div>

@@ -2,17 +2,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToolbarItem } from 'src/app/core/models/Toolbar.model';
 
 @Component({
-  selector: 'responsive-toolbar-ng',
-  templateUrl: './responsive-toolbar.component.html',
-  styleUrls: ['./responsive-toolbar.component.scss']
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.scss']
 })
-export class ResponsiveToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit {
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
   menuItems: ToolbarItem[] = [
-    { label: 'Documentation', linkTo: '/home', newTab: false },
-    { label: 'Démos', linkTo: '/home', newTab: false },
+    { label: 'Démos', linkTo: '/lib-demo', newTab: false },
   ];
 
   constructor() { }
