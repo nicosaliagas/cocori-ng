@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { GlobalErrorInterceptorService } from 'cocori-ng';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+
+import { ToolbarItem } from './core/models/Toolbar.model';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +11,37 @@ import { GlobalErrorInterceptorService } from 'cocori-ng';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cocori-library';
+  @ViewChild('sidenavContent', { static: true, read: ElementRef })
+  sidenavContent: ElementRef;
+  
+  menuItems: ToolbarItem[] = [
+    { label: 'Documentation', linkTo: '/home' },
+    { label: 'Démos', linkTo: '/home' },
+  ];
 
-  constructor(private globalErrorInterceptorService: GlobalErrorInterceptorService) {
-    
+  subscription: Subscription = new Subscription();
+
+  constructor(
+    public elementRef: ElementRef,
+    public router: Router,) {
+      this.sidenavContent = elementRef;
+
+    /** au changement de route */
+    this.subscription.add(
+      this.router.events
+        .pipe(
+          filter((event) => event instanceof NavigationEnd),
+          tap(() => {
+            setTimeout(() => {
+              this.sidenavContent.nativeElement.scrollTo(0, 0);
+            });
+          })
+        )
+        .subscribe()
+    );
+    }
+
+  trackBy(index: number) {
+    return index;
   }
 }

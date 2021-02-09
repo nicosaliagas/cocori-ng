@@ -1,0 +1,32 @@
+<mat-toolbar class="toolbar" fxLayout="row">
+    <span fxFlex class="header-logo">
+        <img src="/assets/img/logo-cock.png" />
+    </span>
+
+    <ng-container mat-button *ngFor="let item of menuItems; trackBy: trackBy">
+        <a class="link" [routerLink]="item.linkTo ? [item.linkTo] : []" target="{{item.newTab ? '_blank' : '_self'}}"
+            fxShow="true" fxShow.lt-md=false>
+            <button mat-button>
+                <span>{{item.label}}</span>
+            </button>
+        </a>
+    </ng-container>
+    <ng-container>
+        <!-- <button fxHide fxShow.sm="true" fxShow.xs="true" mat-icon-button [matMenuTriggerFor]="dropMenu"> -->
+        <button fxHide fxShow.sm="true" fxShow.xs="true" mat-icon-button (click)="toggleSidenav.emit()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <!-- <mat-menu #dropMenu="matMenu">
+            <ng-container *ngFor="let item of menuItems">
+                <div [fxShow]="!item.showOnDesktop" [fxShow.sm]="!item.showOnTablet" [fxShow.xs]="!item.showOnMobile">
+                    <button mat-menu-item>
+                        <mat-icon class="mr">{{item.icon}}</mat-icon>
+                        {{item.label}}
+                    </button>
+                    <mat-divider></mat-divider>
+                </div>
+            </ng-container>
+        </mat-menu> -->
+    </ng-container>
+</mat-toolbar>

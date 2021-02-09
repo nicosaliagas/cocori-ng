@@ -1,8 +1,22 @@
-<div style="text-align:center">
-    <h1 class="success">
-        Cocori-Ng
-    </h1>
-    <img routerLink="/home" width="150" src="/assets/img/logo.png">
-</div>
-
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="over" position="end">
+        <mat-toolbar (click)="sidenav.close()">
+            <mat-toolbar-row>
+                <img src="/assets/img/logo-cock-white.png" />
+                <img src="/assets/fichiers-svg/white-close-bt.svg" />
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let item of menuItems; trackBy: trackBy"
+                [routerLink]="item.linkTo ? [item.linkTo] : []" (click)="sidenav.close()">
+                {{item.label}}
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content #sidenavContent>
+        <responsive-toolbar-ng (toggleSidenav)="sidenav.toggle()"></responsive-toolbar-ng>
+        <div class="main">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

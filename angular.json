@@ -23,6 +23,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "dist"
@@ -31,13 +35,9 @@
             "allowedCommonJsDependencies": [
               "rxjs"
             ],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
             "styles": [
-              "./node_modules/material-design-icons/iconfont/material-icons.css",
-              "src/assets/scss/styles.scss"
+              "src/theme/cocoring-project-theme.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },

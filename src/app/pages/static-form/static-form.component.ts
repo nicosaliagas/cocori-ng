@@ -34,7 +34,6 @@ export class StaticFormComponent implements OnInit {
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
         .isRequired()
-        .styleCompact()
         .nameLabel('Datasource - brute')
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
@@ -51,7 +50,6 @@ export class StaticFormComponent implements OnInit {
         }))
       .addInput('nom', config => config
         .isRequired()
-        .styleCompact()
         .nameLabel('Nom')
         .typeInput(InputComponents.INPUT_TEXT))
       .addInput('prenom', config => config
@@ -66,7 +64,6 @@ export class StaticFormComponent implements OnInit {
         .typeInput(InputComponents.INPUT_EMAIL))
       .addInput('password', config => config
         .isRequired()
-        .styleCompact()
         .nameLabel('Mot de passe')
         .typeInput(InputComponents.INPUT_PASSWORD))
       .addInput('zone', config => config

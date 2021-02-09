@@ -1,0 +1,379 @@
+@import "~@angular/material/theming";
+@import "mixins";
+@import "variables";
+
+/**
+* Generated theme by Material Theme Generator
+* https://materialtheme.arcsine.dev
+*/
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+
+// Fonts
+@import "https://fonts.googleapis.com/css?family=Material+Icons";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500");
+
+$fontConfig: (
+  display-4: mat-typography-level(112px, 112px, 300, "Montserrat", -0.0134em),
+  display-3: mat-typography-level(56px, 56px, 400, "Montserrat", -0.0089em),
+  display-2: mat-typography-level(45px, 48px, 400, "Montserrat", 0em),
+  display-1: mat-typography-level(34px, 40px, 400, "Montserrat", 0.0074em),
+  headline: mat-typography-level(24px, 32px, 400, "Montserrat", 0em),
+  title: mat-typography-level(20px, 32px, 500, "Montserrat", 0.0075em),
+  subheading-2: mat-typography-level(16px, 28px, 400, "Montserrat", 0.0094em),
+  subheading-1: mat-typography-level(15px, 24px, 500, "Montserrat", 0.0067em),
+  body-2: mat-typography-level(14px, 24px, 500, "Montserrat", 0.0179em),
+  body-1: mat-typography-level(14px, 20px, 400, "Montserrat", 0.0179em),
+  button: mat-typography-level(12px, 12px, 500, "Montserrat", 0.0893em),
+  caption: mat-typography-level(12px, 20px, 400, "Montserrat", 0.0333em),
+  input: mat-typography-level(inherit, 1.5, 400, "Montserrat", 1.1px),
+);
+
+// Foreground Elements
+
+// Light Theme Text
+$dark-text: #000000;
+$dark-primary-text: rgba($dark-text, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
+$dark-disabled-text: rgba($dark-primary-text, 0.38);
+$dark-dividers: rgba($dark-primary-text, 0.12);
+$dark-focused: rgba($dark-primary-text, 0.12);
+
+$mat-light-theme-foreground: (
+  base: black,
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba($dark-text, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: black,
+  secondary-text: $dark-accent-text,
+  hint-text: $dark-disabled-text,
+  accent-text: $dark-accent-text,
+  icon: $dark-accent-text,
+  icons: $dark-accent-text,
+  text: $dark-primary-text,
+  slider-min: $dark-primary-text,
+  slider-off: rgba($dark-text, 0.26),
+  slider-off-active: $dark-disabled-text,
+);
+
+// Dark Theme text
+$light-text: #ffffff;
+$light-primary-text: $light-text;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+
+$mat-dark-theme-foreground: (
+  base: $light-text,
+  divider: $light-dividers,
+  dividers: $light-dividers,
+  disabled: $light-disabled-text,
+  disabled-button: rgba($light-text, 0.3),
+  disabled-text: $light-disabled-text,
+  elevation: black,
+  hint-text: $light-disabled-text,
+  secondary-text: $light-accent-text,
+  accent-text: $light-accent-text,
+  icon: $light-text,
+  icons: $light-text,
+  text: $light-text,
+  slider-min: $light-text,
+  slider-off: rgba($light-text, 0.3),
+  slider-off-active: rgba($light-text, 0.3),
+);
+
+// Background config
+// Light bg
+$light-background: #fafafa;
+$light-bg-darker-5: darken($light-background, 5%);
+$light-bg-darker-10: darken($light-background, 10%);
+$light-bg-darker-20: darken($light-background, 20%);
+$light-bg-darker-30: darken($light-background, 30%);
+$light-bg-lighter-5: lighten($light-background, 5%);
+$dark-bg-tooltip: lighten(#2c2c2c, 20%);
+$dark-bg-alpha-4: rgba(#2c2c2c, 0.04);
+$dark-bg-alpha-12: rgba(#2c2c2c, 0.12);
+
+$mat-light-theme-background: (
+  background: $light-background,
+  status-bar: $light-bg-darker-20,
+  app-bar: $light-bg-darker-5,
+  hover: $dark-bg-alpha-4,
+  card: $light-bg-lighter-5,
+  dialog: $light-bg-lighter-5,
+  tooltip: $dark-bg-tooltip,
+  disabled-button: $dark-bg-alpha-12,
+  raised-button: $light-bg-lighter-5,
+  focused-button: $dark-focused,
+  selected-button: $light-bg-darker-20,
+  selected-disabled-button: $light-bg-darker-30,
+  disabled-button-toggle: $light-bg-darker-10,
+  unselected-chip: $light-bg-darker-10,
+  disabled-list-option: $light-bg-darker-10,
+);
+
+// Dark bg
+$dark-background: #2c2c2c;
+$dark-bg-lighter-5: lighten($dark-background, 5%);
+$dark-bg-lighter-10: lighten($dark-background, 10%);
+$dark-bg-lighter-20: lighten($dark-background, 20%);
+$dark-bg-lighter-30: lighten($dark-background, 30%);
+$light-bg-alpha-4: rgba(#fafafa, 0.04);
+$light-bg-alpha-12: rgba(#fafafa, 0.12);
+
+// Background palette for dark themes.
+$mat-dark-theme-background: (
+  background: $dark-background,
+  status-bar: $dark-bg-lighter-20,
+  app-bar: $dark-bg-lighter-5,
+  hover: $light-bg-alpha-4,
+  card: $dark-bg-lighter-5,
+  dialog: $dark-bg-lighter-5,
+  tooltip: $dark-bg-lighter-20,
+  disabled-button: $light-bg-alpha-12,
+  raised-button: $dark-bg-lighter-5,
+  focused-button: $light-focused,
+  selected-button: $dark-bg-lighter-20,
+  selected-disabled-button: $dark-bg-lighter-30,
+  disabled-button-toggle: $dark-bg-lighter-10,
+  unselected-chip: $dark-bg-lighter-20,
+  disabled-list-option: $dark-bg-lighter-10,
+);
+
+// Compute font config
+@include mat-core($fontConfig);
+
+// Theme Config
+
+body {
+  --primary-color: #cbd5b3;
+  --primary-lighter-color: #eff2e8;
+  --primary-darker-color: #b8c49a;
+  --text-primary-color: #{$dark-primary-text};
+  --text-primary-lighter-color: #{$dark-primary-text};
+  --text-primary-darker-color: #{$dark-primary-text};
+}
+
+$palette-primary: mat-palette($mat-primary, main, lighter, darker);
+
+body {
+  --accent-color: #f6f2f2;
+  --accent-lighter-color: #fcfbfb;
+  --accent-darker-color: #f2ecec;
+  --text-accent-color: #{$dark-primary-text};
+  --text-accent-lighter-color: #{$dark-primary-text};
+  --text-accent-darker-color: #{$dark-primary-text};
+}
+
+$palette-accent: mat-palette($mat-accent, main, lighter, darker);
+
+body {
+  --warn-color: #ff0000;
+  --warn-lighter-color: #ffb3b3;
+  --warn-darker-color: #ff0000;
+  --text-warn-color: #{$light-primary-text};
+  --text-warn-lighter-color: #{$dark-primary-text};
+  --text-warn-darker-color: #{$light-primary-text};
+}
+
+$palette-warn: mat-palette($mat-warn, main, lighter, darker);
+
+$theme: mat-light-theme($palette-primary, $palette-accent, $palette-warn);
+$altTheme: mat-dark-theme($palette-primary, $palette-accent, $palette-warn);
+
+$palette-green: mat-palette($mat-green, main, lighter, darker);
+
+$palette-blue: mat-palette($mat-blue, main, lighter, darker);
+
+/** import lib and component themes */
+@import "cocori-ng/cocori-ng.theme.scss";
+@include cocori-ng-theme($theme, $palette-green, $palette-blue);
+
+// Theme Init
+@include angular-material-theme($theme);
+
+.theme-alternate {
+  @include angular-material-theme($altTheme);
+}
+
+// Specific component overrides, pieces that are not in line with the general theming
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/** Virtual Scrolling (bogue Firefox */
+
+.cdk-virtual-scroll-viewport {
+  transform: initial;
+}
+
+/** classes pour les vidéos */
+
+.fitVids-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  width: 100%;
+}
+
+.fitVids-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/** / classes pour les vidéos */
+
+.link {
+  color: inherit;
+}
+
+.no-underline {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/** Tooltip */
+
+.mat-tooltip {
+  white-space: pre-line;
+  background-color: white;
+  color: inherit !important;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 10px 15px !important;
+  border-radius: 10px !important;
+  border: 1px solid mat-color($mat-primary, 200);
+  text-align: center;
+}
+
+mat-dialog-container {
+  .header {
+    font-weight: 500;
+  }
+
+  .mat-dialog-actions {
+    justify-content: flex-end;
+  }
+}
+
+/** Style buttons */
+
+// .mat-raised-button,
+// .mat-stroked-button,
+// .mat-flat-button {
+//   padding: 0 30px !important;
+//   border-radius: 30px !important;
+//   box-shadow: none !important;
+//   line-height: 33px !important;
+//   color: white;
+//   background-color: black;
+//   border: 2px solid transparent !important;
+
+//   &.btn-bg-transparent {
+//     border: 2px solid white !important;
+//     color: white;
+//     background-color: transparent;
+//   }
+
+//   &.btn-bg-white {
+//     border: 2px solid white !important;
+//     color: black;
+//     background-color: white;
+//   }
+// }
+
+/** / style buttons */
+
+.mat-standard-chip {
+  padding: 0.5em 0.85em;
+  min-height: 2.5em;
+}
+
+.material-icons {
+  font-size: 24px;
+  font-family: "Material Icons", "Material Icons";
+
+  .mat-badge-content {
+    font-family: "Montserrat";
+  }
+}
+
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+.mat-checkbox-inner-container {
+  margin-top: 4px;
+}
+
+/** Thème Input */
+
+// mat-icon-stepper selected color change
+::ng-deep .mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+  // background-color: red!important;
+}
+
+//input outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: mat-color($mat-light-theme-foreground, "text");
+}
+
+//mat-input focused color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: mat-color($mat-light-theme-foreground, "text");
+}
+
+// mat-input error outline color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+  .mat-form-field-outline-thick {
+  // color: red!important;
+  // opacity: 0.8!important;
+}
+
+// mat-input carent color
+::ng-deep .mat-input-element {
+  // caret-color: red!important;
+}
+
+// mat-input error carent color
+::ng-deep .mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+  // caret-color: red!important;
+}
+
+// mat-label normal state style
+::ng-deep .mat-form-field-label {
+  // color: rgba(0,0,0,.6)!important;
+}
+
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  // color: red!important;
+}
+
+// mat-label error style
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  // color: red!important;
+}
+
+/** / Thème Input */
