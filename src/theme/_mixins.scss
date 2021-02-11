@@ -41,7 +41,7 @@
     border-radius: $radius;
 }
 
-@mixin chevron() {
+@mixin arrow() {
     border-style: solid;
     border-width: 0.07em 0.07em 0 0;
     content: '';
@@ -53,28 +53,28 @@
     transform: rotate(-45deg);
     vertical-align: top;
     width: 0.65em;
-    -webkit-transition: 0.500s ease-in-out;
-    -moz-transition: 0.500s ease-in-out;
-    -o-transition: 0.500s ease-in-out;
-    transition: 0.500s ease-in-out;
+    -webkit-transition: 0.250s ease-in-out;
+    -moz-transition: 0.250s ease-in-out;
+    -o-transition: 0.250s ease-in-out;
+    transition: 0.250s ease-in-out;
 }
 
-@mixin chevron-bas() {
-    @include chevron();
-    transform: rotate(135deg);
+@mixin arrow-down() {
+    @include arrow();
+    transform: rotate(-225deg);
 }
 
-@mixin chevron-haut() {
-    @include chevron();
+@mixin arrow-up() {
+    @include arrow();
 }
 
-@mixin chevron-gauche() {
-    @include chevron();
+@mixin arrow-left() {
+    @include arrow();
     transform: rotate(-135deg);
 }
 
-@mixin chevron-droite() {
-    @include chevron();
+@mixin arrow-right() {
+    @include arrow();
     transform: rotate(45deg);
 }
 

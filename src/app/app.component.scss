@@ -4,8 +4,10 @@
     height: 100vh;
 }
 
-.mat-drawer-container {
-    min-height: calc(100vh - 4.60rem);
+.layout-container {
+    // min-height: calc(100vh - 4.60rem);
+    min-height: 100vh;
+    padding-top: 4.60rem;
 }
 
 toolbar,
@@ -22,41 +24,19 @@ footer-ng {
     .main {
         flex-grow: 1;
         flex-shrink: 0;
-        background-color: white;
+        padding: 2.25rem 2.25rem .75rem;
     }
 }
 
-.mat-drawer {
-    background-color: black;
+.sidenav {
+    position: fixed;
+    width: 240px;
+    top: 4.60rem;
+    border: 0;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
 
-    /** toolbar sidenav */
-    .mat-toolbar {
-        background-color: black;
-
-        .mat-toolbar-row {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 10px;
-
-            .logo {
-                height: 100%;
-            }
-        }
-    }
-
-    /** list sidenav */
     .mat-list-base {
-        text-transform: uppercase;
-        padding: 20px 30px 0 10px;
-
-        .mat-list-item {
-            color: white;
-        }
-    }
-}
-
-@media (max-width: 576px) {
-    .mat-drawer {
-        width: 100%;
+        padding: 20px 0;
     }
 }

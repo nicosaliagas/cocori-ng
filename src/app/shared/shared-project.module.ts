@@ -1,9 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
+import { CocoringSidenavItemComponent } from './component/sidenav/sidenav-item/cocoring-sidenav-item.component';
 import { TerminalCodePreviewComponent } from './component/terminal-code-preview/terminal-code-preview.component';
 
 export const ImportsFormComponents: any[] = [
-    TerminalCodePreviewComponent
+    TerminalCodePreviewComponent,
+    CocoringSidenavItemComponent
 ];
 
 @NgModule({
@@ -11,6 +18,12 @@ export const ImportsFormComponents: any[] = [
         ...ImportsFormComponents,
     ],
     imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MatListModule,
     ],
     exports: [
         ...ImportsFormComponents,

@@ -1,24 +1,13 @@
 <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" position="start" opened>
-        <mat-toolbar (click)="sidenav.close()">
-            <mat-toolbar-row>
-                <img class="logo" src="/assets/img/logo-cock-white.png" />
-                <img src="/assets/fichiers-svg/white-close-bt.svg" />
-            </mat-toolbar-row>
-        </mat-toolbar>
+<mat-sidenav-container class="layout-container" fullscreen>
+    <mat-sidenav class="sidenav" #sidenav [disableClose]="isSidenavCloseDisabled" [mode]="sidenavPosition"
+        position="start" [opened]="isSidenavOpen">
         <mat-nav-list>
-            <a mat-list-item *ngFor="let item of menuItems; trackBy: trackBy"
-                [routerLink]="item.linkTo ? [item.linkTo] : []" (click)="sidenav.close()">
-                {{item.label}}
-            </a>
-            <a mat-list-item href="https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md" target="_blank" (click)="sidenav.close()">
-                Readme
-            </a>
+            <cocoring-sidenav-item *ngFor="let item of menuItems; trackBy: trackBy" [item]="item">
+            </cocoring-sidenav-item>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content #sidenavContent>
-        <!-- <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar> -->
         <div class="main">
             <router-outlet></router-outlet>
         </div>

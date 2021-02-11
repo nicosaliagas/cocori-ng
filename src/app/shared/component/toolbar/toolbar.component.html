@@ -18,19 +18,13 @@
             Cocori-ng
         </a>
     </div>
-
-    <ng-container mat-button *ngFor="let item of menuItems; trackBy: trackBy">
-        <a class="link" [routerLink]="item.linkTo ? [item.linkTo] : []" target="{{item.newTab ? '_blank' : '_self'}}"
-            fxShow="true" fxShow.lt-md=false>
-            <button mat-button>
-                <span>{{item.label}}</span>
-            </button>
-        </a>
+    <ng-container>
+        <div class="user-container" [matMenuTriggerFor]="userMenu">
+            <div class="user-picture" [ngStyle]="{'background-image': 'url(' + '/assets/img/ripndip.png' + ')'}"></div>
+            <div class="info-container" fxShow="true" fxShow.lt-sm="false">Nicos Aliagas</div>
+        </div>
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item>Se déconnecter</button>
+        </mat-menu>
     </ng-container>
-    <a class="link" href="https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md" target="_blank"
-        fxShow="true" fxShow.lt-md=false>
-        <button mat-button>
-            <span>Readme</span>
-        </button>
-    </a>
 </mat-toolbar>

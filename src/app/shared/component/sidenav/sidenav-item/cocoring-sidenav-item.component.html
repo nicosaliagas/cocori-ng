@@ -1,0 +1,19 @@
+<div class="container-list-item" [ngClass]="{'list-item-expanded': expanded}">
+
+    <ng-template [ngIf]="item?.menuGroup" [ngIfElse]="listItemDefaultTpl">
+        <div class="menu-group">{{item.label}}</div>
+    </ng-template>
+
+    <ng-template #listItemDefaultTpl>
+        <a mat-list-item [routerLink]="item.linkTo"
+            [ngClass]="{'with-sub-menu': item.children?.length}"
+            (click)="expandItemSubList()">
+            {{item.label}}
+        </a>
+        <div *ngIf="item.children?.length" class="sidenav-sublist"
+            [@animateExpandListItem]="expanded ? 'expanded': 'collapsed'">
+            <cocoring-sidenav-item *ngFor="let childItem of item.children; trackBy: trackBy" [item]="childItem">
+            </cocoring-sidenav-item>
+        </div>
+    </ng-template>
+</div>

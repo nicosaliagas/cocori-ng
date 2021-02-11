@@ -17,13 +17,11 @@
 }
 
 .toolbar {
-  position: sticky;
-  position: -webkit-sticky;
-  /* For macOS/iOS Safari */
+  position: fixed;
   top: 0;
-  /* Sets the sticky toolbar to be on top */
-  z-index: 1000;
-  /* Ensure that your app's content doesn't overlap the toolbar */
+  left: 0;
+  right: 0;
+  z-index: 500;
 
   .toolbar-icon {
     display: flex;
@@ -45,6 +43,32 @@
       white-space: nowrap;
       text-decoration: none;
       color: inherit;
+    }
+  }
+
+  .user-container {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .user-picture {
+      background-color: transparent;
+      border: 1px solid #151a30;
+      position: relative;
+      flex-shrink: 0;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .info-container {
+      margin-left: .5rem;
+      font-size: .9375rem;
+      line-height: 1.25rem;
+      font-weight: 400;
     }
   }
 }
