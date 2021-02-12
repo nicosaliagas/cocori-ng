@@ -81,3 +81,4 @@ export * from './lib/core/service/validators.service';
 export * from './lib/core/service/broadcast-event.service';
 export * from './lib/core/service/toast-message.service';
 export * from './lib/core/service/confirm-modal.service';
+export * from './lib/core/service/current-url-routing.service';

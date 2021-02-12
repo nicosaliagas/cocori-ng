@@ -63,6 +63,11 @@
     .sidenav-sublist {
       display: block !important;
 
+      .list-item-expanded {
+        border-left: 0;
+        background-color: #ecebeb;
+      }
+
       .mat-list-item {
         padding-left: 10px;
       }

@@ -5,9 +5,11 @@
     </ng-template>
 
     <ng-template #listItemDefaultTpl>
-        <a mat-list-item [routerLink]="item.linkTo"
-            [ngClass]="{'with-sub-menu': item.children?.length}"
-            (click)="expandItemSubList()">
+        <a *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null"
+            [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
+            {{item.label}}
+        </a>
+        <a *ngIf="item.url" mat-list-item [href]="item.url" target="_blank">
             {{item.label}}
         </a>
         <div *ngIf="item.children?.length" class="sidenav-sublist"

@@ -19,14 +19,19 @@ export class AppComponent {
 
   menuItems: SidenavItem[] = [
     {
-      label: 'Démos', children: [
-        { label: 'Child 1', linkTo: '/lib-demo' },
-        { label: 'Child 2', linkTo: '/lib-demo' },
+      label: 'Accueil démos', route: '/lib-demo'
+    },
+    {
+      label: 'Démos', route:'/demos', children: [
+        { label: 'Form générique', route: '/demos/generic-form' },
+        { label: 'Form statique', route: '/demos/static-form' },
+        { label: 'Inputs chaînés', route: '/demos/static-inputs-chained' },
+        { label: 'Modal', route: '/demos/modal-page' },
       ]
     },
-    { label: "Features", menuGroup: true },
-    { label: 'Démos 1', linkTo: '/lib-demo', children: [] },
-    { label: 'Démos 2', linkTo: '/lib-demo', children: [] },
+    { label: "Liens externes", menuGroup: true },
+    { label: 'Bitbucket', route: '', url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/' },
+    { label: 'Readme', route: '', url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md' },
   ];
 
   subscription: Subscription = new Subscription();

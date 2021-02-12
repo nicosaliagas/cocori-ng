@@ -1,7 +1,8 @@
 export interface SidenavItem {
     label: string;
     menuGroup?: boolean;
-    linkTo?: string;
+    route?: string;
+    url?: string;
     newTab?: boolean;
     children?: SidenavItem[]
   }

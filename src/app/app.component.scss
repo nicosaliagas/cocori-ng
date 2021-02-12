@@ -25,6 +25,7 @@ footer-ng {
         flex-grow: 1;
         flex-shrink: 0;
         padding: 2.25rem 2.25rem .75rem;
+        background-color: #f7f7f7;
     }
 }
 
@@ -38,5 +39,9 @@ footer-ng {
 
     .mat-list-base {
         padding: 20px 0;
+    }
+
+    ::ng-deep .mat-drawer-inner-container {
+        overflow-x: hidden;
     }
 }
