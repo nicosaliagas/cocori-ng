@@ -13,7 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng';
+import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +44,7 @@ import { SharedProjectModule } from './shared/shared-project.module';
     SharedProjectModule,
   ],
   providers: [
+    DatagridService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptorService

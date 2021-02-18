@@ -33,6 +33,9 @@ export class CocoringInputErrorComponent implements OnInit, OnDestroy {
         private toastMessageService: ToastMessageService) { }
 
     ngOnInit() {
+
+        if (!this.form.get(configdefault.form.keyId)) return;
+
         this.formId = this.form.get(configdefault.form.keyId).value as string
 
         const onSubmitObs: Observable<unknown> = this.broadcastEventService.listen([ConfigEvents.FORM_SUBMITTED, this.formId])

@@ -1,8 +1,13 @@
-export type DataSourceValue = string | SelectOption[]
+export type DataSourceValue = string | SelectOption[] | DatasourceOdata
 
 export interface DataSourceInput {
     type: DataSourceType,
     value: DataSourceValue,
+}
+
+export enum DataSourceType {
+    API = 'api',
+    BRUTE = 'brute',
 }
 
 export interface SelectOption {
@@ -10,7 +15,7 @@ export interface SelectOption {
     name: string,
 }
 
-export enum DataSourceType {
-    API = 'api',
-    BRUTE = 'brute',
+export interface DatasourceOdata {
+    __count: number;
+    results: Object[];
 }

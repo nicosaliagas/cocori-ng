@@ -61,7 +61,7 @@
 
 @mixin arrow-down() {
     @include arrow();
-    transform: rotate(-225deg);
+    transform: rotate(135deg);
 }
 
 @mixin arrow-up() {

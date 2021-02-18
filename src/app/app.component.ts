@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
-import { SidenavItem } from './core/models/Sidenav.model';
+import { SidenavItem } from './core/model/Sidenav.model';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +27,11 @@ export class AppComponent {
         { label: 'Form statique', route: '/demos/static-form' },
         { label: 'Inputs chaînés', route: '/demos/static-inputs-chained' },
         { label: 'Modal', route: '/demos/modal-page' },
+      ]
+    },
+    {
+      label: 'Composant', route:'/component', children: [
+        { label: 'Grille', route: '/component/grille' },
       ]
     },
     { label: "Liens externes", menuGroup: true },

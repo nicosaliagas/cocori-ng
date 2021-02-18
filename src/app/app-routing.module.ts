@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'demos/modal-page',
     loadChildren: () => import('./pages/modal-page/modal-page.module').then(mod => mod.ModalPageModule)
   },
+  {
+    path: 'component/grille',
+    loadChildren: () => import('./pages/datagrid-demo/grille-demo.module').then(mod => mod.GrilleDemoModule)
+  },
 ];
 
 @NgModule({

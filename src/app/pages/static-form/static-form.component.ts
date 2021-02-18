@@ -40,14 +40,14 @@ export class StaticFormComponent implements OnInit {
           type: DataSourceType.BRUTE,
           value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
         }))
-      .addInput('api', config => config
-        .isRequired()
-        .nameLabel('Datasource - API')
-        .typeInput(InputComponents.INPUT_SELECT)
-        .dataSource({
-          type: DataSourceType.API,
-          value: "https://localhost:5000/select-items/LastDegree/options"
-        }))
+      // .addInput('api', config => config
+      //   .isRequired()
+      //   .nameLabel('Datasource - API')
+      //   .typeInput(InputComponents.INPUT_SELECT)
+      //   .dataSource({
+      //     type: DataSourceType.API,
+      //     value: "https://localhost:5000/select-items/LastDegree/options"
+      //   }))
       .addInput('nom', config => config
         .isRequired()
         .nameLabel('Nom')

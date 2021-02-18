@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { CurrentUrlRoutingService } from 'cocori-ng';
-import { SidenavItem } from 'src/app/core/models/Sidenav.model';
+import { SidenavItem } from 'src/app/core/model/Sidenav.model';
 
 export const animateExpandListItem =
   trigger('animateExpandListItem', [
@@ -28,11 +28,7 @@ export class CocoringSidenavItemComponent implements OnInit {
   ngOnInit() {
     this.navService.currentUrl.subscribe((url: string) => {
       if (this.item.route && url) {
-        console.log(`Checking '${this.item.route}' against '${url}'`);
-        
         this.expanded = url.indexOf(`${this.item.route}`) === 0;
-        
-        console.log(`${this.item.route} is expanded: ${this.expanded}`);
       }
     });
   }

@@ -17,7 +17,7 @@
 
     &.with-sub-menu {
       &:after {
-        @include arrow-left();
+        @include arrow-down();
         opacity: 0.7;
         width: 0.45em;
         height: 0.45em;
@@ -48,7 +48,7 @@
     .mat-list-item {
       &.with-sub-menu {
         &:after {
-          @include arrow-down();
+          @include arrow-up();
           opacity: 0.7;
           width: 0.45em;
           height: 0.45em;

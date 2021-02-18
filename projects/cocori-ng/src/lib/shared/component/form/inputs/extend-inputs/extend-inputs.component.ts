@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injector, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -14,11 +14,12 @@ import { ValidatorsService } from '../../../../../core/service/validators.servic
 })
 
 export abstract class ExtendInputsComponent {
+    @Input() formGroup: FormGroup
+    @Input() nameControl: NameControl
+    @Input() nameLabel: string
+    
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
-    nameLabel: string;
-    formGroup: FormGroup;
-    nameControl: NameControl;
     dataSource$: Observable<any>;
     inRelationWith: NameControl;
     validators: ValidatorFn[];

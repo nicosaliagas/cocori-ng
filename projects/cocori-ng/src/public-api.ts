@@ -48,6 +48,9 @@ export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.m
 export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
 
+export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
+export * from './lib/shared/component/datagrid/cocoring-datagrid.module';
+
 export * from './lib/shared/pipe/variable-html/cocoring-variable-html.pipe';
 export * from './lib/shared/pipe/variable-html/cocoring-variable-html.module';
 
@@ -64,6 +67,7 @@ export * from './lib/shared/component/form/index';
 
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
+export * from './lib/core/model/component-datagrid.model';
 export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';
@@ -82,3 +86,4 @@ export * from './lib/core/service/broadcast-event.service';
 export * from './lib/core/service/toast-message.service';
 export * from './lib/core/service/confirm-modal.service';
 export * from './lib/core/service/current-url-routing.service';
+export * from './lib/core/service/datagrid/datagrid.service';

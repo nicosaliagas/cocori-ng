@@ -10,7 +10,7 @@ ng new my-first-project
 
 ## Génération CLI
 
-ng g component cocoring-sidenav-item --display-block=true --skip-import=true --style=scss
+ng g component cocoring-datagrid-cell --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 
