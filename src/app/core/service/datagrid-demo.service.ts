@@ -21,6 +21,12 @@ export class DatagridDemoService {
           surname: "Nicos",
           age: 38,
           civility: "Monsieur",
+          test: "bla bla bla bla bla bla bla bla bla bla bla bla",
+          test1: "Test",
+          test2: "Test",
+          test3: "Test",
+          test4: "Test",
+          test5: "Test"
         },
         {
           id: "AA3813CE-314E-48B4-86C1-0159EF82E1A1",
@@ -28,6 +34,12 @@ export class DatagridDemoService {
           surname: "Antho",
           age: 32,
           civility: "Monsieur",
+          test: "Test",
+          test1: "Test",
+          test2: "Test",
+          test3: "Test",
+          test4: "Test",
+          test5: "Test"
         },
         {
           id: "037664FE-2339-417B-8FD0-69C30894CDAD",
@@ -35,6 +47,12 @@ export class DatagridDemoService {
           surname: "Ikule",
           age: 55,
           civility: "Mademoiselle",
+          test: "Test",
+          test1: "Test",
+          test2: "Test",
+          test3: "Test",
+          test4: "Test",
+          test5: "Test"
         }
       ]
     };

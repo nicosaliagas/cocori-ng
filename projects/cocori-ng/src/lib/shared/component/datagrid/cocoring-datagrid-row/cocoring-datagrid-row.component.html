@@ -1,6 +1,6 @@
 <tr>
     <ng-container *ngFor="let cell of cellValues; let i = index; trackBy: trackBy">
-        <td *ngIf="i===0">
+        <td class="column-select" *ngIf="i===0">
             <cocoring-checkbox [formGroup]="checkboxRowFormGroup" [nameControl]="datas.id">
             </cocoring-checkbox>
         </td>

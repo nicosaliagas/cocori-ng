@@ -1,23 +1,25 @@
 <ng-container *ngIf="_config">
-  <table [formGroup]="datagridService.checkboxesDatagridForm">
-    <caption *ngIf="_config?.title">{{_config.title}}</caption>
-    <thead>
-      <tr>
-        <th class="th-checkbox" scope="col">
-          <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
-          </cocoring-checkbox>
-        </th>
-        <ng-container *ngFor="let column of _config.columns; let i = index; trackBy: trackBy">
-          <th scope="col">{{column.caption}}</th>
+  <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar>
+  <div class="datagrid-container">
+    <table [formGroup]="datagridService.checkboxesDatagridForm">
+      <!-- <caption *ngIf="_config?.title">{{_config.title}}</caption> -->
+      <thead>
+        <tr>
+          <th class="column-select" scope="col">
+            <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
+            </cocoring-checkbox>
+          </th>
+          <ng-container *ngFor="let column of _config.columns; let i = index; trackBy: trackBy">
+            <th scope="col" [title]="column.caption">{{column.caption}}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody *ngIf="datagridDataSource$ | async as data">
+        <ng-container *ngFor="let rowDatas of data.results; let i = index; trackBy: trackBy">
+          <cocoring-datagrid-row class="table-line" [datagridService]="datagridService" [columns]="_config.columns"
+            [datas]="rowDatas"></cocoring-datagrid-row>
         </ng-container>
-      </tr>
-    </thead>
-    <tbody *ngIf="datagridDataSource$ | async as data">
-      <ng-container *ngFor="let rowDatas of data.results; let i = index; trackBy: trackBy">
-        <cocoring-datagrid-row class="table-line" [datagridService]="datagridService" [columns]="_config.columns"
-          [datas]="rowDatas"></cocoring-datagrid-row>
-      </ng-container>
-    </tbody>
-  </table>
-  <pre>{{datagridService.checkboxesDatagridForm.value | json}}</pre>
+      </tbody>
+    </table>
+  </div>
 </ng-container>

@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.datagrid-toolbar {
+  padding: 0 34px;
+  background-color: transparent;
+  height: 50px;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 22px;
+  overflow: hidden;
+  flex: 0 0 auto;
+
+  .datagrid-toolbar-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 50px;
+    flex-wrap: wrap;
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      height: 100%;
+    }
+  }
+}

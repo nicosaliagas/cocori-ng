@@ -36,6 +36,12 @@ export class GrilleDemoComponent implements OnInit {
           { caption: "Prénom", dataField: "surname" },
           { caption: "Civilité", dataField: "civility" },
           { caption: "Age", dataField: "age" },
+          { caption: "Test", dataField: "test" },
+          { caption: "Test", dataField: "test1" },
+          { caption: "Test", dataField: "test2" },
+          { caption: "Test", dataField: "test3" },
+          { caption: "Test", dataField: "test4" },
+          { caption: "Test", dataField: "test5" },
         ],
         dataSource: { type: DataSourceType.BRUTE, value: values }
       }
