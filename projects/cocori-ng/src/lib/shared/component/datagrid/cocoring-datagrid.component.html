@@ -1,5 +1,5 @@
-<ng-container *ngIf="_config">
-  <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar>
+<ng-container *ngIf="datagridService.config">
+  <!-- <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar> -->
   <div class="datagrid-container">
     <table [formGroup]="datagridService.checkboxesDatagridForm">
       <!-- <caption *ngIf="_config?.title">{{_config.title}}</caption> -->
@@ -9,17 +9,29 @@
             <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
             </cocoring-checkbox>
           </th>
-          <ng-container *ngFor="let column of _config.columns; let i = index; trackBy: trackBy">
+          <ng-container *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
             <th scope="col" [title]="column.caption">{{column.caption}}</th>
           </ng-container>
         </tr>
       </thead>
-      <tbody *ngIf="datagridDataSource$ | async as data">
+      <tbody *ngIf="datagridDataSource as data; else loadingTpl">
         <ng-container *ngFor="let rowDatas of data.results; let i = index; trackBy: trackBy">
-          <cocoring-datagrid-row class="table-line" [datagridService]="datagridService" [columns]="_config.columns"
-            [datas]="rowDatas"></cocoring-datagrid-row>
+          <cocoring-datagrid-row class="table-line" [datagridService]="datagridService"
+            [columns]="datagridService.config.columns" [datas]="rowDatas"></cocoring-datagrid-row>
         </ng-container>
       </tbody>
+      <ng-template #loadingTpl>
+        <tr *ngFor="let i of [].constructor(numberRowsSaved)">
+          <ng-container *ngFor="let column of datagridService.config.columns; let j = index; trackBy: trackBy">
+            <td *ngIf="j === 0" class="column-select table-cell-loader">
+              <div class="row-loader loading-animation"></div>
+            </td>
+            <td class="table-cell-loader">
+              <div class="row-loader loading-animation"></div>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
     </table>
   </div>
 </ng-container>

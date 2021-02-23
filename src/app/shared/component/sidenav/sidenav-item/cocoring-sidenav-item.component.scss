@@ -5,6 +5,7 @@
 }
 
 .container-list-item {
+  border-left: 4px solid transparent;
 
   .sidenav-sublist {
     display: none;
@@ -15,17 +16,24 @@
     font-size: 13px;
     border-bottom: 1px solid #edf1f7;
 
-    &.with-sub-menu {
-      &:after {
-        @include arrow-down();
-        opacity: 0.7;
-        width: 0.45em;
-        height: 0.45em;
-        position: absolute;
-        top: 1.7em;
-        right: 0.6em;
-        left: unset;
+    .list-item-node {
+      height: 100%;
+      width: 26px;
+
+      .arrow {
+        &:before {
+          @include arrow-right();
+          opacity: 0.7;
+          width: 0.45em;
+          height: 0.45em;
+          top: 1.6em;
+          left: 0.6em;
+        }
       }
+    }
+
+    ::ng-deep .mat-list-item-content {
+      padding-left: 0;
     }
   }
 
@@ -45,17 +53,18 @@
   &.list-item-expanded {
     border-left: 4px solid #b7b7b7;
 
+    .menu-group,
     .mat-list-item {
-      &.with-sub-menu {
-        &:after {
-          @include arrow-up();
-          opacity: 0.7;
-          width: 0.45em;
-          height: 0.45em;
-          position: absolute;
-          top: 1.7em;
-          right: 0.6em;
-          left: unset;
+      .list-item-node {
+        .arrow {
+          &:before {
+            @include arrow-down();
+            opacity: 0.7;
+            width: 0.45em;
+            height: 0.45em;
+            top: 1.6em;
+            left: 0.6em;
+          }
         }
       }
     }
@@ -73,5 +82,4 @@
       }
     }
   }
-
 }

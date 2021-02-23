@@ -13,6 +13,8 @@ import { GrilleDemoComponent } from './grille-demo.component';
     CocoringDatagridModule,
     SharedProjectModule,
   ],
-  declarations: [GrilleDemoComponent],
+  declarations: [
+    GrilleDemoComponent
+  ],
 })
 export class GrilleDemoModule { }

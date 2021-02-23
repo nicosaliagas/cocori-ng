@@ -7,6 +7,7 @@
 }
 
 table {
+    position: relative;
     border-collapse: collapse;
     margin: 0;
     padding: 0;
@@ -57,6 +58,45 @@ table th {
         font-size: 1em;
     }
 }
+
+/** loader styles  */
+
+.table-cell-loader {
+    padding: .625em;
+}
+
+.row-loader {
+    padding: 10px;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background: #ececec;
+    }
+
+    30% {
+        background: #F7F7F7;
+    }
+
+    50% {
+        background: #ececec;
+    }
+
+    80% {
+        background: #F7F7F7;
+    }
+
+    100% {
+        background: #ececec;
+    }
+}
+
+.loading-animation {
+    animation: placeHolderShimmer 3s infinite;
+}
+
+/** / loader styles  */
+
 
 @media screen and (max-width: 600px) {
     table {

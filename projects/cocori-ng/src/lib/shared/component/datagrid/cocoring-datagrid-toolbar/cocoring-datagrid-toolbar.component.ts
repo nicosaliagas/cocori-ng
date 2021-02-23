@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+
 @Component({
   selector: 'cocoring-datagrid-toolbar',
   templateUrl: './cocoring-datagrid-toolbar.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CocoringDatagridToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private datagridService: DatagridService) { }
 
   ngOnInit(): void {
   }
 
+  refreshList() {
+    this.datagridService.refreshNeeded$.next();
+  }
 }

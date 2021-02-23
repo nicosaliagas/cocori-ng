@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
+import { CocoringDatagridGroupDirective } from '../../directive/datagrid-group/cocoring-datagrid-group.directive';
 import { CocoringCheckboxModule } from '../form/inputs/input-checkbox/cocoring-checkbox.module';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell/cocoring-datagrid-cell.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row/cocoring-datagrid-row.component';
@@ -16,6 +17,7 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         CocoringDatagridRowComponent,
         CocoringDatagridCellComponent,
         CocoringDatagridToolbarComponent,
+        CocoringDatagridGroupDirective
     ],
     imports: [
         CommonModule,
@@ -24,6 +26,10 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         MatIconModule,
         CocoringCheckboxModule
     ],
-    exports: [CocoringDatagridComponent]
+    exports: [
+        CocoringDatagridComponent,
+        CocoringDatagridToolbarComponent,
+        CocoringDatagridGroupDirective
+    ],
 })
 export class CocoringDatagridModule { }

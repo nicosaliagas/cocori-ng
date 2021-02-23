@@ -13,9 +13,18 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
 })
 export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   @Input() columns: ColumnDatagrid[] = []
-  @Input() datas: any
+  // @Input() datas: any
+  @Input()
+  set datas(datas: any) {
+    this._datas = datas;
+
+    this.addCheckboxRow();
+
+    this.initCellsValues();
+  }
   @Input() datagridService: DatagridService
 
+  _datas: any;
   cellValues: CellValueDatagrid[] = []
   checkboxRowFormGroup: FormGroup;
   subscriptions: Subscription = new Subscription();
@@ -23,11 +32,6 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,) { }
 
   ngOnInit(): void {
-
-    this.addCheckboxRow();
-
-    this.initCellsValues();
-
     this.eventAllCheckboxesChecked();
   }
 
@@ -37,7 +41,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
     this.checkboxRowFormGroup = this.fb.group({});
 
-    this.checkboxRowFormGroup.addControl(this.datas.id, this.fb.control(false));
+    this.checkboxRowFormGroup.addControl(this._datas.id, this.fb.control(false));
 
     checkboxesFormControlArray.push(this.checkboxRowFormGroup);
   }
@@ -51,8 +55,8 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   private eventAllCheckboxesChecked() {
     this.subscriptions.add(
       this.datagridService.allRowsChecked.subscribe((value: boolean) => {
-        console.log("check this row : ", value, this.datas);
-        this.checkboxRowFormGroup.get(this.datas.id).setValue(value);
+        console.log("check this row : ", value, this._datas);
+        this.checkboxRowFormGroup.get(this._datas.id).setValue(value);
       })
     );
   }
@@ -62,7 +66,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   }
 
   private getDatasourceValue(column: string) {
-    return this.datas.hasOwnProperty(column) ? this.datas[column] : null
+    return this._datas.hasOwnProperty(column) ? this._datas[column] : null
   }
 
   trackBy(index: number) {

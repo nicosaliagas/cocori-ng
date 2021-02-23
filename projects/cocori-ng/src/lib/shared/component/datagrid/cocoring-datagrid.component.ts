@@ -1,23 +1,31 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
-import { DataSourceInput, DatasourceOdata, DataSourceType } from '../../../core/model/data-source.model';
+import { DatasourceOdata } from '../../../core/model/data-source.model';
 import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
-import { HttpService } from '../../../core/service/http.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
-    styleUrls: ['./cocoring-datagrid.component.scss']
+    styleUrls: ['./cocoring-datagrid.component.scss'],
+    // providers: [DatagridService]
 })
 export class CocoringDatagridComponent implements OnInit, OnDestroy {
-    _config: ConfigDatagridModel;
     checkboxesGroup: FormGroup;
-    datagridDataSource$: Observable<DatasourceOdata>;
     subscriptions: Subscription = new Subscription();
     groupeCasesACocher: FormGroup;
     checkboxesFormControlArray: FormArray;
@@ -25,10 +33,13 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
+    datagridDataSource: DatasourceOdata;
+    numberRowsSaved: number = 5;
+    
     constructor(
         private fb: FormBuilder,
-        public datagridService: DatagridService,
-        private httpService: HttpService,
+        private cdr: ChangeDetectorRef,
+        public datagridService: DatagridService
     ) { }
 
     @Input()
@@ -37,42 +48,38 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             throw new Error(`La config du datgrid n'est pas correcte... config: ${config}`);
         }
 
-        this._config = config;
+        this.datagridService.config = config;
 
         this.setCheckboxHeaderColumn();
 
         console.log("configuration datagrid", config)
 
-        this.datagridDataSource$ = this.loadDataSource(this._config.dataSource)
+        this.loadDataSource();
+    }
 
+    private loadDataSource() {
+        const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
+            tap(_ => console.log("pipe listen to refreshNeeded$")),
+            tap(_ => this.datagridDataSource = null),
+            tap(_ => this.cdr.detectChanges()),
+            switchMap(() => this.datagridService.getAllDatas())
+        )
+
+        this.subscriptions.add(
+            merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
+                map((results: DatasourceOdata) => {
+                    this.datagridDataSource = results
+                    this.cdr.detectChanges();
+                }),
+                tap(_ => this.numberRowsSaved = this.datagridDataSource.results.length)
+            ).subscribe()
+        )
     }
 
     ngOnInit() { }
 
     ngOnDestroy() {
         this.subscriptions.unsubscribe()
-    }
-
-    loadDataSource(configDataSource: DataSourceInput): Observable<DatasourceOdata> {
-        if (!configDataSource) return <Observable<DatasourceOdata>>of(null);
-
-        switch (configDataSource.type) {
-            case DataSourceType.BRUTE:
-                return <Observable<DatasourceOdata>>of(configDataSource.value)
-                break;
-
-            case DataSourceType.API:
-                return this.getDataSource(<string>configDataSource.value)
-                break;
-
-            default:
-                return <Observable<DatasourceOdata>>of(null)
-                break;
-        }
-    }
-
-    private getDataSource(api: string): Observable<DatasourceOdata> {
-        return this.httpService.get(api)
     }
 
     private setCheckboxHeaderColumn() {
@@ -105,7 +112,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         console.log("Test checkboxes", this.checkboxesFormControlArray, this.datagridService.checkboxesDatagridForm.get("rowsCheckbox"))
     }
 
-    trackBy(index: number) {
-        return index;
+    trackBy(item: any, index: number) {
+        return `${item.id}-${index}`
     }
 }

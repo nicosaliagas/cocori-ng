@@ -6,16 +6,22 @@
 
     <ng-template #listItemDefaultTpl>
         <a *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null"
-            [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
-            {{item.label}}
+        [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
+            <div class="list-item-node">
+                <span *ngIf="item.children?.length" class="arrow"></span>
+            </div>
+            <div>{{item.label}}</div>
         </a>
-        <a *ngIf="item.url" mat-list-item [href]="item.url" target="_blank">
-            {{item.label}}
-        </a>
-        <div *ngIf="item.children?.length" class="sidenav-sublist"
-            [@animateExpandListItem]="expanded ? 'expanded': 'collapsed'">
-            <cocoring-sidenav-item *ngFor="let childItem of item.children; trackBy: trackBy" [item]="childItem">
-            </cocoring-sidenav-item>
+        <div>
+            <a *ngIf="item.url" mat-list-item [href]="item.url" target="_blank">
+                <div class="list-item-node"></div>
+                <div>{{item.label}}</div>
+            </a>
+            <div *ngIf="item.children?.length" class="sidenav-sublist"
+                [@animateExpandListItem]="expanded ? 'expanded': 'collapsed'">
+                <cocoring-sidenav-item *ngFor="let childItem of item.children; trackBy: trackBy" [item]="childItem">
+                </cocoring-sidenav-item>
+            </div>
         </div>
     </ng-template>
 </div>

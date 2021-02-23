@@ -4,7 +4,7 @@
 
 .datagrid-toolbar {
   padding: 0 34px;
-  background-color: transparent;
+  background-color: #e6e6e6;
   height: 50px;
   line-height: 50px;
   display: flex;
@@ -28,4 +28,8 @@
       height: 100%;
     }
   }
+}
+
+.refresh {
+  cursor: pointer;
 }
