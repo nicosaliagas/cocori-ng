@@ -5,10 +5,7 @@
       <!-- <caption *ngIf="_config?.title">{{_config.title}}</caption> -->
       <thead>
         <tr>
-          <th class="column-select" scope="col">
-            <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
-            </cocoring-checkbox>
-          </th>
+          <th class="column-select" scope="col"></th>
           <ng-container *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
             <th scope="col" [title]="column.caption">{{column.caption}}</th>
           </ng-container>
@@ -21,7 +18,7 @@
         </ng-container>
       </tbody>
       <ng-template #loadingTpl>
-        <tr *ngFor="let i of [].constructor(numberRowsSaved)">
+        <tr *ngFor="let i of [].constructor(totalRowsSaved)">
           <ng-container *ngFor="let column of datagridService.config.columns; let j = index; trackBy: trackBy">
             <td *ngIf="j === 0" class="column-select table-cell-loader">
               <div class="row-loader loading-animation"></div>

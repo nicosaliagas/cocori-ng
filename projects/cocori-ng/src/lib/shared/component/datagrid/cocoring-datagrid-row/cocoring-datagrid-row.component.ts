@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@a
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { CellValueDatagrid, ColumnDatagrid } from '../../../../core/model/component-datagrid.model';
+import { CellValueDatagridModel, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
   styleUrls: ['./cocoring-datagrid-row.component.scss']
 })
 export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
-  @Input() columns: ColumnDatagrid[] = []
+  @Input() columns: ColumnDatagridModel[] = []
   // @Input() datas: any
   @Input()
   set datas(datas: any) {
@@ -25,7 +25,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   @Input() datagridService: DatagridService
 
   _datas: any;
-  cellValues: CellValueDatagrid[] = []
+  cellValues: CellValueDatagridModel[] = []
   checkboxRowFormGroup: FormGroup;
   subscriptions: Subscription = new Subscription();
 
@@ -47,15 +47,14 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   }
 
   private initCellsValues() {
-    this.columns.forEach((column: ColumnDatagrid) => {
+    this.columns.forEach((column: ColumnDatagridModel) => {
       this.cellValues.push({ dataField: column.dataField, value: this.getDatasourceValue(column.dataField) });
     });
   }
 
   private eventAllCheckboxesChecked() {
     this.subscriptions.add(
-      this.datagridService.allRowsChecked.subscribe((value: boolean) => {
-        console.log("check this row : ", value, this._datas);
+      this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
         this.checkboxRowFormGroup.get(this._datas.id).setValue(value);
       })
     );

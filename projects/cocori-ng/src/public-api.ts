@@ -89,3 +89,5 @@ export * from './lib/core/service/toast-message.service';
 export * from './lib/core/service/confirm-modal.service';
 export * from './lib/core/service/current-url-routing.service';
 export * from './lib/core/service/datagrid/datagrid.service';
+
+export * from './lib/core/service/odata-query-builder/queryBuilder';

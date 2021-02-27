@@ -13,10 +13,10 @@ export class GrilleDemoComponent implements OnInit {
   constructor(
     private datagridDemoService: DatagridDemoService,
     private datagridService: DatagridService) {
-      this.datagridService.allRowsChecked.subscribe((value: boolean) => {
-        console.log("from app, check all rows", value)
-      })
-    }
+    this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
+      console.log("from app, check all rows", value)
+    })
+  }
 
   ngOnInit() {
     this.initConfigDatagrid()

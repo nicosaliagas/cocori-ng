@@ -1,14 +1,14 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    HostBinding,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -22,20 +22,17 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
-    // providers: [DatagridService]
 })
 export class CocoringDatagridComponent implements OnInit, OnDestroy {
     checkboxesGroup: FormGroup;
     subscriptions: Subscription = new Subscription();
     groupeCasesACocher: FormGroup;
-    checkboxesFormControlArray: FormArray;
-    list: { id: number; name: string; }[];
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
     datagridDataSource: DatasourceOdata;
-    numberRowsSaved: number = 5;
-    
+    totalRowsSaved: number = 5;
+
     constructor(
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
@@ -50,8 +47,6 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
         this.datagridService.config = config;
 
-        this.setCheckboxHeaderColumn();
-
         console.log("configuration datagrid", config)
 
         this.loadDataSource();
@@ -59,8 +54,11 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     private loadDataSource() {
         const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
-            tap(_ => console.log("pipe listen to refreshNeeded$")),
             tap(_ => this.datagridDataSource = null),
+            tap(_ => {
+                /** on désactive la case à cocher qui permet de sélecitonner / désélectionner toutes les lignes du tableau */
+                this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").setValue(false, { emitEvent: false })
+            }),
             tap(_ => this.cdr.detectChanges()),
             switchMap(() => this.datagridService.getAllDatas())
         )
@@ -69,9 +67,13 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
                 map((results: DatasourceOdata) => {
                     this.datagridDataSource = results
+
+                    console.log("datasource", results)
+
                     this.cdr.detectChanges();
                 }),
-                tap(_ => this.numberRowsSaved = this.datagridDataSource.results.length)
+                tap(_ => this.totalRowsSaved = this.datagridDataSource.results.length),
+                tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
             ).subscribe()
         )
     }
@@ -80,36 +82,6 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.unsubscribe()
-    }
-
-    private setCheckboxHeaderColumn() {
-
-        this.datagridService.initCheckboxesDatagridForm()
-
-        this.subscriptions.add(
-            this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").valueChanges.subscribe((value: boolean) => {
-                this.datagridService.checkUncheckAllRows(value)
-            })
-        )
-
-        // this.buildCheckboxesArray()
-    }
-
-    private buildCheckboxesArray() {
-
-        this.list = [{ id: 1, name: "golf" }, { id: 2, name: "tennis" }, { id: 3, name: "foot" }];
-
-        this.checkboxesFormControlArray = <FormArray>this.datagridService.checkboxesDatagridForm.get("rowsCheckbox")
-
-        this.list.forEach((item: any, i) => {
-            let fg = this.fb.group({});
-
-            fg.addControl(this.list[i].name, this.fb.control(true));
-
-            this.checkboxesFormControlArray.push(fg);
-        });
-
-        console.log("Test checkboxes", this.checkboxesFormControlArray, this.datagridService.checkboxesDatagridForm.get("rowsCheckbox"))
     }
 
     trackBy(item: any, index: number) {

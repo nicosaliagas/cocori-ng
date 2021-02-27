@@ -38,7 +38,9 @@ After building your library with `ng build --project=cocori-ng`, go to the dist 
 
 - Angular Material
 - Angular Material Design Icons
-- MomentJs : npm i moment
+- FakerJs : fake datas 
+    npm install faker --save-dev
+    npm install @types/faker --save-dev
 
 
 ## Initialise le thème de la lib Cocori-ng

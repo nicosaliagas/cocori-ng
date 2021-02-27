@@ -1,12 +1,22 @@
 import { DataSourceInput } from './data-source.model';
 
+export interface PaginationDatagridModel {
+    itemsPerPage: number,
+    currentPage: number,
+    from: number,
+    to: number,
+    totalRows: number,
+}
+
+export type IndicatorPage = Pick<PaginationDatagridModel, 'from' | 'to'>;
+
 export interface ConfigDatagridModel {
     title: string,
-    columns: ColumnDatagrid[],
+    columns: ColumnDatagridModel[],
     dataSource?: DataSourceInput,
 }
 
-export interface ColumnDatagrid {
+export interface ColumnDatagridModel {
     caption: string
     dataField: string
     dataType?: string // types venant du back : 'string' | 'number' | 'date' | 'boolean' | 'object'
@@ -16,7 +26,7 @@ export interface ColumnDatagrid {
     minWidth?: number
 }
 
-export interface CellValueDatagrid {
+export interface CellValueDatagridModel {
     dataField: string
     value: string
 }

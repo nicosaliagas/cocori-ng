@@ -1,7 +1,28 @@
 <div class="datagrid-toolbar">
     <div class="datagrid-toolbar-part">
-        <div class="refresh" (click)="refreshList()">
-            <mat-icon>refresh</mat-icon>
+        <div class="toolbar-option">
+            <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
+            </cocoring-checkbox>
+        </div>
+        <div class="toolbar-option" (click)="refreshList()">
+            <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="datagrid-toolbar-part right-part">
+        <div class="currentPaginationText">
+            {{datagridService.indicatorPage?.from + 1}} - {{datagridService.indicatorPage?.to}} sur {{totalRows}}
+        </div>
+        <div class="toolbar-option">
+            <button mat-icon-button title="Précédent" (click)="previousPage()" [disabled]="datagridService.currentPage === 1" aria-label="Afficher la page précédente">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </div>        
+        <div class="toolbar-option">
+            <button mat-icon-button title="Suivant" (click)="nextPage()" [disabled]="datagridService.indicatorPage?.to === totalRows" aria-label="Afficher la page suivante">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
         </div>
     </div>
 </div>

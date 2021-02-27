@@ -8,7 +8,8 @@ import { CocoringButtonComponent } from './cocoring-button.component';
     declarations: [CocoringButtonComponent],
     imports: [
         CommonModule,
-        MatButtonModule],
+        MatButtonModule
+    ],
     exports: [CocoringButtonComponent]
 })
 export class CocoringButtonModule { }

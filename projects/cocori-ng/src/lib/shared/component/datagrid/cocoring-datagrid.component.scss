@@ -128,6 +128,7 @@ table th {
         width: auto;
         min-width: unset;
         max-width: unset;
+        white-space: unset;
 
         &.column-select {
             width: auto;
@@ -153,6 +154,7 @@ table th {
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+        padding-right: 10px;
     }
 
     table cocoring-datagrid-cell:last-child td {

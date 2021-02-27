@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { CellValueDatagrid } from '../../../../core/model/component-datagrid.model';
+import { CellValueDatagridModel } from '../../../../core/model/component-datagrid.model';
 
 @Component({
   selector: 'cocoring-datagrid-cell',
@@ -8,7 +8,7 @@ import { CellValueDatagrid } from '../../../../core/model/component-datagrid.mod
   styleUrls: ['./cocoring-datagrid-cell.component.scss']
 })
 export class CocoringDatagridCellComponent implements OnInit {
-  @Input() cell: CellValueDatagrid
+  @Input() cell: CellValueDatagridModel
 
   constructor() { }
 
