@@ -24,7 +24,10 @@ export interface ColumnDatagridModel {
     visible?: boolean
     width?: number
     minWidth?: number
+    sort?: SortType
 }
+
+export type SortType = "ASC" | "DESC" | "NONE"
 
 export interface CellValueDatagridModel {
     dataField: string

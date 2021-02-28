@@ -7,7 +7,7 @@
         <tr>
           <th class="column-select" scope="col"></th>
           <ng-container *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
-            <th scope="col" [title]="column.caption">{{column.caption}}</th>
+            <cocoring-datagrid-head [column]="column" [datagridService]="datagridService"></cocoring-datagrid-head>
           </ng-container>
         </tr>
       </thead>

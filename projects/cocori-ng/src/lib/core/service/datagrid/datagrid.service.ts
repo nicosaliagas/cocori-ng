@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
-import { ConfigDatagridModel, IndicatorPage } from '../../model/component-datagrid.model';
+import { ColumnDatagridModel, ConfigDatagridModel, IndicatorPage } from '../../model/component-datagrid.model';
 import { DatasourceOdata, DataSourceType } from '../../model/data-source.model';
 import { HttpService } from '../http.service';
 import { QueryBuilder } from '../odata-query-builder/queryBuilder';
@@ -106,18 +106,21 @@ export class DatagridService {
 
   private buildQueryOData() {
 
+    const orderByQuery: string = this.orderByQuery()
+
     this.indicatorPage = { from: (this.currentPage - 1) * this.itemsPerPage, to: this.currentPage * this.itemsPerPage }
 
-    const query = new QueryBuilder()
+    let queryBuider = new QueryBuilder()
       .top(this.itemsPerPage)
       .skip(this.indicatorPage.from)
       .filter(f => f
         .filterPhrase(`contains(Property1,'Value1')`)
         .filterExpression('Property1', 'eq', 'Value1')
         .filterExpression('Property2', 'eq', 'Value2')
-
       )
-      .toQuery();
+      if(orderByQuery) queryBuider = queryBuider.orderBy(orderByQuery)
+
+      const query = queryBuider.toQuery()
 
     console.log("query : ", query);
   }
@@ -129,5 +132,15 @@ export class DatagridService {
 
   lengthDataSource(rowsLength: number) {
     this.lengthDataSource$.next(rowsLength)
+  }
+
+  private orderByQuery() {
+    const sortQuery: string = this.config.columns
+      .filter((column: ColumnDatagridModel) => column.sort === 'ASC' || column.sort === 'DESC')
+      .map(function (elem: ColumnDatagridModel) {
+        return `${elem.dataField.toLowerCase()} ${elem.sort.toLowerCase()}`;
+      }).join(",");
+
+    return sortQuery
   }
 }

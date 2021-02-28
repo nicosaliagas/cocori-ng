@@ -1,16 +1,16 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
 import { DatasourceOdata } from '../../../core/model/data-source.model';
@@ -54,6 +54,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     private loadDataSource() {
         const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
+            debounceTime(500),
             tap(_ => this.datagridDataSource = null),
             tap(_ => {
                 /** on désactive la case à cocher qui permet de sélecitonner / désélectionner toutes les lignes du tableau */
@@ -67,9 +68,6 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
                 map((results: DatasourceOdata) => {
                     this.datagridDataSource = results
-
-                    console.log("datasource", results)
-
                     this.cdr.detectChanges();
                 }),
                 tap(_ => this.totalRowsSaved = this.datagridDataSource.results.length),

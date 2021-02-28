@@ -1,0 +1,11 @@
+<th scope="col" [title]="column.caption" (click)="sort()">
+    <div class="column-table-header">
+      <div>{{column.caption}}</div>
+      <div *ngIf="column.sort && column.sort !== 'NONE'">
+        <button mat-icon-button title="Inverser le tri" aria-label="Inverser le tri">
+          <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
+          <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
+        </button>
+      </div>
+    </div>
+  </th>

@@ -33,12 +33,9 @@ table td {
     font-size: 1em;
     padding: .625em;
     text-align: left;
-    // border-left: 1px solid #ddd;
-    // border-right: 1px solid #ddd;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 100px;
-
     white-space: nowrap;
     max-width: 100px;
 
@@ -51,13 +48,29 @@ table td {
 }
 
 table th {
+    cursor: pointer;
     font-size: .85em;
     letter-spacing: .1em;
 
     &.column-select {
         font-size: 1em;
     }
+
+    .column-table-header {
+        display: flex;
+
+        .mat-icon-button {
+            width: 20px;
+            height: 20px;
+            line-height: 12px;
+
+            .mat-icon {
+                font-size: 15px;
+            }
+        }
+    }
 }
+
 
 /** loader styles  */
 

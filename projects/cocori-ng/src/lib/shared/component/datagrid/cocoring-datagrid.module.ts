@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CocoringDatagridGroupDirective } from '../../directive/datagrid-group/cocoring-datagrid-group.directive';
 import { CocoringCheckboxModule } from '../form/inputs/input-checkbox/cocoring-checkbox.module';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell/cocoring-datagrid-cell.component';
+import { CocoringDatagridHeadComponent } from './cocoring-datagrid-head/cocoring-datagrid-head.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row/cocoring-datagrid-row.component';
 import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
 import { CocoringDatagridComponent } from './cocoring-datagrid.component';
@@ -17,6 +18,7 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         CocoringDatagridComponent,
         CocoringDatagridRowComponent,
         CocoringDatagridCellComponent,
+        CocoringDatagridHeadComponent,
         CocoringDatagridToolbarComponent,
         CocoringDatagridGroupDirective
     ],
