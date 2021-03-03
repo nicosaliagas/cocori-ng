@@ -54,7 +54,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     private loadDataSource() {
         const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
-            debounceTime(500),
+            debounceTime(400),
             tap(_ => this.datagridDataSource = null),
             tap(_ => {
                 /** on désactive la case à cocher qui permet de sélecitonner / désélectionner toutes les lignes du tableau */

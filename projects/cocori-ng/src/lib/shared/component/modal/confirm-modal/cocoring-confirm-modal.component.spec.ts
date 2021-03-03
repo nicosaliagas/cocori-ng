@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { CocoringVariableHtmlModule } from '../../../pipe/variable-html/cocoring-variable-html.module';
 import { CocoringConfirmModalComponent } from './cocoring-confirm-modal.component';
 
 describe('ConfirmModalComponent', () => {
@@ -8,9 +11,17 @@ describe('ConfirmModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocoringConfirmModalComponent ]
+      declarations: [CocoringConfirmModalComponent],
+      imports: [ReactiveFormsModule, CocoringVariableHtmlModule],
+      providers: [{
+        provide: MatDialogRef,
+        useValue: {}
+      }, {
+        provide: MAT_DIALOG_DATA,
+        useValue: {} // Add any data you wish to test if it is passed/used correctly
+      }],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

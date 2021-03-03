@@ -1,0 +1,13 @@
+<!-- <button cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-icon-button class="drag-button"
+    title="Maintenir pour déplacer la fenêtre" aria-label="Maintenir pour déplacer la fenêtre">
+    <mat-icon>drag_indicator</mat-icon>
+</button> -->
+<h1 class="modal-header" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title>Actions sur la grille</h1>
+<form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+    <div mat-dialog-content>
+        Hello World
+    </div>
+    <div mat-dialog-actions>
+        <cocoring-button text="Valider" type="submit"></cocoring-button>
+    </div>
+</form>

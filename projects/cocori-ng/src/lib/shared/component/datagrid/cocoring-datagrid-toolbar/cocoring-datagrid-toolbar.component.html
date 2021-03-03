@@ -1,12 +1,17 @@
 <div class="datagrid-toolbar">
     <div class="datagrid-toolbar-part">
-        <div class="toolbar-option">
+        <div class="toolbar-option select-all">
             <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
             </cocoring-checkbox>
         </div>
         <div class="toolbar-option" (click)="refreshList()">
             <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau">
                 <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+        <div class="toolbar-option" (click)="filterModal()">
+            <button mat-icon-button title="Rechercher / Filter / Trier" aria-label="Rechercher / Filter / Trier">
+                <mat-icon>search</mat-icon>
             </button>
         </div>
     </div>

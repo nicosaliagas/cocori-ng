@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -6,8 +7,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CocoringDatagridGroupDirective } from '../../directive/datagrid-group/cocoring-datagrid-group.directive';
+import { CocoringButtonModule } from '../button/cocoring-button.module';
 import { CocoringCheckboxModule } from '../form/inputs/input-checkbox/cocoring-checkbox.module';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell/cocoring-datagrid-cell.component';
+import {
+    CocoringDatagridFilterModalComponent,
+} from './cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 import { CocoringDatagridHeadComponent } from './cocoring-datagrid-head/cocoring-datagrid-head.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row/cocoring-datagrid-row.component';
 import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
@@ -19,15 +24,18 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         CocoringDatagridRowComponent,
         CocoringDatagridCellComponent,
         CocoringDatagridHeadComponent,
+        CocoringDatagridFilterModalComponent,
         CocoringDatagridToolbarComponent,
         CocoringDatagridGroupDirective
     ],
     imports: [
         CommonModule,
+        DragDropModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatIconModule,
         MatButtonModule,
+        CocoringButtonModule,
         CocoringCheckboxModule
     ],
     exports: [

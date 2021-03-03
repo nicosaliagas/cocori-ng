@@ -1,21 +1,45 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Subject } from 'rxjs';
 
-import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell.component';
+import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { CocoringDatagridHeadComponent } from './cocoring-datagrid-head.component';
 
-describe('CocoringDatagridCellComponent', () => {
-  let component: CocoringDatagridCellComponent;
-  let fixture: ComponentFixture<CocoringDatagridCellComponent>;
+const DatagridServiceStub = {
+  get resetColumnExcept$(): Subject<string> {
+    return new Subject<string>();
+  }
+};
+
+describe('CocoringDatagridHeadComponent', () => {
+  let component: CocoringDatagridHeadComponent;
+  let fixture: ComponentFixture<CocoringDatagridHeadComponent>;
+  let datagridService: DatagridService
+  let expectedColumn: ColumnDatagridModel
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocoringDatagridCellComponent ]
+      declarations: [CocoringDatagridHeadComponent],
+      providers: [
+        {
+          provide: DatagridService, useValue: DatagridServiceStub
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CocoringDatagridCellComponent);
+    fixture = TestBed.createComponent(CocoringDatagridHeadComponent);
     component = fixture.componentInstance;
+
+    datagridService = TestBed.inject(DatagridService);
+
+    expectedColumn = <ColumnDatagridModel>{ caption: 'Test Caption', sort: 'NONE' };
+
+    component.column = expectedColumn
+    component.datagridService = datagridService
+
     fixture.detectChanges();
   });
 

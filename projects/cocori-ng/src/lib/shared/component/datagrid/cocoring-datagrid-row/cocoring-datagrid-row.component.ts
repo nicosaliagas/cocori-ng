@@ -13,7 +13,6 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
 })
 export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   @Input() columns: ColumnDatagridModel[] = []
-  // @Input() datas: any
   @Input()
   set datas(datas: any) {
     this._datas = datas;

@@ -16,6 +16,7 @@ export class DatagridService {
   private _refreshNeeded$: Subject<void> = new Subject<void>();
   private _nextPage$: Subject<void> = new Subject<void>();
   private _previousPage$: Subject<void> = new Subject<void>();
+  private _resetColumnExcept$: Subject<string> = new Subject<string>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   public checkboxesDatagridForm: FormGroup;
@@ -55,6 +56,10 @@ export class DatagridService {
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
+  }
+
+  get resetColumnExcept$() {
+    return this._resetColumnExcept$;
   }
 
   get allRowsChecked$() {
@@ -106,7 +111,7 @@ export class DatagridService {
 
   private buildQueryOData() {
 
-    const orderByQuery: string = this.orderByQuery()
+    const orderByQuery: string = this.generateSortQuery()
 
     this.indicatorPage = { from: (this.currentPage - 1) * this.itemsPerPage, to: this.currentPage * this.itemsPerPage }
 
@@ -118,9 +123,9 @@ export class DatagridService {
         .filterExpression('Property1', 'eq', 'Value1')
         .filterExpression('Property2', 'eq', 'Value2')
       )
-      if(orderByQuery) queryBuider = queryBuider.orderBy(orderByQuery)
+    if (orderByQuery) queryBuider = queryBuider.orderBy(orderByQuery)
 
-      const query = queryBuider.toQuery()
+    const query = queryBuider.toQuery()
 
     console.log("query : ", query);
   }
@@ -134,7 +139,7 @@ export class DatagridService {
     this.lengthDataSource$.next(rowsLength)
   }
 
-  private orderByQuery() {
+  private generateSortQuery() {
     const sortQuery: string = this.config.columns
       .filter((column: ColumnDatagridModel) => column.sort === 'ASC' || column.sort === 'DESC')
       .map(function (elem: ColumnDatagridModel) {

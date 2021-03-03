@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import {
+  CocoringDatagridFilterModalComponent,
+} from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +22,7 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
   // checkboxesFormControlArray: FormArray;
 
   constructor(
+    public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     public datagridService: DatagridService) { }
 
@@ -42,6 +47,17 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
 
   refreshList() {
     this.datagridService.refreshNeeded$.next();
+  }
+
+  filterModal() {
+    const dialogRef = this.dialog.open(CocoringDatagridFilterModalComponent, {
+      autoFocus: false,
+      width: '550px',
+    });
+
+    dialogRef.afterClosed().subscribe((datas: any) => {
+      console.log("modal fermée", datas)
+    });
   }
 
   private setCheckboxHeaderColumn() {
