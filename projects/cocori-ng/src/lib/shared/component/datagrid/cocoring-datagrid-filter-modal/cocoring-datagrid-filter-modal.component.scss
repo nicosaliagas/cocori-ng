@@ -1,3 +1,8 @@
+@import './../../../../assets/mixins';
+
+$modal-min-height: 150px;
+$modal-max-height: 400px;
+
 :host {
   display: block;
 
@@ -8,6 +13,68 @@
 
 .modal-header {
   cursor: grabbing;
+}
+
+.layout-container {
+  height: 100%;
+  min-height: $modal-min-height;
+
+  .part-title {
+    font-weight: 500;
+    font-size: 13px;
+    display: flex;
+
+    .list-item-node {
+      height: 100%;
+      width: 20px;
+
+      .arrow {
+        &:before {
+          @include arrow-left();
+          opacity: 0.7;
+          width: 0.45em;
+          height: 0.45em;
+          left: .3em;
+          top: 0.65em;
+        }
+      }
+    }
+  }
+
+  .sidenav {
+    padding-top: 30px;
+
+    .toolbar-sidenav {
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .main {
+      flex-grow: 1;
+      flex-shrink: 0;
+      padding: 0 10px 10px 10px;
+
+      .main-contenu {
+        height: 100%;
+        padding-top: 5px;
+        min-height: $modal-min-height;
+        max-height: $modal-max-height;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  // .main {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: stretch;
+  // }
 }
 
 // .drag-button {

@@ -8,9 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ng new my-first-project
 
-## Génération CLI
+## Commandes CLI :
 
-ng g component cocoring-datagrid-toolbar --display-block=true --skip-import=true --style=scss
+ng g component cocoring-datagrid-filter-columns --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 

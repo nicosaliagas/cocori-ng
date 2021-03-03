@@ -2,18 +2,17 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
 
-import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { CellValueDatagridModel, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import { CocoringDatagridCellComponent } from '../cocoring-datagrid-cell/cocoring-datagrid-cell.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row.component';
 
-const DatagridServiceStub = {
-  get allRowsChecked$(): Subject<boolean> {
-    return new Subject<boolean>();
-  }
-};
+// const DatagridServiceStub = {
+//   get allRowsChecked$(): Subject<boolean> {
+//     return new Subject<boolean>();
+//   }
+// };
 
 describe('CocoringDatagridRowComponent', () => {
   let component: CocoringDatagridRowComponent;
@@ -59,7 +58,7 @@ describe('CocoringDatagridRowComponent', () => {
     });
 
     expectedColums = [{ dataField: 'testDatafield', caption: 'Test Caption' }, { dataField: 'testDatafield2', caption: 'Test Caption 2' }];
-    expectedDatas = { id: 'Test Id', testDatafield: 'Value Datafield', testDatafield2: 'Value testDatafield2' };
+    expectedDatas = { id: 'TestId', testDatafield: 'Value Datafield', testDatafield2: 'Value testDatafield2' };
 
     component.datagridService = datagridService;
     component.columns = expectedColums;
@@ -76,11 +75,39 @@ describe('CocoringDatagridRowComponent', () => {
     const TdDe: DebugElement[] = fixture.debugElement.queryAll(By.css('td'));
 
     expect(TdDe.length).toEqual(expectedColums.length + 1);
+
+    expect(component.cellValues.length).toEqual(expectedColums.length);
   });
 
   it('should have one td column-select in the row', () => {
     const TdDe: DebugElement[] = fixture.debugElement.queryAll(By.css('td.column-select'));
 
     expect(TdDe.length).toEqual(1)
+  });
+
+  it('should have the correct values in cell array', () => {
+    expect(component.cellValues.length).toEqual(expectedColums.length);
+
+    let cellValue: CellValueDatagridModel = component.cellValues[0]
+
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield' });
+
+    cellValue = component.cellValues[1]
+
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2' });
+  });
+
+  it('should have a checkbox control in the form array rowsCheckbox with the value false', () => {
+    const checkboxesFormControlArray: FormArray = <FormArray>datagridService.checkboxesDatagridForm.get("rowsCheckbox");
+
+    expect(checkboxesFormControlArray.length).toEqual(1);
+
+    expect(component.checkboxRowFormGroup.get('TestId').value).toBeFalse()
+  });
+
+  it('should check the row if the all checkbox of the array is checked', () => {
+    datagridService.allRowsChecked$.next(true)
+
+    expect(component.checkboxRowFormGroup.get('TestId').value).toBeTrue()
   });
 });

@@ -2,10 +2,63 @@
     title="Maintenir pour déplacer la fenêtre" aria-label="Maintenir pour déplacer la fenêtre">
     <mat-icon>drag_indicator</mat-icon>
 </button> -->
-<h1 class="modal-header" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title>Actions sur la grille</h1>
+<h1 class="modal-header" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title
+    (click)="sidenav.toggle()">
+    Actions sur la grille
+</h1>
 <form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
     <div mat-dialog-content>
-        Hello World
+        <!-- <cocoring-datagrid-filter-columns></cocoring-datagrid-filter-columns> -->
+        <mat-sidenav-container class="layout-container">
+            <mat-sidenav class="sidenav" #sidenav mode="side" position="start" [opened]="isSidenavOpen">
+                <div class="toolbar-sidenav part-title">Colonnes</div>
+                <mat-nav-list>
+                    <a mat-list-item>Nom</a>
+                    <a mat-list-item>Prénom</a>
+                    <a mat-list-item>Civilité</a>
+                    <a mat-list-item>Age</a>
+                    <a mat-list-item>Test</a>
+                    <a mat-list-item>Test</a>
+                    <a mat-list-item>Test</a>
+                    <a mat-list-item>Test</a>
+                    <a mat-list-item>Test</a>
+                    <a mat-list-item>Test</a>
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content #sidenavContent>
+                <div class="main">
+                    <div class="part-title">
+                        <div class="list-item-node">
+                            <span class="arrow"></span>
+                        </div>
+                        <div>Nom</div>
+                    </div>
+                    <div class="main-contenu">
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                        <div>blablalba</div>
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
     </div>
     <div mat-dialog-actions>
         <cocoring-button text="Valider" type="submit"></cocoring-button>
