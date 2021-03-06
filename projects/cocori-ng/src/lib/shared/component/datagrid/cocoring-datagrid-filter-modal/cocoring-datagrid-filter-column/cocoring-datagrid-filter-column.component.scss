@@ -1,0 +1,52 @@
+:host {
+  display: contents;
+}
+
+.mat-list-item {
+  border-bottom: 1px solid #edf1f7;
+
+  ::ng-deep .mat-list-item-content {
+    justify-content: space-between;
+  }
+
+  .list-item-part-left {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  .button-visibility {
+    margin-right: 10px;
+  }
+}
+
+.mat-icon-button {
+  width: 30px;
+  height: 30px;
+  line-height: 12px;
+
+  .mat-icon {
+    font-size: 17px;
+  }
+}
+
+.column-caption {
+  padding-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+  supported by Chrome, Edge, Opera and Firefox */
+}

@@ -20,9 +20,9 @@ describe('CocoringDatagridRowComponent', () => {
   let expectedColums: ColumnDatagridModel[]
   let expectedDatas: object
 
+  let formBuilder: FormBuilder;
   let httpClientSpy: { get: jasmine.Spy };
   let formBuilderSpy: { group: jasmine.Spy };
-  let formBuilder: FormBuilder;
   let datagridService: DatagridService
 
   beforeEach(async () => {

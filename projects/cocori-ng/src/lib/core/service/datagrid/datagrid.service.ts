@@ -17,6 +17,7 @@ export class DatagridService {
   private _nextPage$: Subject<void> = new Subject<void>();
   private _previousPage$: Subject<void> = new Subject<void>();
   private _resetColumnExcept$: Subject<string> = new Subject<string>();
+  private _updateColumn$: Subject<ColumnDatagridModel> = new Subject<ColumnDatagridModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   public checkboxesDatagridForm: FormGroup;
@@ -60,6 +61,10 @@ export class DatagridService {
 
   get resetColumnExcept$() {
     return this._resetColumnExcept$;
+  }
+
+  get updateColumn$() {
+    return this._updateColumn$;
   }
 
   get allRowsChecked$() {
@@ -109,7 +114,7 @@ export class DatagridService {
     }
   }
 
-  private buildQueryOData() {
+  private buildQueryOData(): string {
 
     const orderByQuery: string = this.generateSortQuery()
 
@@ -128,6 +133,8 @@ export class DatagridService {
     const query = queryBuider.toQuery()
 
     console.log("query : ", query);
+
+    return query;
   }
 
   private getDataSource(api: string): Observable<DatasourceOdata> {

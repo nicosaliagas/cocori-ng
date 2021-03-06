@@ -14,8 +14,8 @@ import { CocoringButtonModule } from '../button/cocoring-button.module';
 import { CocoringCheckboxModule } from '../form/inputs/input-checkbox/cocoring-checkbox.module';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell/cocoring-datagrid-cell.component';
 import {
-    CocoringDatagridFilterColumnsComponent,
-} from './cocoring-datagrid-filter-modal/cocoring-datagrid-filter-columns/cocoring-datagrid-filter-columns.component';
+    CocoringDatagridFilterColumnComponent,
+} from './cocoring-datagrid-filter-modal/cocoring-datagrid-filter-column/cocoring-datagrid-filter-column.component';
 import {
     CocoringDatagridFilterModalComponent,
 } from './cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
@@ -33,7 +33,7 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         CocoringDatagridFilterModalComponent,
         CocoringDatagridToolbarComponent,
         CocoringDatagridGroupDirective,
-        CocoringDatagridFilterColumnsComponent
+        CocoringDatagridFilterColumnComponent
     ],
     imports: [
         CommonModule,

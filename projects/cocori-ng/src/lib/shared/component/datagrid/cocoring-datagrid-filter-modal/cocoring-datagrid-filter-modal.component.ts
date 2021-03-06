@@ -1,6 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
+
+import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,14 +13,21 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./cocoring-datagrid-filter-modal.component.scss']
 })
 export class CocoringDatagridFilterModalComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
   formulaire: FormGroup;
   disabled = true
   isSidenavOpen: boolean = true;
 
+  datagridService: DatagridService;
+  currentColumn: ColumnDatagridModel;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: { datagridService: DatagridService },
     private fb: FormBuilder,
     private mdDialogRef: MatDialogRef<CocoringDatagridFilterModalComponent>) {
+
+    this.datagridService = data.datagridService
 
     this.formulaire = this.fb.group({
       acceptGoogleAnalytics: true,
@@ -32,6 +43,26 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
   public validateFrom({ value, valid }: { value: any, valid: boolean }) {
     this.close({ acceptGoogleAnalytics: value.acceptGoogleAnalytics });
+  }
+
+  public actionsHeaderModal() {
+    if (this.currentColumn) {
+      // back to the list of columns
+      this.currentColumn = null
+      this.sidenav.toggle()
+    } else {
+      this.close(null)
+    }
+  }
+
+  public columnSelected(column: ColumnDatagridModel) {
+    this.currentColumn = column
+
+    this.sidenav.toggle()
+  }
+
+  public trackBy(item: any, index: number) {
+    return `${item.id}-${index}`
   }
 }
 

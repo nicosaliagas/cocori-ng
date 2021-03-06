@@ -33,3 +33,8 @@ export interface CellValueDatagridModel {
     dataField: string
     value: string
 }
+
+export interface CellValueDatagridModel {
+    dataField: string
+    value: string
+}

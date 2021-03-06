@@ -51,8 +51,9 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
 
   filterModal() {
     const dialogRef = this.dialog.open(CocoringDatagridFilterModalComponent, {
+      data: { datagridService: this.datagridService },
       autoFocus: false,
-      width: '550px'
+      width: '400px'
     });
 
     dialogRef.afterClosed().subscribe((datas: any) => {

@@ -1,54 +1,40 @@
 @import './../../../../assets/mixins';
 
 $modal-min-height: 150px;
-$modal-max-height: 400px;
+$modal-max-height: 300px;
 
 :host {
   display: block;
+}
 
-  // ::ng-deep .mat-icon {
-  //   font-size: 20px;
-  // }
+/** sidenav full width */
+.mat-drawer {
+  width: 100%;
 }
 
 .modal-header {
-  cursor: grabbing;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .actions-header-modal {
+    margin-left: -11px;
+  }
+
+  .header-title {
+    cursor: grabbing;
+    margin: 0 0 0 10px;
+  }
+}
+
+.mat-dialog-content {
+  overflow: hidden;
+  padding: 0;
 }
 
 .layout-container {
   height: 100%;
   min-height: $modal-min-height;
-
-  .part-title {
-    font-weight: 500;
-    font-size: 13px;
-    display: flex;
-
-    .list-item-node {
-      height: 100%;
-      width: 20px;
-
-      .arrow {
-        &:before {
-          @include arrow-left();
-          opacity: 0.7;
-          width: 0.45em;
-          height: 0.45em;
-          left: .3em;
-          top: 0.65em;
-        }
-      }
-    }
-  }
-
-  .sidenav {
-    padding-top: 30px;
-
-    .toolbar-sidenav {
-      position: absolute;
-      top: 0;
-    }
-  }
 
   .mat-drawer-content {
     display: flex;
@@ -58,27 +44,14 @@ $modal-max-height: 400px;
     .main {
       flex-grow: 1;
       flex-shrink: 0;
-      padding: 0 10px 10px 10px;
+      padding: 0 20px;
 
       .main-contenu {
         height: 100%;
-        padding-top: 5px;
         min-height: $modal-min-height;
         max-height: $modal-max-height;
         overflow-y: auto;
       }
     }
   }
-
-  // .main {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: stretch;
-  // }
 }
-
-// .drag-button {
-//   float: right;
-//   top: -24px;
-//   right: -24px;
-// }

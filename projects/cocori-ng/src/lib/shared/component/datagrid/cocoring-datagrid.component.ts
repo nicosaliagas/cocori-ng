@@ -57,7 +57,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             debounceTime(400),
             tap(_ => this.datagridDataSource = null),
             tap(_ => {
-                /** on désactive la case à cocher qui permet de sélecitonner / désélectionner toutes les lignes du tableau */
+                /** on désactive la case à cocher qui permet de sélectionner / désélectionner toutes les lignes du tableau */
                 this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").setValue(false, { emitEvent: false })
             }),
             tap(_ => this.cdr.detectChanges()),

@@ -1,0 +1,20 @@
+<a mat-list-item>
+    <div class="list-item-part-left" (click)="sort()">
+        <button mat-icon-button type="button" aria-label="Réordonner les colonnes">
+            <mat-icon>drag_indicator</mat-icon>
+        </button>
+        <div class="column-caption">{{column.caption}}</div>
+        <button mat-icon-button type="button" aria-label="Inverser le tri">
+            <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
+            <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
+        </button>
+    </div>
+    <div>
+        <button class="button-visibility" mat-icon-button type="button" aria-label="Réordonner les colonnes">
+            <mat-icon>visibility</mat-icon>
+        </button>
+        <button (click)="selectColumn(column)" mat-icon-button type="button" aria-label="Réordonner les colonnes">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+</a>
