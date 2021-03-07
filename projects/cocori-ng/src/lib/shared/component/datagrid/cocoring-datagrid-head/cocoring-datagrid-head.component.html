@@ -1,4 +1,5 @@
-<th scope="col" [title]="column.caption" (click)="sort()">
+<ng-container *ngIf="column.visible">
+  <th scope="col" [title]="column.caption" (click)="sort()">
     <div class="column-table-header">
       <div class="column-caption">{{column.caption}}</div>
       <div *ngIf="column.sort && column.sort !== 'NONE'">
@@ -9,3 +10,4 @@
       </div>
     </div>
   </th>
+</ng-container>

@@ -45,7 +45,7 @@ describe('CocoringDatagridHeadComponent', () => {
 
     datagridService = new DatagridService(httpClientSpy as any, formBuilderSpy as any)
 
-    expectedColumn = <ColumnDatagridModel>{ dataField: 'mockDatafield', caption: 'Test Caption', sort: 'NONE' };
+    expectedColumn = <ColumnDatagridModel>{ dataField: 'mockDatafield', caption: 'Test Caption', visible: true, sort: 'NONE' };
 
     component.column = expectedColumn
     component.datagridService = datagridService

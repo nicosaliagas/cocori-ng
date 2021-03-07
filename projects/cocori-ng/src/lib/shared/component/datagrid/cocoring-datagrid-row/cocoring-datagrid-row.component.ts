@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { CellValueDatagridModel, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
@@ -28,10 +29,15 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   checkboxRowFormGroup: FormGroup;
   subscriptions: Subscription = new Subscription();
 
-  constructor(private fb: FormBuilder,) { }
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+  ) { }
 
   ngOnInit(): void {
-    this.eventAllCheckboxesChecked();
+    this.eventAllCheckboxesChecked()
+
+    this.onUpdateColumn()
   }
 
   /** ajouté le contrôle checkbox de la ligne dans le formulaire */
@@ -47,8 +53,22 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   private initCellsValues() {
     this.columns.forEach((column: ColumnDatagridModel) => {
-      this.cellValues.push({ dataField: column.dataField, value: this.getDatasourceValue(column.dataField) });
+      this.cellValues.push({ dataField: column.dataField, visible: column.visible, value: this.getDatasourceValue(column.dataField) });
     });
+  }
+
+  /** prise en compte de la visibilité des colonnes */
+  private onUpdateColumn() {
+    this.subscriptions.add(
+      this.datagridService.updateColumn$.pipe(
+        tap((columnUpdated: ColumnDatagridModel) => {
+          this.cellValues
+            .find((cell: CellValueDatagridModel) => cell.dataField === columnUpdated.dataField)
+            .visible = columnUpdated.visible
+        }),
+        tap(_ => this.cdr.detectChanges()),
+      ).subscribe()
+    )
   }
 
   private eventAllCheckboxesChecked() {

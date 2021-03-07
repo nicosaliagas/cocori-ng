@@ -24,7 +24,13 @@ export class CocoringDatagridFilterColumnComponent extends SortColumnExtendCompo
     this.subscriptions.unsubscribe()
   }
 
-  selectColumn(column: ColumnDatagridModel) {
-    this.columnSelected.emit(column)
+  selectColumn() {
+    this.columnSelected.emit(this.column)
+  }
+
+  visible() {
+    this.column.visible = !this.column.visible
+
+    this.datagridService.updateColumn$.next(this.column)
   }
 }

@@ -14,7 +14,7 @@ describe('CocoringDatagridFilterModalComponent', () => {
   let formBuilderSpy: { group: jasmine.Spy };
   let datagridService: DatagridService
   let config: ConfigDatagridModel = {
-    columns: [{ dataField: 'testDatafield', caption: 'Test Caption' }, { dataField: 'testDatafield2', caption: 'Test Caption 2' }],
+    columns: [{ dataField: 'testDatafield', caption: 'Test Caption', visible: true }, { dataField: 'testDatafield2', caption: 'Test Caption 2', visible: true }],
     title: 'Datagrid Title'
   }
 

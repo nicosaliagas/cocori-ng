@@ -10,10 +10,11 @@
         </button>
     </div>
     <div>
-        <button class="button-visibility" mat-icon-button type="button" aria-label="Réordonner les colonnes">
-            <mat-icon>visibility</mat-icon>
+        <button (click)="visible()" class="button-visibility" mat-icon-button type="button" aria-label="Réordonner les colonnes">
+            <mat-icon *ngIf="column.visible">visibility</mat-icon>
+            <mat-icon *ngIf="!column.visible">visibility_off</mat-icon>
         </button>
-        <button (click)="selectColumn(column)" mat-icon-button type="button" aria-label="Réordonner les colonnes">
+        <button (click)="selectColumn()" mat-icon-button type="button" aria-label="Réordonner les colonnes">
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>

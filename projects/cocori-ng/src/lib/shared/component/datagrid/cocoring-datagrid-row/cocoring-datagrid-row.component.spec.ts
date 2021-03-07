@@ -57,7 +57,7 @@ describe('CocoringDatagridRowComponent', () => {
       rowsCheckbox: new FormArray([]),
     });
 
-    expectedColums = [{ dataField: 'testDatafield', caption: 'Test Caption' }, { dataField: 'testDatafield2', caption: 'Test Caption 2' }];
+    expectedColums = [{ dataField: 'testDatafield', caption: 'Test Caption', visible: true }, { dataField: 'testDatafield2', caption: 'Test Caption 2', visible: true }];
     expectedDatas = { id: 'TestId', testDatafield: 'Value Datafield', testDatafield2: 'Value testDatafield2' };
 
     component.datagridService = datagridService;
@@ -90,11 +90,11 @@ describe('CocoringDatagridRowComponent', () => {
 
     let cellValue: CellValueDatagridModel = component.cellValues[0]
 
-    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield' });
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield', visible: true });
 
     cellValue = component.cellValues[1]
 
-    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2' });
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2', visible: true });
   });
 
   it('should have a checkbox control in the form array rowsCheckbox with the value false', () => {

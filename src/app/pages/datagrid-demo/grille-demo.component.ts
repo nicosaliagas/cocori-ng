@@ -32,16 +32,16 @@ export class GrilleDemoComponent implements OnInit {
       this._config = {
         title: "Grille utilisateurs",
         columns: [
-          { caption: "Nom", dataField: "name" },
-          { caption: "Prénom", dataField: "surname" },
-          { caption: "Civilité", dataField: "civility" },
-          { caption: "Age", dataField: "age" },
-          { caption: "Test", dataField: "test" },
-          { caption: "Test", dataField: "test1" },
-          { caption: "Test", dataField: "test2" },
-          { caption: "Test", dataField: "test3" },
-          { caption: "Test", dataField: "test4" },
-          { caption: "Test", dataField: "test5" },
+          { caption: "Nom", dataField: "name", visible: true },
+          { caption: "Prénom", dataField: "surname", visible: true },
+          { caption: "Civilité", dataField: "civility", visible: true },
+          { caption: "Age", dataField: "age", visible: true },
+          { caption: "Test", dataField: "test", visible: true },
+          { caption: "Test", dataField: "test1", visible: true },
+          { caption: "Test", dataField: "test2", visible: true },
+          { caption: "Test", dataField: "test3", visible: true },
+          { caption: "Test", dataField: "test4", visible: true },
+          { caption: "Test", dataField: "test5", visible: true },
         ],
         dataSource: { type: DataSourceType.BRUTE, value: values }
       }

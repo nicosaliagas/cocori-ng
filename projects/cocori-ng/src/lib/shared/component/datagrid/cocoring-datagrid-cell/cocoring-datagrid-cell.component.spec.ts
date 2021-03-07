@@ -21,7 +21,7 @@ describe('CocoringDatagridCellComponent', () => {
     fixture = TestBed.createComponent(CocoringDatagridCellComponent);
     component = fixture.componentInstance;
 
-    expectedCell = <CellValueDatagridModel>{ dataField: 'Test Datafield', value: 'Test Value' };
+    expectedCell = <CellValueDatagridModel>{ dataField: 'Test Datafield', value: 'Test Value', visible: true };
 
     component.cell = expectedCell;
 

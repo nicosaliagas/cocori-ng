@@ -19,9 +19,9 @@ export interface ConfigDatagridModel {
 export interface ColumnDatagridModel {
     caption: string
     dataField: string
+    visible: boolean
     dataType?: string // types venant du back : 'string' | 'number' | 'date' | 'boolean' | 'object'
     alignment?: string // left, right, center
-    visible?: boolean
     width?: number
     minWidth?: number
     sort?: SortType
@@ -29,12 +29,8 @@ export interface ColumnDatagridModel {
 
 export type SortType = "ASC" | "DESC" | "NONE"
 
-export interface CellValueDatagridModel {
-    dataField: string
-    value: string
-}
+export type CellColumn = Pick<ColumnDatagridModel, 'dataField' | 'visible'>;
 
-export interface CellValueDatagridModel {
-    dataField: string
+export interface CellValueDatagridModel extends CellColumn {
     value: string
 }

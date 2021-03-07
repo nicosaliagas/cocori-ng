@@ -1,1 +1,3 @@
-<td [attr.data-label]="cell.dataField" [title]="cell.value">{{cell.value}}</td>
+<ng-container *ngIf="cell.visible">
+    <td [attr.data-label]="cell.dataField" [title]="cell.value">{{cell.value}}</td>
+</ng-container>
