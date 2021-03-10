@@ -3,7 +3,11 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { CellValueDatagridModel, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import {
+  CellValueDatagridModel,
+  ColumnDatagridModel,
+  OrderColumnModel,
+} from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
@@ -38,6 +42,8 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     this.eventAllCheckboxesChecked()
 
     this.onUpdateColumn()
+
+    this.onReOrderColumns()
   }
 
   /** ajouté le contrôle checkbox de la ligne dans le formulaire */
@@ -53,11 +59,10 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   private initCellsValues() {
     this.columns.forEach((column: ColumnDatagridModel) => {
-      this.cellValues.push({ dataField: column.dataField, visible: column.visible, value: this.getDatasourceValue(column.dataField) });
+      this.cellValues.push({ dataField: column.dataField, caption: column.caption, visible: column.visible, value: this.getDatasourceValue(column.dataField) });
     });
   }
 
-  /** prise en compte de la visibilité des colonnes */
   private onUpdateColumn() {
     this.subscriptions.add(
       this.datagridService.updateColumn$.pipe(
@@ -65,6 +70,17 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
           this.cellValues
             .find((cell: CellValueDatagridModel) => cell.dataField === columnUpdated.dataField)
             .visible = columnUpdated.visible
+        }),
+        tap(_ => this.cdr.detectChanges()),
+      ).subscribe()
+    )
+  }
+
+  private onReOrderColumns() {
+    this.subscriptions.add(
+      this.datagridService.reOrderColumns$.pipe(
+        tap((columnUpdated: OrderColumnModel) => {
+          this.cellValues.splice(columnUpdated.currentIndex, 0, this.cellValues.splice(columnUpdated.previousIndex, 1)[0]);
         }),
         tap(_ => this.cdr.detectChanges()),
       ).subscribe()

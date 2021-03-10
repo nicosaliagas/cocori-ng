@@ -3,7 +3,12 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
-import { ColumnDatagridModel, ConfigDatagridModel, IndicatorPage } from '../../model/component-datagrid.model';
+import {
+  ColumnDatagridModel,
+  ConfigDatagridModel,
+  IndicatorPage,
+  OrderColumnModel,
+} from '../../model/component-datagrid.model';
 import { DatasourceOdata, DataSourceType } from '../../model/data-source.model';
 import { HttpService } from '../http.service';
 import { QueryBuilder } from '../odata-query-builder/queryBuilder';
@@ -18,6 +23,7 @@ export class DatagridService {
   private _previousPage$: Subject<void> = new Subject<void>();
   private _resetColumnExcept$: Subject<string> = new Subject<string>();
   private _updateColumn$: Subject<ColumnDatagridModel> = new Subject<ColumnDatagridModel>();
+  private _reOrderColumns$: Subject<OrderColumnModel> = new Subject<OrderColumnModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   public checkboxesDatagridForm: FormGroup;
@@ -26,12 +32,12 @@ export class DatagridService {
   public itemsPerPage: number = 10
   public currentPage: number = 1
   public totalRows: number = 0;
-  public indicatorPage: IndicatorPage
+  public indicatorPage: IndicatorPage;
+  public searchGlobal: string;
 
   constructor(
     private httpService: HttpService,
     private fb: FormBuilder,) {
-
     this.onPaginatePage()
   }
 
@@ -65,6 +71,10 @@ export class DatagridService {
 
   get updateColumn$() {
     return this._updateColumn$;
+  }
+
+  get reOrderColumns$() {
+    return this._reOrderColumns$;
   }
 
   get allRowsChecked$() {
@@ -123,12 +133,10 @@ export class DatagridService {
     let queryBuider = new QueryBuilder()
       .top(this.itemsPerPage)
       .skip(this.indicatorPage.from)
-      .filter(f => f
-        .filterPhrase(`contains(Property1,'Value1')`)
-        .filterExpression('Property1', 'eq', 'Value1')
-        .filterExpression('Property2', 'eq', 'Value2')
-      )
+
     if (orderByQuery) queryBuider = queryBuider.orderBy(orderByQuery)
+
+    queryBuider = this.generateFilterQuery(queryBuider)
 
     const query = queryBuider.toQuery()
 
@@ -154,5 +162,44 @@ export class DatagridService {
       }).join(",");
 
     return sortQuery
+  }
+
+  private generateFilterQuery(qb: QueryBuilder) {
+    /** OR */
+    // qb
+    //   .filter(
+    //     f => {
+    //       // for (let index = 0; index < 3; index++) {
+    //         f.filterPhrase(`contains('ferrari1') or contains('ferrari2')`)
+    //       // }
+    //       return f
+    //     }
+    //   )
+
+    /** AND */
+    // qb
+    //   .filter(
+    //     f => {
+    //       for (let index = 0; index < 3; index++) {
+    //         f.filterPhrase(`contains('ferrari1')`)
+    //       }
+    //       return f
+    //     }
+    //   )
+
+    let filterQuery: string = '';
+
+    if (this.searchGlobal) {
+      filterQuery = `contains('${this.searchGlobal}')`
+    }
+
+    if (filterQuery) {
+      qb
+        .filter(
+          f => f.filterPhrase(filterQuery)
+        )
+    }
+
+    return qb
   }
 }

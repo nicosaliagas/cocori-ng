@@ -1,17 +1,26 @@
+<cocoring-datagrid-searchbar (searchValue)="searchValue($event)"></cocoring-datagrid-searchbar>
 <div class="datagrid-toolbar">
     <div class="datagrid-toolbar-part">
         <div class="toolbar-option select-all">
             <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
             </cocoring-checkbox>
         </div>
-        <div class="toolbar-option" (click)="refreshList()">
-            <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau">
+        <div class="toolbar-option">
+            <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau"
+                (click)="refreshList()">
                 <mat-icon>refresh</mat-icon>
             </button>
         </div>
-        <div class="toolbar-option" (click)="filterModal()">
-            <button mat-icon-button title="Rechercher / Filter / Trier" aria-label="Rechercher / Filter / Trier">
-                <mat-icon>search</mat-icon>
+        <div class="toolbar-option">
+            <button mat-icon-button title="Rechercher / Filter / Trier" aria-label="Rechercher / Filter / Trier"
+                (click)="filterModal()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+        </div>
+        <div class="toolbar-option">
+            <button mat-icon-button disabled="true" title="supprimer les lignes sélectionnées"
+                aria-label="supprimer les lignes sélectionnées" (click)="filterModal()">
+                <mat-icon>delete_outline</mat-icon>
             </button>
         </div>
     </div>
@@ -20,12 +29,14 @@
             {{datagridService.indicatorPage?.from + 1}} - {{datagridService.indicatorPage?.to}} sur {{totalRows}}
         </div>
         <div class="toolbar-option">
-            <button mat-icon-button title="Précédent" (click)="previousPage()" [disabled]="datagridService.currentPage === 1" aria-label="Afficher la page précédente">
+            <button mat-icon-button title="Précédent" (click)="previousPage()"
+                [disabled]="datagridService.currentPage === 1" aria-label="Afficher la page précédente">
                 <mat-icon>keyboard_arrow_left</mat-icon>
             </button>
-        </div>        
+        </div>
         <div class="toolbar-option">
-            <button mat-icon-button title="Suivant" (click)="nextPage()" [disabled]="datagridService.indicatorPage?.to === totalRows" aria-label="Afficher la page suivante">
+            <button mat-icon-button title="Suivant" (click)="nextPage()"
+                [disabled]="datagridService.indicatorPage?.to === totalRows" aria-label="Afficher la page suivante">
                 <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
         </div>

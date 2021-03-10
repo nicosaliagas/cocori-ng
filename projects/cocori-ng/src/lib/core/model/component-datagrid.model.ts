@@ -29,8 +29,13 @@ export interface ColumnDatagridModel {
 
 export type SortType = "ASC" | "DESC" | "NONE"
 
-export type CellColumn = Pick<ColumnDatagridModel, 'dataField' | 'visible'>;
+export type CellColumn = Pick<ColumnDatagridModel, 'dataField' | 'caption' | 'visible'>;
 
 export interface CellValueDatagridModel extends CellColumn {
     value: string
+}
+
+export interface OrderColumnModel {
+    previousIndex: number
+    currentIndex: number
 }

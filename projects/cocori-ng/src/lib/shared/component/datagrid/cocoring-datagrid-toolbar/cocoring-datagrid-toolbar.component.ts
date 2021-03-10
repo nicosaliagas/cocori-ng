@@ -80,6 +80,12 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
     this.datagridService.previousPage$.next()
   }
 
+  searchValue(searchValue: string) {
+    this.datagridService.searchGlobal = searchValue
+
+    this.datagridService.refreshNeeded$.next()
+  }
+
 
   // private buildCheckboxesArray() {
   //   this.list = [{ id: 1, name: "golf" }, { id: 2, name: "tennis" }, { id: 3, name: "foot" }];

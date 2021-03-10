@@ -21,7 +21,7 @@ describe('CocoringDatagridCellComponent', () => {
     fixture = TestBed.createComponent(CocoringDatagridCellComponent);
     component = fixture.componentInstance;
 
-    expectedCell = <CellValueDatagridModel>{ dataField: 'Test Datafield', value: 'Test Value', visible: true };
+    expectedCell = <CellValueDatagridModel>{ caption: 'Test Datafield', value: 'Test Value', visible: true };
 
     component.cell = expectedCell;
 
@@ -42,6 +42,6 @@ describe('CocoringDatagridCellComponent', () => {
   it('should display cell attribute correctly ', () => {
     const TdDe: DebugElement = fixture.debugElement.query(By.css('td'));
 
-    expect(TdDe.nativeElement.getAttribute('data-label')).toEqual(expectedCell.dataField);
+    expect(TdDe.nativeElement.getAttribute('data-label')).toEqual(expectedCell.caption);
   });
 });

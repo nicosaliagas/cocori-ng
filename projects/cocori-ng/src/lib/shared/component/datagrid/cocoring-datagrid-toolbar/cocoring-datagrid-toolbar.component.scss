@@ -54,6 +54,21 @@
   }
 }
 
+.datagrid-searchbar {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 0 34px;
+  background-color: white;
+  height: 50px;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px 0 26px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
 @media screen and (max-width: 600px) {
   .datagrid-toolbar {
     padding: 0 0 0 13px;

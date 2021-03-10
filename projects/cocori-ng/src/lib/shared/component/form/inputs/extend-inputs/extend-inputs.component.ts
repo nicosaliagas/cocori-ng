@@ -23,7 +23,7 @@ export abstract class ExtendInputsComponent {
     dataSource$: Observable<any>;
     inRelationWith: NameControl;
     validators: ValidatorFn[];
-    appearance: string = 'outline'
+    appearance: string = 'outline' // standard // https://material.angular.io/components/form-field/api#MatFormFieldAppearance
     httpService: HttpService;
     styleCompact: boolean;
 

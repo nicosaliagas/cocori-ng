@@ -1,0 +1,13 @@
+<div class="datagrid-searchbar" [formGroup]="searchForm">
+    <mat-form-field>
+        <mat-label>Filtrer</mat-label>
+        <button class="iconSearch" mat-button matPrefix mat-icon-button aria-label="Clear">
+            <mat-icon>search</mat-icon>
+        </button>
+        <input matInput formControlName="inputSearch">
+        <button mat-button *ngIf="searchForm.get('inputSearch').value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="clearValue()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>

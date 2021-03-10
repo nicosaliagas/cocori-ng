@@ -1,15 +1,15 @@
-<a mat-list-item>
+<a mat-list-item cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".sidenav">
     <div class="list-item-part-left" (click)="sort()">
         <button mat-icon-button type="button" aria-label="Réordonner les colonnes">
             <mat-icon>drag_indicator</mat-icon>
         </button>
-        <div class="column-caption">{{column.caption}}</div>
+        <div class="column-caption" [ngClass]="{'column-no-visible': !column.visible}">{{column.caption}}</div>
         <button mat-icon-button type="button" aria-label="Inverser le tri">
             <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
             <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
         </button>
     </div>
-    <div>
+    <div class="list-item-part-right">
         <button (click)="visible()" class="button-visibility" mat-icon-button type="button" aria-label="Réordonner les colonnes">
             <mat-icon *ngIf="column.visible">visibility</mat-icon>
             <mat-icon *ngIf="!column.visible">visibility_off</mat-icon>

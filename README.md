@@ -10,7 +10,7 @@ ng new my-first-project
 
 ## Commandes CLI :
 
-ng g component cocoring-datagrid-filter-column --display-block=true --skip-import=true --style=scss
+ng g component cocoring-datagrid-searchbar --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 

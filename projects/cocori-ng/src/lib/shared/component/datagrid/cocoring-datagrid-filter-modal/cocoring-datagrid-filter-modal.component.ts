@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -64,5 +65,10 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   public trackBy(item: any, index: number) {
     return `${item.id}-${index}`
   }
-}
 
+  public dropColumn(event: CdkDragDrop<ColumnDatagridModel[]>) {
+    moveItemInArray(this.datagridService.config.columns, event.previousIndex, event.currentIndex);
+    
+    this.datagridService.reOrderColumns$.next({ previousIndex: event.previousIndex, currentIndex: event.currentIndex })
+  }
+}

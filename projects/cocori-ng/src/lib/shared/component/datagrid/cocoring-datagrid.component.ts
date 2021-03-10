@@ -1,12 +1,12 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    HostBinding,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
@@ -47,9 +47,9 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
         this.datagridService.config = config;
 
-        console.log("configuration datagrid", config)
-
         this.loadDataSource();
+
+        this.onReOrderColumns()
     }
 
     private loadDataSource() {
@@ -72,6 +72,15 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
                 }),
                 tap(_ => this.totalRowsSaved = this.datagridDataSource.results.length),
                 tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
+            ).subscribe()
+        )
+    }
+
+    /** re order cellValues array */
+    private onReOrderColumns() {
+        this.subscriptions.add(
+            this.datagridService.reOrderColumns$.pipe(
+                tap(_ => this.cdr.detectChanges()),
             ).subscribe()
         )
     }

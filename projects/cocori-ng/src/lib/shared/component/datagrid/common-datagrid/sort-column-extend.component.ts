@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, HostListener, Injector, Input } from '@an
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
-import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
@@ -55,9 +55,13 @@ export abstract class SortColumnExtendComponent {
     sort() {
         if (!this.shiftKey) this.datagridService.resetColumnExcept$.next(this.column.dataField)
 
-        if (!this.column.sort || this.column.sort === 'NONE') this.column.sort = 'ASC'
-        else if (this.column.sort === 'ASC') this.column.sort = 'DESC'
-        else this.column.sort = 'NONE'
+        let newSortValue: SortType = 'NONE'
+
+        if (!this.column.sort || this.column.sort === 'NONE') newSortValue = 'ASC'
+        else if (this.column.sort === 'ASC') newSortValue = 'DESC'
+        else newSortValue = 'NONE'
+
+        this.column.sort = newSortValue
 
         this.datagridService.updateColumn$.next(this.column)
 

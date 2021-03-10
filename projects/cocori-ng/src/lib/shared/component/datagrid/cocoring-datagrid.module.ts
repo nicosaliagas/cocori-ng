@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
@@ -21,6 +22,9 @@ import {
 } from './cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 import { CocoringDatagridHeadComponent } from './cocoring-datagrid-head/cocoring-datagrid-head.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row/cocoring-datagrid-row.component';
+import {
+    CocoringDatagridSearchbarComponent,
+} from './cocoring-datagrid-toolbar/cocoring-datagrid-searchbar/cocoring-datagrid-searchbar.component';
 import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
 import { CocoringDatagridComponent } from './cocoring-datagrid.component';
 
@@ -31,9 +35,10 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         CocoringDatagridCellComponent,
         CocoringDatagridHeadComponent,
         CocoringDatagridFilterModalComponent,
+        CocoringDatagridFilterColumnComponent,
         CocoringDatagridToolbarComponent,
+        CocoringDatagridSearchbarComponent,
         CocoringDatagridGroupDirective,
-        CocoringDatagridFilterColumnComponent
     ],
     imports: [
         CommonModule,
@@ -43,6 +48,7 @@ import { CocoringDatagridComponent } from './cocoring-datagrid.component';
         MatSidenavModule,
         MatListModule,
         MatDialogModule,
+        MatInputModule,
         MatIconModule,
         MatButtonModule,
         CocoringButtonModule,

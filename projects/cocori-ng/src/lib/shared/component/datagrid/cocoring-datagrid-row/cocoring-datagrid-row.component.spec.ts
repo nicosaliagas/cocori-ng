@@ -90,11 +90,25 @@ describe('CocoringDatagridRowComponent', () => {
 
     let cellValue: CellValueDatagridModel = component.cellValues[0]
 
-    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield', visible: true });
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield', visible: true , caption: 'Test Caption'});
 
     cellValue = component.cellValues[1]
 
-    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2', visible: true });
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2', visible: true, caption: 'Test Caption 2' });
+  });
+
+  it('reorder the columns, it should reorder the cells array', () => {
+    expect(component.cellValues.length).toEqual(expectedColums.length);
+
+    datagridService.reOrderColumns$.next({ currentIndex: 1, previousIndex: 0 })
+
+    let cellValue: CellValueDatagridModel = component.cellValues[0]
+
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield2', value: 'Value testDatafield2', visible: true, caption: 'Test Caption 2' });
+
+    cellValue = component.cellValues[1]
+
+    expect(cellValue).toEqual(<CellValueDatagridModel>{ dataField: 'testDatafield', value: 'Value Datafield', visible: true, caption: 'Test Caption' });
   });
 
   it('should have a checkbox control in the form array rowsCheckbox with the value false', () => {

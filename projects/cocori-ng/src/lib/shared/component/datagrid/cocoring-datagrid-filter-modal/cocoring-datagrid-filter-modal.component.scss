@@ -1,7 +1,7 @@
 @import './../../../../assets/mixins';
 
-$modal-min-height: 150px;
-$modal-max-height: 300px;
+$modal-min-height: 300px;
+$modal-max-height: 100vh;
 
 :host {
   display: block;
