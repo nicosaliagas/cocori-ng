@@ -11,28 +11,32 @@ export interface PaginationDatagridModel {
 export type IndicatorPage = Pick<PaginationDatagridModel, 'from' | 'to'>;
 
 export interface ConfigDatagridModel {
-    title: string,
     columns: ColumnDatagridModel[],
     dataSource?: DataSourceInput,
+    withBatchProcessing: boolean,
 }
 
 export interface ColumnDatagridModel {
     caption: string
     dataField: string
     visible: boolean
-    dataType?: string // types venant du back : 'string' | 'number' | 'date' | 'boolean' | 'object'
-    alignment?: string // left, right, center
+    dataType: DataType
+    alignment?: AlignmentType
     width?: number
     minWidth?: number
     sort?: SortType
 }
 
-export type SortType = "ASC" | "DESC" | "NONE"
+export type SortType = 'ASC' | 'DESC' | 'NONE'
 
-export type CellColumn = Pick<ColumnDatagridModel, 'dataField' | 'caption' | 'visible'>;
+export type DataType = 'string' | 'number' | 'date' | 'boolean' | 'object'
+
+export type AlignmentType = 'left' | 'right' | 'center'
+
+export type CellColumn = Pick<ColumnDatagridModel, 'dataType' | 'dataField' | 'caption' | 'visible'>;
 
 export interface CellValueDatagridModel extends CellColumn {
-    value: string
+    value: any
 }
 
 export interface OrderColumnModel {

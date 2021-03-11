@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 
 import { CellValueDatagridModel } from '../../../../core/model/component-datagrid.model';
 
@@ -10,9 +11,11 @@ import { CellValueDatagridModel } from '../../../../core/model/component-datagri
 export class CocoringDatagridCellComponent implements OnInit {
   @Input() cell: CellValueDatagridModel
 
-  constructor() { }
+  cellValue: string
+
+  constructor(@Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit(): void {
+    this.cellValue = this.cell.dataType === 'date' ? formatDate(this.cell.value, 'dd/MM/YYYY', this.locale) : this.cell.value
   }
-
 }

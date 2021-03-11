@@ -1,10 +1,13 @@
 <cocoring-datagrid-searchbar (searchValue)="searchValue($event)"></cocoring-datagrid-searchbar>
 <div class="datagrid-toolbar">
     <div class="datagrid-toolbar-part">
-        <div class="toolbar-option select-all">
-            <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm" nameControl="selectAllRowsCheckbox">
-            </cocoring-checkbox>
-        </div>
+        <ng-container *ngIf="datagridService.config?.withBatchProcessing">
+            <div class="toolbar-option select-all">
+                <cocoring-checkbox [formGroup]="datagridService.checkboxesDatagridForm"
+                    nameControl="selectAllRowsCheckbox">
+                </cocoring-checkbox>
+            </div>
+        </ng-container>
         <div class="toolbar-option">
             <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau"
                 (click)="refreshList()">
@@ -17,12 +20,14 @@
                 <mat-icon>filter_list</mat-icon>
             </button>
         </div>
-        <div class="toolbar-option">
-            <button mat-icon-button disabled="true" title="supprimer les lignes sélectionnées"
-                aria-label="supprimer les lignes sélectionnées" (click)="filterModal()">
-                <mat-icon>delete_outline</mat-icon>
-            </button>
-        </div>
+        <ng-container *ngIf="datagridService.config?.withBatchProcessing">
+            <div class="toolbar-option">
+                <button mat-icon-button disabled="true" title="supprimer les lignes sélectionnées"
+                    aria-label="supprimer les lignes sélectionnées" (click)="filterModal()">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </div>
+        </ng-container>
     </div>
     <div class="datagrid-toolbar-part right-part">
         <div class="currentPaginationText">

@@ -30,20 +30,20 @@ export class GrilleDemoComponent implements OnInit {
 
     this.datagridDemoService.mockDatagridDatas().subscribe((values: DatasourceOdata) => {
       this._config = {
-        title: "Grille utilisateurs",
         columns: [
-          { caption: "Nom", dataField: "name", visible: true },
-          { caption: "Prénom", dataField: "surname", visible: true },
-          { caption: "Civilité", dataField: "civility", visible: true },
-          { caption: "Age", dataField: "age", visible: true },
-          { caption: "Test", dataField: "test", visible: true },
-          { caption: "Test", dataField: "test1", visible: true },
-          { caption: "Test", dataField: "test2", visible: true },
-          { caption: "Test", dataField: "test3", visible: true },
-          { caption: "Test", dataField: "test4", visible: true },
-          { caption: "Test", dataField: "test5", visible: true },
+          { caption: "Nom", dataField: "name", dataType: "string", visible: true },
+          { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
+          { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
+          { caption: "Age", dataField: "age", dataType: "number", visible: true },
+          { caption: "Col Bool", dataField: "testBool", dataType: "boolean", visible: true },
+          { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
+          { caption: "Col Dat", dataField: "testDate", dataType: "date", visible: true },
+          { caption: "Col 1", dataField: "test1", dataType: "string", visible: true },
+          { caption: "Col 2", dataField: "test2", dataType: "number", visible: true },
+          { caption: "Col 3", dataField: "test3", dataType: "string", visible: true },
         ],
-        dataSource: { type: DataSourceType.BRUTE, value: values }
+        dataSource: { type: DataSourceType.BRUTE, value: values },
+        withBatchProcessing: false
       }
     })
   }

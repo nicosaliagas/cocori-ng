@@ -5,14 +5,58 @@
         <mat-icon *ngIf="currentColumn">keyboard_arrow_left</mat-icon>
     </button>
     <h1 class="header-title" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title>
-        <span *ngIf="!currentColumn">Actions sur la grille</span>
+        <span *ngIf="!currentColumn">Options</span>
         <span *ngIf="currentColumn">{{currentColumn.caption}}</span>
     </h1>
 </div>
 <form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
     <div mat-dialog-content class="test">
         <mat-sidenav-container class="layout-container" [hasBackdrop]="false">
-            <mat-sidenav class="sidenav" #sidenav mode="over" position="start" [opened]="isSidenavOpen">
+            <mat-sidenav class="sidenav" #sidenav mode="over" position="end" [opened]="isSidenavOpen">
+                <div>
+                    <div>Partie filtres importants :</div>
+                    <div>- liste des valeurs possibles de la colonne</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>- périodes de date, si colonne de type date</div>
+                    <div>THE END</div>
+                </div>
+
+                <!-- <mat-nav-list cdkDropList (cdkDropListDropped)="dropColumn($event)">
+                    <ng-container
+                        *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
+                        <cocoring-datagrid-filter-column [column]="column" [datagridService]="datagridService"
+                            (columnSelected)="columnSelected($event)"></cocoring-datagrid-filter-column>
+                    </ng-container>
+                </mat-nav-list> -->
+            </mat-sidenav>
+            <mat-sidenav-content #sidenavContent>
                 <mat-nav-list cdkDropList (cdkDropListDropped)="dropColumn($event)">
                     <ng-container
                         *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
@@ -20,15 +64,13 @@
                             (columnSelected)="columnSelected($event)"></cocoring-datagrid-filter-column>
                     </ng-container>
                 </mat-nav-list>
-            </mat-sidenav>
-            <mat-sidenav-content #sidenavContent>
-                <div class="main">
+                <!-- <div class="main">
                     <div class="main-contenu">
                         <div>Partie filtres importants :</div>
                         <div>- liste des valeurs possibles de la colonne</div>
                         <div>- périodes de date, si colonne de type date</div>
                     </div>
-                </div>
+                </div> -->
             </mat-sidenav-content>
         </mat-sidenav-container>
     </div>

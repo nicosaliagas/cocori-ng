@@ -20,28 +20,51 @@ describe('CocoringDatagridCellComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CocoringDatagridCellComponent);
     component = fixture.componentInstance;
-
-    expectedCell = <CellValueDatagridModel>{ caption: 'Test Datafield', value: 'Test Value', visible: true };
-
-    component.cell = expectedCell;
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display cell value and title correctly ', () => {
+  it('should display cell string value correctly ', () => {
+    expectedCell = <CellValueDatagridModel>{ dataType: 'string', caption: 'Test Datafield', value: 'Test Value', visible: true };
+
+    component.cell = expectedCell;
+
+    fixture.detectChanges();
+
     const TdDe: DebugElement = fixture.debugElement.query(By.css('td'));
 
-    expect(TdDe.nativeElement.textContent).toEqual(expectedCell.value);
-    expect(TdDe.nativeElement.getAttribute('title')).toEqual(expectedCell.value);
+    expect(TdDe.nativeElement.textContent).toEqual('Test Value');
+    expect(TdDe.nativeElement.getAttribute('title')).toEqual('Test Value');
+    expect(TdDe.nativeElement.getAttribute('data-label')).toEqual('Test Datafield');
   });
 
-  it('should display cell attribute correctly ', () => {
+  it('should display cell date value correctly ', () => {
+    const presentDate: Date = new Date('03/11/2021');
+
+    expectedCell = <CellValueDatagridModel>{ dataType: 'date', caption: 'Test Datafield', value: presentDate, visible: true };
+
+    component.cell = expectedCell;
+
+    fixture.detectChanges();
+
     const TdDe: DebugElement = fixture.debugElement.query(By.css('td'));
 
-    expect(TdDe.nativeElement.getAttribute('data-label')).toEqual(expectedCell.caption);
+    expect(TdDe.nativeElement.textContent).toEqual('11/03/2021');
+    expect(TdDe.nativeElement.getAttribute('title')).toEqual('11/03/2021');
+    expect(TdDe.nativeElement.getAttribute('data-label')).toEqual('Test Datafield');
+  });
+
+  it('should not display cell', () => {
+    expectedCell = <CellValueDatagridModel>{ dataType: 'string', caption: 'Test Datafield', value: 'test', visible: false };
+
+    component.cell = expectedCell;
+
+    fixture.detectChanges();
+
+    const TdDe: DebugElement = fixture.debugElement.query(By.css('td'));
+
+    expect(TdDe).toBeFalsy()
   });
 });

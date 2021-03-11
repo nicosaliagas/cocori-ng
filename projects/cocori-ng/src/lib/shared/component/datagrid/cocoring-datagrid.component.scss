@@ -26,6 +26,15 @@ table tr {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: .35em;
+
+}
+
+table tbody {
+    tr {
+        &:hover {
+            background-color: rgba(44, 44, 44, 0.04);
+        }
+    }
 }
 
 table th,

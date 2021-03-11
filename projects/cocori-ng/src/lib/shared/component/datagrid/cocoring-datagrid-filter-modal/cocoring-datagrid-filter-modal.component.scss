@@ -1,7 +1,7 @@
 @import './../../../../assets/mixins';
 
-$modal-min-height: 300px;
-$modal-max-height: 100vh;
+$modal-max-height: 400px;
+$modal-height: 100vh;
 
 :host {
   display: block;
@@ -28,30 +28,18 @@ $modal-max-height: 100vh;
 }
 
 .mat-dialog-content {
+  height: $modal-height;
+  max-height: $modal-max-height;
   overflow: hidden;
   padding: 0;
 }
 
 .layout-container {
   height: 100%;
-  min-height: $modal-min-height;
 
   .mat-drawer-content {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-
-    .main {
-      flex-grow: 1;
-      flex-shrink: 0;
-      padding: 0 20px;
-
-      .main-contenu {
-        height: 100%;
-        min-height: $modal-min-height;
-        max-height: $modal-max-height;
-        overflow-y: auto;
-      }
-    }
   }
 }

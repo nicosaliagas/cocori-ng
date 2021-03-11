@@ -2,10 +2,11 @@
   <!-- <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar> -->
   <div class="datagrid-container">
     <table [formGroup]="datagridService.checkboxesDatagridForm">
-      <!-- <caption *ngIf="_config?.title">{{_config.title}}</caption> -->
       <thead>
         <tr>
-          <th class="column-select" scope="col"></th>
+          <ng-container *ngIf="datagridService.config.withBatchProcessing">
+            <th class="column-select" scope="col"></th>
+          </ng-container>
           <ng-container *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
             <cocoring-datagrid-head [column]="column" [datagridService]="datagridService"></cocoring-datagrid-head>
           </ng-container>

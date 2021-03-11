@@ -1,5 +1,7 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+import localeFr from '@angular/common/locales/fr';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +21,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './shared/component/toolbar/toolbar.component';
 import { SharedProjectModule } from './shared/shared-project.module';
+
+// https://angular.io/guide/i18n#i18n-pipes
+registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 
 @NgModule({
   declarations: [

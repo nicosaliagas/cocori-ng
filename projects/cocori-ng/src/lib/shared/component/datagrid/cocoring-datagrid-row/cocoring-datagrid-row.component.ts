@@ -59,7 +59,12 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   private initCellsValues() {
     this.columns.forEach((column: ColumnDatagridModel) => {
-      this.cellValues.push({ dataField: column.dataField, caption: column.caption, visible: column.visible, value: this.getDatasourceValue(column.dataField) });
+      this.cellValues.push({ 
+        dataField: column.dataField, 
+        caption: column.caption, 
+        visible: column.visible, 
+        dataType: column.dataType, 
+        value: this.getDatasourceValue(column.dataField) });
     });
   }
 

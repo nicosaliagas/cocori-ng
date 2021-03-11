@@ -38,8 +38,10 @@ describe('CocoringDatagridComponent', () => {
 
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 0, results: [] } },
-      columns: [{ dataField: 'testDatafield', caption: 'Test Caption', visible: true }, { dataField: 'testDatafield2', caption: 'Test Caption 2', visible: true }],
-      title: 'Datagrid Title'
+      withBatchProcessing: true,
+      columns: [
+        { dataField: 'testDatafield', dataType:'string', caption: 'Test Caption', visible: true }, 
+        { dataField: 'testDatafield2', dataType:'string', caption: 'Test Caption 2', visible: true }]
     }
 
     component.config = config

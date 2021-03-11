@@ -19,14 +19,20 @@ export class DatagridDemoService {
       age: faker.random.number({
         'min': 18,
         'max': 99
-    }),
+      }),
       civility: faker.random.arrayElement(['Monsieur', 'Madame', 'Mademoiselle']),
-      test: faker.name.jobTitle(),
-      test1: faker.random.word(),
-      test2: faker.lorem.sentence(),
-      test3: faker.lorem.word(),
-      test4: faker.lorem.sentence(),
-      test5: faker.lorem.word()
+      testBool: faker.random.boolean(),
+      testNum: faker.random.number({
+        'min': 1,
+        'max': 999
+      }),
+      testDate: faker.date.recent(),
+      test1: faker.lorem.word(),
+      test2: faker.random.number({
+        'min': 1,
+        'max': 999
+      }),
+      test3: faker.lorem.sentence(),
     }
   }
 

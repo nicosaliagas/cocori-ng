@@ -18,7 +18,7 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
   formulaire: FormGroup;
   disabled = true
-  isSidenavOpen: boolean = true;
+  isSidenavOpen: boolean = false;
 
   datagridService: DatagridService;
   currentColumn: ColumnDatagridModel;

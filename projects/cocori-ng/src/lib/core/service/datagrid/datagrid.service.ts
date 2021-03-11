@@ -187,10 +187,15 @@ export class DatagridService {
     //     }
     //   )
 
+
     let filterQuery: string = '';
 
     if (this.searchGlobal) {
-      filterQuery = `contains('${this.searchGlobal}')`
+      filterQuery = this.config.columns
+        .filter((column: ColumnDatagridModel) => column.dataType === 'string')
+        .map((elem: ColumnDatagridModel) => {
+          return `contains(${elem.dataField}, '${this.searchGlobal}')`;
+        }).join(" or ");
     }
 
     if (filterQuery) {

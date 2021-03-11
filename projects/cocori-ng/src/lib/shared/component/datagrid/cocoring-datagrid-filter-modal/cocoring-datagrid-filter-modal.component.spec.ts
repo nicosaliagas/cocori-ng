@@ -14,8 +14,10 @@ describe('CocoringDatagridFilterModalComponent', () => {
   let formBuilderSpy: { group: jasmine.Spy };
   let datagridService: DatagridService
   let config: ConfigDatagridModel = {
-    columns: [{ dataField: 'testDatafield', caption: 'Test Caption', visible: true }, { dataField: 'testDatafield2', caption: 'Test Caption 2', visible: true }],
-    title: 'Datagrid Title'
+    withBatchProcessing: true,
+    columns: [
+      { dataField: 'testDatafield', dataType:'string', caption: 'Test Caption', visible: true }, 
+      { dataField: 'testDatafield2', dataType:'string', caption: 'Test Caption 2', visible: true }]
   }
 
   beforeEach(async () => {

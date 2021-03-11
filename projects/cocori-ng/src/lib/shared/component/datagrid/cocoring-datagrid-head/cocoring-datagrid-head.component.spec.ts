@@ -49,8 +49,6 @@ describe('CocoringDatagridHeadComponent', () => {
 
     component.column = expectedColumn
     component.datagridService = datagridService
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -58,6 +56,8 @@ describe('CocoringDatagridHeadComponent', () => {
   });
 
   it('should have the correct caption in the view', () => {
+    fixture.detectChanges();
+
     const ThDe: DebugElement = fixture.debugElement.query(By.css('th'));
     const CaptionDe: DebugElement = fixture.debugElement.query(By.css('.column-caption'));
 
@@ -65,7 +65,19 @@ describe('CocoringDatagridHeadComponent', () => {
     expect(CaptionDe.nativeElement.textContent).toEqual(expectedColumn.caption);
   });
 
+  it('should not display the column', () => {
+    expectedColumn.visible = false
+
+    fixture.detectChanges();
+
+    const ThDe: DebugElement = fixture.debugElement.query(By.css('th'));
+
+    expect(ThDe).toBeFalsy()
+  });
+
   it('should sort the column correctly', () => {
+    fixture.detectChanges();
+
     expect(component.column.sort).toEqual('NONE');
 
     const ThDe: DebugElement = fixture.debugElement.query(By.css('th'));
@@ -84,6 +96,8 @@ describe('CocoringDatagridHeadComponent', () => {
   });
 
   it('if reset sort status of all columns, it should not reset the status of this column', () => {
+    fixture.detectChanges();
+
     expect(component.column.sort).toEqual('NONE');
 
     const ThDe: DebugElement = fixture.debugElement.query(By.css('th'));
