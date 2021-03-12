@@ -31,9 +31,11 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
+      .appearance('fill')
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
         .isRequired()
+        .appearance('standard')
         .nameLabel('Datasource - brute')
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
@@ -51,16 +53,20 @@ export class StaticFormComponent implements OnInit {
       .addInput('nom', config => config
         .isRequired()
         .nameLabel('Nom')
+        .appearance('standard')
         .typeInput(InputComponents.INPUT_TEXT))
       .addInput('prenom', config => config
         .nameLabel('Prénom')
+        .appearance('outline')
         .typeInput(InputComponents.INPUT_TEXT))
       .addInput('age', config => config
         .nameLabel('Age')
+        .appearance('fill')
         .typeInput(InputComponents.INPUT_NUMBER))
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
+        .appearance('legacy')
         .typeInput(InputComponents.INPUT_EMAIL))
       .addInput('password', config => config
         .isRequired()

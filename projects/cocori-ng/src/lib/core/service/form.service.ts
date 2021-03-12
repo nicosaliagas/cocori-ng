@@ -1,5 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { configdefault } from '../../config/config.components';
 import { ConfigEvents } from '../../config/config.events';
@@ -40,6 +41,7 @@ class InputConfigBuilder<Builder> {
 
     _isRequired: boolean;
     _styleCompact: boolean = false;
+    _appearance: MatFormFieldAppearance;
     _nameLabel: string;
     _inRelationWith: string;
     _type: InputComponents;
@@ -54,6 +56,12 @@ class InputConfigBuilder<Builder> {
 
     styleCompact() {
         this._styleCompact = true
+
+        return this
+    }
+
+    appearance(appearance: MatFormFieldAppearance) {
+        this._appearance = appearance
 
         return this
     }
@@ -116,6 +124,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     private currentForm: FormGroup;
     private configsInputComponent: ConfigInputComponent[];
+    private _appearance: MatFormFieldAppearance = 'outline';
 
     // submitCallback: Subject<any>;
 
@@ -135,6 +144,10 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm
     }
 
+    getAppearance(): MatFormFieldAppearance {
+        return this._appearance
+    }
+
     get configs(): ConfigInputComponent[] {
         return this.configsInputComponent
     }
@@ -145,6 +158,12 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this.identityForm(this.generateGuid())
 
+        return this;
+    }
+
+    appearance(value: MatFormFieldAppearance) {
+        this._appearance = value
+        
         return this;
     }
 
@@ -190,6 +209,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
             styleCompact: builder._styleCompact,
+            appearance: builder._appearance ? builder._appearance : this._appearance,
             callbackComponent: builder._callbackComponent,
             validators: []
         };

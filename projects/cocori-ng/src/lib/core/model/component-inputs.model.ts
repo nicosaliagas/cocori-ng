@@ -1,4 +1,5 @@
 import { FormGroup, ValidatorFn } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { InputComponents, OutputCallback } from '../../shared/component/form';
 import { DataSourceInput } from './data-source.model';
@@ -17,6 +18,7 @@ export interface ConfigInputComponent {
     styleCompact?: boolean,
     dataSource?: DataSourceInput,
     inRelationWith?: NameControl
+    appearance?: MatFormFieldAppearance
     callbackComponent?: OutputCallback
 }
 
