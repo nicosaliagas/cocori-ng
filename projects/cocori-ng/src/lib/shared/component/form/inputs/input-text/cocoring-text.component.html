@@ -24,7 +24,7 @@
 <ng-container [formGroup]="formGroup">
     <mat-form-field [appearance]="appearance" [ngClass]="{'mat-form-compact': styleCompact}">
         <mat-label>{{nameLabel}}</mat-label>
-        <input type="text" matInput [formControlName]="nameControl" />
+        <input type="text" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
     </mat-form-field>
 </ng-container>

@@ -16,6 +16,7 @@ export interface ConfigInputComponent {
     nameControl: NameControl,
     validators: ValidatorFn[];
     styleCompact?: boolean,
+    maxlength?: number,
     dataSource?: DataSourceInput,
     inRelationWith?: NameControl
     appearance?: MatFormFieldAppearance

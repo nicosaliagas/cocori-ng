@@ -54,7 +54,9 @@ export class StaticFormComponent implements OnInit {
         .isRequired()
         .nameLabel('Nom')
         .appearance('standard')
-        .typeInput(InputComponents.INPUT_TEXT))
+        .typeInput(InputComponents.INPUT_TEXT)
+        .maxlength(20)
+        )
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .appearance('outline')
@@ -62,6 +64,7 @@ export class StaticFormComponent implements OnInit {
       .addInput('age', config => config
         .nameLabel('Age')
         .appearance('fill')
+        .maxlength(2)
         .typeInput(InputComponents.INPUT_NUMBER))
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config

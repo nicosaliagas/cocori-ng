@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Injector, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput, DataSourceType } from '../../../../../core/model/data-source.model';
@@ -14,12 +14,14 @@ import { ValidatorsService } from '../../../../../core/service/validators.servic
     host: { 'class': 'input-form' }
 })
 
-export abstract class ExtendInputsComponent {
+export abstract class ExtendInputsComponent implements OnDestroy {
     @Input() formGroup: FormGroup
     @Input() nameControl: NameControl
     @Input() nameLabel: string
-    
+
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
+
+    subscriptions: Subscription = new Subscription();
 
     dataSource$: Observable<any>;
     inRelationWith: NameControl;
@@ -27,9 +29,14 @@ export abstract class ExtendInputsComponent {
     appearance: MatFormFieldAppearance; // = 'outline' // standard // https://material.angular.io/components/form-field/api#MatFormFieldAppearance
     httpService: HttpService;
     styleCompact: boolean;
+    maxlength: number;
 
     constructor(injector: Injector) {
         this.httpService = injector.get(HttpService);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe()
     }
 
     configInput(config: ConfigInputComponent) {
@@ -37,6 +44,7 @@ export abstract class ExtendInputsComponent {
         this.nameControl = config.nameControl;
         this.formGroup = config.formGroup;
         this.styleCompact = config.styleCompact;
+        this.maxlength = config.maxlength;
         this.appearance = config.appearance;
 
         this.dataSource$ = this.loadDataSource(config.dataSource)
@@ -85,9 +93,11 @@ export abstract class ExtendInputsComponent {
 
             console.log("inRelationWith>>", this.inRelationWith, this.formGroup)
 
-            this.formGroup.get(this.inRelationWith).valueChanges.subscribe((parentValue) => {
-                console.log("Parent Value ", parentValue);
-            })
+            this.subscriptions.add(
+                this.formGroup.get(this.inRelationWith).valueChanges.subscribe((parentValue) => {
+                    console.log("Parent Value ", parentValue);
+                })
+            )
         }
     }
 

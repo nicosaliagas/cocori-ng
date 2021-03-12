@@ -43,6 +43,7 @@ class InputConfigBuilder<Builder> {
     _styleCompact: boolean = false;
     _appearance: MatFormFieldAppearance;
     _nameLabel: string;
+    _maxlength: number;
     _inRelationWith: string;
     _type: InputComponents;
     _dataSource: DataSourceInput;
@@ -84,7 +85,14 @@ class InputConfigBuilder<Builder> {
         return this
     }
 
-    typeInput(type: InputComponents) {
+    maxlength(value: number) {
+        this._maxlength = value
+
+        return this
+    }
+
+    typeInput(
+        type: InputComponents) {
         this._type = type
 
         return this
@@ -163,7 +171,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     appearance(value: MatFormFieldAppearance) {
         this._appearance = value
-        
+
         return this;
     }
 
@@ -209,6 +217,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
             styleCompact: builder._styleCompact,
+            maxlength: builder._maxlength,
             appearance: builder._appearance ? builder._appearance : this._appearance,
             callbackComponent: builder._callbackComponent,
             validators: []
