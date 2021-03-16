@@ -1,10 +1,10 @@
-<a mat-list-item cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".sidenav">
+<a class="list-item" mat-list-item cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".sidenav">
     <div class="list-item-part-left" (click)="sort()">
         <button mat-icon-button type="button" aria-label="Réordonner les colonnes">
             <mat-icon>drag_indicator</mat-icon>
         </button>
         <div class="column-caption" [ngClass]="{'column-no-visible': !column.visible}">{{column.caption}}</div>
-        <button mat-icon-button type="button" aria-label="Inverser le tri">
+        <button class="action-sort-column" mat-icon-button type="button" aria-label="Inverser le tri">
             <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
             <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
         </button>

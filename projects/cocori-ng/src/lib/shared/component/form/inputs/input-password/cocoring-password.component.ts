@@ -12,6 +12,7 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
 export class CocoringPasswordComponent extends ExtendInputsComponent implements OnInit {
 
     type: string = "password"
+    revealPasswordStatus: boolean = false;
 
     @Input()
     set config(config: ConfigInputComponent) {
@@ -26,7 +27,9 @@ export class CocoringPasswordComponent extends ExtendInputsComponent implements 
 
     ngOnInit() { }
 
-    revealPassword(answer: boolean) {
-        this.type = answer ? 'text' : 'password'
-    }
+    toggleRevealPassword() {
+        this.revealPasswordStatus = !this.revealPasswordStatus;
+
+        this.type = this.revealPasswordStatus ? 'text' : 'password'
+    }    
 }

@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { CocoringInputErrorModule } from '../../../error-handler/input-error-handler/cocoring-input-error.module';
+import { InputIconModule } from '../extend-inputs/input-icon/input-icon.module';
 import { CocoringNumberComponent } from './cocoring-number.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { CocoringNumberComponent } from './cocoring-number.component';
         MatFormFieldModule,
         MatInputModule,
         CocoringInputErrorModule,
+        InputIconModule,
         ],
     exports: [
         CocoringNumberComponent,

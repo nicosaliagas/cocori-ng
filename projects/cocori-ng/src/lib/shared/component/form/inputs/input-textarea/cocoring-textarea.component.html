@@ -2,6 +2,9 @@
     <mat-form-field [appearance]="appearance">
         <mat-label>{{nameLabel}}</mat-label>
         <textarea matInput [formControlName]="nameControl" rows="10"></textarea>
+        <div matSuffix style="display:flex">
+            <input-icon *ngIf="formGroup.get(nameControl).value" (click)="clearValue($event)"></input-icon>
+        </div>
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
     </mat-form-field>
 </ng-container>

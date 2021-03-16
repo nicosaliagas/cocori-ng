@@ -119,7 +119,7 @@ describe('CocoringDatagridFilterModalComponent', () => {
 
     fixture.detectChanges();
 
-    const element: DebugElement = fixture.debugElement.query(By.css('button.actions-header-modal mat-icon'));
+    let element: DebugElement = fixture.debugElement.query(By.css('button.actions-header-modal mat-icon'));
 
     expect(element.nativeElement.textContent).toEqual('keyboard_arrow_left');
 
@@ -129,11 +129,11 @@ describe('CocoringDatagridFilterModalComponent', () => {
 
     expect(component.currentColumn).toBeNull()
 
-    // l'icon devrait être clear...
+    // devrait affichier clear
     // expect(element.nativeElement.textContent).toEqual('clear');
   });
 
-  it('should display columns in the list correctly', () => {
+  it('should have the correct number of columns from the list', () => {
     fixture.detectChanges();
 
     const columns: DebugElement[] = fixture.debugElement.queryAll(By.css('cocoring-datagrid-filter-column'));

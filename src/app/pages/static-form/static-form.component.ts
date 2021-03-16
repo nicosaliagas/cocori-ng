@@ -31,7 +31,7 @@ export class StaticFormComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
-      .appearance('fill')
+      .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
         .isRequired()
@@ -69,10 +69,11 @@ export class StaticFormComponent implements OnInit {
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
-        .appearance('legacy')
+        .appearance('standard')
         .typeInput(InputComponents.INPUT_EMAIL))
       .addInput('password', config => config
         .isRequired()
+        .appearance('standard')
         .nameLabel('Mot de passe')
         .typeInput(InputComponents.INPUT_PASSWORD))
       .addInput('zone', config => config

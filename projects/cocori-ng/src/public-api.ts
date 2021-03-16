@@ -29,7 +29,6 @@ export * from './lib/shared/component/form/inputs/input-text/cocoring-text.modul
 export * from './lib/shared/component/form/inputs/input-select/cocoring-select.component';
 export * from './lib/shared/component/form/inputs/input-select/cocoring-select.module';
 
-export * from './lib/shared/component/form/inputs/input-password/cocoring-password-eye.component';
 export * from './lib/shared/component/form/inputs/input-password/cocoring-password.component';
 export * from './lib/shared/component/form/inputs/input-password/cocoring-password.module';
 

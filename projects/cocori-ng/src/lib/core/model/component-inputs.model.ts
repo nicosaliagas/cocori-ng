@@ -1,11 +1,12 @@
 import { FormGroup, ValidatorFn } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { InputComponents, OutputCallback } from '../../shared/component/form';
 import { DataSourceInput } from './data-source.model';
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
 export type ConfigComponentInputs = ConfigInputComponent | ButtonComponentInputs | any
+
+export type InputFieldAppearance = 'standard' | 'fill' | 'outline';
 
 export type NameControl = string
 
@@ -15,11 +16,12 @@ export interface ConfigInputComponent {
     formGroup: FormGroup,
     nameControl: NameControl,
     validators: ValidatorFn[];
+    icon?: string,
     styleCompact?: boolean,
     maxlength?: number,
     dataSource?: DataSourceInput,
     inRelationWith?: NameControl
-    appearance?: MatFormFieldAppearance
+    appearance?: InputFieldAppearance
     callbackComponent?: OutputCallback
 }
 

@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Observable, of, Subscription } from 'rxjs';
 
-import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
+import { ConfigInputComponent, InputFieldAppearance, NameControl } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput, DataSourceType } from '../../../../../core/model/data-source.model';
 import { HttpService } from '../../../../../core/service/http.service';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
@@ -26,7 +25,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     dataSource$: Observable<any>;
     inRelationWith: NameControl;
     validators: ValidatorFn[];
-    appearance: MatFormFieldAppearance; // = 'outline' // standard // https://material.angular.io/components/form-field/api#MatFormFieldAppearance
+    appearance: InputFieldAppearance;
     httpService: HttpService;
     styleCompact: boolean;
     maxlength: number;
@@ -46,7 +45,6 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         this.styleCompact = config.styleCompact;
         this.maxlength = config.maxlength;
         this.appearance = config.appearance;
-
         this.dataSource$ = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
         this.validators = config.validators
@@ -62,6 +60,13 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         this.inRelatioNWith()
 
         this.callback.emit(this.nameControl);
+    }
+
+    clearValue(event: any) {
+        this.formGroup.get(this.nameControl).reset()
+        this.formGroup.get(this.nameControl).markAsUntouched()
+        
+        event.stopPropagation();
     }
 
     addControlForm() {

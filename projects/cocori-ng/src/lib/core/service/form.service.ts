@@ -1,6 +1,5 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { configdefault } from '../../config/config.components';
 import { ConfigEvents } from '../../config/config.events';
@@ -9,6 +8,7 @@ import {
     ButtonComponentInputs,
     ConfigComponentInputs,
     ConfigInputComponent,
+    InputFieldAppearance,
     NameControl,
     TypeButtonEnum,
 } from '../model/component-inputs.model';
@@ -41,7 +41,7 @@ class InputConfigBuilder<Builder> {
 
     _isRequired: boolean;
     _styleCompact: boolean = false;
-    _appearance: MatFormFieldAppearance;
+    _appearance: InputFieldAppearance;
     _nameLabel: string;
     _maxlength: number;
     _inRelationWith: string;
@@ -61,7 +61,7 @@ class InputConfigBuilder<Builder> {
         return this
     }
 
-    appearance(appearance: MatFormFieldAppearance) {
+    appearance(appearance: InputFieldAppearance) {
         this._appearance = appearance
 
         return this
@@ -132,7 +132,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     private currentForm: FormGroup;
     private configsInputComponent: ConfigInputComponent[];
-    private _appearance: MatFormFieldAppearance = 'outline';
+    private _appearance: InputFieldAppearance = 'outline';
 
     // submitCallback: Subject<any>;
 
@@ -152,7 +152,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this.currentForm
     }
 
-    getAppearance(): MatFormFieldAppearance {
+    getAppearance(): InputFieldAppearance {
         return this._appearance
     }
 
@@ -169,7 +169,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
-    appearance(value: MatFormFieldAppearance) {
+    appearance(value: InputFieldAppearance) {
         this._appearance = value
 
         return this;

@@ -24,7 +24,14 @@
 <ng-container [formGroup]="formGroup">
     <mat-form-field [appearance]="appearance" [ngClass]="{'mat-form-compact': styleCompact}">
         <mat-label>{{nameLabel}}</mat-label>
+        <div matPrefix>
+            <input-icon icon="search"></input-icon>
+        </div>
         <input type="text" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
+        <div matSuffix style="display:flex">
+            <input-icon *ngIf="formGroup.get(nameControl).value" (click)="clearValue($event)">
+            </input-icon>
+        </div>
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
     </mat-form-field>
 </ng-container>
