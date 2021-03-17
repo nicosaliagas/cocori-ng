@@ -1,12 +1,12 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    HostBinding,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
@@ -68,8 +68,6 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
                 map((results: DatasourceOdata) => {
                     this.datagridDataSource = results
-
-                    console.log("datas", results.results)
 
                     this.cdr.detectChanges();
                 }),

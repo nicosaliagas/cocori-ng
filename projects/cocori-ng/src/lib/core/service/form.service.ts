@@ -43,6 +43,7 @@ class InputConfigBuilder<Builder> {
     _styleCompact: boolean = false;
     _appearance: InputFieldAppearance;
     _nameLabel: string;
+    _icon: string;
     _maxlength: number;
     _inRelationWith: string;
     _type: InputComponents;
@@ -87,6 +88,12 @@ class InputConfigBuilder<Builder> {
 
     maxlength(value: number) {
         this._maxlength = value
+
+        return this
+    }
+
+    icon(materialIconName: string) {
+        this._icon = materialIconName
 
         return this
     }
@@ -217,6 +224,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
             styleCompact: builder._styleCompact,
+            icon: builder._icon,
             maxlength: builder._maxlength,
             appearance: builder._appearance ? builder._appearance : this._appearance,
             callbackComponent: builder._callbackComponent,

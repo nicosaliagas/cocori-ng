@@ -1,4 +1,4 @@
-<button (click)="emitClickEvent()" mat-icon-button aria-label="Icone dans le champ de saisi">
+<button *ngIf="icon" (click)="emitClickEvent()" mat-icon-button aria-label="Icone dans le champ de saisi">
     <mat-icon>
         {{icon}}
     </mat-icon>

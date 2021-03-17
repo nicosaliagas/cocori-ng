@@ -93,6 +93,14 @@ export class DatagridService {
     return this._lengthDataSource$;
   }
 
+  lengthDataSource(rowsLength: number) {
+    this.totalRows = rowsLength
+
+    this.calculPaginationDatas();
+
+    this.lengthDataSource$.next(rowsLength)
+  }
+
   initCheckboxesDatagridForm() {
     this.checkboxesDatagridForm = this.fb.group({});
 
@@ -128,7 +136,7 @@ export class DatagridService {
 
     const orderByQuery: string = this.generateSortQuery()
 
-    this.indicatorPage = { from: (this.currentPage - 1) * this.itemsPerPage, to: this.currentPage * this.itemsPerPage }
+    this.calculPaginationDatas();
 
     let queryBuider = new QueryBuilder()
       .top(this.itemsPerPage)
@@ -145,13 +153,19 @@ export class DatagridService {
     return query;
   }
 
+  private calculPaginationDatas() {
+    let valueTo: number = this.currentPage * this.itemsPerPage;
+
+    if (this.currentPage === 1 && this.totalRows < this.itemsPerPage) {
+      valueTo = this.totalRows;
+    }
+
+    this.indicatorPage = { from: (this.currentPage - 1) * this.itemsPerPage, to: valueTo };
+  }
+
   private getDataSource(api: string): Observable<DatasourceOdata> {
     // return this.httpService.get(api, {$filter: filter, $top: 20})
     return this.httpService.get(api)
-  }
-
-  lengthDataSource(rowsLength: number) {
-    this.lengthDataSource$.next(rowsLength)
   }
 
   private generateSortQuery() {

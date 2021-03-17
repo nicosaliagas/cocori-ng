@@ -37,6 +37,7 @@ export class StaticFormComponent implements OnInit {
         .isRequired()
         .appearance('standard')
         .nameLabel('Datasource - brute')
+        .icon('search')
         .typeInput(InputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
@@ -53,6 +54,7 @@ export class StaticFormComponent implements OnInit {
       .addInput('nom', config => config
         .isRequired()
         .nameLabel('Nom')
+        .icon('face')
         .appearance('standard')
         .typeInput(InputComponents.INPUT_TEXT)
         .maxlength(20)
@@ -69,6 +71,7 @@ export class StaticFormComponent implements OnInit {
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
+        .icon('alternate_email')
         .appearance('standard')
         .typeInput(InputComponents.INPUT_EMAIL))
       .addInput('password', config => config

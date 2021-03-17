@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
@@ -39,12 +39,13 @@ describe('CocoringDatagridToolbarComponent', () => {
 
     expect(component.totalRows).toEqual(0)
 
-    datagridService.lengthDataSource$.next(500)
+    // datagridService.lengthDataSource$.next(500)
+    datagridService.lengthDataSource(500)
 
     expect(component.totalRows).toEqual(500)
   });
 
-  it('should display the correct pagination', () => {
+  it('should display the correct pagination if the total rows is superior than the number of items per page', () => {
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 500, results: [] } },
       withBatchProcessing: true,
@@ -53,7 +54,7 @@ describe('CocoringDatagridToolbarComponent', () => {
 
     datagridService.config = config
 
-    datagridService.lengthDataSource$.next(500)
+    datagridService.lengthDataSource(500)
 
     datagridService.getAllDatas().subscribe()
 
@@ -64,26 +65,31 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(element.nativeElement.textContent).toEqual('1 - 10 sur 500');
     expect(datagridService.indicatorPage.from).toEqual(0);
     expect(datagridService.indicatorPage.to).toEqual(10);
-    
-    ///
+  });
+  
+  it('should display the correct pagination if the total rows is less than the number of items per page', () => {
+    let config: ConfigDatagridModel = {
+      dataSource: { type: DataSourceType.BRUTE, value: { __count: 3, results: [] } },
+      withBatchProcessing: true,
+      columns: []
+    }
 
-    datagridService.lengthDataSource$.next(3)
+    datagridService.config = config
+
+    datagridService.lengthDataSource(3)
 
     datagridService.getAllDatas().subscribe()
 
     fixture.detectChanges();
 
-    element = fixture.debugElement.query(By.css('.currentPaginationText'));
+    let element: DebugElement = fixture.debugElement.query(By.css('.currentPaginationText'));
 
     expect(element.nativeElement.textContent).toEqual('1 - 3 sur 3');
     expect(datagridService.indicatorPage.from).toEqual(0);
     expect(datagridService.indicatorPage.to).toEqual(3);
-
-    ////////// corriger ça dans datagridService, récup le total rows dans le service
-
   });
 
-  it('should display the next page', () => {
+  it('should disable pagination buttons', () => {
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 0, results: [] } },
       withBatchProcessing: true,
@@ -92,7 +98,29 @@ describe('CocoringDatagridToolbarComponent', () => {
 
     datagridService.config = config
 
-    datagridService.lengthDataSource$.next(3)
+    datagridService.lengthDataSource(3)
+
+    datagridService.getAllDatas().subscribe()
+
+    fixture.detectChanges();
+
+    let buttonPrevious: DebugElement = fixture.debugElement.query(By.css('.button-previous'));
+    let buttonNext: DebugElement = fixture.debugElement.query(By.css('.button-next'));
+
+    expect(buttonNext.nativeElement.disabled).toBeTruthy();
+    expect(buttonPrevious.nativeElement.disabled).toBeTruthy();
+  });
+  
+  it('should enable pagination buttons', fakeAsync(() => {
+    let config: ConfigDatagridModel = {
+      dataSource: { type: DataSourceType.BRUTE, value: { __count: 0, results: [] } },
+      withBatchProcessing: true,
+      columns: []
+    }
+
+    datagridService.config = config
+
+    datagridService.lengthDataSource(30)
 
     datagridService.getAllDatas().subscribe()
 
@@ -104,18 +132,34 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(buttonNext.nativeElement.disabled).toBeFalsy();
     expect(buttonPrevious.nativeElement.disabled).toBeTruthy();
 
-    // buttonNext.triggerEventHandler('click', null);
+    expect(datagridService.indicatorPage.from).toEqual(0);
+    expect(datagridService.indicatorPage.to).toEqual(10);
 
-    // fixture.detectChanges();
+    buttonNext.triggerEventHandler('click', null);
+    
+    tick(500);
 
-    // expect(buttonNext.nativeElement.disabled).toBeFalsy();
-    // expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
+    fixture.detectChanges();
+
+    expect(buttonNext.nativeElement.disabled).toBeFalsy();
+    expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
+    
+    expect(datagridService.indicatorPage.from).toEqual(10);
+    expect(datagridService.indicatorPage.to).toEqual(20);
+
+    discardPeriodicTasks()
     
     // buttonNext.triggerEventHandler('click', null);
 
     // fixture.detectChanges();
 
-    // expect(buttonNext.nativeElement.disabled).toBeFalsy();
+    // buttonPrevious = fixture.debugElement.query(By.css('.button-previous'));
+    // buttonNext = fixture.debugElement.query(By.css('.button-next'));
+
+    // expect(buttonNext.nativeElement.disabled).toBeTruthy();
     // expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
-  });
+
+    // expect(datagridService.indicatorPage.from).toEqual(20);
+    // expect(datagridService.indicatorPage.to).toEqual(30);
+  }))
 });

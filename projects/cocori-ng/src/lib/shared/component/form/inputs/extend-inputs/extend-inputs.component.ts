@@ -29,6 +29,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     httpService: HttpService;
     styleCompact: boolean;
     maxlength: number;
+    icon: string;
 
     constructor(injector: Injector) {
         this.httpService = injector.get(HttpService);
@@ -44,6 +45,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         this.formGroup = config.formGroup;
         this.styleCompact = config.styleCompact;
         this.maxlength = config.maxlength;
+        this.icon = config.icon;
         this.appearance = config.appearance;
         this.dataSource$ = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
