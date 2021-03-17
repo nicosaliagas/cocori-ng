@@ -39,4 +39,13 @@ export interface ButtonComponentInputs {
     text: string,
     type: TypeButtonEnum,
     onClickSubmit: Function,
+    icon?: string,
+    iconPosition?: ButtonIconPositon
+}
+
+// export type ButtonIconPositon = 'start' | 'end';
+
+export enum ButtonIconPositon {
+    START = 'start',
+    END = 'end',
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DataSourceType, FormBuilderService, HttpService, InputComponents } from 'cocori-ng';
+import { ButtonIconPositon } from 'projects/cocori-ng/src/public-api';
 
 @Component({
   selector: 'ct-static-form',
@@ -90,8 +91,12 @@ export class StaticFormComponent implements OnInit {
       .setViewContainerRef(this.formContainerRef3)
       .addButton('Valider', config => config
         .isTypeSubmit()
+        .icon('check')
         .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
       .addButton('Annuler', config => config
+        .isTypeSubmit(false))
+      .addButton('Je sors', config => config
+        .icon('keyboard_arrow_right', ButtonIconPositon.END)
         .isTypeSubmit(false))
       .form
   }

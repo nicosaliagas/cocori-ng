@@ -7,6 +7,7 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'cocoring-textarea',
     templateUrl: 'cocoring-textarea.component.html',
+    styleUrls: ['./cocoring-textarea.component.scss']
 })
 
 export class CocoringTextareaComponent extends ExtendInputsComponent implements OnInit {

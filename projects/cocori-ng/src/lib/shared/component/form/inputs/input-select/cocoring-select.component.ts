@@ -7,6 +7,7 @@ import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component'
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'cocoring-select',
     templateUrl: 'cocoring-select.component.html',
+    styleUrls: ['./cocoring-select.component.scss']
 })
 
 export class CocoringSelectComponent extends ExtendInputsComponent implements OnInit {

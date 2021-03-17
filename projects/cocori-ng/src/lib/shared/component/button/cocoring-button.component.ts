@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { Subscription } from 'rxjs';
 
 import { configdefault } from '../../../config/config.components';
-import { ButtonComponentInputs, TypeButtonEnum } from '../../../core/model/component-inputs.model';
+import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '../../../core/model/component-inputs.model';
 import { LoadingService } from '../../../core/service/loading.service';
 
 @Component({
@@ -21,6 +21,8 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
     isLoading: boolean = false;
+    icon: string;
+    iconPosition: ButtonIconPositon;
 
     constructor(private loadingService: LoadingService) {
         this.subscription = this.loadingService.subject.subscribe((isLoading: boolean) => {
@@ -33,6 +35,8 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
         if (!config) return;
 
         this.text = config.text;
+        this.icon = config.icon;
+        this.iconPosition = config.iconPosition;
         this.type = config.type;
         this.onClickSubmit = config.onClickSubmit;
     }

@@ -6,6 +6,7 @@ import { ConfigEvents } from '../../config/config.events';
 import { InputComponents, OutputCallback } from '../../shared/component/form';
 import {
     ButtonComponentInputs,
+    ButtonIconPositon,
     ConfigComponentInputs,
     ConfigInputComponent,
     InputFieldAppearance,
@@ -115,10 +116,19 @@ class InputConfigBuilder<Builder> {
 class ButtonConfigBuilder<Builder> {
 
     _isTypeSubmit: boolean;
+    _icon: string;
+    _iconPosition: ButtonIconPositon;
     _callbackComponent: OutputCallback;
 
     isTypeSubmit(is: boolean = true) {
         this._isTypeSubmit = is
+
+        return this
+    }
+
+    icon(materialIconName: string, buttonIconPosition: ButtonIconPositon = ButtonIconPositon.START) {
+        this._icon = materialIconName
+        this._iconPosition = buttonIconPosition
 
         return this
     }
@@ -263,6 +273,8 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         const configInputComponent: ButtonComponentInputs = {
             text: buttonName,
             type: builder._isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
+            icon: builder._icon,
+            iconPosition: builder._iconPosition,
             onClickSubmit: this.onClickSubmit.bind(this)
         };
 
