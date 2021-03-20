@@ -45,6 +45,6 @@ export class DatagridDemoService {
   }
 
   mockDatagridDatas(): Observable<DatasourceOdata> {
-    return of(this.manyRows(10)).pipe(delay(500));
+    return of(this.manyRows(30)).pipe(delay(500));
   }
 }

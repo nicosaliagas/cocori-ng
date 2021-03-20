@@ -11,9 +11,6 @@ export * from './lib/shared/directive/previous-page/cocoring-previous-page.direc
 export * from './lib/shared/component/error-handler/input-error-handler/cocoring-input-error.component';
 export * from './lib/shared/component/error-handler/input-error-handler/cocoring-input-error.module';
 
-export * from './lib/shared/pipe/pretty-print/cocoring-pretty-print.pipe';
-export * from './lib/shared/pipe/pretty-print/cocoring-pretty-print.module';
-
 export * from './lib/shared/component/form/inputs/input-textarea/cocoring-textarea.component';
 export * from './lib/shared/component/form/inputs/input-textarea/cocoring-textarea.module';
 
@@ -52,8 +49,20 @@ export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.module';
 
+export * from './lib/shared/component/uploader/cocoring-uploader.module';
+export * from './lib/shared/component/uploader/cocoring-uploader.component';
+
+export * from './lib/shared/pipe/pretty-print/cocoring-pretty-print.pipe';
+export * from './lib/shared/pipe/pretty-print/cocoring-pretty-print.module';
+
 export * from './lib/shared/pipe/variable-html/cocoring-variable-html.pipe';
 export * from './lib/shared/pipe/variable-html/cocoring-variable-html.module';
+
+export * from './lib/shared/pipe/sanitize-url/cocoring-sanitize-url.pipe';
+export * from './lib/shared/pipe/sanitize-url/cocoring-sanitize-url.module';
+
+export * from './lib/shared/pipe/truncate/cocoring-truncate.pipe';
+export * from './lib/shared/pipe/truncate/cocoring-truncate.module';
 
 export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.directive';
 export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.module';
@@ -88,5 +97,6 @@ export * from './lib/core/service/toast-message.service';
 export * from './lib/core/service/confirm-modal.service';
 export * from './lib/core/service/current-url-routing.service';
 export * from './lib/core/service/datagrid/datagrid.service';
+export * from './lib/core/service/uploader/uploader.service';
 
 export * from './lib/core/service/odata-query-builder/queryBuilder';

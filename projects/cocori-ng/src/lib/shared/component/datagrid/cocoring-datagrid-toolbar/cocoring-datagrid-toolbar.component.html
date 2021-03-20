@@ -9,21 +9,21 @@
             </div>
         </ng-container>
         <div class="toolbar-option">
-            <button mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau"
+            <button class="button-refresh" mat-icon-button title="Rafraichir" aria-label="Rafraichir les données du tableau"
                 (click)="refreshList()">
                 <mat-icon>refresh</mat-icon>
             </button>
         </div>
         <div class="toolbar-option">
-            <button mat-icon-button title="Rechercher / Filter / Trier" aria-label="Rechercher / Filter / Trier"
+            <button class="button-filter" mat-icon-button title="Rechercher / Filter / Trier" aria-label="Rechercher / Filter / Trier"
                 (click)="filterModal()">
                 <mat-icon>filter_list</mat-icon>
             </button>
         </div>
         <ng-container *ngIf="datagridService.config?.withBatchProcessing">
             <div class="toolbar-option">
-                <button mat-icon-button disabled="true" title="supprimer les lignes sélectionnées"
-                    aria-label="supprimer les lignes sélectionnées" (click)="filterModal()">
+                <button mat-icon-button disabled="false" title="supprimer les lignes sélectionnées"
+                    aria-label="supprimer les lignes sélectionnées">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
             </div>

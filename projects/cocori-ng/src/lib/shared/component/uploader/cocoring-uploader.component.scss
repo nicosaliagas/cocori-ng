@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.upload-drop {
+  width: 100%;
+
+  .intro {
+    color: #6C7486;
+    font-size: 14px;
+    line-height: 23px;
+    text-align: center;
+    padding: 20px;
+    pointer-events: none;
+
+    h4 {
+      margin-bottom: 8px;
+      color: #3F4656;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

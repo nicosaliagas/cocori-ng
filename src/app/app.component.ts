@@ -32,6 +32,7 @@ export class AppComponent {
     {
       label: 'Composant', route:'/component', children: [
         { label: 'Grille', route: '/component/grille' },
+        { label: 'Upload', route: '/component/upload' },
       ]
     },
     { label: "Liens externes", menuGroup: true },

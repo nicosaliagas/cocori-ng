@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
@@ -13,7 +13,6 @@ import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar.co
 describe('CocoringDatagridToolbarComponent', () => {
   let component: CocoringDatagridToolbarComponent;
   let fixture: ComponentFixture<CocoringDatagridToolbarComponent>;
-
   let datagridService: DatagridService
 
   beforeEach(() => {
@@ -66,7 +65,7 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(datagridService.indicatorPage.from).toEqual(0);
     expect(datagridService.indicatorPage.to).toEqual(10);
   });
-  
+
   it('should display the correct pagination if the total rows is less than the number of items per page', () => {
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 3, results: [] } },
@@ -110,8 +109,8 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(buttonNext.nativeElement.disabled).toBeTruthy();
     expect(buttonPrevious.nativeElement.disabled).toBeTruthy();
   });
-  
-  it('should enable pagination buttons', fakeAsync(() => {
+
+  it('should paginate with success', () => {
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 0, results: [] } },
       withBatchProcessing: true,
@@ -136,30 +135,90 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(datagridService.indicatorPage.to).toEqual(10);
 
     buttonNext.triggerEventHandler('click', null);
-    
-    tick(500);
+
+    datagridService.getAllDatas().subscribe()
 
     fixture.detectChanges();
 
     expect(buttonNext.nativeElement.disabled).toBeFalsy();
     expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
-    
+
+    expect(datagridService.currentPage).toEqual(2);
     expect(datagridService.indicatorPage.from).toEqual(10);
     expect(datagridService.indicatorPage.to).toEqual(20);
 
-    discardPeriodicTasks()
-    
-    // buttonNext.triggerEventHandler('click', null);
+    buttonNext.triggerEventHandler('click', null);
 
-    // fixture.detectChanges();
+    datagridService.getAllDatas().subscribe()
 
-    // buttonPrevious = fixture.debugElement.query(By.css('.button-previous'));
-    // buttonNext = fixture.debugElement.query(By.css('.button-next'));
+    fixture.detectChanges();
 
-    // expect(buttonNext.nativeElement.disabled).toBeTruthy();
-    // expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
+    expect(buttonNext.nativeElement.disabled).toBeTruthy();
+    expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
 
-    // expect(datagridService.indicatorPage.from).toEqual(20);
-    // expect(datagridService.indicatorPage.to).toEqual(30);
-  }))
+    expect(datagridService.currentPage).toEqual(3);
+    expect(datagridService.indicatorPage.from).toEqual(20);
+    expect(datagridService.indicatorPage.to).toEqual(30);
+
+    buttonPrevious.triggerEventHandler('click', null);
+
+    datagridService.getAllDatas().subscribe()
+
+    fixture.detectChanges();
+
+    expect(buttonNext.nativeElement.disabled).toBeFalsy();
+    expect(buttonPrevious.nativeElement.disabled).toBeFalsy();
+
+    expect(datagridService.currentPage).toEqual(2);
+    expect(datagridService.indicatorPage.from).toEqual(10);
+    expect(datagridService.indicatorPage.to).toEqual(20);
+  })
+
+  it('should display the all rows checkbox', () => {
+    let config: ConfigDatagridModel = {
+      dataSource: { type: DataSourceType.BRUTE, value: { __count: 500, results: [] } },
+      withBatchProcessing: true,
+      columns: []
+    }
+
+    datagridService.config = config
+
+    fixture.detectChanges();
+
+    let element: DebugElement = fixture.debugElement.query(By.css('.select-all'));
+
+    expect(element).toBeTruthy();
+  })
+
+  it('should hide the all rows checkbox', () => {
+    let config: ConfigDatagridModel = {
+      dataSource: { type: DataSourceType.BRUTE, value: { __count: 500, results: [] } },
+      withBatchProcessing: false,
+      columns: []
+    }
+
+    datagridService.config = config
+
+    fixture.detectChanges();
+
+    let element: DebugElement = fixture.debugElement.query(By.css('.select-all'));
+
+    expect(element).toBeFalsy();
+  })
+
+  it('should open the modal filter', () => {
+    fixture.detectChanges();
+
+    spyOn(component.dialog, 'open')
+
+    // spyOn(component.dialog, 'open')
+    // .and
+    // .returnValue({ afterClosed: () => of(true) } as MatDialogRef<typeof component>);
+
+    let buttonFilterModal: DebugElement = fixture.debugElement.query(By.css('.button-filter'));
+
+    buttonFilterModal.triggerEventHandler('click', null);
+
+    expect(component.dialog.open).toHaveBeenCalled()
+  })
 });

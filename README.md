@@ -10,7 +10,7 @@ ng new my-first-project
 
 ## Commandes CLI :
 
-ng g component input-prefix-icon --display-block=true --skip-import=true --style=scss
+ng g component cocoring-upload --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 
@@ -90,3 +90,4 @@ ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_
 
 // dynamically-create-nested-objects
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
+

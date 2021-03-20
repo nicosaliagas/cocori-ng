@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'component/grille',
     loadChildren: () => import('./pages/datagrid-demo/grille-demo.module').then(mod => mod.GrilleDemoModule)
   },
+  {
+    path: 'component/upload',
+    loadChildren: () => import('./pages/uploader-demo/uploader-demo.module').then(mod => mod.UploaderDemoModule)
+  },
 ];
 
 @NgModule({

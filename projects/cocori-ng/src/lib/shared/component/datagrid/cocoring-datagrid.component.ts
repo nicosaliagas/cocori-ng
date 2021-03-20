@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
@@ -26,7 +26,6 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
 export class CocoringDatagridComponent implements OnInit, OnDestroy {
     checkboxesGroup: FormGroup;
     subscriptions: Subscription = new Subscription();
-    groupeCasesACocher: FormGroup;
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
