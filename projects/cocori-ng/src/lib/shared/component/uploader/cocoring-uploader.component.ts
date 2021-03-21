@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { switchMap, tap } from 'rxjs/operators';
 
+import { FileModel } from '../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../core/service/uploader/uploader.service';
 
 export interface Section {
@@ -21,19 +22,22 @@ export class CocoringUploaderComponent implements OnInit {
   infoMessage: any;
   isUploading: boolean = false;
 
-  folders: Section[] = [
+  files: FileModel[] = [
     {
-      name: 'Photos',
-      updated: new Date('1/1/16'),
+      id: 'E1C57AD5-6921-44CE-8F0E-7230CE576205',
+      fileName: 'Rapport.pdf',
+      size: 182,
+      fileType: 'doc'
     },
     {
-      name: 'Recipes',
-      updated: new Date('1/17/16'),
+      id: '3CE8B88D-E32F-4BAF-AABB-E70866687340',
+      fileName: 'CarteIdentite.png',
+      size: 82,
+      fileType: 'image'
     },
     {
-      name: 'Work',
-      updated: new Date('1/28/16'),
-    }
+      fileName: 'Votre passeport',
+    },
   ];
 
   constructor(public uploaderService: UploaderService) { }

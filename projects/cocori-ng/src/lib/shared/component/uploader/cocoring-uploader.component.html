@@ -1,30 +1,34 @@
 <div class="upload-drop">
-    <mat-list>
-        <div mat-subheader>Les documents à joindre au dossier</div>
-        <mat-list-item>
-          <mat-icon mat-list-icon>file_present</mat-icon>
-          <div mat-line>Rapport.pdf</div>
-          <div mat-line> 182 Kb </div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>image</mat-icon>
-          <div mat-line>CarteIdentite.png</div>
-          <div mat-line> 82 Kb </div>
-        </mat-list-item>
-        <mat-list-item (click)="uploader.click()">
+  <mat-selection-list #shoes [multiple]="false">
+    <div mat-subheader>Les documents à joindre au dossier</div>
+
+    <ng-container *ngFor="let file of files">
+
+      <ng-template [ngIf]="file?.id" [ngIfElse]="uploadTpl">
+        <mat-list-option [value]="file.id">
+          <mat-icon mat-list-icon>
+            <ng-container *ngIf="file.fileType === 'doc'">file_present</ng-container>
+            <ng-container *ngIf="file.fileType === 'image'">image</ng-container>
+          </mat-icon>
+          <div mat-line>{{file.fileName}}</div>
+          <div class="subtext" mat-line> {{file.size}} Kb </div>
+        </mat-list-option>
+      </ng-template>
+
+      <ng-template #uploadTpl>
+        <mat-list-option (click)="uploader.click()">
           <mat-icon mat-list-icon>arrow_circle_up</mat-icon>
           <div mat-line>Votre passeport</div>
-          <div mat-line> Glissez & déposez votre fichier ici</div>
+          <div class="subtext" mat-line> Glissez & déposez votre fichier ici</div>
           <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
-        </mat-list-item>
-        <!-- <mat-list-item>
-          <mat-icon mat-list-icon>arrow_circle_up</mat-icon>
-          <div mat-line>Une photo de profil</div>
-          <div mat-line> Glissez & déposez votre fichier ici</div>
-        </mat-list-item> -->
-      </mat-list>
+        </mat-list-option>
+      </ng-template>
 
-    <!--
+    </ng-container>
+
+  </mat-selection-list>
+
+  <!--
         <div class="intro">
         <h4>Aucun fichier</h4>
         <p>Glissez & déposez votre fichier ici</p>

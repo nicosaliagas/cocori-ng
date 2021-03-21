@@ -78,6 +78,7 @@ export * from './lib/shared/component/form/index';
 export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
 export * from './lib/core/model/component-datagrid.model';
+export * from './lib/core/model/component-uploader.model';
 export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';
