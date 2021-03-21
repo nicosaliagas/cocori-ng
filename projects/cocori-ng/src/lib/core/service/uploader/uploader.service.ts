@@ -1,6 +1,6 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscriber } from 'rxjs';
 import { last, map, tap } from 'rxjs/operators';
 
 import { HttpService } from '../http.service';
@@ -21,57 +21,75 @@ export class UploaderService {
   public progressSource = new BehaviorSubject<number>(0);
   private uploadUrl = "http://localhost:8080"
 
-  public contenuBase64: any
+  // public contenuBase64: any
+
+  myfile: Observable<any> = new Observable<any>();
+
+  _fileBase64$: Subject<any> = new Subject<any>();
 
   constructor(
     private http: HttpClient,
     private httpService: HttpService,) { }
 
-  upload(file: File) {
-
-    const req = new HttpRequest(
-      "POST",
-      `${this.uploadUrl}/api/upload-file`,
-      { filebase64: this.contenuBase64 },
-      {
-        reportProgress: true
-      }
-    );
-
-    return this.http.request(req).pipe(
+  upload(file: File, filebase64: any) {
+    return this.UploadFile(filebase64).pipe(
       map(event => this.getEventMessage(event, file)),
       tap((envelope: any) => this.processProgress(envelope)),
       last()
     );
-    // return this.UploadFile(file).pipe(
-    //   map(event => this.getEventMessage(event, file)),
-    //   tap((envelope: any) => this.processProgress(envelope)),
-    //   last()
-    // );
   }
 
-  encodeBase64(file: File) {
+  convertToBase64(file: File) {
     const that = this;
-    const reader: FileReader = new FileReader();
+    const filereader: FileReader = new FileReader();
 
-    reader.onload = function (readerEvt: FileReaderEvent) {
+    filereader.onload = function (readerEvt: FileReaderEvent) {
       let binaryString;
 
       if (!readerEvt) {
-        binaryString = reader['content'];
+        binaryString = filereader['content'];
       } else {
         binaryString = readerEvt.target.result;
       }
 
-      that.contenuBase64 = btoa(binaryString);
+      // that.contenuBase64 = btoa(binaryString);
+      that._fileBase64$.next(btoa(binaryString))
 
     }.bind(this);
 
-    reader.readAsBinaryString(file);
+    filereader.readAsBinaryString(file);
   }
 
-  UploadFile(file: File): Observable<any> {
-    return this.httpService.post(`${this.uploadUrl}/api/upload-file`, { filebase64: this.contenuBase64 })
+  private readFile(file: File, subscriber: Subscriber<any>) {
+    const filereader: FileReader = new FileReader();
+
+    filereader.readAsBinaryString(file);
+
+    filereader.onload = (readerEvt) => {
+      let binaryString;
+
+      if (!readerEvt) {
+        binaryString = filereader['content'];
+      } else {
+        binaryString = readerEvt.target.result;
+      }
+
+      console.log("its ok...")
+
+      subscriber.next(btoa(binaryString));
+
+      subscriber.complete();
+    };
+
+    filereader.onerror = (error) => {
+      subscriber.error(error);
+      subscriber.complete();
+    };
+  }
+
+  UploadFile(filebase64: any): Observable<any> {
+    // return this.httpService.upload(`${this.uploadUrl}/api/upload-file`, { filebase64: this.contenuBase64 })
+    return this.httpService.upload(`${this.uploadUrl}/api/upload-file`, { filebase64: filebase64 })
   }
 
   processProgress(envelope: any): void {

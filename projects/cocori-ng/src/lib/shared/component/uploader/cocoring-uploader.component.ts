@@ -1,6 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { UploaderService } from '../../../core/service/uploader/uploader.service';
+
+export interface Section {
+  name: string;
+  updated: Date;
+}
 
 @Component({
   selector: 'cocoring-uploader',
@@ -15,9 +21,35 @@ export class CocoringUploaderComponent implements OnInit {
   infoMessage: any;
   isUploading: boolean = false;
 
+  folders: Section[] = [
+    {
+      name: 'Photos',
+      updated: new Date('1/1/16'),
+    },
+    {
+      name: 'Recipes',
+      updated: new Date('1/17/16'),
+    },
+    {
+      name: 'Work',
+      updated: new Date('1/28/16'),
+    }
+  ];
+
   constructor(public uploaderService: UploaderService) { }
 
   ngOnInit(): void {
+
+    this.uploaderService._fileBase64$.pipe(
+      switchMap((filebase64: any) => this.uploaderService.upload(this.file, filebase64)),
+      tap((message) => {
+        console.log("upload done : ", message)
+
+        this.isUploading = false;
+        this.infoMessage = message;
+      })
+    ).subscribe()
+
     this.uploaderService.progressSource.subscribe(progress => {
       this.progress = progress;
     });
@@ -31,20 +63,6 @@ export class CocoringUploaderComponent implements OnInit {
     this.fileName = file.name;
     this.file = file;
 
-    this.uploaderService.encodeBase64(file)
-  }
-
-  onUpload() {
-    this.infoMessage = null;
-    this.progress = 0;
-    this.isUploading = true;
-
-    this.uploaderService.upload(this.file).subscribe(message => {
-
-      console.log("upload done...", message)
-
-      this.isUploading = false;
-      this.infoMessage = message;
-    });
+    this.uploaderService.convertToBase64(file)
   }
 }

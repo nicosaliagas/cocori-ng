@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 
 import { CocoringButtonModule } from '../button/cocoring-button.module';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
@@ -18,6 +19,7 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
         CommonModule,
         DragDropModule,
         ReactiveFormsModule,
+        MatListModule,
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,

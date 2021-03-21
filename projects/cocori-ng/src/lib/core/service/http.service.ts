@@ -1,4 +1,4 @@
-import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -53,7 +53,7 @@ export class HttpService {
 
     post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
         options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        
+
         return this.http.post(
             `${path}`,
             JSON.stringify(body),
@@ -63,9 +63,21 @@ export class HttpService {
         ) as Observable<T>;
     }
 
+    upload<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<HttpEvent<T>> {
+        options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        options['reportProgress'] = true;
+        options['observe'] = "events";
+
+        return this.http.post(
+            `${path}`,
+            JSON.stringify(body),
+            options
+        ) as Observable<HttpEvent<T>>;
+    }
+
     _post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
         options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-        
+
         return this.httpWithoutInterceptor.post(
             `${path}`,
             JSON.stringify(body),
