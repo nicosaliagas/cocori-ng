@@ -11,7 +11,7 @@ describe('CocoringDatagridFilterColumnComponent', () => {
   let component: CocoringDatagridFilterColumnComponent;
   let fixture: ComponentFixture<CocoringDatagridFilterColumnComponent>;
 
-  let httpClientSpy: { get: jasmine.Spy };
+  let datasourceServiceSpy: { loadDataSource: jasmine.Spy };
   let formBuilderSpy: { group: jasmine.Spy };
   let datagridService: DatagridService
   let expectedColumn: ColumnDatagridModel
@@ -32,10 +32,10 @@ describe('CocoringDatagridFilterColumnComponent', () => {
     fixture = TestBed.createComponent(CocoringDatagridFilterColumnComponent);
     component = fixture.componentInstance;
 
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    datasourceServiceSpy = jasmine.createSpyObj('DatasourceService', ['loadDataSource']);
     formBuilderSpy = jasmine.createSpyObj('FormBuilder', ['group']);
 
-    datagridService = new DatagridService(httpClientSpy as any, formBuilderSpy as any)
+    datagridService = new DatagridService(datasourceServiceSpy as any, formBuilderSpy as any)
 
     component.datagridService = datagridService
   });

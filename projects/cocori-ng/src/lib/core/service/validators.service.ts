@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 import { configdefault } from '../../config/config.components';
+import { HelperUploaderService } from '../helper/helper-uploader.service';
 import { HelperFunctions } from '../helper/helper.function';
-import { UtilsUpload } from '../helper/utils.upload.service';
 
 // import { DateFunctions } from '../helper/date.function';
 export interface ValidtionError {
@@ -348,7 +348,7 @@ export class ValidatorsService {
 
         if (!document || typeof document !== 'object') return;
 
-        if (!UtilsUpload.estceTypeMimeAccepté(document.type, configdefault.upload.typeMimeExtensions)) {
+        if (!HelperUploaderService.estceTypeMimeAccepté(document.type, configdefault.upload.typeMimeExtensions)) {
             return { 'invalidTypeMime': true };
         }
     }
@@ -358,7 +358,7 @@ export class ValidatorsService {
 
         if (!document || typeof document !== 'object') return;
 
-        if (!UtilsUpload.estceTailleUploadAccepté(document.size, configdefault.upload.sizeUploadDocument)) {
+        if (!HelperUploaderService.estceTailleUploadAccepté(document.size, configdefault.upload.sizeUploadDocument)) {
             return { 'invalidTailleUpload': true };
         } else {
             return null;
@@ -378,7 +378,7 @@ export class ValidatorsService {
                 tailleTotal += documentJoint.size;
             });
 
-            if (!UtilsUpload.estceTailleUploadTotalAccepté(tailleTotal, configdefault.upload.sizeUploadTotal)) {
+            if (!HelperUploaderService.estceTailleUploadTotalAccepté(tailleTotal, configdefault.upload.sizeUploadTotal)) {
                 return { 'invalidTailleTotaleUpload': true };
             }
         };

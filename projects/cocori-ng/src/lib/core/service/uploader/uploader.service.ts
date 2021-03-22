@@ -1,6 +1,6 @@
-import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscriber } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { last, map, tap } from 'rxjs/operators';
 
 import { HttpService } from '../http.service';
@@ -19,16 +19,11 @@ interface FileReaderEvent extends Event {
 })
 export class UploaderService {
   public progressSource = new BehaviorSubject<number>(0);
+  public fileBase64$: Subject<any> = new Subject<any>();
+
   private uploadUrl = "http://localhost:8080"
 
-  // public contenuBase64: any
-
-  myfile: Observable<any> = new Observable<any>();
-
-  _fileBase64$: Subject<any> = new Subject<any>();
-
   constructor(
-    private http: HttpClient,
     private httpService: HttpService,) { }
 
   upload(file: File, filebase64: any) {
@@ -52,43 +47,14 @@ export class UploaderService {
         binaryString = readerEvt.target.result;
       }
 
-      // that.contenuBase64 = btoa(binaryString);
-      that._fileBase64$.next(btoa(binaryString))
+      that.fileBase64$.next(btoa(binaryString))
 
     }.bind(this);
 
     filereader.readAsBinaryString(file);
   }
 
-  private readFile(file: File, subscriber: Subscriber<any>) {
-    const filereader: FileReader = new FileReader();
-
-    filereader.readAsBinaryString(file);
-
-    filereader.onload = (readerEvt) => {
-      let binaryString;
-
-      if (!readerEvt) {
-        binaryString = filereader['content'];
-      } else {
-        binaryString = readerEvt.target.result;
-      }
-
-      console.log("its ok...")
-
-      subscriber.next(btoa(binaryString));
-
-      subscriber.complete();
-    };
-
-    filereader.onerror = (error) => {
-      subscriber.error(error);
-      subscriber.complete();
-    };
-  }
-
   UploadFile(filebase64: any): Observable<any> {
-    // return this.httpService.upload(`${this.uploadUrl}/api/upload-file`, { filebase64: this.contenuBase64 })
     return this.httpService.upload(`${this.uploadUrl}/api/upload-file`, { filebase64: filebase64 })
   }
 
@@ -105,7 +71,7 @@ export class UploaderService {
       case HttpEventType.UploadProgress:
         return Math.round((100 * event.loaded) / event.total);
       case HttpEventType.Response:
-        return `File "${file.name}" was completely uploaded!`;
+        return event.body;
       default:
         return `File "${file.name}" surprising upload event: ${event.type}.`;
     }

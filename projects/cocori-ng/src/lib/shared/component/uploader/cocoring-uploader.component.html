@@ -1,41 +1,10 @@
 <div class="upload-drop">
   <mat-selection-list #shoes [multiple]="false">
     <div mat-subheader>Les documents à joindre au dossier</div>
-
     <ng-container *ngFor="let file of files">
-
-      <ng-template [ngIf]="file?.id" [ngIfElse]="uploadTpl">
-        <mat-list-option [value]="file.id">
-          <mat-icon mat-list-icon>
-            <ng-container *ngIf="file.fileType === 'doc'">file_present</ng-container>
-            <ng-container *ngIf="file.fileType === 'image'">image</ng-container>
-          </mat-icon>
-          <div mat-line>{{file.fileName}}</div>
-          <div class="subtext" mat-line> {{file.size}} Kb </div>
-        </mat-list-option>
-      </ng-template>
-
-      <ng-template #uploadTpl>
-        <mat-list-option (click)="uploader.click()">
-          <mat-icon mat-list-icon>arrow_circle_up</mat-icon>
-          <div mat-line>Votre passeport</div>
-          <div class="subtext" mat-line> Glissez & déposez votre fichier ici</div>
-          <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
-        </mat-list-option>
-      </ng-template>
-
+      <cocoring-uploader-list-file [file]="file" [uploaderService]="uploaderService"></cocoring-uploader-list-file>
     </ng-container>
-
   </mat-selection-list>
-
-  <!--
-        <div class="intro">
-        <h4>Aucun fichier</h4>
-        <p>Glissez & déposez votre fichier ici</p>
-    </div>
-    <div>
-        <input type="file" name="fileUpload" accept="image/*" />
-    </div> -->
 </div>
 
 <!-- 

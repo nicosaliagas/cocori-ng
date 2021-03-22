@@ -2,10 +2,16 @@ import { Injectable } from '@angular/core';
 
 import { configdefault } from '../../config/config.components';
 
+export const typeImageReg = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
+
 @Injectable({
     providedIn: 'root',
 })
-export class UtilsUpload {
+export class HelperUploaderService {
+
+    static checkTypeImage(file: File): boolean {
+        return typeImageReg.test(file.type)
+    }
 
     static estceTypeMimeAccepté(typeMime: string, configTypeMime: string[]): boolean {
         const ext = typeMime.split('/').pop().toLowerCase();

@@ -10,7 +10,7 @@ ng new my-first-project
 
 ## Commandes CLI :
 
-ng g component cocoring-upload --display-block=true --skip-import=true --style=scss
+ng g component cocoring-uploader-list-file --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 

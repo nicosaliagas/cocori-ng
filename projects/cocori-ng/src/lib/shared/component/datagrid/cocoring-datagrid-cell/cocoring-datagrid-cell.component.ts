@@ -9,13 +9,23 @@ import { CellValueDatagridModel } from '../../../../core/model/component-datagri
   styleUrls: ['./cocoring-datagrid-cell.component.scss']
 })
 export class CocoringDatagridCellComponent implements OnInit {
-  @Input() cell: CellValueDatagridModel
+  public _cell: CellValueDatagridModel;
+
+  @Input()
+  set cell(value: CellValueDatagridModel) {
+    this._cell = value
+
+    this.majValue();
+  }
 
   cellValue: string
 
-  constructor(@Inject(LOCALE_ID) private locale: string) { }
+  constructor(
+    @Inject(LOCALE_ID) private locale: string) { }
 
-  ngOnInit(): void {
-    this.cellValue = this.cell.dataType === 'date' ? formatDate(this.cell.value, 'dd/MM/YYYY', this.locale) : this.cell.value
+  ngOnInit(): void { }
+
+  private majValue() {
+    this.cellValue = this._cell.dataType === 'date' ? formatDate(this._cell.value, 'dd/MM/YYYY', this.locale) : this._cell.value;
   }
 }

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ConfigInputComponent, InputFieldAppearance, NameControl } from '../../../../../core/model/component-inputs.model';
-import { DataSourceInput, DataSourceType } from '../../../../../core/model/data-source.model';
+import { DataSourceInput } from '../../../../../core/model/data-source.model';
+import { DatasourceService } from '../../../../../core/service/datasource.service';
 import { HttpService } from '../../../../../core/service/http.service';
 import { ValidatorsService } from '../../../../../core/service/validators.service';
 
@@ -27,12 +28,14 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     validators: ValidatorFn[];
     appearance: InputFieldAppearance;
     httpService: HttpService;
+    datasourceService: DatasourceService;
     styleCompact: boolean;
     maxlength: number;
     icon: string;
 
     constructor(injector: Injector) {
         this.httpService = injector.get(HttpService);
+        this.datasourceService = injector.get(DatasourceService);
     }
 
     ngOnDestroy() {
@@ -67,7 +70,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     clearValue(event: any) {
         this.formGroup.get(this.nameControl).reset()
         this.formGroup.get(this.nameControl).markAsUntouched()
-        
+
         event.stopPropagation();
     }
 
@@ -78,21 +81,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     }
 
     loadDataSource(configDataSource: DataSourceInput): Observable<any> {
-        if (!configDataSource) return;
-
-        switch (configDataSource.type) {
-            case DataSourceType.BRUTE:
-                return of(configDataSource.value)
-                break;
-
-            case DataSourceType.API:
-                return this.getDataSource(<string>configDataSource.value)
-                break;
-
-            default:
-                return null
-                break;
-        }
+        return this.datasourceService.loadDataSource(configDataSource)
     }
 
     private inRelatioNWith() {
@@ -112,9 +101,5 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         const d = this.validators.find((validatorFn) => validatorFn === ValidatorsService.require)
 
         return typeof d === 'undefined' ? false : true
-    }
-
-    private getDataSource(api: string): Observable<any> {
-        return this.httpService.get(api)
     }
 }

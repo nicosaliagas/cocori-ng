@@ -67,4 +67,24 @@ describe('CocoringDatagridCellComponent', () => {
 
     expect(TdDe).toBeFalsy()
   });
+
+  it('should change cell value and report the change in the UI', () => {
+    expectedCell = <CellValueDatagridModel>{ dataType: 'string', caption: 'Test Datafield', value: 'Test Value', visible: true };
+
+    component.cell = expectedCell;
+
+    fixture.detectChanges();
+
+    const TdDe: DebugElement = fixture.debugElement.query(By.css('td'));
+
+    expect(TdDe.nativeElement.textContent).toEqual('Test Value');
+
+    expectedCell.value = 'Value Changed'
+
+    component.cell = expectedCell;
+
+    fixture.detectChanges();
+
+    expect(TdDe.nativeElement.textContent).toEqual('Value Changed');
+  });
 });

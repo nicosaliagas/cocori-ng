@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import {
   ColumnDatagridModel,
@@ -9,8 +9,8 @@ import {
   IndicatorPage,
   OrderColumnModel,
 } from '../../model/component-datagrid.model';
-import { DatasourceOdata, DataSourceType } from '../../model/data-source.model';
-import { HttpService } from '../http.service';
+import { DatasourceOdata } from '../../model/data-source.model';
+import { DatasourceService } from '../datasource.service';
 import { QueryBuilder } from '../odata-query-builder/queryBuilder';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class DatagridService {
   public searchGlobal: string;
 
   constructor(
-    private httpService: HttpService,
+    private datasourceService: DatasourceService,
     private fb: FormBuilder,) {
     this.onPaginatePage()
   }
@@ -117,19 +117,21 @@ export class DatagridService {
 
     this.buildQueryOData();
 
-    switch (this.config.dataSource.type) {
-      case DataSourceType.BRUTE:
-        return <Observable<DatasourceOdata>>of(<DatasourceOdata>this.config.dataSource.value).pipe(delay(1000))
-        break;
+    // return this.httpService.get(api, {$filter: filter, $top: 20})
+    return this.datasourceService.loadDataSource(this.config.dataSource)
 
-      case DataSourceType.API:
-        return this.getDataSource(<string>this.config.dataSource.value)
-        break;
-
-      default:
-        return <Observable<DatasourceOdata>>of(null)
-        break;
-    }
+    // switch (this.config.dataSource.type) {
+    //   case DataSourceType.BRUTE:
+    //     return <Observable<DatasourceOdata>>of(<DatasourceOdata>this.config.dataSource.value).pipe(delay(1000))
+    //     break;
+    //   case DataSourceType.API:
+    //     // return this.httpService.get(api, {$filter: filter, $top: 20})
+    //     return this.httpService.get(<string>this.config.dataSource.value)
+    //     break;
+    //   default:
+    //     return <Observable<DatasourceOdata>>of(null)
+    //     break;
+    // }
   }
 
   private buildQueryOData(): string {
@@ -161,11 +163,6 @@ export class DatagridService {
     }
 
     this.indicatorPage = { from: (this.currentPage - 1) * this.itemsPerPage, to: valueTo };
-  }
-
-  private getDataSource(api: string): Observable<DatasourceOdata> {
-    // return this.httpService.get(api, {$filter: filter, $top: 20})
-    return this.httpService.get(api)
   }
 
   private generateSortQuery() {

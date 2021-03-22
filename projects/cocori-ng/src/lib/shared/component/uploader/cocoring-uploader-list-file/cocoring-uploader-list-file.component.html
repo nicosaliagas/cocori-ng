@@ -1,0 +1,16 @@
+<mat-list-option [value]="file.id" (click)="uploader.click()">
+    <mat-icon mat-list-icon>
+        <ng-container *ngIf="file.fileType === 'doc'">file_present</ng-container>
+        <ng-container *ngIf="file.fileType === 'image'">image</ng-container>
+        <ng-container *ngIf="!file.id">arrow_circle_up</ng-container>
+    </mat-icon>
+    <ng-template [ngIf]="file?.id" [ngIfElse]="uploadTpl">
+        <div mat-line>{{file.fileName}}</div>
+        <div class="subtext" mat-line> {{file.size | fileSize:2}} </div>
+    </ng-template>
+    <ng-template #uploadTpl>
+        <div mat-line>Votre passeport</div>
+        <div class="subtext" mat-line> Glissez & déposez votre fichier ici</div>
+    </ng-template>
+    <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
+</mat-list-option>

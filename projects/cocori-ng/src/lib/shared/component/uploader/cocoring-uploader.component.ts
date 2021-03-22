@@ -1,7 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { FileModel } from '../../../core/model/component-uploader.model';
+import { ConfigUploaderModel, FileModel } from '../../../core/model/component-uploader.model';
+import { DataSourceInput } from '../../../core/model/data-source.model';
+import { DatasourceService } from '../../../core/service/datasource.service';
 import { UploaderService } from '../../../core/service/uploader/uploader.service';
 
 export interface Section {
@@ -10,29 +13,23 @@ export interface Section {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-uploader',
   templateUrl: './cocoring-uploader.component.html',
   styleUrls: ['./cocoring-uploader.component.scss']
 })
-export class CocoringUploaderComponent implements OnInit {
-  progress: number;
-  fileName: string;
-  file: File;
-  imageUrl: string | ArrayBuffer;
-  infoMessage: any;
-  isUploading: boolean = false;
-
+export class CocoringUploaderComponent implements OnInit, OnDestroy {
   files: FileModel[] = [
     {
       id: 'E1C57AD5-6921-44CE-8F0E-7230CE576205',
       fileName: 'Rapport.pdf',
-      size: 182,
+      size: 182.23,
       fileType: 'doc'
     },
     {
       id: '3CE8B88D-E32F-4BAF-AABB-E70866687340',
       fileName: 'CarteIdentite.png',
-      size: 82,
+      size: 82.12,
       fileType: 'image'
     },
     {
@@ -40,33 +37,32 @@ export class CocoringUploaderComponent implements OnInit {
     },
   ];
 
-  constructor(public uploaderService: UploaderService) { }
+  uploaderConfig: ConfigUploaderModel;
 
-  ngOnInit(): void {
+  @Input()
+  set config(config: ConfigUploaderModel) {
+    if (!config) {
+      throw new Error(`La config du datgrid n'est pas correcte... config: ${config}`);
+    }
 
-    this.uploaderService._fileBase64$.pipe(
-      switchMap((filebase64: any) => this.uploaderService.upload(this.file, filebase64)),
-      tap((message) => {
-        console.log("upload done : ", message)
+    this.uploaderConfig = config;
 
-        this.isUploading = false;
-        this.infoMessage = message;
-      })
-    ).subscribe()
-
-    this.uploaderService.progressSource.subscribe(progress => {
-      this.progress = progress;
-    });
+    this.loadDataSource(this.uploaderConfig.dataSource);
   }
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event && event.item(0);
+  constructor(
+    public uploaderService: UploaderService,
+    private datasourceService: DatasourceService) { }
 
-    if (!file) return;
+  ngOnInit(): void { }
 
-    this.fileName = file.name;
-    this.file = file;
+  ngOnDestroy() { }
 
-    this.uploaderService.convertToBase64(file)
+  private loadDataSource(configDataSource: DataSourceInput): Observable<any> {
+    if (!configDataSource) return;
+
+    this.datasourceService.loadDataSource(configDataSource).pipe(
+      tap((datas: any) => console.log("datas", datas))
+    ).subscribe()
   }
 }
