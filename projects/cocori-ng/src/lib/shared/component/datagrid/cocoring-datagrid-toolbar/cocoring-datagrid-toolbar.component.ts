@@ -69,7 +69,6 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
         this.datagridService.checkUncheckAllRows(value)
       })
     )
-    // this.buildCheckboxesArray()
   }
 
   nextPage() {

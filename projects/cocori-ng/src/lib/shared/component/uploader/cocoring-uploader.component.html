@@ -1,9 +1,19 @@
 <div class="upload-drop">
   <mat-selection-list #shoes [multiple]="false">
-    <div mat-subheader>Les documents à joindre au dossier</div>
-    <ng-container *ngFor="let file of files">
-      <cocoring-uploader-list-file [file]="file" [uploaderService]="uploaderService"></cocoring-uploader-list-file>
+    <div mat-subheader>{{uploaderConfig?.label}}</div>
+    <ng-container *ngIf="filesDataSource$ | async as files; else loadingTpl">
+      <cocoring-uploader-list-file *ngFor="let file of files" [file]="file" [uploaderService]="uploaderService">
+      </cocoring-uploader-list-file>
     </ng-container>
+    <ng-template #loadingTpl>
+      <div class="fake-list-file" *ngFor="let i of [].constructor(2)">
+        <div class="fake-icon loading-animation"></div>
+        <div class="fake-file-infos">
+          <div class="fake-info info-name loading-animation"></div>
+          <div class="fake-info loading-animation"></div>
+        </div>
+      </div>
+    </ng-template>
   </mat-selection-list>
 </div>
 

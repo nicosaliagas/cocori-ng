@@ -179,6 +179,30 @@ describe('CocoringDatagridFilterColumnComponent', () => {
     expect(element).toBeFalsy()
   });
 
+  it('should refresh the datagrid by emit an event from subject when a column is sorted', () => {
+    const currentColumn: ColumnDatagridModel = {
+      caption: 'Test Caption',
+      dataField: 'testdataField',
+      visible: false,
+      sort: 'NONE',
+      dataType: 'string',
+    }
+
+    component.column = currentColumn
+
+    spyOn(datagridService.refreshNeeded$, 'next')
+
+    fixture.detectChanges();
+
+    let button: DebugElement = fixture.debugElement.query(By.css('.list-item-part-left'));
+
+    button.triggerEventHandler('click', null);
+
+    button.triggerEventHandler('click', null);
+
+    expect(datagridService.refreshNeeded$.next).toHaveBeenCalledTimes(2)
+  })
+
   it('should apply sort a multiple columns', () => {
     const eventKeyDown = new KeyboardEvent("keydown", { shiftKey: true });
     const eventKeyUp = new KeyboardEvent("keyup", { code: 'ShiftLeft' });

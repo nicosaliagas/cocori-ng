@@ -38,7 +38,6 @@ describe('CocoringDatagridToolbarComponent', () => {
 
     expect(component.totalRows).toEqual(0)
 
-    // datagridService.lengthDataSource$.next(500)
     datagridService.lengthDataSource(500)
 
     expect(component.totalRows).toEqual(500)
@@ -190,6 +189,24 @@ describe('CocoringDatagridToolbarComponent', () => {
     expect(element).toBeTruthy();
   })
 
+  it('should check all the rows and emit an event', () => {
+    let config: ConfigDatagridModel = {
+      dataSource: { type: DataSourceType.BRUTE, value: { __count: 500, results: [] } },
+      withBatchProcessing: true,
+      columns: []
+    }
+
+    datagridService.config = config
+
+    spyOn(datagridService.allRowsChecked$, 'next')
+    
+    fixture.detectChanges();
+    
+    datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").setValue(true)
+
+    expect(datagridService.allRowsChecked$.next).toHaveBeenCalledOnceWith(true)
+  })
+
   it('should hide the all rows checkbox', () => {
     let config: ConfigDatagridModel = {
       dataSource: { type: DataSourceType.BRUTE, value: { __count: 500, results: [] } },
@@ -220,5 +237,17 @@ describe('CocoringDatagridToolbarComponent', () => {
     buttonFilterModal.triggerEventHandler('click', null);
 
     expect(component.dialog.open).toHaveBeenCalled()
+  })
+
+  it('should refresh the datagrid by emit an event from subject', () => {
+    fixture.detectChanges();
+
+    spyOn(datagridService.refreshNeeded$, 'next')
+
+    let buttonFilterModal: DebugElement = fixture.debugElement.query(By.css('.button-refresh'));
+
+    buttonFilterModal.triggerEventHandler('click', null);
+
+    expect(datagridService.refreshNeeded$.next).toHaveBeenCalled()
   })
 });

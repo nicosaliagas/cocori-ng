@@ -5,3 +5,32 @@
 .upload-drop {
   width: 100%;
 }
+
+.fake-list-file {
+  max-width: 300px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  .fake-icon {
+    height: 27px;
+    width: 27px;
+    margin-left: 5px;
+    border-radius: 50%;
+  }
+
+  .fake-file-infos {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    flex: 1;
+
+    .fake-info {
+      height: 16px;
+
+      &.info-name {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

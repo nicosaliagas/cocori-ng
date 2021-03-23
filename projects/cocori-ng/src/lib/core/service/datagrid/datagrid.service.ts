@@ -17,15 +17,15 @@ import { QueryBuilder } from '../odata-query-builder/queryBuilder';
   providedIn: 'root',
 })
 export class DatagridService {
-  private _allRowsChecked$: Subject<boolean> = new Subject<boolean>();
-  private _refreshNeeded$: Subject<void> = new Subject<void>();
   private _nextPage$: Subject<void> = new Subject<void>();
   private _previousPage$: Subject<void> = new Subject<void>();
   private _resetColumnExcept$: Subject<string> = new Subject<string>();
   private _updateColumn$: Subject<ColumnDatagridModel> = new Subject<ColumnDatagridModel>();
   private _reOrderColumns$: Subject<OrderColumnModel> = new Subject<OrderColumnModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
+  
+  public allRowsChecked$: Subject<boolean> = new Subject<boolean>();
+  public refreshNeeded$: Subject<void> = new Subject<void>();
   public checkboxesDatagridForm: FormGroup;
   public config: ConfigDatagridModel;
 
@@ -61,10 +61,6 @@ export class DatagridService {
     ).subscribe()
   }
 
-  get refreshNeeded$() {
-    return this._refreshNeeded$;
-  }
-
   get resetColumnExcept$() {
     return this._resetColumnExcept$;
   }
@@ -75,10 +71,6 @@ export class DatagridService {
 
   get reOrderColumns$() {
     return this._reOrderColumns$;
-  }
-
-  get allRowsChecked$() {
-    return this._allRowsChecked$;
   }
 
   get nextPage$() {

@@ -1,8 +1,8 @@
-export type DataSourceValue = string | SelectOption[] | DatasourceOdata
+// export type DataSourceValue = string | SelectOption[] | DatasourceOdata
 
 export interface DataSourceInput {
     type: DataSourceType,
-    value: DataSourceValue,
+    value: any,
 }
 
 export enum DataSourceType {

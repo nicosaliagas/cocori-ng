@@ -4,12 +4,11 @@
         <ng-container *ngIf="file.fileType === 'image'">image</ng-container>
         <ng-container *ngIf="!file.id">arrow_circle_up</ng-container>
     </mat-icon>
+    <div mat-line>{{file.fileName}}</div>
     <ng-template [ngIf]="file?.id" [ngIfElse]="uploadTpl">
-        <div mat-line>{{file.fileName}}</div>
         <div class="subtext" mat-line> {{file.size | fileSize:2}} </div>
     </ng-template>
     <ng-template #uploadTpl>
-        <div mat-line>Votre passeport</div>
         <div class="subtext" mat-line> Glissez & déposez votre fichier ici</div>
     </ng-template>
     <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />

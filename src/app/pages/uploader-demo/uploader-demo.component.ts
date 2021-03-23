@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DatasourceOdata, DataSourceType, HttpService } from 'cocori-ng';
+import { ConfigUploaderModel, DatagridService, DataSourceType, HttpService } from 'cocori-ng';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 
 @Component({
@@ -8,44 +8,47 @@ import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service'
   styleUrls: ['./uploader-demo.component.scss']
 })
 export class UploaderDemoComponent implements OnInit {
-  _config: ConfigDatagridModel;
+  _config: ConfigUploaderModel;
 
   constructor(
     private httpService: HttpService,
     private datagridDemoService: DatagridDemoService,
-    private datagridService: DatagridService) {
-    this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
-      console.log("from app, check all rows", value)
-    })
-  }
+    private datagridService: DatagridService) { }
 
   ngOnInit() {
-    this.initConfigDatagrid()
+    this.initConfigUploader()
   }
 
   onComponentReady(control: string) {
     console.log(`Input : ${control} ajouté au form avec succès`)
   }
 
-  private initConfigDatagrid() {
+  private initConfigUploader() {
 
-    this.datagridDemoService.mockDatagridDatas().subscribe((values: DatasourceOdata) => {
-      this._config = {
-        columns: [
-          { caption: "Nom", dataField: "name", dataType: "string", visible: true },
-          { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
-          { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
-          { caption: "Age", dataField: "age", dataType: "number", visible: true },
-          { caption: "Col Bool", dataField: "testBool", dataType: "boolean", visible: true },
-          { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
-          { caption: "Col Dat", dataField: "testDate", dataType: "date", visible: true },
-          { caption: "Col 1", dataField: "test1", dataType: "string", visible: true },
-          { caption: "Col 2", dataField: "test2", dataType: "number", visible: true },
-          { caption: "Col 3", dataField: "test3", dataType: "string", visible: true },
-        ],
-        dataSource: { type: DataSourceType.BRUTE, value: values },
-        withBatchProcessing: true
-      }
-    })
+    this._config = {
+      label: "Veuillez joindre les pièces justificatives au dossier",
+      dataSource: {
+        type: DataSourceType.BRUTE, value: [
+          {
+            id: 'E1C57AD5-6921-44CE-8F0E-7230CE576205',
+            fileName: 'Rapport.pdf',
+            size: 182.23,
+            fileType: 'doc'
+          },
+          {
+            id: '3CE8B88D-E32F-4BAF-AABB-E70866687340',
+            fileName: 'CarteIdentite.png',
+            size: 82.12,
+            fileType: 'image'
+          },
+          {
+            fileName: 'Votre passeport',
+          },
+          {
+            fileName: 'Un justificatif de domicile',
+          }
+        ]
+      },
+    }
   }
 }

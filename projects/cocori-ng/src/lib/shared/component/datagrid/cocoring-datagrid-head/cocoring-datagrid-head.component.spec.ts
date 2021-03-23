@@ -93,6 +93,22 @@ describe('CocoringDatagridHeadComponent', () => {
     expect(component.column.sort).toEqual('NONE');
   });
 
+  it('should refresh the datagrid by emit an event from subject when a column is sorted', () => {
+    fixture.detectChanges();
+
+    spyOn(datagridService.refreshNeeded$, 'next')
+
+    const ThDe: DebugElement = fixture.debugElement.query(By.css('th'));
+
+    ThDe.triggerEventHandler('click', null);
+
+    ThDe.triggerEventHandler('click', null);
+
+    ThDe.triggerEventHandler('click', null);
+
+    expect(datagridService.refreshNeeded$.next).toHaveBeenCalledTimes(3)
+  })
+
   it('if reset sort status of all columns, it should not reset the status of this column', () => {
     fixture.detectChanges();
 

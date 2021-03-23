@@ -68,7 +68,7 @@ describe('CocoringDatagridCellComponent', () => {
     expect(TdDe).toBeFalsy()
   });
 
-  it('should change cell value and report the change in the UI', () => {
+  it('change a cell value and should report the change in the UI', () => {
     expectedCell = <CellValueDatagridModel>{ dataType: 'string', caption: 'Test Datafield', value: 'Test Value', visible: true };
 
     component.cell = expectedCell;
