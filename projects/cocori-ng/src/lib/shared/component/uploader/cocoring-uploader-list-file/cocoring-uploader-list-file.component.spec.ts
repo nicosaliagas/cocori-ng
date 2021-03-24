@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
@@ -14,7 +16,8 @@ describe('CocoringUploaderListFileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CocoringUploaderListFileComponent],
-      imports: [CocoringFileSizeModule]
+      imports: [MatMenuModule, HttpClientTestingModule, CocoringFileSizeModule],
+      providers: []
     })
       .compileComponents();
   });
@@ -29,8 +32,7 @@ describe('CocoringUploaderListFileComponent', () => {
 
     const file: FileModel = { id: 'id', fileName: 'name', 'size': 30, 'fileType': 'image' }
 
-    component.uploaderService = uploaderService
-    component.file = file
+    component.fileModel = file
 
     fixture.detectChanges();
   });

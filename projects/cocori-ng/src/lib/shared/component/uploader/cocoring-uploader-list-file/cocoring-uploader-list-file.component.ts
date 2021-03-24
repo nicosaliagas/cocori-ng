@@ -2,13 +2,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   HostListener,
   Input,
   OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { Observable, of, Subscription } from 'rxjs';
+import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { FileModel } from '../../../../core/model/component-uploader.model';
@@ -18,43 +21,59 @@ import { UploaderService } from '../../../../core/service/uploader/uploader.serv
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-uploader-list-file',
   templateUrl: './cocoring-uploader-list-file.component.html',
-  styleUrls: ['./cocoring-uploader-list-file.component.scss']
+  styleUrls: ['./cocoring-uploader-list-file.component.scss'],
+  providers: [UploaderService]
 })
 export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
+  @ViewChild('uploader') uploaderInputRef: ElementRef<HTMLElement>;
+  @ViewChild(MatMenuTrigger) matMenuRef: MatMenuTrigger;
 
-  @Input() file: FileModel
-  @Input() uploaderService: UploaderService
+  @Input()
+  set fileModel(datas: FileModel) {
+    this._fileModel = datas
+    this._fileNameOrigin = this._fileModel.fileName
+  }
 
-  newFile: File;
+  private fileUploaded: File;
 
+  _fileModel: FileModel;
+  _fileNameOrigin: string;
   subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
-  infoMessage: any;
   progress: number;
+  onError: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef,) { }
+  constructor(
+    private uploaderService: UploaderService,
+    private cdr: ChangeDetectorRef,) { }
 
   ngOnInit(): void {
     this.subscriptions.add(
       this.uploaderService.fileBase64$.pipe(
-        filter(_ => !!this.newFile),
-        switchMap((filebase64: any) => this.uploaderService.upload(this.newFile, filebase64)),
-        tap((id: string) => {
-
-          console.log("upload completed ! : ", id)
-
-          this.file.id = id
-
-          this.isUploading = false;
-          this.infoMessage = id;
-        }),
+        filter(_ => !!this.fileUploaded),
+        switchMap((filebase64: any) => this.uploadBase64(filebase64)),
+        tap((id: string) => this._fileModel.id = id),
+        tap(_ => this.cdr.detectChanges()),
+        debounceTime(500),
+        tap(_ => this.isUploading = false),
         tap(_ => this.cdr.detectChanges())
       ).subscribe()
     )
 
     this.subscriptions.add(
-      this.uploaderService.progressSource.subscribe(progress => {
-        this.progress = progress;
+      this.uploaderService.progressSource.pipe(
+        filter(_ => !!this.fileUploaded),
+        tap((progress: number) => this.progress = progress)
+      ).subscribe()
+    )
+  }
+
+  private uploadBase64(filebase64: any): Observable<any> {
+    return this.uploaderService.upload(this.fileUploaded, filebase64).pipe(
+      catchError(error => {
+        this.errorFile()
+
+        return of(null)
       })
     )
   }
@@ -68,14 +87,54 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     if (!file) return;
 
-    this.newFile = file;
+    this.isUploading = true
+    this.onError = false
 
-    this.file.fileName = this.newFile.name
-    this.file.size = this.newFile.size
-    this.file.fileType = HelperUploaderService.checkTypeImage(this.newFile) ? 'image' : 'doc'
+    this.fileUploaded = file;
+
+    this._fileModel.fileName = this.fileUploaded.name
+    this._fileModel.size = this.fileUploaded.size
+    this._fileModel.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded) ? 'image' : 'doc'
 
     this.cdr.detectChanges()
 
-    this.uploaderService.convertToBase64(this.newFile)
+    this.uploaderService.convertToBase64(this.fileUploaded)
+  }
+
+  private errorFile() {
+    this.isUploading = false
+
+    this._fileModel.fileType = null
+
+    this.onError = true
+
+    this.cdr.detectChanges()
+  }
+
+  openMenuOrBrowse() {
+    if (this._fileModel.id) {
+      this.matMenuRef.openMenu()
+    } else {
+      this.browseFile()
+    }
+  }
+
+  openFile() {
+    console.log("openFile")
+  }
+
+  browseFile() {
+    this.matMenuRef.closeMenu()
+
+    let el: HTMLElement = this.uploaderInputRef.nativeElement;
+    el.click();
+  }
+
+  deleteFile() {
+    this.fileUploaded = null
+    this._fileModel.id = null
+    this._fileModel.fileType = null
+    this._fileModel.fileName = this._fileNameOrigin
+    this.uploaderService.fileBase64$.next(null)
   }
 }

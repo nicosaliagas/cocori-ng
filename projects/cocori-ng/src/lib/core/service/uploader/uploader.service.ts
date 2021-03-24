@@ -47,6 +47,8 @@ export class UploaderService {
         binaryString = readerEvt.target.result;
       }
 
+      console.log("emit filebase64 next")
+
       that.fileBase64$.next(btoa(binaryString))
 
     }.bind(this);

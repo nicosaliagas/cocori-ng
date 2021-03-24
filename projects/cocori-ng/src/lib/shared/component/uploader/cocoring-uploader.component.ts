@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ConfigUploaderModel, FileModel } from '../../../core/model/component-uploader.model';
 import { DataSourceInput } from '../../../core/model/data-source.model';
 import { DatasourceService } from '../../../core/service/datasource.service';
-import { UploaderService } from '../../../core/service/uploader/uploader.service';
 
 export interface Section {
   name: string;
@@ -15,7 +14,7 @@ export interface Section {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-uploader',
   templateUrl: './cocoring-uploader.component.html',
-  styleUrls: ['./cocoring-uploader.component.scss']
+  styleUrls: ['./cocoring-uploader.component.scss'],
 })
 export class CocoringUploaderComponent implements OnInit, OnDestroy {
 
@@ -35,7 +34,7 @@ export class CocoringUploaderComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    public uploaderService: UploaderService,
+    // public uploaderService: UploaderService,
     private datasourceService: DatasourceService) { }
 
   ngOnInit() { }

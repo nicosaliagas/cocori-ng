@@ -1,8 +1,19 @@
+
 :host {
   display: block;
 }
 
 .subtext {
-  font-size: 13px;
-  color: #8c8c8c;
+  font-size: 13px !important;
+  opacity: 0.5;
+}
+
+.fileOnError {
+  font-weight: 500;
+}
+
+.progress-bar {
+  height: 20px;
+  display: flex !important;
+  align-items: center;
 }

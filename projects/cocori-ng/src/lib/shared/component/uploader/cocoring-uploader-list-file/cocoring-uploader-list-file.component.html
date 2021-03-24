@@ -1,15 +1,37 @@
-<mat-list-option [value]="file.id" (click)="uploader.click()">
-    <mat-icon mat-list-icon>
-        <ng-container *ngIf="file.fileType === 'doc'">file_present</ng-container>
-        <ng-container *ngIf="file.fileType === 'image'">image</ng-container>
-        <ng-container *ngIf="!file.id">arrow_circle_up</ng-container>
+<mat-list-option [value]="_fileModel.id" (click)="openMenuOrBrowse()" #matMenuRef [matMenuTriggerFor]="normalMenu">
+    <mat-icon mat-list-icon *ngIf="!isUploading">
+        <ng-container *ngIf="_fileModel.fileType === 'doc'">file_present</ng-container>
+        <ng-container *ngIf="_fileModel.fileType === 'image'">image</ng-container>
+        <ng-container *ngIf="!_fileModel.id"><span [ngClass]="{'fileOnError error': onError}">arrow_circle_up</span>
+        </ng-container>
     </mat-icon>
-    <div mat-line>{{file.fileName}}</div>
-    <ng-template [ngIf]="file?.id" [ngIfElse]="uploadTpl">
-        <div class="subtext" mat-line> {{file.size | fileSize:2}} </div>
+
+    <mat-icon mat-list-icon *ngIf="isUploading" class="loading-animation"></mat-icon>
+
+    <div mat-line>
+        <span *ngIf="!onError">{{_fileModel.fileName}}</span>
+        <span *ngIf="onError" class="fileOnError error">Une erreur est survenue</span>
+    </div>
+
+    <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
+        <div class="subtext" mat-line>
+            <span *ngIf="_fileModel?.id">{{_fileModel.size | fileSize:2}}</span>
+            <span *ngIf="!_fileModel?.id && !onError"> Glissez & déposez votre fichier ici</span>
+            <span *ngIf="!_fileModel?.id && onError" class="fileOnError error"> Veuillez essayer à nouveau... </span>
+        </div>
     </ng-template>
+
     <ng-template #uploadTpl>
-        <div class="subtext" mat-line> Glissez & déposez votre fichier ici</div>
+        <div mat-line class="progress-bar">
+            <mat-progress-bar [value]="progress"></mat-progress-bar>
+        </div>
     </ng-template>
-    <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
 </mat-list-option>
+
+<input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
+
+<mat-menu #normalMenu="matMenu">
+    <button mat-menu-item (click)="openFile()">Afficher / télécharger</button>
+    <button mat-menu-item (click)="browseFile()">Sélectionner un nouveau</button>
+    <button mat-menu-item  (click)="deleteFile()">Supprimer</button>
+</mat-menu>

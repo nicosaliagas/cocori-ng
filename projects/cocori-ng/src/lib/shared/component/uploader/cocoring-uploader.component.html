@@ -2,7 +2,7 @@
   <mat-selection-list #shoes [multiple]="false">
     <div mat-subheader>{{uploaderConfig?.label}}</div>
     <ng-container *ngIf="filesDataSource$ | async as files; else loadingTpl">
-      <cocoring-uploader-list-file *ngFor="let file of files" [file]="file" [uploaderService]="uploaderService">
+      <cocoring-uploader-list-file *ngFor="let file of files" [fileModel]="file">
       </cocoring-uploader-list-file>
     </ng-container>
     <ng-template #loadingTpl>
