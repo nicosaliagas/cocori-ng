@@ -9,16 +9,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { CocoringFileSizeModule } from '../../pipe/file-size/cocoring-file-size.module';
 import { CocoringButtonModule } from '../button/cocoring-button.module';
+import { CocoringUploaderFileOptionsComponent } from './cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file/cocoring-uploader-list-file.component';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
 
 @NgModule({
     declarations: [
         CocoringUploaderComponent,
-        CocoringUploaderListFileComponent
+        CocoringUploaderListFileComponent,
+        CocoringUploaderFileOptionsComponent,
     ],
     imports: [
         CommonModule,
@@ -29,6 +31,7 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
         MatFormFieldModule,
         MatMenuModule,
         MatProgressBarModule,
+        MatDialogModule,
         MatInputModule,
         MatIconModule,
         MatButtonModule,

@@ -1,4 +1,4 @@
-<mat-list-option [value]="_fileModel.id" (click)="openMenuOrBrowse()" #matMenuRef [matMenuTriggerFor]="normalMenu">
+<mat-list-option [value]="_fileModel.id" (click)="openMenuOrBrowse()">
     <mat-icon mat-list-icon *ngIf="!isUploading">
         <ng-container *ngIf="_fileModel.fileType === 'doc'">file_present</ng-container>
         <ng-container *ngIf="_fileModel.fileType === 'image'">image</ng-container>
@@ -8,16 +8,19 @@
 
     <mat-icon mat-list-icon *ngIf="isUploading" class="loading-animation"></mat-icon>
 
-    <div mat-line>
-        <span *ngIf="!onError">{{_fileModel.fileName}}</span>
-        <span *ngIf="onError" class="fileOnError error">Une erreur est survenue</span>
+    <div mat-line [ngClass]="{'fileOnError error': onError}">
+        <span *ngIf="_fileModel.id" title="{{_fileModel.fileName}}">{{_fileModel.fileName}}</span>
+        <span *ngIf="!_fileModel.id" title="{{_fileModel.description}}">{{_fileModel.description}}</span>
     </div>
 
     <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
         <div class="subtext" mat-line>
             <span *ngIf="_fileModel?.id">{{_fileModel.size | fileSize:2}}</span>
-            <span *ngIf="!_fileModel?.id && !onError"> Glissez & déposez votre fichier ici</span>
-            <span *ngIf="!_fileModel?.id && onError" class="fileOnError error"> Veuillez essayer à nouveau... </span>
+            <span *ngIf="!_fileModel?.id && !onError" title="Glissez & déposez votre fichier ici"> Glissez & déposez
+                votre fichier ici</span>
+            <span *ngIf="!_fileModel?.id && onError" class="fileOnError error" title="Une erreur est survenue, veuillez
+            réessayer">Une erreur est survenue, veuillez
+                réessayer</span>
         </div>
     </ng-template>
 
@@ -29,9 +32,3 @@
 </mat-list-option>
 
 <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
-
-<mat-menu #normalMenu="matMenu">
-    <button mat-menu-item (click)="openFile()">Afficher / télécharger</button>
-    <button mat-menu-item (click)="browseFile()">Sélectionner un nouveau</button>
-    <button mat-menu-item  (click)="deleteFile()">Supprimer</button>
-</mat-menu>

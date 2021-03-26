@@ -6,6 +6,7 @@ export interface ConfigUploaderModel {
 }
 
 export interface FileModel {
+    description: string,
     fileName: string,
     fileType?: FileType,
     id?: string,

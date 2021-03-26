@@ -30,7 +30,7 @@ describe('CocoringUploaderListFileComponent', () => {
 
     uploaderService = new UploaderService(httpServiceSpy as any)
 
-    const file: FileModel = { id: 'id', fileName: 'name', 'size': 30, 'fileType': 'image' }
+    const file: FileModel = { id: 'id', description: 'test', fileName: 'name', 'size': 30, 'fileType': 'image' }
 
     component.fileModel = file
 

@@ -31,21 +31,23 @@ export class UploaderDemoComponent implements OnInit {
         type: DataSourceType.BRUTE, value: [
           {
             id: 'E1C57AD5-6921-44CE-8F0E-7230CE576205',
+            description: 'Votre rapport',
             fileName: 'Rapport.pdf',
             size: 182.23,
             fileType: 'doc'
           },
           {
             id: '3CE8B88D-E32F-4BAF-AABB-E70866687340',
+            description: 'Recto / verso de votre CNI',
             fileName: 'CarteIdentite.png',
             size: 82.12,
             fileType: 'image'
           },
           {
-            fileName: 'Votre passeport',
+            description: 'Votre passeport',
           },
           {
-            fileName: 'Un justificatif de domicile',
+            description: 'Un justificatif de domicile',
           }
         ]
       },

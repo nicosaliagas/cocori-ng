@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .actions-header-modal {
+    margin-left: -11px;
+  }
+
+  .header-title {
+    cursor: grabbing;
+    margin: 0 0 0 10px;
+  }
+}

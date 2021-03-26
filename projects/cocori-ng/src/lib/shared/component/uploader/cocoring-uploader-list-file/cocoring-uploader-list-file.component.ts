@@ -9,6 +9,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Observable, of, Subscription } from 'rxjs';
 import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
@@ -16,6 +17,7 @@ import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
+import { CocoringUploaderFileOptionsComponent } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,24 +28,22 @@ import { UploaderService } from '../../../../core/service/uploader/uploader.serv
 })
 export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef<HTMLElement>;
-  @ViewChild(MatMenuTrigger) matMenuRef: MatMenuTrigger;
 
   @Input()
   set fileModel(datas: FileModel) {
     this._fileModel = datas
-    this._fileNameOrigin = this._fileModel.fileName
   }
 
   private fileUploaded: File;
 
   _fileModel: FileModel;
-  _fileNameOrigin: string;
   subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
   progress: number;
   onError: boolean = false;
 
   constructor(
+    public dialog: MatDialog,
     private uploaderService: UploaderService,
     private cdr: ChangeDetectorRef,) { }
 
@@ -113,10 +113,23 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   openMenuOrBrowse() {
     if (this._fileModel.id) {
-      this.matMenuRef.openMenu()
+      // this.matMenuRef.openMenu()
+      this.openModalOptions()
     } else {
       this.browseFile()
     }
+  }
+
+  openModalOptions() {
+    const dialogRef = this.dialog.open(CocoringUploaderFileOptionsComponent, {
+      data: { file: this._fileModel },
+      autoFocus: false,
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe((datas: any) => {
+      console.log("modal fermée", datas)
+    });
   }
 
   openFile() {
@@ -124,7 +137,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   }
 
   browseFile() {
-    this.matMenuRef.closeMenu()
+    // this.matMenuRef.closeMenu()
 
     let el: HTMLElement = this.uploaderInputRef.nativeElement;
     el.click();
@@ -134,7 +147,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     this.fileUploaded = null
     this._fileModel.id = null
     this._fileModel.fileType = null
-    this._fileModel.fileName = this._fileNameOrigin
+    this._fileModel.fileName = null
     this.uploaderService.fileBase64$.next(null)
   }
 }
