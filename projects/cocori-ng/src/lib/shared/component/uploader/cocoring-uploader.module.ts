@@ -15,12 +15,15 @@ import { CocoringButtonModule } from '../button/cocoring-button.module';
 import { CocoringUploaderFileOptionsComponent } from './cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file/cocoring-uploader-list-file.component';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { CocoringUploaderFileActionsComponent } from './cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 
 @NgModule({
     declarations: [
         CocoringUploaderComponent,
         CocoringUploaderListFileComponent,
         CocoringUploaderFileOptionsComponent,
+        CocoringUploaderFileActionsComponent,
     ],
     imports: [
         CommonModule,
@@ -32,6 +35,7 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
         MatMenuModule,
         MatProgressBarModule,
         MatDialogModule,
+        MatBottomSheetModule,
         MatInputModule,
         MatIconModule,
         MatButtonModule,

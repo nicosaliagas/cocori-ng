@@ -9,6 +9,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Observable, of, Subscription } from 'rxjs';
@@ -17,6 +18,7 @@ import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
+import { CocoringUploaderFileActionsComponent } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import { CocoringUploaderFileOptionsComponent } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
@@ -44,6 +46,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    private _bottomSheet: MatBottomSheet,
     private uploaderService: UploaderService,
     private cdr: ChangeDetectorRef,) { }
 
@@ -114,7 +117,8 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   openMenuOrBrowse() {
     if (this._fileModel.id) {
       // this.matMenuRef.openMenu()
-      this.openModalOptions()
+      // this.openModalOptions()
+      this.openBottomSheet()
     } else {
       this.browseFile()
     }
@@ -129,6 +133,17 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((datas: any) => {
       console.log("modal fermée", datas)
+    });
+  }
+
+  openBottomSheet() {
+    const bottomSheet = this._bottomSheet.open(CocoringUploaderFileActionsComponent, {
+      panelClass: 'bottom-sheet-container',
+      data: { file: this._fileModel }
+    });
+
+    bottomSheet.afterDismissed().subscribe((datas: any) => {
+      console.log("bottomsheet fermée", datas)
     });
   }
 

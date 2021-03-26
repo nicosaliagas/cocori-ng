@@ -1,5 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { FileModel } from '../../../../core/model/component-uploader.model';
@@ -16,7 +18,7 @@ describe('CocoringUploaderListFileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CocoringUploaderListFileComponent],
-      imports: [MatMenuModule, HttpClientTestingModule, CocoringFileSizeModule],
+      imports: [MatMenuModule, HttpClientTestingModule, CocoringFileSizeModule, MatDialogModule, MatBottomSheetModule],
       providers: []
     })
       .compileComponents();
