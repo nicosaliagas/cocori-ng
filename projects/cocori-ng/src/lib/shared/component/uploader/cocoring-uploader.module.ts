@@ -17,6 +17,7 @@ import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { CocoringUploaderFileActionsComponent } from './cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
+import { CocoringUploaderBottomSheetComponent } from './cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { CocoringUploaderFileActionsComponent } from './cocoring-uploader-file-a
         CocoringUploaderListFileComponent,
         CocoringUploaderFileOptionsComponent,
         CocoringUploaderFileActionsComponent,
+        CocoringUploaderBottomSheetComponent,
     ],
     imports: [
         CommonModule,

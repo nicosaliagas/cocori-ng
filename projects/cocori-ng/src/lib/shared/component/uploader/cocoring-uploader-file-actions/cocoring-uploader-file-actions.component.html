@@ -1,16 +1,13 @@
-<div class="header">
-    Rapport.pdf
-</div>
 <mat-nav-list class="list">
-    <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
+    <a href="https://keep.google.com/" mat-list-item (click)="actionFile($event, 'view')">
         <span mat-line>Afficher / télécharger le fichier</span>
     </a>
 
-    <a href="https://docs.google.com/" mat-list-item (click)="openLink($event)">
+    <a href="https://docs.google.com/" mat-list-item (click)="actionFile($event, 'browse')">
         <span mat-line>Sélectionner un nouveau fichier</span>
     </a>
 
-    <a href="https://hangouts.google.com/" mat-list-item (click)="openLink($event)">
+    <a href="https://hangouts.google.com/" mat-list-item (click)="actionFile($event, 'remove')">
         <span mat-line>Supprimer</span>
     </a>
 </mat-nav-list>

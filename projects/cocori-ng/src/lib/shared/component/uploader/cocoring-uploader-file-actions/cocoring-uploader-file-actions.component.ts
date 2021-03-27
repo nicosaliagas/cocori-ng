@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { FileModel } from '../../../../core/model/component-uploader.model';
+import { FileActions, FileModel } from '../../../../core/model/component-uploader.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,17 +10,18 @@ import { FileModel } from '../../../../core/model/component-uploader.model';
 })
 export class CocoringUploaderFileActionsComponent implements OnInit {
 
-  constructor(
-    private _bottomSheetRef: MatBottomSheetRef<CocoringUploaderFileActionsComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { file: FileModel }) {
-    console.log("bottomsheet file", data.file)
-  }
+  @Input() file: FileModel
+
+  @Output() callback: EventEmitter<FileActions> = new EventEmitter<FileActions>();
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
+  actionFile(event: MouseEvent, action: FileActions) {
+    this.callback.emit(action)
+
     event.preventDefault();
   }
 }

@@ -16,8 +16,9 @@ import { Observable, of, Subscription } from 'rxjs';
 import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
-import { FileModel } from '../../../../core/model/component-uploader.model';
+import { FileActions, FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
+import { CocoringUploaderBottomSheetComponent } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import { CocoringUploaderFileActionsComponent } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import { CocoringUploaderFileOptionsComponent } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
@@ -137,13 +138,13 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   }
 
   openBottomSheet() {
-    const bottomSheet = this._bottomSheet.open(CocoringUploaderFileActionsComponent, {
+    const bottomSheet = this._bottomSheet.open(CocoringUploaderBottomSheetComponent, {
       panelClass: 'bottom-sheet-container',
-      data: { file: this._fileModel }
+      data: { file: this._fileModel, component: CocoringUploaderFileActionsComponent }
     });
 
-    bottomSheet.afterDismissed().subscribe((datas: any) => {
-      console.log("bottomsheet fermée", datas)
+    bottomSheet.afterDismissed().subscribe((action: FileActions) => {
+      console.log("bottomsheet fermée", action)
     });
   }
 

@@ -27,17 +27,8 @@ export class InjectComponentService {
         }
     }
 
-    // returnComponentClassFromType<T extends InputComponents, ReturnType extends InputClassesTypes<T>>(typeOfComponent: InputComponents): ReturnType {
-    //     if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
-    //         const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
-    //         throw new Error(error);
-    //     } else {
-    //         return ClasseComponents[typeOfComponent] as unknown as ReturnType;
-    //     }
-    // }
-
-    loadAndAddComponentToContainer<T extends InputComponents>(
-        componentClass: typeof ClasseComponents[T],
+    loadAndAddComponentToContainer(
+        componentClass: any,
         viewContainerRef: ViewContainerRef,
         inputs: InputsComponent[] = [],
         outputs?: OutputsComponent
