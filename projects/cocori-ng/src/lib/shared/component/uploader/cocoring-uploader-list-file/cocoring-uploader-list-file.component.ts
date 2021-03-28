@@ -145,6 +145,24 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     bottomSheet.afterDismissed().subscribe((action: FileActions) => {
       console.log("bottomsheet fermée", action)
+
+      switch (action) {
+        case 'browse':
+          this.browseFile()
+          break;
+
+        case 'remove':
+          this.removeFile()
+          break;
+
+        case 'view':
+          this.openFile()
+          break;
+
+        default:
+          break;
+      }
+
     });
   }
 
@@ -159,7 +177,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     el.click();
   }
 
-  deleteFile() {
+  removeFile() {
     this.fileUploaded = null
     this._fileModel.id = null
     this._fileModel.fileType = null
