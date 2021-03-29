@@ -1,9 +1,9 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { configdefault } from '../../config/config.components';
-import { ConfigEvents } from '../../config/config.events';
-import { InputComponents, OutputCallback } from '../../shared/component/form';
+import { configdefault } from '../../../config/config.components';
+import { ConfigEvents } from '../../../config/config.events';
+import { InputComponents, OutputCallback } from '../../../shared/component/form';
 import {
     ButtonComponentInputs,
     ButtonIconPositon,
@@ -12,11 +12,12 @@ import {
     InputFieldAppearance,
     NameControl,
     TypeButtonEnum,
-} from '../model/component-inputs.model';
-import { DataSourceInput } from '../model/data-source.model';
-import { BroadcastEventService } from './broadcast-event.service';
-import { InjectComponentService } from './inject-component.service';
-import { ValidatorsService } from './validators.service';
+} from '../../model/component-inputs.model';
+import { DataSourceInput } from '../../model/data-source.model';
+import { BroadcastEventService } from '../broadcast-event.service';
+import { InjectComponentService } from '../inject-component.service';
+import { UtilsService } from '../utils/utils.service';
+import { ValidatorsService } from '../validators.service';
 
 /**
  * https://www.typescriptlang.org/play?#code/C4TwDgpgBAggTgcwK4FsIDtgBVwQM4A8WAfFALxRZQQAewGAJnlABQB0HUAhongFxQAlugBmEOFACqASnKlhYiQCUoAfikD0EAG7iA3AChQkKEohgANlwDGEM8CRx0OSAQDyAGigA5UhXYcXALwyGiYLvjuxLJkpN6GRrhQAEJIghYM4gQA0tR0jMwA1hAgAPYiUADCpejWcBD0qemZcH5QAN4GUFAA2pJC6FDZALoC-bT06ExQAOQARmkZM2pVNXUNEE0Z4n3DUAJmljZ2DY7OuARd3au19Y2LLbseV91bLQQAojTWFkiZOV5JKQJgUoFpdBJ1PMHssBF8fn8IACpMRiFc0QBfBIiJC1YCCGpQBbNcQsaQCN5ZeG-f7FMoVaq3DaUuBeaHNGaojpXO5nMEQADuN3W9xJcDJ3GYXHQIEMGIMBh+XDwzEZIs2D3E3O6XDJAmAAAtBMxOtcoLynFBDcbDN15Vc5nqrUaTS9zadLda8LaoPbusSMk68MA4MIENrrhbBjMRKVSjMffL7QGWmS2LrpGxHZmU2S9FAAPQFqClQoGFOknNpjNZh55wvF0vlzXinN16T5ovUOBwUpwZti6tp3Mdhvd3v9iutrPD9ud4viCcD7bTms1kfz8d95epqt72vNetdxfbqdD-fZg+B0fHnunlvn9PD2eHm8Lu9wIA
@@ -41,7 +42,7 @@ type InferInputNames<Builder> =
 class InputConfigBuilder<Builder> {
 
     _isRequired: boolean;
-    _styleCompact: boolean = false;
+    _styleCompact: boolean;
     _appearance: InputFieldAppearance;
     _nameLabel: string;
     _icon: string;
@@ -145,20 +146,20 @@ class ButtonConfigBuilder<Builder> {
 })
 export class FormBuilderService<InputNames extends string = never, ButtonNames extends string = never, NodeNames extends string = never,> {
     public formId: string; /** error handler */
-    public name: string; /** mapping details */
+    public formName: string; /** mapping details */
 
     private currentForm: FormGroup;
-    private configsInputComponent: ConfigInputComponent[];
-    private _appearance: InputFieldAppearance = 'outline';
-
-    // submitCallback: Subject<any>;
+    private _configInputsForm: ConfigInputComponent[] = [];
+    private _appearance: InputFieldAppearance = <InputFieldAppearance>configdefault.form.appearance
+    private _styleCompact: boolean = configdefault.form.styleCompact;
 
     constructor(
         private fb: FormBuilder,
+        private utilsService: UtilsService,
         private broadcastEventService: BroadcastEventService,
         private generateComponentViewService: GenerateComponentViewService
     ) {
-        this.initializeForm()
+        this.newForm()
     }
 
     set form(form: FormGroup) {
@@ -168,20 +169,25 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     get form(): FormGroup {
         return this.currentForm
     }
+    
+    get styleCompact(): boolean {
+        return this._styleCompact
+    }
 
     getAppearance(): InputFieldAppearance {
         return this._appearance
     }
 
-    get configs(): ConfigInputComponent[] {
-        return this.configsInputComponent
+    get configInputsForm(): ConfigInputComponent[] {
+        return this._configInputsForm
     }
 
-    initializeForm() {
+    newForm() {
         this.currentForm = this.fb.group({});
-        this.configsInputComponent = new Array()
 
-        this.identityForm(this.generateGuid())
+        this._configInputsForm.splice(0, this._configInputsForm.length)
+
+        this.identityForm(this.utilsService.generateGuid())
 
         return this;
     }
@@ -192,23 +198,13 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
-    /** todo: à déplacer */
-    private generateGuid(): string {
-        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
-            this.s4() + '-' + this.s4() + this.s4() + this.s4();
-    }
-
-    private s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-
     identityForm(id: string, name?: string) {
         this.formId = id;
-        this.name = name;
+        
+        this.formName = name;
 
-        this.currentForm.addControl(configdefault.form.keyId, new FormControl(this.formId))
+        this.currentForm.addControl(configdefault.form.keyId, new FormControl(id))
+
         return this;
     }
 
@@ -233,7 +229,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             nameLabel: builder._nameLabel,
             dataSource: builder._dataSource,
             inRelationWith: builder._inRelationWith,
-            styleCompact: builder._styleCompact,
+            styleCompact: builder._styleCompact ? builder._styleCompact : this.styleCompact,
             icon: builder._icon,
             maxlength: builder._maxlength,
             appearance: builder._appearance ? builder._appearance : this._appearance,
@@ -247,7 +243,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             configInputComponent.validators.push(ValidatorsService.require)
         }
 
-        this.configsInputComponent.push(configInputComponent)
+        this._configInputsForm.push(configInputComponent)
 
         this.generateComponentViewService.addComponentToView(configInputComponent.type, configInputComponent, configInputComponent.callbackComponent);
 
@@ -256,7 +252,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     generateFormInView() {
         if (this.generateComponentViewService.getViewContainerRef()) {
-            this.configsInputComponent.forEach((conf: ConfigInputComponent) => {
+            this._configInputsForm.forEach((conf: ConfigInputComponent) => {
                 this.generateComponentViewService.addComponentToView(conf.type, conf, conf.callbackComponent);
             })
         }

@@ -27,7 +27,7 @@ export class UploaderService {
     private httpService: HttpService,) { }
 
   upload(file: File, filebase64: any) {
-    return this.UploadFile(filebase64).pipe(
+    return this.UploadFileAPI(filebase64).pipe(
       map(event => this.getEventMessage(event, file)),
       tap((envelope: any) => this.processProgress(envelope)),
       last()
@@ -56,10 +56,6 @@ export class UploaderService {
     filereader.readAsBinaryString(file);
   }
 
-  UploadFile(filebase64: any): Observable<any> {
-    return this.httpService.upload(`${this.uploadUrl}/api/upload-file`, { filebase64: filebase64 })
-  }
-
   processProgress(envelope: any): void {
     if (typeof envelope === "number") {
       this.progressSource.next(envelope);
@@ -77,5 +73,15 @@ export class UploaderService {
       default:
         return `File "${file.name}" surprising upload event: ${event.type}.`;
     }
+  }
+
+  /** APIs */
+
+  UploadFileAPI(filebase64: any): Observable<any> {
+    return this.httpService.upload(`${this.uploadUrl}/api/file`, { filebase64: filebase64 })
+  }
+
+  GetFileAPI(id: any): Observable<any> {
+    return this.httpService.file(`${this.uploadUrl}/api/file/${id}`)
   }
 }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { configdefault } from '../../config/config.components';
-
 export const typeImageReg = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
 
 @Injectable({
@@ -29,16 +27,6 @@ export class HelperUploaderService {
         const extension = typeMime.toLowerCase();
 
         return this.estceImageTypeImage(typeMime) && extension.indexOf("gif") !== -1;
-    }
-
-    static estceImageTypeMimePNGLimiteOk(documentUploadé: Blob): boolean {
-        const extension = documentUploadé.type.toLowerCase();
-        const tailleMO = (documentUploadé.size / 1024 / 1024).toFixed(2);
-
-        if (this.estceImageTypeImage(extension) && extension.indexOf("png") !== -1) {
-            return parseFloat(tailleMO) < configdefault.upload.sizeUploadDocumentPng;
-        }
-        return true;
     }
 
     static estceTailleUploadAccepté(tailleFichier: number, configTailleUpload: number): boolean {

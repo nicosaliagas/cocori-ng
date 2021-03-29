@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { ButtonSchema } from '../../../../core/model/schema-datas.model';
-import { FormBuilderService } from '../../../../core/service/form.service';
+import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 
 @Component({

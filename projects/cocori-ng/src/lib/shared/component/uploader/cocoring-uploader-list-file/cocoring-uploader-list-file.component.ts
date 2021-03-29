@@ -9,18 +9,24 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { Observable, of, Subscription } from 'rxjs';
-import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { FileActions, FileModel } from '../../../../core/model/component-uploader.model';
+import { FileService } from '../../../../core/service/file/file.service';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
-import { CocoringUploaderBottomSheetComponent } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
-import { CocoringUploaderFileActionsComponent } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
-import { CocoringUploaderFileOptionsComponent } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
+import {
+  CocoringUploaderBottomSheetComponent,
+} from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
+import {
+  CocoringUploaderFileActionsComponent,
+} from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
+import {
+  CocoringUploaderFileOptionsComponent,
+} from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,14 +38,10 @@ import { CocoringUploaderFileOptionsComponent } from '../cocoring-uploader-file-
 export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef<HTMLElement>;
 
-  @Input()
-  set fileModel(datas: FileModel) {
-    this._fileModel = datas
-  }
+  @Input() fileModel: FileModel
 
   private fileUploaded: File;
 
-  _fileModel: FileModel;
   subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
   progress: number;
@@ -47,6 +49,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    private fileService: FileService,
     private _bottomSheet: MatBottomSheet,
     private uploaderService: UploaderService,
     private cdr: ChangeDetectorRef,) { }
@@ -56,7 +59,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
       this.uploaderService.fileBase64$.pipe(
         filter(_ => !!this.fileUploaded),
         switchMap((filebase64: any) => this.uploadBase64(filebase64)),
-        tap((id: string) => this._fileModel.id = id),
+        tap((id: string) => this.fileModel.id = id),
         tap(_ => this.cdr.detectChanges()),
         debounceTime(500),
         tap(_ => this.isUploading = false),
@@ -96,9 +99,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.fileUploaded = file;
 
-    this._fileModel.fileName = this.fileUploaded.name
-    this._fileModel.size = this.fileUploaded.size
-    this._fileModel.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded) ? 'image' : 'doc'
+    this.fileModel.fileName = this.fileUploaded.name
+    this.fileModel.size = this.fileUploaded.size
+    this.fileModel.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded) ? 'image' : 'doc'
 
     this.cdr.detectChanges()
 
@@ -108,7 +111,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   private errorFile() {
     this.isUploading = false
 
-    this._fileModel.fileType = null
+    this.fileModel.fileType = null
 
     this.onError = true
 
@@ -116,7 +119,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   }
 
   openMenuOrBrowse() {
-    if (this._fileModel.id) {
+    if (this.fileModel.id) {
       // this.matMenuRef.openMenu()
       // this.openModalOptions()
       this.openBottomSheet()
@@ -127,7 +130,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   openModalOptions() {
     const dialogRef = this.dialog.open(CocoringUploaderFileOptionsComponent, {
-      data: { file: this._fileModel },
+      data: { file: this.fileModel },
       autoFocus: false,
       width: '300px'
     });
@@ -140,13 +143,17 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   openBottomSheet() {
     const bottomSheet = this._bottomSheet.open(CocoringUploaderBottomSheetComponent, {
       panelClass: 'bottom-sheet-container',
-      data: { file: this._fileModel, component: CocoringUploaderFileActionsComponent }
+      data: { file: this.fileModel, component: CocoringUploaderFileActionsComponent }
     });
 
     bottomSheet.afterDismissed().subscribe((action: FileActions) => {
       console.log("bottomsheet fermée", action)
 
       switch (action) {
+        case 'download':
+          this.downloadFile()
+          break;
+
         case 'browse':
           this.browseFile()
           break;
@@ -166,6 +173,12 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     });
   }
 
+  downloadFile() {
+    this.uploaderService.GetFileAPI(this.fileModel.id).pipe(
+      map(res => this.fileService.downloadFile(res, this.fileModel.fileName))
+    ).subscribe()
+  }
+
   openFile() {
     console.log("openFile")
   }
@@ -179,9 +192,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   removeFile() {
     this.fileUploaded = null
-    this._fileModel.id = null
-    this._fileModel.fileType = null
-    this._fileModel.fileName = null
+    this.fileModel.id = null
+    this.fileModel.fileType = null
+    this.fileModel.fileName = null
     this.uploaderService.fileBase64$.next(null)
   }
 }

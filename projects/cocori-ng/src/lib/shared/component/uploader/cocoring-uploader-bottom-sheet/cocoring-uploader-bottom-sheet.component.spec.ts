@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { FileModel } from '../../../../core/model/component-uploader.model';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
+import { FileModel } from '../../../../core/model/component-uploader.model';
+import { CocoringFileSizeModule } from '../../../pipe/file-size/cocoring-file-size.module';
 import { CocoringUploaderBottomSheetComponent } from './cocoring-uploader-bottom-sheet.component';
 
 describe('CocoringUploaderBottomSheetComponent', () => {
@@ -14,6 +15,7 @@ describe('CocoringUploaderBottomSheetComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [CocoringUploaderBottomSheetComponent],
+      imports: [CocoringFileSizeModule],
       providers: [
         {
           provide: MAT_BOTTOM_SHEET_DATA,

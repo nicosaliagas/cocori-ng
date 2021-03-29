@@ -1,34 +1,55 @@
-<mat-list-option [value]="_fileModel.id" (click)="openMenuOrBrowse()">
-    <mat-icon mat-list-icon *ngIf="!isUploading">
-        <ng-container *ngIf="_fileModel.fileType === 'doc'">file_present</ng-container>
-        <ng-container *ngIf="_fileModel.fileType === 'image'">image</ng-container>
-        <ng-container *ngIf="!_fileModel.id"><span [ngClass]="{'fileOnError error': onError}">arrow_circle_up</span>
-        </ng-container>
-    </mat-icon>
+<mat-list-option [value]="fileModel.id" (click)="openMenuOrBrowse()">
+    <ng-container *ngIf="!isUploading">
+        <!-- <mat-icon mat-list-icon *ngIf="!fileModel.id">
+            <ng-container *ngIf="fileModel.fileType === 'doc'">file_present</ng-container>
+            <ng-container><span [ngClass]="{'fileOnError error': onError}">arrow_circle_up</span>
+            </ng-container>
+        </mat-icon> -->
 
-    <mat-icon mat-list-icon *ngIf="isUploading" class="loading-animation"></mat-icon>
+        <div *ngIf="!fileModel.id">
+            <button class="file-doc" mat-fab disableRipple="true" aria-label="Joindre un fichier">
+                <mat-icon [ngClass]="{'fileOnError error': onError}">upload_file</mat-icon>
+            </button>
+        </div>
 
-    <div mat-line [ngClass]="{'fileOnError error': onError}">
-        <span *ngIf="_fileModel.id" title="{{_fileModel.fileName}}">{{_fileModel.fileName}}</span>
-        <span *ngIf="!_fileModel.id" title="{{_fileModel.description}}">{{_fileModel.description}}</span>
+        <div *ngIf="fileModel.fileType === 'doc'">
+            <button class="file-doc" mat-fab disableRipple="true" aria-label="">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+
+        <img *ngIf="fileModel.fileType === 'image'" class="file-image" alt="Aperçu du fichier"
+            src="https://randomuser.me/api/portraits/men/1.jpg">
+    </ng-container>
+
+    <ng-container *ngIf="isUploading">
+        <mat-icon mat-list-icon class="loading-animation"></mat-icon>
+    </ng-container>
+
+    <div class="mat-list-text">
+        <div mat-line [ngClass]="{'fileOnError error': onError}">
+            <span *ngIf="fileModel.id" title="{{fileModel.fileName}}">{{fileModel.fileName}}</span>
+            <span *ngIf="!fileModel.id" title="{{fileModel.description}}">{{fileModel.description}}</span>
+        </div>
+
+        <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
+            <div class="subtext" mat-line>
+                <span *ngIf="fileModel?.id">{{fileModel.size | fileSize:2}}</span>
+                <span *ngIf="!fileModel?.id && !onError" title="Glissez & déposez votre fichier ici"> Glissez & déposez
+                    votre fichier ici</span>
+                <span *ngIf="!fileModel?.id && onError" class="fileOnError error" title="Une erreur est survenue, veuillez
+                réessayer">Une erreur est survenue, veuillez
+                    réessayer</span>
+            </div>
+        </ng-template>
+
+        <ng-template #uploadTpl>
+            <div mat-line class="progress-bar">
+                <mat-progress-bar [value]="progress"></mat-progress-bar>
+            </div>
+        </ng-template>
     </div>
 
-    <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
-        <div class="subtext" mat-line>
-            <span *ngIf="_fileModel?.id">{{_fileModel.size | fileSize:2}}</span>
-            <span *ngIf="!_fileModel?.id && !onError" title="Glissez & déposez votre fichier ici"> Glissez & déposez
-                votre fichier ici</span>
-            <span *ngIf="!_fileModel?.id && onError" class="fileOnError error" title="Une erreur est survenue, veuillez
-            réessayer">Une erreur est survenue, veuillez
-                réessayer</span>
-        </div>
-    </ng-template>
-
-    <ng-template #uploadTpl>
-        <div mat-line class="progress-bar">
-            <mat-progress-bar [value]="progress"></mat-progress-bar>
-        </div>
-    </ng-template>
 </mat-list-option>
 
-<input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
+<input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="*" />

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
-import { configdefault } from '../../config/config.components';
-import { HelperUploaderService } from '../helper/helper-uploader.service';
 import { HelperFunctions } from '../helper/helper.function';
 
 // import { DateFunctions } from '../helper/date.function';
@@ -342,86 +340,4 @@ export class ValidatorsService {
             return isAtLeastOne ? null : { 'auMoinsUnChampRequis': true };
         };
     }
-
-    public static typeMimeValidator(control: FormControl): any {
-        const document: File = control.value;
-
-        if (!document || typeof document !== 'object') return;
-
-        if (!HelperUploaderService.estceTypeMimeAccepté(document.type, configdefault.upload.typeMimeExtensions)) {
-            return { 'invalidTypeMime': true };
-        }
-    }
-
-    public static tailleUploadValidator(control: FormControl): any {
-        const document: File = control.value;
-
-        if (!document || typeof document !== 'object') return;
-
-        if (!HelperUploaderService.estceTailleUploadAccepté(document.size, configdefault.upload.sizeUploadDocument)) {
-            return { 'invalidTailleUpload': true };
-        } else {
-            return null;
-        }
-    }
-
-    public static tailleUploadTotalValidateur(): any {
-        return (group: FormGroup): { [key: string]: any } => {
-
-            let tailleTotal: number = 0;
-
-            Object.keys(group.controls).forEach(key => {
-                const documentJoint: File = group.get(key).value;
-
-                if (typeof documentJoint !== 'object' || !documentJoint) return;
-
-                tailleTotal += documentJoint.size;
-            });
-
-            if (!HelperUploaderService.estceTailleUploadTotalAccepté(tailleTotal, configdefault.upload.sizeUploadTotal)) {
-                return { 'invalidTailleTotaleUpload': true };
-            }
-        };
-    }
-
-    // public static typeMimeValidator(control: FormControl): any {
-    //     const document: File = control.value;
-
-    //     if (!document || typeof document !== 'object') return;
-
-    //     if (!UtilsUpload.estceTypeMimeAccepté(document.type, configUpload.TYPE_MIME_VALIDE)) {
-    //         return { 'invalidTypeMime': true };
-    //     }
-    // }
-
-    // public static tailleUploadValidator(control: FormControl): any {
-    //     const document: File = control.value;
-
-    //     if (!document || typeof document !== 'object') return;
-
-    //     if (!UtilsUpload.estceTailleUploadAccepté(document.size, configUpload.TAILLE_UPLOAD_VALIDE)) {
-    //         return { 'invalidTailleUpload': true };
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
-    // public static tailleUploadTotalValidateur(): any {
-    //     return (group: FormGroup): { [key: string]: any } => {
-
-    //         let tailleTotal: number = 0;
-
-    //         Object.keys(group.controls).forEach(key => {
-    //             const documentJoint: File = group.get(key).value;
-
-    //             if (typeof documentJoint !== 'object' || !documentJoint) return;
-
-    //             tailleTotal += documentJoint.size;
-    //         });
-
-    //         if (!UtilsUpload.estceTailleUploadTotalAccepté(tailleTotal, configUpload.TAILLE_TOTAL_UPLOAD_VALIDE)) {
-    //             return { 'invalidTailleTotaleUpload': true };
-    //         }
-    //     };
-    // }
 }

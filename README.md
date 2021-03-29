@@ -10,6 +10,7 @@ ng new my-first-project
 
 ## Commandes CLI :
 
+ng g service file
 ng g component cocoring-uploader-bottom-sheet --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps

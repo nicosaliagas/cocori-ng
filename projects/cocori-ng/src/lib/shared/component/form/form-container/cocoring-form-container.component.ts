@@ -5,7 +5,7 @@ import { Subject, Subscription } from 'rxjs';
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
-import { FormBuilderService } from '../../../../core/service/form.service';
+import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 
@@ -39,7 +39,7 @@ export class CocoringFormContainerComponent implements OnInit, OnDestroy {
 
         this.schemaDatasButtons = this.filterButtonsAssociatedToForm(this.schemaDatasForm, "name", schemaDatasButtons, "formName");
 
-        this.formBuilderService.initializeForm();
+        this.formBuilderService.newForm();
         this.formContainerRef.clear();
 
         this.initEventFormBuilded();
@@ -55,7 +55,7 @@ export class CocoringFormContainerComponent implements OnInit, OnDestroy {
         public mappingBuilderService: MappingBuilderService,
         public injectComponentService: InjectComponentService) {
 
-        this.formBuilderService.initializeForm();
+        this.formBuilderService.newForm();
     }
 
     ngOnInit() { }

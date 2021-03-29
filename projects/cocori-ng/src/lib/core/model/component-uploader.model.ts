@@ -15,4 +15,4 @@ export interface FileModel {
 
 export type FileType = 'image' | 'doc'
 
-export type FileActions = 'view' | 'browse' | 'remove'
+export type FileActions = 'download' | 'view' | 'browse' | 'remove'

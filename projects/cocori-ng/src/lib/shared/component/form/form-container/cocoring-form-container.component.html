@@ -1,7 +1,7 @@
 <!-- utilier ngTemplateOutlet ex: https://blog.bitsrc.io/component-reusability-techniques-with-angular-727a6c603ad2 -->
 
 <form [formGroup]="currentForm" (ngSubmit)="validateForm(currentForm)">
-    <h1>{{formBuilderService.name}}</h1>
+    <h1>{{formBuilderService.formName}}</h1>
     <ng-template #FormContainerRef></ng-template>
     <cocoring-buttons-group *ngIf="schemaDatasButtons.length" [config]="schemaDatasButtons"></cocoring-buttons-group>
 </form>

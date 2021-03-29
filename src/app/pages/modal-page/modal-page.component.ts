@@ -32,7 +32,7 @@ export class ModalPageComponent implements OnInit {
   constructor(
     private dialogService: ConfirmModalService,
     private formBuilderService: FormBuilderService) {
-    this.formBuilderService.initializeForm()
+    this.formBuilderService.newForm()
   }
 
   ngOnInit(): void {
@@ -61,6 +61,6 @@ export class ModalPageComponent implements OnInit {
         .nameLabel('Email')
         .isRequired()
         .typeInput(InputComponents.INPUT_EMAIL))
-      .configs
+      .configInputsForm
   }
 }

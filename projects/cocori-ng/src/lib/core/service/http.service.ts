@@ -22,7 +22,14 @@ export class HttpService {
     }
 
     get<T>(path: string, params?: Object): Observable<T> {
-        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
+        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption})
+            .pipe(
+                map(this.extractData.bind(this))
+            ) as Observable<T>;
+    }
+    
+    file<T>(path: string, params?: Object): Observable<T> {
+        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption, responseType: 'blob' })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;

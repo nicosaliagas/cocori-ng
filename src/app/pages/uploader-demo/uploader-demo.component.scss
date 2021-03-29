@@ -1,4 +1,10 @@
 .formulaires {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .formulaires {
+    width: 100%;
+  }
 }
