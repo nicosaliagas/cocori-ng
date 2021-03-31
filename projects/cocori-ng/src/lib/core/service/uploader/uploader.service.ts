@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { last, map, tap } from 'rxjs/operators';
 
+import { ConfigAPIsFile } from '../../model/component-uploader.model';
 import { HttpService } from '../http.service';
 
 interface FileReaderEventTarget extends EventTarget {
@@ -20,8 +21,7 @@ interface FileReaderEvent extends Event {
 export class UploaderService {
   public progressSource = new BehaviorSubject<number>(0);
   public fileBase64$: Subject<any> = new Subject<any>();
-
-  private uploadUrl = "http://localhost:8080"
+  public apisFile: ConfigAPIsFile;
 
   constructor(
     private httpService: HttpService,) { }
@@ -46,8 +46,6 @@ export class UploaderService {
       } else {
         binaryString = readerEvt.target.result;
       }
-
-      console.log("emit filebase64 next")
 
       that.fileBase64$.next(btoa(binaryString))
 
@@ -75,13 +73,11 @@ export class UploaderService {
     }
   }
 
-  /** APIs */
+  /** API */
 
   UploadFileAPI(filebase64: any): Observable<any> {
-    return this.httpService.upload(`${this.uploadUrl}/api/file`, { filebase64: filebase64 })
-  }
+    const apiFile: string = this.apisFile.apiFile()
 
-  GetFileAPI(id: any): Observable<any> {
-    return this.httpService.file(`${this.uploadUrl}/api/file/${id}`)
+    return this.httpService.upload(`${apiFile}`, { filebase64: filebase64 })
   }
 }

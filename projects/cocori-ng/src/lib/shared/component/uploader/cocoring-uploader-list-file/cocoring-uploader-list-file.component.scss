@@ -38,6 +38,11 @@
   margin-right: 16px !important;
   border-radius: 50%;
   box-sizing: content-box;
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
 .file-doc {

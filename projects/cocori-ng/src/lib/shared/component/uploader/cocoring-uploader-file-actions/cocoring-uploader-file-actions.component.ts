@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { FileActions, FileModel } from '../../../../core/model/component-uploader.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { ConfigAPIsFile, FileActions, FileModel } from '../../../../core/model/component-uploader.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,17 +11,34 @@ import { FileActions, FileModel } from '../../../../core/model/component-uploade
 export class CocoringUploaderFileActionsComponent implements OnInit {
 
   @Input() file: FileModel
-
+  @Input() apisFile: ConfigAPIsFile
   @Output() callback: EventEmitter<FileActions> = new EventEmitter<FileActions>();
+
+  apiFile: string;
+  apiFileDownload: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.setFileApi()
+    this.setFileDownloadApi()
+  }
+
+  private setFileApi() {
+    this.apiFile = this.apisFile.apiFile(this.file.id);
+  }
+
+  private setFileDownloadApi() {
+    this.apiFileDownload = this.apisFile.apiFileDownload(this.file.id);
   }
 
   actionFile(event: MouseEvent, action: FileActions) {
-    this.callback.emit(action)
+    this.close(action)
 
     event.preventDefault();
+  }
+
+  close(action?: FileActions) {
+    this.callback.emit(action)
   }
 }

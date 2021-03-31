@@ -18,8 +18,9 @@
             </button>
         </div>
 
-        <img *ngIf="fileModel.fileType === 'image'" class="file-image" alt="Aperçu du fichier"
-            src="https://randomuser.me/api/portraits/men/1.jpg">
+        <div *ngIf="fileModel.fileType === 'image'" class="file-image"
+            [ngStyle]="{'background-image': 'url(' + apiFile}">
+        </div>
     </ng-container>
 
     <ng-container *ngIf="isUploading">

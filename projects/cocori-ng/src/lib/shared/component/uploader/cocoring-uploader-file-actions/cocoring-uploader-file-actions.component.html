@@ -1,19 +1,19 @@
 <mat-nav-list class="list">
-    <a href="#" mat-list-item (click)="actionFile($event, 'view')">
+    <a [href]="apiFile" target="_blank" mat-list-item (click)="close()">
         <mat-icon mat-list-icon>visibility</mat-icon>
         <span mat-line>Ouvrir le fichier</span>
     </a>
 
-    <a href="#" mat-list-item (click)="actionFile($event, 'download')">
+    <a [href]="apiFileDownload" mat-list-item (click)="close()">
         <mat-icon mat-list-icon>get_app</mat-icon>
         <span mat-line>Télécharger le fichier</span>
     </a>
-    
+
     <a href="#" mat-list-item (click)="actionFile($event, 'browse')">
         <mat-icon mat-list-icon>upload_file</mat-icon>
         <span mat-line>Sélectionner un nouveau fichier</span>
     </a>
-    
+
     <a href="#" mat-list-item (click)="actionFile($event, 'remove')">
         <mat-icon mat-list-icon>delete_outline</mat-icon>
         <span mat-line>Supprimer le fichier</span>

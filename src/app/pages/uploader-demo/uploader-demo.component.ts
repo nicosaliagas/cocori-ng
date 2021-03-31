@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigUploaderModel, DatagridService, DataSourceType, HttpService } from 'cocori-ng';
-import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
+import { ConfigUploaderModel, DataSourceType } from 'cocori-ng';
 
 @Component({
   selector: 'uploader-demo',
@@ -10,10 +9,7 @@ import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service'
 export class UploaderDemoComponent implements OnInit {
   _config: ConfigUploaderModel;
 
-  constructor(
-    private httpService: HttpService,
-    private datagridDemoService: DatagridDemoService,
-    private datagridService: DatagridService) { }
+  constructor() { }
 
   ngOnInit() {
     this.initConfigUploader()
@@ -24,9 +20,14 @@ export class UploaderDemoComponent implements OnInit {
   }
 
   private initConfigUploader() {
-
     this._config = {
       label: "Veuillez joindre les pièces justificatives au dossier",
+      apiFile: (fileId) => {
+        return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+      },
+      apiFileDownload: (fileId) => {
+        return `http://localhost:8080/api/file/${fileId}?dowload=true`
+      },
       dataSource: {
         type: DataSourceType.BRUTE, value: [
           {

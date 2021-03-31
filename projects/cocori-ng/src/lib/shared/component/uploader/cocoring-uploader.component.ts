@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ConfigUploaderModel, FileModel } from '../../../core/model/component-uploader.model';
+import { ConfigAPIsFile, ConfigUploaderModel, FileModel } from '../../../core/model/component-uploader.model';
 import { DataSourceInput } from '../../../core/model/data-source.model';
 import { DatasourceService } from '../../../core/service/datasource.service';
 
@@ -20,7 +20,8 @@ export class CocoringUploaderComponent implements OnInit, OnDestroy {
 
   filesDataSource$!: Observable<FileModel[]>;
 
-  uploaderConfig: ConfigUploaderModel;
+  apisFile: ConfigAPIsFile;
+  label: string;
 
   @Input()
   set config(config: ConfigUploaderModel) {
@@ -28,13 +29,14 @@ export class CocoringUploaderComponent implements OnInit, OnDestroy {
       throw new Error(`La config du composant uploader n'est pas correcte... config: ${config}`);
     }
 
-    this.uploaderConfig = config;
+    this.label = config.label
 
-    this.loadDataSource(this.uploaderConfig.dataSource);
+    this.apisFile = {apiFile: config.apiFile, apiFileDownload: config.apiFileDownload}
+
+    this.loadDataSource(config.dataSource);
   }
 
   constructor(
-    // public uploaderService: UploaderService,
     private datasourceService: DatasourceService) { }
 
   ngOnInit() { }

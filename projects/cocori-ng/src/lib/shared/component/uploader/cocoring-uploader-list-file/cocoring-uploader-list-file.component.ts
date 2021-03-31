@@ -12,11 +12,10 @@ import {
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, of, Subscription } from 'rxjs';
-import { catchError, debounceTime, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
-import { FileActions, FileModel } from '../../../../core/model/component-uploader.model';
-import { FileService } from '../../../../core/service/file/file.service';
+import { ConfigAPIsFile, FileActions, FileDatasActions, FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
   CocoringUploaderBottomSheetComponent,
@@ -39,6 +38,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef<HTMLElement>;
 
   @Input() fileModel: FileModel
+  @Input() apisFile: ConfigAPIsFile
 
   private fileUploaded: File;
 
@@ -46,23 +46,32 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   isUploading: boolean = false;
   progress: number;
   onError: boolean = false;
+  apiFile: string;
 
   constructor(
     public dialog: MatDialog,
-    private fileService: FileService,
     private _bottomSheet: MatBottomSheet,
     private uploaderService: UploaderService,
     private cdr: ChangeDetectorRef,) { }
 
   ngOnInit(): void {
+
+    this.uploaderService.apisFile = this.apisFile
+
+    this.setFileApi()
+
     this.subscriptions.add(
       this.uploaderService.fileBase64$.pipe(
         filter(_ => !!this.fileUploaded),
         switchMap((filebase64: any) => this.uploadBase64(filebase64)),
-        tap((id: string) => this.fileModel.id = id),
+        tap((id: string) => {
+          this.fileModel.id = id
+          this.fileModel.dateUpload = new Date()
+        }),
         tap(_ => this.cdr.detectChanges()),
         debounceTime(500),
         tap(_ => this.isUploading = false),
+        tap(_ => this.setFileApi()),
         tap(_ => this.cdr.detectChanges())
       ).subscribe()
     )
@@ -73,6 +82,10 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
         tap((progress: number) => this.progress = progress)
       ).subscribe()
     )
+  }
+
+  private setFileApi() {
+    this.apiFile = this.apisFile.apiFile(this.fileModel.id);
   }
 
   private uploadBase64(filebase64: any): Observable<any> {
@@ -120,8 +133,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   openMenuOrBrowse() {
     if (this.fileModel.id) {
-      // this.matMenuRef.openMenu()
-      // this.openModalOptions()
       this.openBottomSheet()
     } else {
       this.browseFile()
@@ -143,27 +154,22 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   openBottomSheet() {
     const bottomSheet = this._bottomSheet.open(CocoringUploaderBottomSheetComponent, {
       panelClass: 'bottom-sheet-container',
-      data: { file: this.fileModel, component: CocoringUploaderFileActionsComponent }
+      data: <FileDatasActions>{ 
+        file: this.fileModel, 
+        apisFile: this.apisFile, 
+        component: CocoringUploaderFileActionsComponent }
     });
 
     bottomSheet.afterDismissed().subscribe((action: FileActions) => {
       console.log("bottomsheet fermée", action)
 
       switch (action) {
-        case 'download':
-          this.downloadFile()
-          break;
-
         case 'browse':
           this.browseFile()
           break;
 
         case 'remove':
           this.removeFile()
-          break;
-
-        case 'view':
-          this.openFile()
           break;
 
         default:
@@ -173,19 +179,13 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     });
   }
 
-  downloadFile() {
-    this.uploaderService.GetFileAPI(this.fileModel.id).pipe(
-      map(res => this.fileService.downloadFile(res, this.fileModel.fileName))
-    ).subscribe()
-  }
-
-  openFile() {
-    console.log("openFile")
-  }
+  // downloadFile() {
+  //   this.uploaderService.GetFileAPI(this.fileModel.id).pipe(
+  //     map(res => this.fileService.downloadFile(res, this.fileModel.fileName))
+  //   ).subscribe()
+  // }
 
   browseFile() {
-    // this.matMenuRef.closeMenu()
-
     let el: HTMLElement = this.uploaderInputRef.nativeElement;
     el.click();
   }

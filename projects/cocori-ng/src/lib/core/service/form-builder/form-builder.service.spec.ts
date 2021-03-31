@@ -7,7 +7,7 @@ import { ConfigInputComponent } from '../../model/component-inputs.model';
 import { FormBuilderService } from './form-builder.service';
 
 describe('FormBuilderService', () => {
-  let service: FormBuilderService;
+  let formBuilderService: FormBuilderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,44 +15,66 @@ describe('FormBuilderService', () => {
       imports: [ReactiveFormsModule],
       schemas: []
     });
-    service = TestBed.inject(FormBuilderService);
+
+    formBuilderService = TestBed.inject(FormBuilderService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(formBuilderService).toBeTruthy();
   });
 
   it('should initialize a new form', () => {
-    expect(Object.keys(service.form.controls).length).toEqual(1)
+    expect(Object.keys(formBuilderService.form.controls).length).toEqual(1)
 
-    expect(Object.keys(service.configInputsForm).length).toEqual(0)
+    expect(Object.keys(formBuilderService.configInputsForm).length).toEqual(0)
 
-    expect(service.form.get(configdefault.form.keyId)).toBeTruthy()
+    expect(formBuilderService.form.get(configdefault.form.keyId)).toBeTruthy()
 
-    expect(service.form.get(configdefault.form.keyId).value).not.toBeNull()
+    expect(formBuilderService.form.get(configdefault.form.keyId).value).not.toBeNull()
 
-    expect(service.form.get(configdefault.form.keyId).value).toEqual(service.formId)
+    expect(formBuilderService.form.get(configdefault.form.keyId).value).toEqual(formBuilderService.formId)
   });
 
   it('should create a new form', () => {
-    service
+    formBuilderService
       .addInput('control1', config => config
-        .typeInput(InputComponents.INPUT_TEXT))
+        .isRequired()
+        .typeInput(InputComponents.INPUT_TEXT)
+        .nameLabel('label control1'))
       .addInput('control2', config => config
         .typeInput(InputComponents.INPUT_TEXT))
 
-    expect(Object.keys(service.form.controls).length).toEqual(1)
 
-    expect(Object.keys(service.configInputsForm).length).toEqual(2)
+    expect(Object.keys(formBuilderService.form.controls).length).toEqual(1)
+    expect(Object.keys(formBuilderService.configInputsForm).length).toEqual(2)
 
-    const firstConfig: ConfigInputComponent = service.configInputsForm[0]
+    const firstConfig: ConfigInputComponent = formBuilderService.configInputsForm[0]
 
-    expect(firstConfig).toEqual(<ConfigInputComponent>{
-      type: InputComponents.INPUT_TEXT,
-      nameControl: 'control1',
-      appearance: service.getAppearance(),
-      styleCompact: service.styleCompact
-    })
+    expect(firstConfig.nameControl).toEqual('control1')
+    expect(firstConfig.type).toEqual(InputComponents.INPUT_TEXT)
+    expect(firstConfig.nameLabel).toEqual('label control1')
 
+    expect(firstConfig.validators.length).toEqual(1)
+    expect(firstConfig.validators[0].name).toEqual('require')
   });
+
+  it('should generate a component', () => {
+    spyOn(formBuilderService.generateComponentViewService, 'addComponentToView')
+
+    formBuilderService
+      .addInput('control1', config => config
+        .isRequired()
+        .typeInput(InputComponents.INPUT_TEXT)
+        .nameLabel('label control1'))
+      .addInput('control2', config => config
+        .typeInput(InputComponents.INPUT_TEXT))
+      .addButton('Valider', config => config
+        .isTypeSubmit()
+        .icon('check')
+        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
+
+    expect(formBuilderService.generateComponentViewService.addComponentToView).toHaveBeenCalledTimes(3)
+  });
+
+  ///// generateFormInView()
 });

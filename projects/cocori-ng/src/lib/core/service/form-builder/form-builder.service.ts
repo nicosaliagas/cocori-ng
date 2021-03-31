@@ -5,13 +5,13 @@ import { configdefault } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
 import { InputComponents, OutputCallback } from '../../../shared/component/form';
 import {
-    ButtonComponentInputs,
-    ButtonIconPositon,
-    ConfigComponentInputs,
-    ConfigInputComponent,
-    InputFieldAppearance,
-    NameControl,
-    TypeButtonEnum,
+  ButtonComponentInputs,
+  ButtonIconPositon,
+  ConfigComponentInputs,
+  ConfigInputComponent,
+  InputFieldAppearance,
+  NameControl,
+  TypeButtonEnum,
 } from '../../model/component-inputs.model';
 import { DataSourceInput } from '../../model/data-source.model';
 import { BroadcastEventService } from '../broadcast-event.service';
@@ -157,7 +157,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         private fb: FormBuilder,
         private utilsService: UtilsService,
         private broadcastEventService: BroadcastEventService,
-        private generateComponentViewService: GenerateComponentViewService
+        public generateComponentViewService: GenerateComponentViewService
     ) {
         this.newForm()
     }
@@ -169,7 +169,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     get form(): FormGroup {
         return this.currentForm
     }
-    
+
     get styleCompact(): boolean {
         return this._styleCompact
     }
@@ -200,7 +200,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     identityForm(id: string, name?: string) {
         this.formId = id;
-        
+
         this.formName = name;
 
         this.currentForm.addControl(configdefault.form.keyId, new FormControl(id))
