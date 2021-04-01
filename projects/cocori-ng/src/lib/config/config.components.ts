@@ -10,5 +10,8 @@ export const configdefault = {
     },
     date: {
         dateTimeSeparator: ' à '
+    },
+    upload: {
+        chunkSize: 2 * 1048576
     }
 }
