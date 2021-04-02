@@ -2,18 +2,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 /** https://gist.github.com/JonCatmull/ecdf9441aaa37336d9ae2c7f9cb7289a */
 
-type unit = 'bytes' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB';
+type unit = 'octets' | 'Ko' | 'Mo' | 'Go' | 'To' | 'Po';
 type unitPrecisionMap = {
     [u in unit]: number;
 };
 
 const defaultPrecisionMap: unitPrecisionMap = {
-    bytes: 0,
-    KB: 0,
-    MB: 1,
-    GB: 1,
-    TB: 2,
-    PB: 2
+    octets: 0,
+    Ko: 0,
+    Mo: 1,
+    Go: 1,
+    To: 2,
+    Po: 2
 };
 
 /*
@@ -33,7 +33,7 @@ const defaultPrecisionMap: unitPrecisionMap = {
  */
 @Pipe({ name: 'fileSize' })
 export class CocoringFileSizePipe implements PipeTransform {
-    private readonly units: unit[] = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    private readonly units: unit[] = ['octets', 'Ko', 'Mo', 'Go', 'To', 'Po'];
 
     transform(bytes: number = 0, precision: number | unitPrecisionMap = defaultPrecisionMap): string {
         if (isNaN(parseFloat(String(bytes))) || !isFinite(bytes)) return '?';

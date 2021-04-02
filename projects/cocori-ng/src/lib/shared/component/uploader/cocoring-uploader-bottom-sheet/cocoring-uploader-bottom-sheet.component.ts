@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
-import { FileActions, FileDatasActions } from '../../../../core/model/component-uploader.model';
+import { FileActions, FileDetailsComponent } from '../../../../core/model/component-uploader.model';
 import { InjectComponentService } from '../../../../core/service/inject-component.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class CocoringUploaderBottomSheetComponent implements OnInit {
   constructor(
     private injectComponentService: InjectComponentService,
     private _bottomSheetRef: MatBottomSheetRef<CocoringUploaderBottomSheetComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: FileDatasActions) { }
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: FileDetailsComponent) { }
 
   ngOnInit(): void {
     this.addContent()

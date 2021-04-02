@@ -26,7 +26,7 @@ export class UploaderDemoComponent implements OnInit {
         return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
       },
       apiFileDownload: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId}?dowload=true`
+        return `http://localhost:8080/api/file/${fileId}?download=true`
       },
       dataSource: {
         type: DataSourceType.BRUTE, value: [

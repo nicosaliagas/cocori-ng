@@ -11,11 +11,16 @@ import {
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of, Subscription } from 'rxjs';
-import { catchError, debounceTime, filter, switchMap, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
-import { ConfigAPIsFile, FileActions, FileDatasActions, FileModel } from '../../../../core/model/component-uploader.model';
+import {
+  ConfigAPIsFile,
+  FileActions,
+  FileDetailsComponent,
+  FileModel,
+} from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
   CocoringUploaderBottomSheetComponent,
@@ -61,9 +66,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     this.setFileApi()
 
     this.subscriptions.add(
-      this.uploaderService.fileBase64$.pipe(
-        filter(_ => !!this.fileUploaded),
-        switchMap((filebase64: any) => this.uploadBase64(filebase64)),
+      this.uploaderService.fileUploaded$.pipe(
         tap((id: string) => {
           this.fileModel.id = id
           this.fileModel.dateUpload = new Date()
@@ -77,25 +80,25 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     )
 
     this.subscriptions.add(
+      this.uploaderService.fileOnError$.pipe(
+        tap(_ => this.errorFile()),
+      ).subscribe()
+    )
+
+    this.subscriptions.add(
       this.uploaderService.progressSource.pipe(
         filter(_ => !!this.fileUploaded),
-        tap((progress: number) => this.progress = progress)
+        tap((progress: number) => {
+          this.progress = progress
+
+          this.cdr.detectChanges()
+        })
       ).subscribe()
     )
   }
 
   private setFileApi() {
     this.apiFile = this.apisFile.apiFile(this.fileModel.id);
-  }
-
-  private uploadBase64(filebase64: any): Observable<any> {
-    return this.uploaderService.upload(this.fileUploaded, filebase64).pipe(
-      catchError(error => {
-        this.errorFile()
-
-        return of(null)
-      })
-    )
   }
 
   ngOnDestroy() {
@@ -118,13 +121,13 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.cdr.detectChanges()
 
-    this.uploaderService.convertToBase64(this.fileUploaded)
+    this.uploaderService.uploadFile(this.fileUploaded)
   }
 
   private errorFile() {
     this.isUploading = false
 
-    this.fileModel.fileType = null
+    this.removeFile()
 
     this.onError = true
 
@@ -154,10 +157,11 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   openBottomSheet() {
     const bottomSheet = this._bottomSheet.open(CocoringUploaderBottomSheetComponent, {
       panelClass: 'bottom-sheet-container',
-      data: <FileDatasActions>{ 
-        file: this.fileModel, 
-        apisFile: this.apisFile, 
-        component: CocoringUploaderFileActionsComponent }
+      data: <FileDetailsComponent>{
+        file: this.fileModel,
+        apisFile: this.apisFile,
+        component: CocoringUploaderFileActionsComponent
+      }
     });
 
     bottomSheet.afterDismissed().subscribe((action: FileActions) => {
@@ -195,6 +199,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     this.fileModel.id = null
     this.fileModel.fileType = null
     this.fileModel.fileName = null
-    this.uploaderService.fileBase64$.next(null)
+    this.uploaderService.fileUploaded$.next(null)
   }
 }

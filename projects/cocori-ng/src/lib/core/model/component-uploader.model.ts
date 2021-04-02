@@ -18,10 +18,28 @@ export interface FileModel {
     size?: number,
 }
 
-export interface FileDatasActions {
+export interface FileDetailsComponent {
     file: FileModel,
     apisFile: ConfigAPIsFile,
     component: any,
+}
+
+export interface NewFileCommand {
+    fileName: string,
+    numberParts: number,
+    mimeType: string,
+    base64Content: any,
+}
+
+export interface AssembleFilePartsCommand {
+    fileId: string,
+    checksum: string,
+}
+
+export interface FilePartCommand {
+    fileId: string,
+    partIndex: number,
+    base64Content: any,
 }
 
 export type FileType = 'image' | 'doc'
