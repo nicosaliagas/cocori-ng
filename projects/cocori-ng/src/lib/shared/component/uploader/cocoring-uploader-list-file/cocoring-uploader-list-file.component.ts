@@ -1,13 +1,13 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -18,20 +18,20 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
-  ConfigAPIsFile,
-  FileActions,
-  FileDetailsComponent,
-  FileModel,
+    ConfigAPIsFile,
+    FileActions,
+    FileDetailsComponent,
+    FileModel,
 } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
-  CocoringUploaderBottomSheetComponent,
+    CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import {
-  CocoringUploaderFileActionsComponent,
+    CocoringUploaderFileActionsComponent,
 } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import {
-  CocoringUploaderFileOptionsComponent,
+    CocoringUploaderFileOptionsComponent,
 } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
@@ -57,6 +57,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   progress: number;
   onError: boolean = false;
   apiFile: string;
+  upoaderFormArray: FormArray;
 
   constructor(
     public dialog: MatDialog,
@@ -199,28 +200,32 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   }
 
   removeFile() {
+
+    /** supprime le formControl et donc sa valeur du tableau de fichier du formulaure */
+    this.upoaderFormArray.removeAt(this.upoaderFormArray.value.findIndex(fileId => fileId === this.fileModel.id))
+
     this.fileUploaded = null
     this.fileModel.id = null
     this.fileModel.fileType = null
     this.fileModel.fileName = null
-    this.uploaderService.fileUploaded$.next(null)
     this.uploaderInputRef.nativeElement.value = ''
   }
 
   /** create control and add it to the formGroup. Will store id of the file */
   private addFileControl() {
-    const upoaderFormArray: FormArray = <FormArray>this.formGroup.get(this.nameControl);
+    this.upoaderFormArray = <FormArray>this.formGroup.get(this.nameControl);
 
     this.fileFormControl = new FormControl(null);
-
-    upoaderFormArray.push(this.fileFormControl);
   }
 
   /** store the file id */
   private validateFileValue(id: string) {
+
     this.fileModel.id = id
     this.fileModel.dateUpload = new Date()
 
     this.fileFormControl.setValue(id)
+
+    this.upoaderFormArray.push(this.fileFormControl);
   }
 }

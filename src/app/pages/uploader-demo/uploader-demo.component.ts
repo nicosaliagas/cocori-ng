@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents } from 'cocori-ng';
+import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents, ValidatorsService } from 'cocori-ng';
 
 @Component({
   selector: 'uploader-demo',
@@ -51,6 +51,7 @@ export class UploaderDemoComponent implements OnInit {
       type: InputComponents.INPUT_UPLOADER,
       formGroup: this.formulaire,
       nameControl: "files",
+      validators: [ValidatorsService.require],
       nameLabel: "Veuillez joindre les pièces justificatives au dossier",
       apiFile: (fileId) => {
         return `http://localhost:8080/api/file/${fileId ? fileId : ''}`

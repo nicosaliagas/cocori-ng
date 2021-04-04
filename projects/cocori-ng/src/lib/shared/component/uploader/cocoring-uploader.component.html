@@ -2,7 +2,8 @@
   <mat-selection-list [multiple]="false">
     <div mat-subheader>{{nameLabel}}</div>
     <ng-container *ngIf="dataSource$ | async as files; else loadingTpl">
-      <cocoring-uploader-list-file *ngFor="let file of files" [formGroup]="formGroup" [nameControl]="nameControl" [apisFile]="apisFile" [fileModel]="file">
+      <cocoring-uploader-list-file *ngFor="let file of files" [formGroup]="formGroup" [nameControl]="nameControl"
+        [apisFile]="apisFile" [fileModel]="file">
       </cocoring-uploader-list-file>
     </ng-container>
     <ng-template #loadingTpl>
@@ -14,6 +15,8 @@
         </div>
       </div>
     </ng-template>
+    <mat-error *ngIf="formGroup.get(nameControl).errors" error-handler [form]="formGroup" [controlName]="nameControl">
+    </mat-error>
   </mat-selection-list>
   <!-- {{formGroup.get(nameControl).value | json}} -->
 </div>
