@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfigUploaderModel, DataSourceType } from 'cocori-ng';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents } from 'cocori-ng';
 
 @Component({
   selector: 'uploader-demo',
@@ -7,11 +8,18 @@ import { ConfigUploaderModel, DataSourceType } from 'cocori-ng';
   styleUrls: ['./uploader-demo.component.scss']
 })
 export class UploaderDemoComponent implements OnInit {
+  @ViewChild('FormContainerRef1', { static: true, read: ViewContainerRef }) formContainerRef1: ViewContainerRef;
+  @ViewChild('FormContainerRefInputs', { static: true, read: ViewContainerRef }) formContainerRefInputs: ViewContainerRef;
+
   _config: ConfigUploaderModel;
 
-  constructor() { }
+  formulaire: FormGroup;
+
+  constructor(private formBuilderService: FormBuilderService,) { }
 
   ngOnInit() {
+    this.buildForm()
+
     this.initConfigUploader()
   }
 
@@ -19,9 +27,31 @@ export class UploaderDemoComponent implements OnInit {
     console.log(`Input : ${control} ajouté au form avec succès`)
   }
 
+  private buildForm() {
+    this.formulaire = this.formBuilderService
+      .setViewContainerRef(this.formContainerRefInputs)
+      .addInput('nom', config => config
+        .isRequired()
+        .nameLabel('Nom')
+        .icon('face')
+        .appearance('standard')
+        .typeInput(InputComponents.INPUT_TEXT)
+        .maxlength(20)
+      )
+      .setViewContainerRef(this.formContainerRef1)
+      .addButton('Valider', config => config
+        .isTypeSubmit()
+        .icon('check')
+        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
+      .form
+  }
+
   private initConfigUploader() {
     this._config = {
-      label: "Veuillez joindre les pièces justificatives au dossier",
+      type: InputComponents.INPUT_UPLOADER,
+      formGroup: this.formulaire,
+      nameControl: "files",
+      nameLabel: "Veuillez joindre les pièces justificatives au dossier",
       apiFile: (fileId) => {
         return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
       },
@@ -53,5 +83,11 @@ export class UploaderDemoComponent implements OnInit {
         ]
       },
     }
+  }
+
+  validateFrom({ value, valid }: { value: any, valid: boolean }) {
+    if (!valid) return;
+
+    console.log("values", value);
   }
 }

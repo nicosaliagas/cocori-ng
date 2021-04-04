@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { ConfigAPIsFile, ConfigUploaderModel, FileModel } from '../../../core/model/component-uploader.model';
-import { DataSourceInput } from '../../../core/model/data-source.model';
-import { DatasourceService } from '../../../core/service/datasource.service';
+import { ConfigAPIsFile, ConfigUploaderModel } from '../../../core/model/component-uploader.model';
+import { ExtendInputsComponent } from '../form/inputs/extend-inputs/extend-inputs.component';
 
 export interface Section {
   name: string;
@@ -16,12 +14,8 @@ export interface Section {
   templateUrl: './cocoring-uploader.component.html',
   styleUrls: ['./cocoring-uploader.component.scss'],
 })
-export class CocoringUploaderComponent implements OnInit, OnDestroy {
-
-  filesDataSource$!: Observable<FileModel[]>;
-
+export class CocoringUploaderComponent extends ExtendInputsComponent implements OnInit, OnDestroy {
   apisFile: ConfigAPIsFile;
-  label: string;
 
   @Input()
   set config(config: ConfigUploaderModel) {
@@ -29,27 +23,18 @@ export class CocoringUploaderComponent implements OnInit, OnDestroy {
       throw new Error(`La config du composant uploader n'est pas correcte... config: ${config}`);
     }
 
-    this.label = config.label
+    this.configInput(config)
 
-    this.apisFile = {apiFile: config.apiFile, apiFileDownload: config.apiFileDownload}
+    this.addArrayForm();
 
-    this.loadDataSource(config.dataSource);
+    this.apisFile = { apiFile: config.apiFile, apiFileDownload: config.apiFileDownload }
   }
 
-  constructor(
-    private datasourceService: DatasourceService) { }
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
   ngOnInit() { }
 
   ngOnDestroy() { }
-
-  private loadDataSource(configDataSource: DataSourceInput): Observable<any> {
-    if (!configDataSource) return;
-
-    this.filesDataSource$ = this.datasourceService.loadDataSource(configDataSource)
-
-    // this.datasourceService.loadDataSource(configDataSource).pipe(
-    //   tap((datas: any) => console.log("datas", datas))
-    // ).subscribe()
-  }
 }

@@ -22,14 +22,7 @@ export class HttpService {
     }
 
     get<T>(path: string, params?: Object): Observable<T> {
-        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption})
-            .pipe(
-                map(this.extractData.bind(this))
-            ) as Observable<T>;
-    }
-    
-    file<T>(path: string, params?: Object): Observable<T> {
-        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption, responseType: 'blob' })
+        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
@@ -37,6 +30,13 @@ export class HttpService {
 
     _get<T>(path: string, params?: Object): Observable<T> {
         return this.httpWithoutInterceptor.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
+            .pipe(
+                map(this.extractData.bind(this))
+            ) as Observable<T>;
+    }
+
+    file<T>(path: string, params?: Object): Observable<T> {
+        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption, responseType: 'blob' })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
@@ -62,6 +62,18 @@ export class HttpService {
         options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.http.post(
+            `${path}`,
+            JSON.stringify(body),
+            options
+        ).pipe(
+            map(this.extractData.bind(this))
+        ) as Observable<T>;
+    }
+
+    patch<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
+        options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.http.patch(
             `${path}`,
             JSON.stringify(body),
             options

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
 import { ConfigInputComponent, InputFieldAppearance, NameControl } from '../../../../../core/model/component-inputs.model';
@@ -80,7 +80,15 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         this.emitEvent()
     }
 
+    addArrayForm() {
+        this.formGroup.addControl(this.nameControl, new FormArray([], this.validators))
+
+        this.emitEvent()
+    }
+
     loadDataSource(configDataSource: DataSourceInput): Observable<any> {
+        if (!configDataSource) return;
+
         return this.datasourceService.loadDataSource(configDataSource)
     }
 
@@ -98,6 +106,8 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     }
 
     private isControlRequired(): boolean {
+        if (!this.validators) return;
+
         const d = this.validators.find((validatorFn) => validatorFn === ValidatorsService.require)
 
         return typeof d === 'undefined' ? false : true

@@ -9,12 +9,14 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
+import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
   ConfigAPIsFile,
   FileActions,
@@ -40,13 +42,16 @@ import {
   providers: [UploaderService]
 })
 export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
-  @ViewChild('uploader') uploaderInputRef: ElementRef<HTMLElement>;
+  @ViewChild('uploader') uploaderInputRef: ElementRef;
 
+  @Input() formGroup: FormGroup
+  @Input() nameControl: NameControl
   @Input() fileModel: FileModel
   @Input() apisFile: ConfigAPIsFile
 
   private fileUploaded: File;
 
+  fileFormControl: FormControl;
   subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
   progress: number;
@@ -61,16 +66,15 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.addFileControl()
+
     this.uploaderService.apisFile = this.apisFile
 
     this.setFileApi()
 
     this.subscriptions.add(
       this.uploaderService.fileUploaded$.pipe(
-        tap((id: string) => {
-          this.fileModel.id = id
-          this.fileModel.dateUpload = new Date()
-        }),
+        tap((id: string) => this.validateFileValue(id)),
         tap(_ => this.cdr.detectChanges()),
         debounceTime(500),
         tap(_ => this.isUploading = false),
@@ -200,5 +204,23 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     this.fileModel.fileType = null
     this.fileModel.fileName = null
     this.uploaderService.fileUploaded$.next(null)
+    this.uploaderInputRef.nativeElement.value = ''
+  }
+
+  /** create control and add it to the formGroup. Will store id of the file */
+  private addFileControl() {
+    const upoaderFormArray: FormArray = <FormArray>this.formGroup.get(this.nameControl);
+
+    this.fileFormControl = new FormControl(null);
+
+    upoaderFormArray.push(this.fileFormControl);
+  }
+
+  /** store the file id */
+  private validateFileValue(id: string) {
+    this.fileModel.id = id
+    this.fileModel.dateUpload = new Date()
+
+    this.fileFormControl.setValue(id)
   }
 }

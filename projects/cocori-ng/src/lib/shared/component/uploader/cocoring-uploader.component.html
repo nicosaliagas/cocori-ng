@@ -1,8 +1,8 @@
 <div class="upload-drop">
-  <mat-selection-list #shoes [multiple]="false">
-    <div mat-subheader>{{label}}</div>
-    <ng-container *ngIf="filesDataSource$ | async as files; else loadingTpl">
-      <cocoring-uploader-list-file *ngFor="let file of files" [apisFile]="apisFile" [fileModel]="file">
+  <mat-selection-list [multiple]="false">
+    <div mat-subheader>{{nameLabel}}</div>
+    <ng-container *ngIf="dataSource$ | async as files; else loadingTpl">
+      <cocoring-uploader-list-file *ngFor="let file of files" [formGroup]="formGroup" [nameControl]="nameControl" [apisFile]="apisFile" [fileModel]="file">
       </cocoring-uploader-list-file>
     </ng-container>
     <ng-template #loadingTpl>
@@ -15,11 +15,5 @@
       </div>
     </ng-template>
   </mat-selection-list>
+  <!-- {{formGroup.get(nameControl).value | json}} -->
 </div>
-
-<!-- 
-    codepen : https://codepen.io/aaroniker/pen/jjZGLG
-    <a class="dribbble" href="https://dribbble.com/shots/6712593-Drag-Drop-upload-html-css-version" target="_blank"><img
-        src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg"
-        alt=""></a>
--->

@@ -15,7 +15,7 @@ export interface ConfigInputComponent {
     nameLabel: string,
     formGroup: FormGroup,
     nameControl: NameControl,
-    validators: ValidatorFn[];
+    validators?: ValidatorFn[];
     icon?: string,
     styleCompact?: boolean,
     maxlength?: number,

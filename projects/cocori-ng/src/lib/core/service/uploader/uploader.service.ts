@@ -198,6 +198,6 @@ export class UploaderService {
   EndUploadPartsFileAPI(datas: AssembleFilePartsCommand): Observable<any> {
     const apiFile: string = this.apisFile.apiFile()
 
-    return this.httpService.post(`${apiFile}`, datas)
+    return this.httpService.patch(`${apiFile}`, datas)
   }
 }

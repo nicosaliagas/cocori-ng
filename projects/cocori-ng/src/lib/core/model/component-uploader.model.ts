@@ -1,10 +1,8 @@
-import { DataSourceInput } from './data-source.model';
+import { ConfigInputComponent } from './component-inputs.model';
 
-export interface ConfigUploaderModel {
-    label: string,
+export interface ConfigUploaderModel extends ConfigInputComponent{
     apiFile: (fileId?: string) => string;
     apiFileDownload: (fileId: string) => string;
-    dataSource: DataSourceInput,
 }
 
 export type ConfigAPIsFile = Pick<ConfigUploaderModel, 'apiFile' | 'apiFileDownload'>;
