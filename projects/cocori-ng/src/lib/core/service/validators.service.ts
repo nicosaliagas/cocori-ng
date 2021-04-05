@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
-import { HelperFunctions } from '../helper/helper.function';
+import { HelperService } from './helper/helper.service';
 
 // import { DateFunctions } from '../helper/date.function';
 export interface ValidtionError {
@@ -48,7 +48,7 @@ export class ValidatorsService {
     }
 
     public static require(control: FormControl): any {
-        return HelperFunctions.retourneNullSiNonDéfini(control.value) === null ? { "required": true } : null;
+        return HelperService.retourneNullSiNonDéfini(control.value) === null ? { "required": true } : null;
     }
 
     public static emailValidator(control: FormControl): any {
@@ -331,7 +331,7 @@ export class ValidatorsService {
 
             if (group && group.controls) {
                 for (const control in group.controls) {
-                    if (group.controls.hasOwnProperty(control) && group.controls[control].valid && HelperFunctions.retourneNullSiNonDéfini(group.controls[control].value)) {
+                    if (group.controls.hasOwnProperty(control) && group.controls[control].valid && HelperService.retourneNullSiNonDéfini(group.controls[control].value)) {
                         isAtLeastOne = true;
                         break;
                     }

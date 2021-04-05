@@ -11,7 +11,6 @@ export interface FileModel {
     description: string,
     fileName: string,
     dateUpload?: Date,
-    // fileType?: FileType,
     mimeType?: string,
     id?: string,
     size?: number,

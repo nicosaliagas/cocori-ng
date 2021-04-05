@@ -94,7 +94,6 @@ export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/storage.service';
 export * from './lib/core/service/token.service';
 export * from './lib/core/service/http.service';
-export * from './lib/core/service/utils/utils.service';
 export * from './lib/core/service/form-builder/form-builder.service';
 export * from './lib/core/service/validators.service';
 export * from './lib/core/service/broadcast-event.service';

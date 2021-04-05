@@ -5,18 +5,18 @@ import { configdefault } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
 import { InputComponents, OutputCallback } from '../../../shared/component/form';
 import {
-  ButtonComponentInputs,
-  ButtonIconPositon,
-  ConfigComponentInputs,
-  ConfigInputComponent,
-  InputFieldAppearance,
-  NameControl,
-  TypeButtonEnum,
+    ButtonComponentInputs,
+    ButtonIconPositon,
+    ConfigComponentInputs,
+    ConfigInputComponent,
+    InputFieldAppearance,
+    NameControl,
+    TypeButtonEnum,
 } from '../../model/component-inputs.model';
 import { DataSourceInput } from '../../model/data-source.model';
 import { BroadcastEventService } from '../broadcast-event.service';
+import { HelperService } from '../helper/helper.service';
 import { InjectComponentService } from '../inject-component.service';
-import { UtilsService } from '../utils/utils.service';
 import { ValidatorsService } from '../validators.service';
 
 /**
@@ -155,7 +155,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     constructor(
         private fb: FormBuilder,
-        private utilsService: UtilsService,
+        private helperService: HelperService,
         private broadcastEventService: BroadcastEventService,
         public generateComponentViewService: GenerateComponentViewService
     ) {
@@ -187,7 +187,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this._configInputsForm.splice(0, this._configInputsForm.length)
 
-        this.identityForm(this.utilsService.generateGuid())
+        this.identityForm(this.helperService.generateGuid())
 
         return this;
     }

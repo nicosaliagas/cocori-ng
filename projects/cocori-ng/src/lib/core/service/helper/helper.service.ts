@@ -1,6 +1,22 @@
-// import Guid from 'devextreme/core/guid';
+import { Injectable } from '@angular/core';
 
-export class HelperFunctions {
+@Injectable({
+    providedIn: 'root',
+})
+export class HelperService {
+
+    generateGuid(): string {
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+            this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
+
+    private s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+
+    /**  */
 
     static retourneNomDeDomaine(): string {
         return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
@@ -160,7 +176,7 @@ export class HelperFunctions {
     }
 
     static remplacerParamètresAccolades(chercherDans: string, motif: string, valeur: string): string {
-        return HelperFunctions.remplacerToutesOccurences(chercherDans, `{${motif}}`, valeur);
+        return HelperService.remplacerToutesOccurences(chercherDans, `{${motif}}`, valeur);
     }
 
     static estceObjetVide(objet: any) {
@@ -175,7 +191,7 @@ export class HelperFunctions {
     }
 
     static éviterDoubleSlash(chaine: string): string {
-        return HelperFunctions.remplacerToutesOccurences(chaine, /(https?:\/\/)|(\/){2,}/g, "$1$2");
+        return HelperService.remplacerToutesOccurences(chaine, /(https?:\/\/)|(\/){2,}/g, "$1$2");
     }
 
     /**

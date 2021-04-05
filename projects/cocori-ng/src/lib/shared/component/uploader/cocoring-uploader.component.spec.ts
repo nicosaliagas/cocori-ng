@@ -8,7 +8,7 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
 describe('CocoringUploadComponent', () => {
   let component: CocoringUploaderComponent;
   let fixture: ComponentFixture<CocoringUploaderComponent>;
-  let uploadService: UploaderService
+  const formBuilder: FormBuilder = new FormBuilder();
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,7 +17,7 @@ describe('CocoringUploadComponent', () => {
         {
           provide: UploaderService
         },
-        FormBuilder
+        { provide: FormBuilder, useValue: formBuilder }
       ],
       imports: [HttpClientTestingModule, ReactiveFormsModule],
     })
@@ -28,7 +28,10 @@ describe('CocoringUploadComponent', () => {
     fixture = TestBed.createComponent(CocoringUploaderComponent);
     component = fixture.componentInstance;
 
-    uploadService = TestBed.inject(UploaderService);
+    component.nameControl = "testControl"
+    component.formGroup = formBuilder.group({
+      testControl: null
+    });
 
     fixture.detectChanges();
   });
