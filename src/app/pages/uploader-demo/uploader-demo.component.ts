@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents, ValidatorsService } from 'cocori-ng';
+import * as faker from 'faker/locale/fr';
 
 @Component({
   selector: 'uploader-demo',
@@ -21,10 +22,6 @@ export class UploaderDemoComponent implements OnInit {
     this.buildForm()
 
     this.initConfigUploader()
-  }
-
-  onComponentReady(control: string) {
-    console.log(`Input : ${control} ajouté au form avec succès`)
   }
 
   private buildForm() {
@@ -65,15 +62,17 @@ export class UploaderDemoComponent implements OnInit {
             id: 'E1C57AD5-6921-44CE-8F0E-7230CE576205',
             description: 'Votre rapport',
             fileName: 'Rapport.pdf',
+            dateUpload: faker.date.recent(),
             size: 182.23,
-            fileType: 'doc'
+            mimeType: 'application/pdf'
           },
           {
             id: '3CE8B88D-E32F-4BAF-AABB-E70866687340',
+            dateUpload: faker.date.recent(),
             description: 'Recto / verso de votre CNI',
             fileName: 'CarteIdentite.png',
             size: 82.12,
-            fileType: 'image'
+            mimeType: 'image/jpeg'
           },
           {
             description: 'Votre passeport',

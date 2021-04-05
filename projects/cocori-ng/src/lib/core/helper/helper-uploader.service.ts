@@ -7,8 +7,8 @@ export const typeImageReg = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
 })
 export class HelperUploaderService {
 
-    static checkTypeImage(file: File): boolean {
-        return typeImageReg.test(file.type)
+    static checkTypeImage(fileType: string): boolean {
+        return typeImageReg.test(fileType)
     }
 
     static estceTypeMimeAccepté(typeMime: string, configTypeMime: string[]): boolean {

@@ -12,13 +12,13 @@
             </button>
         </div>
 
-        <div *ngIf="fileModel.fileType === 'doc'">
+        <div *ngIf="fileType === 'doc'">
             <button class="file-doc" mat-fab disableRipple="true" aria-label="">
                 <mat-icon>attach_file</mat-icon>
             </button>
         </div>
 
-        <div *ngIf="fileModel.fileType === 'image'" class="file-image"
+        <div *ngIf="fileType === 'image'" class="file-image"
             [ngStyle]="{'background-image': 'url(' + apiFile}">
         </div>
     </ng-container>
@@ -36,8 +36,7 @@
         <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
             <div class="subtext" mat-line>
                 <span *ngIf="fileModel?.id">{{fileModel.size | fileSize:2}}</span>
-                <span *ngIf="!fileModel?.id && !onError" title="Glissez & déposez votre fichier ici"> Glissez & déposez
-                    votre fichier ici</span>
+                <span *ngIf="!fileModel?.id && !onError" title="Cliquez pour déposer votre fichier ici"> Cliquez pour déposer votre fichier ici</span>
                 <span *ngIf="!fileModel?.id && onError" class="fileOnError error" title="Une erreur est survenue, veuillez
                 réessayer">Une erreur est survenue, veuillez
                     réessayer</span>

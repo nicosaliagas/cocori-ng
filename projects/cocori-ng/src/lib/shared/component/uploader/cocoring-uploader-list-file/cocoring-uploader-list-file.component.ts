@@ -1,13 +1,13 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    HostListener,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -18,20 +18,20 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 import { HelperUploaderService } from '../../../../core/helper/helper-uploader.service';
 import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
-    ConfigAPIsFile,
-    FileActions,
-    FileDetailsComponent,
-    FileModel,
+  ConfigAPIsFile,
+  FileActions,
+  FileDetailsComponent,
+  FileModel,
 } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
-    CocoringUploaderBottomSheetComponent,
+  CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import {
-    CocoringUploaderFileActionsComponent,
+  CocoringUploaderFileActionsComponent,
 } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import {
-    CocoringUploaderFileOptionsComponent,
+  CocoringUploaderFileOptionsComponent,
 } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
@@ -58,6 +58,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   onError: boolean = false;
   apiFile: string;
   upoaderFormArray: FormArray;
+  fileType: string;
 
   constructor(
     public dialog: MatDialog,
@@ -68,10 +69,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.addFileControl()
-
-    this.uploaderService.apisFile = this.apisFile
-
-    this.setFileApi()
 
     this.subscriptions.add(
       this.uploaderService.fileUploaded$.pipe(
@@ -122,7 +119,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.fileModel.fileName = this.fileUploaded.name
     this.fileModel.size = this.fileUploaded.size
-    this.fileModel.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded) ? 'image' : 'doc'
+    this.fileModel.mimeType = this.fileUploaded.type
+
+    this.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded.type) ? 'image' : 'doc'
 
     this.cdr.detectChanges()
 
@@ -170,8 +169,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     });
 
     bottomSheet.afterDismissed().subscribe((action: FileActions) => {
-      console.log("bottomsheet fermée", action)
-
       switch (action) {
         case 'browse':
           this.browseFile()
@@ -184,7 +181,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
         default:
           break;
       }
-
     });
   }
 
@@ -206,16 +202,29 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.fileUploaded = null
     this.fileModel.id = null
-    this.fileModel.fileType = null
     this.fileModel.fileName = null
+
+    this.fileType = null
     this.uploaderInputRef.nativeElement.value = ''
   }
 
   /** create control and add it to the formGroup. Will store id of the file */
   private addFileControl() {
+    this.uploaderService.apisFile = this.apisFile
+
     this.upoaderFormArray = <FormArray>this.formGroup.get(this.nameControl);
 
     this.fileFormControl = new FormControl(null);
+
+    if(this.fileModel.id) {
+      this.fileType = HelperUploaderService.checkTypeImage(this.fileModel.mimeType) ? 'image' : 'doc'
+      
+      this.fileFormControl.setValue(this.fileModel.id)
+
+      this.upoaderFormArray.push(this.fileFormControl);
+
+      this.setFileApi()
+    }
   }
 
   /** store the file id */

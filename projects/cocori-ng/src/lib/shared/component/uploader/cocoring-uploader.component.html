@@ -15,6 +15,7 @@
         </div>
       </div>
     </ng-template>
+    <!-- #todo: normalement pas nécessaire ce ngIf, mais là le message ne disparaît pas... -->
     <mat-error *ngIf="formGroup.get(nameControl).errors" error-handler [form]="formGroup" [controlName]="nameControl">
     </mat-error>
   </mat-selection-list>
