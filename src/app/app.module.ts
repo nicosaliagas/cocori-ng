@@ -33,7 +33,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   imports: [
     CommonModule,
     HttpClientModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatSidenavModule,
