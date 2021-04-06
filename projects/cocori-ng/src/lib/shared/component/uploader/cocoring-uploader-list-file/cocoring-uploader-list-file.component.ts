@@ -1,13 +1,13 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    HostListener,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -17,21 +17,21 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
-    ConfigAPIsFile,
-    FileActions,
-    FileDetailsComponent,
-    FileModel,
+  ConfigAPIsFile,
+  FileActions,
+  FileDetailsComponent,
+  FileModel,
 } from '../../../../core/model/component-uploader.model';
 import { HelperUploaderService } from '../../../../core/service/helper/helper-uploader.service';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
-    CocoringUploaderBottomSheetComponent,
+  CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import {
-    CocoringUploaderFileActionsComponent,
+  CocoringUploaderFileActionsComponent,
 } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import {
-    CocoringUploaderFileOptionsComponent,
+  CocoringUploaderFileOptionsComponent,
 } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
@@ -197,8 +197,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   removeFile() {
 
-    /** supprime le formControl et donc sa valeur du tableau de fichier du formulaure */
-    this.upoaderFormArray.removeAt(this.upoaderFormArray.value.findIndex(fileId => fileId === this.fileModel.id))
+    this.removeFromFormArray()
 
     this.fileUploaded = null
     this.fileModel.id = null
@@ -206,6 +205,13 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.fileType = null
     this.uploaderInputRef.nativeElement.value = ''
+  }
+
+  private removeFromFormArray() {
+    /** supprime le formControl et donc sa valeur du tableau de fichier du formulaure */
+    if (this.fileModel.id) {
+      this.upoaderFormArray.removeAt(this.upoaderFormArray.value.findIndex(fileId => fileId === this.fileModel.id))
+    }
   }
 
   /** create control and add it to the formGroup. Will store id of the file */
@@ -216,9 +222,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
     this.fileFormControl = new FormControl(null);
 
-    if(this.fileModel.id) {
+    if (this.fileModel.id) {
       this.fileType = HelperUploaderService.checkTypeImage(this.fileModel.mimeType) ? 'image' : 'doc'
-      
+
       this.fileFormControl.setValue(this.fileModel.id)
 
       this.upoaderFormArray.push(this.fileFormControl);
@@ -229,6 +235,8 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   /** store the file id */
   private validateFileValue(id: string) {
+
+    this.removeFromFormArray()
 
     this.fileModel.id = id
     this.fileModel.dateUpload = new Date()
