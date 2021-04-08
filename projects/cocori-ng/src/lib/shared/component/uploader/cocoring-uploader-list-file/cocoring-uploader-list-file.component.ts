@@ -62,8 +62,8 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    public uploaderService: UploaderService,
     private _bottomSheet: MatBottomSheet,
-    private uploaderService: UploaderService,
     private cdr: ChangeDetectorRef,) { }
 
   ngOnInit(): void {

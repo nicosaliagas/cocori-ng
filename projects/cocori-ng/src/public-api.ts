@@ -49,6 +49,9 @@ export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.module';
 
+export * from './lib/shared/component/wysiwyg/cocoring-wysiwyg.module';
+export * from './lib/shared/component/wysiwyg/cocoring-wysiwyg.component';
+
 export * from './lib/shared/component/uploader/cocoring-uploader.module';
 export * from './lib/shared/component/uploader/cocoring-uploader.component';
 
@@ -82,6 +85,7 @@ export * from './lib/core/model/schema-datas.model';
 export * from './lib/core/model/component-inputs.model';
 export * from './lib/core/model/component-datagrid.model';
 export * from './lib/core/model/component-uploader.model';
+export * from './lib/core/model/component-wysiwyg.model';
 export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';

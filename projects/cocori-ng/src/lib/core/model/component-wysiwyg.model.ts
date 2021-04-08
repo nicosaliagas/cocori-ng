@@ -1,0 +1,18 @@
+import { ConfigInputComponent } from './component-inputs.model';
+
+export interface ConfigWysiwygModel extends ConfigInputComponent {
+    apiKey: string;
+    params?: InitWysiwyg
+}
+
+export interface InitWysiwyg {
+    height?: number;
+    menubar?: boolean;
+    inline?: boolean;
+    plugins?: PluginsAvailable[];
+    toolbar?: ToolbarOptions[][];
+}
+
+export type PluginsAvailable = 'advlist' | 'autolink' | 'lists' | 'link' | 'image' | 'charmap' | 'print' | 'preview' | 'anchor' | 'searchreplace' | 'visualblocks' | 'code' | 'fullscreen' | 'insertdatetime' | 'media' | 'table' | 'paste' | 'code' | 'help' | 'wordcount'
+
+export type ToolbarOptions = 'undo' | 'redo' | 'formatselect' | 'bold' | 'italic' | 'backcolor' | 'alignleft' | 'aligncenter' | 'alignright' | 'alignjustify' | 'bullist' | 'numlist' | 'outdent' | 'indent' | 'removeformat' | 'help'

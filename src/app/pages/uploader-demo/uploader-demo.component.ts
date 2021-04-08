@@ -87,7 +87,7 @@ export class UploaderDemoComponent implements OnInit {
 
   validateFrom({ value, valid }: { value: any, valid: boolean }) {
     if (!valid) return;
-
-    console.log("values", value);
+    
+    console.log("values>>", value);
   }
 }

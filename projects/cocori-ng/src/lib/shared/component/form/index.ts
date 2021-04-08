@@ -9,6 +9,7 @@ import { CocoringTextareaComponent } from './inputs/input-textarea/cocoring-text
 import { CocoringViewerComponent } from './inputs/input-viewer/cocoring-viewer.component';
 
 export enum InputComponents {
+    INPUT_WYSIWYG = 'input-wysiwyg',
     INPUT_UPLOADER = 'input-uploader',
     INPUT_TEXT = 'input-text',
     INPUT_EMAIL = 'input-email',

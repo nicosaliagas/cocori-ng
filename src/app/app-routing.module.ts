@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'component/upload',
     loadChildren: () => import('./pages/uploader-demo/uploader-demo.module').then(mod => mod.UploaderDemoModule)
   },
+  {
+    path: 'component/wysiwyg',
+    loadChildren: () => import('./pages/wysiwyg-demo/wysiwyg-demo.module').then(mod => mod.WysiwygDemoModule)
+  },
 ];
 
 @NgModule({
