@@ -37,6 +37,12 @@ export class WysiwygDemoComponent implements OnInit {
 
   private initConfigComponent() {
     this._config = {
+      apiFile: (fileId) => {
+        return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+      },
+      apiFileDownload: (fileId) => {
+        return `http://localhost:8080/api/file/${fileId}?download=true`
+      },
       apiKey: "fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f",
       params: <InitWysiwyg>{
         height: 300

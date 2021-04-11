@@ -1,13 +1,13 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostListener,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -17,21 +17,21 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
-  ConfigAPIsFile,
-  FileActions,
-  FileDetailsComponent,
-  FileModel,
+    ConfigAPIsFile,
+    FileActions,
+    FileDetailsComponent,
+    FileModel,
 } from '../../../../core/model/component-uploader.model';
 import { HelperUploaderService } from '../../../../core/service/helper/helper-uploader.service';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
-  CocoringUploaderBottomSheetComponent,
+    CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import {
-  CocoringUploaderFileActionsComponent,
+    CocoringUploaderFileActionsComponent,
 } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import {
-  CocoringUploaderFileOptionsComponent,
+    CocoringUploaderFileOptionsComponent,
 } from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
@@ -158,7 +158,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     });
   }
 
-  openBottomSheet() {
+  private openBottomSheet() {
     const bottomSheet = this._bottomSheet.open(CocoringUploaderBottomSheetComponent, {
       panelClass: 'bottom-sheet-container',
       data: <FileDetailsComponent>{

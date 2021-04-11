@@ -19,18 +19,20 @@ export const configdefault = {
             'advlist',
             'autolink',
             'lists',
-            'help',
             'link',
             'image',
+            'imagetools',
             'emoticons',
             'preview',
             'searchreplace',
             'media',
             'table',
             'paste',
+            'code',
+            'help',
         ],
         toolbar: 'undo redo | formatselect | bold italic backcolor | \
         alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat | emoticons ',
+        bullist numlist outdent indent | removeformat | emoticons',
     }
 }

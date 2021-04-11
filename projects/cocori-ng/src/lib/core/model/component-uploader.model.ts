@@ -9,7 +9,7 @@ export type ConfigAPIsFile = Pick<ConfigUploaderModel, 'apiFile' | 'apiFileDownl
 
 export interface FileModel {
     description: string,
-    fileName: string,
+    fileName?: string,
     dateUpload?: Date,
     mimeType?: string,
     id?: string,

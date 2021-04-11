@@ -1,11 +1,5 @@
-<mat-list-option [value]="fileModel.id" (click)="openMenuOrBrowse()">
+<mat-list-option id="optionList" [value]="fileModel.id" (click)="openMenuOrBrowse()">
     <ng-container *ngIf="!isUploading">
-        <!-- <mat-icon mat-list-icon *ngIf="!fileModel.id">
-            <ng-container *ngIf="fileModel.fileType === 'doc'">file_present</ng-container>
-            <ng-container><span [ngClass]="{'fileOnError error': onError}">arrow_circle_up</span>
-            </ng-container>
-        </mat-icon> -->
-
         <div *ngIf="!fileModel.id">
             <button class="file-doc" mat-fab disableRipple="true" aria-label="Joindre un fichier">
                 <mat-icon [ngClass]="{'fileOnError error': onError}">upload_file</mat-icon>

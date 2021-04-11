@@ -1,134 +1,139 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin lib-theme($config-or-theme, $palette-green, $palette-blue) {
+  $config: mat-get-color-config($config-or-theme);
 
-    $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
 
-    $primary: map-get($config, primary);
-    $accent: map-get($config, accent);
-    $warn: map-get($config, warn);
+  .error {
+    color: mat-color($warn, 200);
+  }
 
-    .error {
-        color: mat-color($warn, 200);
+  .success {
+    color: mat-color($palette-green, 200);
+  }
+
+  .info {
+    color: mat-color($palette-blue, 200);
+  }
+
+  .mat-snack-bar-container {
+    margin-bottom: 20px !important;
+
+    &.succesToast {
+      background-color: mat-color($palette-green, 200);
+      color: #ffffff;
     }
 
-    .success {
-        color: mat-color($palette-green, 200);
+    &.errorToast {
+      background-color: mat-color($warn, 200);
+      color: #ffffff;
     }
 
-    .info {
-        color: mat-color($palette-blue, 200);
+    &.infoToast {
+      background-color: mat-color($palette-blue, 200);
+      color: #ffffff;
     }
 
-    .mat-snack-bar-container {
-        margin-bottom: 20px !important;
+    .mat-simple-snackbar-action {
+      .mat-button-focus-overlay {
+        opacity: 0.1;
+      }
 
-        &.succesToast {
-            background-color: mat-color($palette-green, 200);
-            color: #ffffff;
-        }
+      .mat-button:hover .mat-button-focus-overlay,
+      .mat-stroked-button:hover .mat-button-focus-overlay {
+        opacity: 0.2;
+      }
+    }
+  }
 
-        &.errorToast {
-            background-color: mat-color($warn, 200);
-            color: #ffffff;
-        }
+  .mat-error {
+    margin-left: 3px;
+  }
 
-        &.infoToast {
-            background-color: mat-color($palette-blue, 200);
-            color: #ffffff;
-        }
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
-        .mat-simple-snackbar-action {
-            .mat-button-focus-overlay {
-                opacity: .1;
-            }
+  .spinner:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner 0.8s linear infinite;
+  }
 
-            .mat-button:hover .mat-button-focus-overlay,
-            .mat-stroked-button:hover .mat-button-focus-overlay {
-                opacity: .2;
-            }
-        }
+  .mat-form-compact {
+    .mat-form-field-flex > .mat-form-field-infix {
+      padding: 0.4em 0px !important;
     }
 
-    .mat-error {
-        margin-left: 3px;
+    .mat-form-field-label-wrapper {
+      top: -1.5em;
     }
 
-    @keyframes spinner {
-        to {
-            transform: rotate(360deg);
-        }
+    .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+      .mat-form-field-label {
+      transform: translateY(-1.1em) scale(0.75);
+      width: 133.33333%;
+    }
+  }
+
+  [matPrefix] {
+    .mat-icon-button {
+      top: 5px;
+    }
+  }
+
+  [matSuffix] {
+    .mat-icon-button {
+      font-size: 10px !important;
+    }
+  }
+
+  /** loading animation - waiting data for coming in list (ex datagrid) */
+  @keyframes placeHolderShimmer {
+    0% {
+      background: #ececec;
     }
 
-    .spinner:before {
-        content: '';
-        box-sizing: border-box;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        margin-top: -10px;
-        margin-left: -10px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        border-top-color: #000000;
-        animation: spinner .8s linear infinite;
+    30% {
+      background: #f7f7f7;
     }
 
-    .mat-form-compact {
-        .mat-form-field-flex>.mat-form-field-infix {
-            padding: 0.4em 0px !important;
-        }
-
-        .mat-form-field-label-wrapper {
-            top: -1.5em;
-        }
-
-        .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
-            transform: translateY(-1.1em) scale(.75);
-            width: 133.33333%;
-        }
+    50% {
+      background: #ececec;
     }
 
-    [matPrefix] {
-        .mat-icon-button {
-            top: 5px;
-        }
+    80% {
+      background: #f7f7f7;
     }
 
-    [matSuffix] {
-        .mat-icon-button {
-            font-size: 10px !important;
-        }
+    100% {
+      background: #ececec;
     }
+  }
 
-    /** loading animation - waiting data for coming in list (ex datagrid) */
-    @keyframes placeHolderShimmer {
-        0% {
-            background: #ececec;
-        }
+  .loading-animation {
+    animation: placeHolderShimmer 3s infinite;
+  }
 
-        30% {
-            background: #F7F7F7;
-        }
-
-        50% {
-            background: #ececec;
-        }
-
-        80% {
-            background: #F7F7F7;
-        }
-
-        100% {
-            background: #ececec;
-        }
+  .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    &.dark-backdrop {
+      background: #000;
+      opacity: 0.85 !important;
     }
-
-    .loading-animation {
-        animation: placeHolderShimmer 3s infinite;
-    }
-
-    /** */
+  }
 }

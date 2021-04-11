@@ -1,6 +1,6 @@
-import { ConfigInputComponent } from './component-inputs.model';
+import { ConfigUploaderModel } from './component-uploader.model';
 
-export interface ConfigWysiwygModel extends ConfigInputComponent {
+export interface ConfigWysiwygModel extends ConfigUploaderModel {
     apiKey: string;
     params?: InitWysiwyg
 }

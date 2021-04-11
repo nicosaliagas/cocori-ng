@@ -16,7 +16,7 @@ import { CocoringWysiwygComponent } from './cocoring-wysiwyg.component';
     ReactiveFormsModule,
     CocoringInputErrorModule,
     CocoringButtonModule,
-    EditorModule
+    EditorModule,
   ],
   exports: [
     CocoringWysiwygComponent

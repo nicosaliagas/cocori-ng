@@ -1,9 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { By } from '@angular/platform-browser';
 
 import { ConfigAPIsFile, FileModel } from '../../../../core/model/component-uploader.model';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
@@ -91,4 +93,67 @@ describe('CocoringUploaderListFileComponent', () => {
     expect(component.upoaderFormArray.length).toEqual(1)
   })
   )
+
+  it('should open browse window when click on a empty file from the list', () => {
+    file = { description: 'test' }
+
+    component.fileModel = file
+
+    spyOn(component, 'browseFile');
+
+    fixture.detectChanges();
+
+    const optionList: DebugElement = fixture.debugElement.query(By.css('#optionList'));
+
+    optionList.triggerEventHandler('click', null);
+
+    expect(component.browseFile).toHaveBeenCalled()
+  })
+
+  it('file change event should arrive in handler', () => {
+
+    file = { description: 'test' }
+
+    component.fileModel = file
+
+    fixture.detectChanges();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+      
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename.png";
+
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        length: 1,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+
+    component.emitFiles(getFileList())
+
+    expect(component.isUploading).toBeTrue()
+    
+    expect(component.fileModel.fileName).toEqual("filename.png")
+    expect(component.fileModel.mimeType).toEqual("image/png")
+    expect(component.fileType).toEqual("image")
+  })
+
+  it('should display correct informations of an empty file from the list', () => {
+    file = { description: 'description file' }
+
+    component.fileModel = file
+
+    fixture.detectChanges();
+
+    const fileInfo: DebugElement = fixture.debugElement.query(By.css('.mat-list-text span'));
+    const fileMatIcon: DebugElement = fixture.debugElement.query(By.css('.file-doc mat-icon'));
+
+    expect(fileInfo.nativeElement.textContent).toEqual('description file');
+    expect(fileMatIcon.nativeElement.textContent).toEqual('upload_file');
+  })
+
 });

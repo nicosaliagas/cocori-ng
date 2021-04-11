@@ -1,11 +1,5 @@
 <div [formGroup]="formGroup">
-    <editor [formControlName]="nameControl" [apiKey]="apiKey" [init]="{
-            height: height,
-            inline: inline,
-            menubar: menubar,
-            plugins: plugins,
-            toolbar: toolbar
-          }"></editor>
-    <mat-error *ngIf="formGroup.get(nameControl).errors" error-handler [form]="formGroup" [controlName]="nameControl">
-    </mat-error>
+  <editor #tinymce [formControlName]="nameControl" [apiKey]="apiKey" [init]="initParams"></editor>
+  <mat-error *ngIf="formGroup.get(nameControl).errors" error-handler [form]="formGroup" [controlName]="nameControl">
+  </mat-error>
 </div>
