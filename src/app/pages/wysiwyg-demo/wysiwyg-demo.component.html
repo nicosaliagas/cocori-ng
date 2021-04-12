@@ -3,7 +3,12 @@
   <div class="formulaires">
     <div class="content-frm part">
       <form id="generatedForm" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
-        <cocoring-wysiwyg [config]="_config"></cocoring-wysiwyg>
+        <div class="editors">
+          <cocoring-wysiwyg [config]="_config" (callback)="callback($event)"></cocoring-wysiwyg>
+        </div>
+        <div class="editors">
+          <cocoring-wysiwyg [config]="_configInline" (callback)="callback($event)"></cocoring-wysiwyg>
+        </div>
         <div style="text-align: center; margin-top: 20px;">
           <ng-template #FormContainerRefButton></ng-template>
         </div>

@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
-import { EditorComponent } from '@tinymce/tinymce-angular';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
 
 import { configdefault } from '../../../config/config.components';
@@ -21,8 +20,6 @@ import { ExtendInputsComponent } from '../form/inputs/extend-inputs/extend-input
   providers: [WysiwygService]
 })
 export class CocoringWysiwygComponent extends ExtendInputsComponent implements OnInit {
-  @ViewChild('tinymce') tinymce: EditorComponent;
-
   initParams: any
   editor: any
   apisFile: ConfigAPIsFile

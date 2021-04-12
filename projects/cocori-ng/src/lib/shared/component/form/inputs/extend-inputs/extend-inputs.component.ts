@@ -2,6 +2,7 @@ import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@an
 import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
+import { OutputCallback } from '../..';
 import { ConfigInputComponent, InputFieldAppearance, NameControl } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../../core/model/data-source.model';
 import { DatasourceService } from '../../../../../core/service/datasource.service';
@@ -19,6 +20,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     @Input() nameControl: NameControl
     @Input() nameLabel: string
 
+    /** méthode appelée lorsque que le contrôle a été ajouté au formulaire avec en paramètre le nom du contrôle créé */
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     subscriptions: Subscription = new Subscription();
@@ -32,6 +34,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     styleCompact: boolean;
     maxlength: number;
     icon: string;
+    callbackComponent: OutputCallback;
 
     constructor(injector: Injector) {
         this.httpService = injector.get(HttpService);
@@ -53,6 +56,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         this.dataSource$ = this.loadDataSource(config.dataSource)
         this.inRelationWith = config.inRelationWith
         this.validators = config.validators
+        this.callbackComponent = config.callbackComponent
 
         this.nameLabel += this.isControlRequired() ? ' *' : ''
     }
@@ -64,7 +68,11 @@ export abstract class ExtendInputsComponent implements OnDestroy {
 
         this.inRelatioNWith()
 
-        this.callback.emit(this.nameControl);
+        if (this.callbackComponent) {
+            this.callbackComponent.callback(this.nameControl)
+        } else {
+            this.callback.emit(this.nameControl);
+        }
     }
 
     clearValue(event: any) {
@@ -75,15 +83,23 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     }
 
     addControlForm() {
+        if (this.controlAlreadyAdded()) return;
+
         this.formGroup.addControl(this.nameControl, new FormControl(null, this.validators))
 
         this.emitEvent()
     }
 
     addArrayForm() {
+        if (this.controlAlreadyAdded()) return;
+
         this.formGroup.addControl(this.nameControl, new FormArray([], this.validators))
 
         this.emitEvent()
+    }
+
+    private controlAlreadyAdded(): boolean {
+        return this.formGroup.contains(this.nameControl)
     }
 
     loadDataSource(configDataSource: DataSourceInput): Observable<any> {

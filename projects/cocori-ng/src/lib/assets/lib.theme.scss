@@ -136,4 +136,11 @@
       opacity: 0.85 !important;
     }
   }
+
+  /** Tiny MCE */
+  .mce-content-body {
+    &:focus {
+      outline: 0 solid transparent;
+    }
+  }
 }

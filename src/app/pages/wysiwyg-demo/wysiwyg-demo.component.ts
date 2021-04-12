@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, InputComponents, ValidatorsService } from 'cocori-ng';
+import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from 'cocori-ng';
 
 @Component({
   selector: 'wysiwyg-demo',
@@ -9,20 +9,16 @@ import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, InputComponents, V
 })
 export class WysiwygDemoComponent implements OnInit {
   @ViewChild('FormContainerRefButton', { static: true, read: ViewContainerRef }) formContainerRefButton: ViewContainerRef;
-  
+
   _config: ConfigWysiwygModel;
+  _configInline: ConfigWysiwygModel;
 
   formulaire: FormGroup
 
   constructor(private formBuilderService: FormBuilderService,) { }
 
   ngOnInit() {
-
-    // this.formulaire = this.formBuilderService.newForm().form
-
     this.buildForm()
-
-    this.initConfigComponent()
   }
 
   private buildForm() {
@@ -33,10 +29,14 @@ export class WysiwygDemoComponent implements OnInit {
         .icon('check')
         .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
       .form
+
+    this._config = this.initConfigComponent("editor", false, true)
+
+    this._configInline = this.initConfigComponent("editorInline", true, false)
   }
 
-  private initConfigComponent() {
-    this._config = {
+  private initConfigComponent(nameControl: string, inline: boolean, require: boolean) {
+    let config = {
       apiFile: (fileId) => {
         return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
       },
@@ -45,13 +45,36 @@ export class WysiwygDemoComponent implements OnInit {
       },
       apiKey: "fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f",
       params: <InitWysiwyg>{
-        height: 300
+        height: 300,
+        inline: inline
       },
       nameLabel: '',
-      type: InputComponents.INPUT_WYSIWYG,
       formGroup: this.formulaire,
-      nameControl: "editorWysiwyg",
-      validators: [ValidatorsService.require],
+      nameControl: nameControl,
+      validators: []
+    }
+
+    if (require) {
+      config.validators.push(ValidatorsService.require)
+    }
+
+    return config
+  }
+
+  callback(controlName: string) {
+    switch (controlName) {
+      case 'editor':
+        this.formulaire.get(controlName).setValue("<p>Hello World !!</p>")
+
+        break;
+
+      case 'editorInline':
+        this.formulaire.get(controlName).setValue("<p>Vous pouvez m'éditer : 🤡</p>")
+
+        break;
+
+      default:
+        break;
     }
   }
 

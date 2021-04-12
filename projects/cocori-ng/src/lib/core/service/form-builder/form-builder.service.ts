@@ -245,7 +245,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this._configInputsForm.push(configInputComponent)
 
-        this.generateComponentViewService.addComponentToView(configInputComponent.type, configInputComponent, configInputComponent.callbackComponent);
+        this.generateComponentViewService.addComponentToView(configInputComponent.type, configInputComponent, builder._callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }

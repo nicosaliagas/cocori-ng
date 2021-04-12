@@ -11,10 +11,10 @@ export type InputFieldAppearance = 'standard' | 'fill' | 'outline';
 export type NameControl = string
 
 export interface ConfigInputComponent {
-    type: InputComponents,
     nameLabel: string,
     formGroup: FormGroup,
     nameControl: NameControl,
+    type?: InputComponents,
     validators?: ValidatorFn[];
     icon?: string,
     styleCompact?: boolean,
