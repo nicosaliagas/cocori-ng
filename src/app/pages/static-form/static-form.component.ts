@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DataSourceType, FormBuilderService, HttpService, InputComponents } from 'cocori-ng';
-import { ButtonIconPositon } from 'projects/cocori-ng/src/public-api';
+import { ButtonIconPositon, DataSourceType, FormBuilderService, HttpService, InputComponents } from '@cocori-ng/lib';
 
 @Component({
   selector: 'ct-static-form',

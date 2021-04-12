@@ -20,10 +20,18 @@
     ],
     "paths": {
       // "@lib/*": ["projects/cocori-ng/src/lib/*"],
-      "cocori-ng": [
-        "dist/cocori-ng/cocori-ng",
+      "@cocori-ng/lib/*": [
+        "projects/cocori-ng/*",
+        "projects/cocori-ng"
+      ],
+      "@cocori-ng/lib": [
+        "dist/cocori-ng/*",
         "dist/cocori-ng"
       ]
+      // "cocori-ng": [
+      //   "dist/cocori-ng/cocori-ng",
+      //   "dist/cocori-ng"
+      // ]
     }
   },
   "angularCompilerOptions": {

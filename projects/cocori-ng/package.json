@@ -1,5 +1,5 @@
 {
-  "name": "cocori-ng",
+  "name": "@cocori-ng/lib",
   "version": "0.0.1",
   "dependencies": {
     "resize-observer-polyfill": "*",

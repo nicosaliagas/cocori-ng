@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ConfirmModalService, FormBuilderService, InputComponents, ModalOptionsModel } from 'cocori-ng';
+import { ConfirmModalService, FormBuilderService, InputComponents, ModalOptionsModel } from '@cocori-ng/lib';
 
 export interface EmailModalModel {
   email: string,

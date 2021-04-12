@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents, ValidatorsService } from 'cocori-ng';
+import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents, ValidatorsService } from '@cocori-ng/lib';
 import * as faker from 'faker/locale/fr';
 
 @Component({

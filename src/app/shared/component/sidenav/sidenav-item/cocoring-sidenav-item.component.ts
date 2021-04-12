@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentUrlRoutingService } from 'cocori-ng';
+import { CurrentUrlRoutingService } from '@cocori-ng/lib';
 import { SidenavItem } from 'src/app/core/model/Sidenav.model';
 
 export const animateExpandListItem =

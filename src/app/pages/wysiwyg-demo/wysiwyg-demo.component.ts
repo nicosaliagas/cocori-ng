@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from 'cocori-ng';
+import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
+import { CMSService } from '@cocori-ng/lib/src/lib/feature-cms';
+import { FormService } from '@cocori-ng/lib/src/lib/feature-form';
 
 @Component({
   selector: 'wysiwyg-demo',
@@ -15,10 +17,13 @@ export class WysiwygDemoComponent implements OnInit {
 
   formulaire: FormGroup
 
-  constructor(private formBuilderService: FormBuilderService,) { }
+  constructor(private formService: FormService, private cmsService: CMSService, private formBuilderService: FormBuilderService,) { }
 
   ngOnInit() {
     this.buildForm()
+
+    console.log(">>>>>>>>>>>>>>>>>", this.cmsService.name)
+
   }
 
   private buildForm() {

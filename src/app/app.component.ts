@@ -27,10 +27,11 @@ export class AppComponent {
         { label: 'Form statique', route: '/demos/static-form' },
         { label: 'Inputs chaînés', route: '/demos/static-inputs-chained' },
         { label: 'Modal', route: '/demos/modal-page' },
+        { label: 'Page CMS', route: '/demos/modal-page' },
       ]
     },
     {
-      label: 'Composant', route:'/component', children: [
+      label: 'Composants', route:'/component', children: [
         { label: 'Grille', route: '/component/grille' },
         { label: 'Upload', route: '/component/upload' },
         { label: 'Wysiwyg', route: '/component/wysiwyg' },

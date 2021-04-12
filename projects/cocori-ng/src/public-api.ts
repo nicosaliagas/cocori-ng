@@ -2,6 +2,13 @@
  * Public API Surface of cocori-ng
  */
 
+/** Sub entries */
+export * from './lib/feature-form';
+
+export * from './lib/feature-cms';
+
+/** Others classes */
+
 export * from './lib/shared/component/button/cocoring-button.module';
 export * from './lib/shared/component/button/cocoring-button.component';
 

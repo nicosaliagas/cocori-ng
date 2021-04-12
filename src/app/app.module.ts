@@ -15,7 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng';
+import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorService } from '@cocori-ng/lib';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

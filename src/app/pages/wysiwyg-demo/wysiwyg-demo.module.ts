@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CocoringWysiwygModule } from 'cocori-ng';
+import { CocoringWysiwygModule } from '@cocori-ng/lib';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { WysiwygDemoRoutingModule } from './wysiwyg-demo-routing.module';

@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ConfigInputComponent, FormBuilderService, FormSchema, HttpService, InputComponents, SubmitDatas } from 'cocori-ng';
+import {
+  ConfigInputComponent,
+  FormBuilderService,
+  FormSchema,
+  HttpService,
+  InputComponents,
+  SubmitDatas,
+} from '@cocori-ng/lib';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

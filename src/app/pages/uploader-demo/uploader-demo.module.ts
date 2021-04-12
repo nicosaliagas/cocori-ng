@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CocoringUploaderModule } from 'cocori-ng';
+import { CocoringUploaderModule } from '@cocori-ng/lib';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { UploaderDemoRoutingModule } from './uploader-demo-routing.module';

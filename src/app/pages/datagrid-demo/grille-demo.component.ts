@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DatasourceOdata, DataSourceType } from 'cocori-ng';
+import { ConfigDatagridModel, DatagridService, DatasourceOdata, DataSourceType } from '@cocori-ng/lib';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 
 @Component({

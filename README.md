@@ -14,8 +14,7 @@ ng g component cocoring-wysiwyg --display-block=true --skip-import=true --style=
 
 ## Lancer le projet web et le projet library en même temps
 
-`Build lib & watch`
-dans une fenêtre cmd :
+`Mode développement : lancer la commande pour builder la lib`
 
 npm run build-lib-watch
 
@@ -23,7 +22,11 @@ npm run build-lib-watch
 
 cd dist\cocori-ng
 
-sudo npm link
+npm link (sudo avant si linux)
+
+`Projet cible :`
+npm link @cocori-ng/lib
+
 
 `Il est possible de lancer le projet Angular pour tester la librairie`
 dans une autre fenêtre cmd, lancer la commande : 
