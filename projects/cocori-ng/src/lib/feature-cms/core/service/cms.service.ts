@@ -8,6 +8,6 @@ export class CMSService {
   constructor() { }
 
   public get name() {
-    return "tamèrelapute"
+    return "test entry point service"
   }
 }

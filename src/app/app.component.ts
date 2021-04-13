@@ -27,7 +27,7 @@ export class AppComponent {
         { label: 'Form statique', route: '/demos/static-form' },
         { label: 'Inputs chaînés', route: '/demos/static-inputs-chained' },
         { label: 'Modal', route: '/demos/modal-page' },
-        { label: 'Page CMS', route: '/demos/modal-page' },
+        { label: 'Page CMS', route: '/demos/page-cms' },
       ]
     },
     {

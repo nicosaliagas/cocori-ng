@@ -4,5 +4,10 @@
         "entryFile": "public-api.ts",
         "cssUrl": "inline"
       }
+    },
+    "peerDependencies": {
+      "@angular/material": "^11.0.1",
+      "@angular/flex-layout": "^11.0.0-beta.33",
+      "@tinymce/tinymce-angular": "^4.2.2"
     }
   }

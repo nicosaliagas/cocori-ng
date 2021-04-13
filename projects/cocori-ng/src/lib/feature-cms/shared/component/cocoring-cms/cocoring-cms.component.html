@@ -1,0 +1,35 @@
+<div class="page">
+    <div class="sidenav-header">
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle value="left" aria-label="Text align left">
+                <mat-icon>computer</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="center" aria-label="Text align center">
+                <mat-icon>tablet</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="center" aria-label="Text align center">
+                <mat-icon>tablet_mac</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="center" aria-label="Text align center">
+                <mat-icon>phone_iphone</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div class="sidenav-container">
+        <mat-sidenav-container class="layout-container" [hasBackdrop]="false">
+            <mat-sidenav class="sidenav" #sidenav [mode]="sidenavMode" position="end" [opened]="isSidenavOpen">
+                <div>
+                    <div>Blocks disponibles</div>
+                </div>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <div class="sidenav-content">
+                    <div class="no-section" (click)="openBlocksSidenav()">
+                        <h1>Page blanche</h1>
+                        <p>(cliquer pour ajouter une section)</p>
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</div>

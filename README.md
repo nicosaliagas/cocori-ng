@@ -8,9 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ng new my-first-project
 
-## Commandes CLI :
+## Generate commands :
 ng g service file
-ng g component cocoring-wysiwyg --display-block=true --skip-import=true --style=scss
+ng g component cocoring-cms --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 

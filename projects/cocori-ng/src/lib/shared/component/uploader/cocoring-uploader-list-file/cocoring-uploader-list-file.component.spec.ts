@@ -120,7 +120,7 @@ describe('CocoringUploaderListFileComponent', () => {
 
     const getFileList = () => {
       const blob = new Blob([""], { type: "image/png" });
-      
+
       blob["lastModifiedDate"] = "";
       blob["name"] = "filename.png";
 
@@ -136,11 +136,12 @@ describe('CocoringUploaderListFileComponent', () => {
     component.emitFiles(getFileList())
 
     expect(component.isUploading).toBeTrue()
-    
+
     expect(component.fileModel.fileName).toEqual("filename.png")
     expect(component.fileModel.mimeType).toEqual("image/png")
     expect(component.fileType).toEqual("image")
   })
+
 
   it('should display correct informations of an empty file from the list', () => {
     file = { description: 'description file' }
@@ -156,4 +157,37 @@ describe('CocoringUploaderListFileComponent', () => {
     expect(fileMatIcon.nativeElement.textContent).toEqual('upload_file');
   })
 
+  it('should display the file uploaded in the list', () => {
+    file = { id: 'fileId', dateUpload: new Date(), size: 82.12, mimeType: 'image/jpeg', fileName: 'new-file.png', description: 'description file' }
+
+    component.fileModel = file
+
+    fixture.detectChanges();
+
+    const fileImage: DebugElement = fixture.debugElement.query(By.css('.file-image'));
+    const fileSize: DebugElement = fixture.debugElement.query(By.css('.subtext > span'));
+    const fileInfo: DebugElement = fixture.debugElement.query(By.css('.mat-list-text span'));
+    const fileMatIcon: DebugElement = fixture.debugElement.query(By.css('.file-doc mat-icon'));
+
+    expect(fileInfo.nativeElement.textContent).toEqual('new-file.png');
+    expect(fileSize.nativeElement.textContent).toEqual('82.12 octets');
+    expect(fileImage).toBeTruthy()
+    expect(fileMatIcon).toBeFalsy()
+  })
+
+  it('should display the bottom sheet', () => {
+    file = { id: 'fileId', dateUpload: new Date(), size: 82.12, mimeType: 'image/jpeg', fileName: 'new-file.png', description: 'description file' }
+
+    component.fileModel = file
+
+    const theSpy = spyOn(component, 'openBottomSheet');
+    
+    const listOption: DebugElement = fixture.debugElement.query(By.css('mat-list-option'));
+    
+    listOption.triggerEventHandler('click', null);
+    
+    fixture.detectChanges();
+    
+    expect(theSpy).toHaveBeenCalled();
+  })
 });
