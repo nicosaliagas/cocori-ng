@@ -1,33 +1,214 @@
 <div class="page">
-    <div class="sidenav-header">
-        <mat-button-toggle-group #group="matButtonToggleGroup">
-            <mat-button-toggle value="left" aria-label="Text align left">
+    <div class="sidenav-header" style="z-index: 9;">
+        <!-- <mat-button-toggle-group [(ngModel)]="responsive" class="resolutions-group" #group="matButtonToggleGroup">
+            <mat-button-toggle value="computer" title="Vision ordinateur" aria-label="Ordinateur">
                 <mat-icon>computer</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-button-toggle value="tablet" title="Vision tablette en mode paysage" aria-label="Tablette paysage">
                 <mat-icon>tablet</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-button-toggle value="center" title="Vision tablette en mode portrait" aria-label="Tablette portrait">
                 <mat-icon>tablet_mac</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-button-toggle value="center" title="Vision téléphone" aria-label="Téléphone">
                 <mat-icon>phone_iphone</mat-icon>
             </mat-button-toggle>
-        </mat-button-toggle-group>
+        </mat-button-toggle-group> -->
+
+        <div class="toggle-sidenav" (click)="openBlocksSidenav()">
+            <mat-icon>segment</mat-icon>
+        </div>
     </div>
     <div class="sidenav-container">
-        <mat-sidenav-container class="layout-container" [hasBackdrop]="false">
-            <mat-sidenav class="sidenav" #sidenav [mode]="sidenavMode" position="end" [opened]="isSidenavOpen">
+        <mat-sidenav-container class="layout-container" [hasBackdrop]="false" fullscreen>
+            <mat-sidenav class="sidenav" #sidenav [mode]="sidenavMode" position="end" opened="false">
                 <div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
+                    <div>Blocks disponibles</div>
                     <div>Blocks disponibles</div>
                 </div>
             </mat-sidenav>
             <mat-sidenav-content>
                 <div class="sidenav-content">
-                    <div class="no-section" (click)="openBlocksSidenav()">
-                        <h1>Page blanche</h1>
-                        <p>(cliquer pour ajouter une section)</p>
+                    <div *ngIf="!nbSections && !isSidenavOpen" class="no-section" (click)="openBlocksSidenav()">
+                        <div>
+                            <h1>Page blanche</h1>
+                            <p>(cliquez pour ajouter un bloc)</p>
+                        </div>                        
                     </div>
+                    <div *ngIf="isSidenavOpen" class="col-elements">
+                        <div *ngIf="!nbSections">
+                            <div class="new-block">
+                                <h1>Aucun bloc</h1>
+                                <p>(cliquez sur un bloc pour l'ajouter)</p>
+                            </div>   
+                        </div>
+                        <div *ngIf="nbSections">
+                            <section class="fdb-block bg-dark">
+                                <div class="container">
+                                    <div class="text-center">
+                                        <h1>Made with ❤️ by Cocorisoft</h1>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- <div *ngIf="isSidenavOpen" class="col-elements">
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Amet
+                            luctus venenatis lectus magna fringilla urna. Parturient montes nascetur ridiculus mus.
+                            Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Non sodales neque sodales ut
+                            etiam sit amet nisl. Sit amet mattis vulputate enim nulla aliquet porttitor. Sit amet facilisis
+                            magna etiam tempor orci. Varius vel pharetra vel turpis nunc eget lorem dolor sed. Aenean
+                            euismod elementum nisi quis eleifend quam adipiscing vitae proin. Sollicitudin nibh sit amet
+                            commodo nulla facilisi nullam vehicula ipsum. Elementum curabitur vitae nunc sed velit
+                            dignissim. Dui faucibus in ornare quam viverra orci sagittis eu volutpat. Sit amet porttitor
+                            eget dolor. Tincidunt augue interdum velit euismod in pellentesque massa placerat duis. Sem et
+                            tortor consequat id porta nibh venenatis cras sed. Porta non pulvinar neque laoreet suspendisse
+                            interdum consectetur libero id. Diam donec adipiscing tristique risus nec feugiat. Enim praesent
+                            elementum facilisis leo vel fringilla est.
+    
+                            Venenatis tellus in metus vulputate. Dui ut ornare lectus sit amet. Sit amet cursus sit amet
+                            dictum sit amet justo donec. Mattis rhoncus urna neque viverra justo. Ut etiam sit amet nisl.
+                            Condimentum lacinia quis vel eros donec. Sit amet porttitor eget dolor morbi. Tincidunt lobortis
+                            feugiat vivamus at augue eget arcu. Eget magna fermentum iaculis eu non. Gravida in fermentum et
+                            sollicitudin. Donec adipiscing tristique risus nec. Aliquam malesuada bibendum arcu vitae
+                            elementum. Diam vulputate ut pharetra sit amet. Leo duis ut diam quam nulla porttitor massa.
+                            Ullamcorper morbi tincidunt ornare massa eget. Suspendisse sed nisi lacus sed. Cursus turpis
+                            massa tincidunt dui ut ornare lectus sit amet. Tellus at urna condimentum mattis. Ultricies mi
+                            eget mauris pharetra et ultrices neque ornare. Pharetra et ultrices neque ornare aenean euismod
+                            elementum nisi.
+    
+                            Morbi tristique senectus et netus et malesuada fames ac. Enim lobortis scelerisque fermentum dui
+                            faucibus in ornare quam viverra. Est pellentesque elit ullamcorper dignissim. Viverra justo nec
+                            ultrices dui sapien eget mi. Viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat.
+                            Laoreet id donec ultrices tincidunt arcu non sodales. Montes nascetur ridiculus mus mauris vitae
+                            ultricies leo. Cras pulvinar mattis nunc sed blandit libero. Feugiat vivamus at augue eget arcu
+                            dictum. Mauris commodo quis imperdiet massa tincidunt. Et malesuada fames ac turpis. Diam quam
+                            nulla porttitor massa. Nunc faucibus a pellentesque sit amet porttitor eget dolor morbi. Et
+                            netus et malesuada fames ac turpis egestas.
+    
+                            Massa sed elementum tempus egestas sed sed risus pretium. Nulla facilisi nullam vehicula ipsum a
+                            arcu cursus vitae. Eu scelerisque felis imperdiet proin fermentum leo. Vel risus commodo viverra
+                            maecenas accumsan lacus vel facilisis. Sed turpis tincidunt id aliquet risus feugiat. Enim
+                            lobortis scelerisque fermentum dui faucibus in ornare quam. Tincidunt ornare massa eget egestas.
+                            Lorem ipsum dolor sit amet consectetur. Urna porttitor rhoncus dolor purus non enim. Amet est
+                            placerat in egestas erat imperdiet sed euismod.
+    
+                            A erat nam at lectus urna. Semper viverra nam libero justo laoreet sit amet cursus sit.
+                            Condimentum lacinia quis vel eros donec ac. Non blandit massa enim nec dui nunc. Ornare
+                            suspendisse sed nisi lacus sed viverra tellus in. Tristique et egestas quis ipsum suspendisse
+                            ultrices. Mi bibendum neque egestas congue quisque egestas. Sed pulvinar proin gravida
+                            hendrerit. Luctus accumsan tortor posuere ac ut consequat. Pretium fusce id velit ut tortor
+                            pretium viverra suspendisse potenti. Aliquam vestibulum morbi blandit cursus risus at. Quis
+                            auctor elit sed vulputate. Donec massa sapien faucibus et. Purus in mollis nunc sed id semper.
+                            Nisi scelerisque eu ultrices vitae. Nulla facilisi nullam vehicula ipsum.
+    
+                            Venenatis cras sed felis eget velit aliquet sagittis id. Amet nisl suscipit adipiscing bibendum
+                            est. Nullam non nisi est sit. Massa tempor nec feugiat nisl. Risus quis varius quam quisque id
+                            diam vel. Morbi tristique senectus et netus. Ac placerat vestibulum lectus mauris ultrices eros
+                            in cursus turpis. Velit dignissim sodales ut eu sem integer. Nisi scelerisque eu ultrices vitae.
+                            Sed elementum tempus egestas sed sed risus pretium quam. Enim lobortis scelerisque fermentum dui
+                            faucibus. Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Sit amet consectetur
+                            adipiscing elit duis.
+    
+                            Curabitur gravida arcu ac tortor dignissim. Tempus imperdiet nulla malesuada pellentesque elit
+                            eget gravida cum. Fames ac turpis egestas sed tempus. Odio euismod lacinia at quis. Ut enim
+                            blandit volutpat maecenas volutpat blandit aliquam etiam erat. Nec sagittis aliquam malesuada
+                            bibendum. Maecenas pharetra convallis posuere morbi leo urna molestie. Quis lectus nulla at
+                            volutpat diam ut. Felis donec et odio pellentesque diam volutpat commodo sed egestas. Risus
+                            feugiat in ante metus dictum at. Volutpat odio facilisis mauris sit amet. Tristique senectus et
+                            netus et malesuada fames ac turpis. Suscipit adipiscing bibendum est ultricies integer quis
+                            auctor elit sed. Velit laoreet id donec ultrices tincidunt. Quam pellentesque nec nam aliquam
+                            sem et tortor consequat id. Ut tellus elementum sagittis vitae et leo duis ut diam. Sed blandit
+                            libero volutpat sed cras ornare arcu dui. Ultrices vitae auctor eu augue ut lectus arcu
+                            bibendum. Id leo in vitae turpis massa sed elementum tempus. Turpis nunc eget lorem dolor sed.
+    
+                            Et ligula ullamcorper malesuada proin. Nisi quis eleifend quam adipiscing vitae proin sagittis.
+                            Sit amet luctus venenatis lectus magna fringilla. Tortor vitae purus faucibus ornare. Nisl purus
+                            in mollis nunc sed id semper. Viverra aliquet eget sit amet. In mollis nunc sed id semper. Ut
+                            morbi tincidunt augue interdum. Nisl tincidunt eget nullam non nisi est sit. Adipiscing elit ut
+                            aliquam purus sit amet luctus venenatis lectus. Est ante in nibh mauris. Sit amet mattis
+                            vulputate enim nulla aliquet porttitor lacus. Feugiat nibh sed pulvinar proin gravida hendrerit.
+                            Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Eu facilisis sed odio morbi
+                            quis commodo odio aenean. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis.
+    
+                            Arcu dictum varius duis at consectetur lorem. Congue quisque egestas diam in arcu cursus euismod
+                            quis viverra. Pellentesque nec nam aliquam sem et tortor consequat id porta. Amet aliquam id
+                            diam maecenas ultricies. Facilisis magna etiam tempor orci. Feugiat vivamus at augue eget arcu
+                            dictum varius duis. Lacus sed turpis tincidunt id aliquet risus feugiat in. Imperdiet nulla
+                            malesuada pellentesque elit eget. Varius quam quisque id diam vel quam. Quam lacus suspendisse
+                            faucibus interdum posuere lorem ipsum. Molestie nunc non blandit massa enim nec dui nunc mattis.
+                            Sed nisi lacus sed viverra tellus. Consequat interdum varius sit amet mattis vulputate enim
+                            nulla. Vel pretium lectus quam id. Feugiat nibh sed pulvinar proin gravida hendrerit lectus.
+                            Purus in massa tempor nec feugiat nisl pretium. Tellus in hac habitasse platea dictumst
+                            vestibulum. Arcu risus quis varius quam quisque. Proin sed libero enim sed faucibus.
+    
+                            Orci nulla pellentesque dignissim enim sit amet. Id leo in vitae turpis massa. A lacus
+                            vestibulum sed arcu non odio euismod lacinia at. Diam vulputate ut pharetra sit. Laoreet sit
+                            amet cursus sit amet dictum. Magna etiam tempor orci eu lobortis. Gravida in fermentum et
+                            sollicitudin. Est ante in nibh mauris cursus mattis. Purus faucibus ornare suspendisse sed nisi
+                            lacus sed viverra tellus. Nibh mauris cursus mattis molestie. Quam pellentesque nec nam aliquam
+                            sem. Tellus elementum sagittis vitae et leo duis ut diam quam. Velit scelerisque in dictum non
+                            consectetur a erat nam at. Iaculis nunc sed augue lacus viverra vitae. Adipiscing at in tellus
+                            integer feugiat scelerisque varius. At augue eget arcu dictum varius. Egestas integer eget
+                            aliquet nibh praesent tristique magna. Pulvinar etiam non quam lacus suspendisse faucibus. Ut
+                            venenatis tellus in metus vulputate eu scelerisque felis imperdiet.
+                        </div>
+                    </div> -->
                 </div>
             </mat-sidenav-content>
         </mat-sidenav-container>

@@ -12,25 +12,115 @@
     flex: 1;
 
     .layout-container {
-      height: 100%;
+      top: 50px;
     }
   }
 }
 
 .sidenav-header {
-  background-color: #505050;
-  padding: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  padding: 10px;
+  align-items: center;
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+
+  .toggle-sidenav {
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+.resolutions-group {
+  border: 0;
+
+  .mat-button-toggle-appearance-standard {
+    background-color: transparent;
+    color: #fff;
+    border-left: 0;
+
+    &.mat-button-toggle-checked {
+      color: #2196f3;
+    }
+  }
+
+  ::ng-deep .mat-button-toggle-label-content {
+    line-height: 35px;
+    padding: 0 10px;
+  }
+
+  .material-icons {
+    font-size: 20px;
+  }
 }
 
 .sidenav-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   height: 100%;
   background-color: #fff;
 }
 
+.mat-drawer {
+  width: calc(75% - 40px);
+}
+
 .no-section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
   cursor: pointer;
   text-align: center;
+}
+
+.col-elements {
+  -webkit-transform: scale(0.25);
+  -moz-transform: scale(0.25);
+  -ms-transform: scale(0.25);
+  -o-transform: scale(0.25);
+  transform-origin: 25px 25px;
+  background-color: #ecebeb;
+  -webkit-transition: transform 0.25s linear;
+  -moz-transition: transform 0.25s linear;
+  -ms-transition: transform 0.25s linear;
+  -o-transition: transform 0.25s linear;
+  transition: transform 0.25s linear;
+
+  .new-block {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    height: 150px;
+    background: #f5f5f5;
+    border: solid 3px #f5f5f5;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+  }
+}
+
+section {
+  h1 {
+    margin: 0;
+  }
+}
+
+.fdb-block {
+  padding: 1.5rem 0;
+  background-color: #fff;
+}
+
+.bg-dark {
+  color: #f2f2f2;
+  background-color: #343a40 !important;
+}
+
+.text-center {
+  text-align: center !important;
 }

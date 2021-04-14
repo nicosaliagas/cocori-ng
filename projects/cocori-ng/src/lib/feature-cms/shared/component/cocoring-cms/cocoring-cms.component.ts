@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-cms',
   templateUrl: './cocoring-cms.component.html',
   styleUrls: ['./cocoring-cms.component.scss']
@@ -11,10 +12,12 @@ import { Subscription } from 'rxjs';
 export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   
+  responsive:string = 'computer'
   subscription: Subscription = new Subscription();
   activeMediaQuery = '';
   sidenavMode: string = 'side'
   isSidenavOpen: boolean = false;
+  nbSections: number = 1;
   
   constructor(mediaObserver: MediaObserver,) {
     this.eventSizeScreen(mediaObserver);
@@ -43,6 +46,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
   openBlocksSidenav() {
     this.sidenav.toggle()
+    
+    this.isSidenavOpen = this.sidenav.opened
   }
 
 }
