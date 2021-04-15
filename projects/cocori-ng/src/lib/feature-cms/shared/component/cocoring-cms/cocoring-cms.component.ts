@@ -44,7 +44,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     );
   }
 
-  openBlocksSidenav() {
+  toggleSidenavBlocks() {
     this.sidenav.toggle()
     
     this.isSidenavOpen = this.sidenav.opened

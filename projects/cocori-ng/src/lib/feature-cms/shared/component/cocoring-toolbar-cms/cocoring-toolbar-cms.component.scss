@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+.sidenav-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  padding: 10px;
+  align-items: center;
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+
+  .toggle-sidenav {
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

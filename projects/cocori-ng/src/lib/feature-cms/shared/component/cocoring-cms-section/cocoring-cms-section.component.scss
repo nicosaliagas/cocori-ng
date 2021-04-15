@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+section {
+  h1 {
+    margin: 0;
+  }
+  &.fdb-block {
+    padding: 7.5rem 0;
+    background-color: #fff;
+  }
+
+  &.bg-dark {
+    color: #f2f2f2;
+    background-color: #343a40 !important;
+  }
+
+  .text-center {
+    text-align: center !important;
+  }
+}

@@ -42,6 +42,8 @@ describe('CocoringUploaderListFileComponent', () => {
 
     uploaderService = new UploaderService(httpServiceSpy as any)
 
+    spyOn(uploaderService, 'uploadFile').and.returnValue(null)
+
     testbedService = TestBed.inject(UploaderService)
 
     apisFile = {

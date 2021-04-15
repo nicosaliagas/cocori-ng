@@ -8,14 +8,12 @@
         <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <div class="header-part-right">
-        <div>{{data.file.description}}</div>
+        <div class="description-file">{{data.file.description}}</div>
         <div class="date-upload" *ngIf="data.file.dateUpload">
             <span>{{data.file.dateUpload | date: 'dd/MM/YYYY, HH:mm':'':'fr-FR'}}</span>
         </div>
         <div class="description">            
-            <div>
-                {{data.file.fileName}}
-            </div>
+            <div class="filename">{{data.file.fileName}}</div>
             <div class="description-size">{{data.file.size | fileSize:2}}</div>
         </div>
     </div>
