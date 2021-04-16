@@ -1,9 +1,10 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { configdefault } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
-import { InputComponents, OutputCallback } from '../../../shared/component/form';
+import { ClasseComponents, InputComponents, OutputCallback } from '../../../shared/component/form';
 import {
     ButtonComponentInputs,
     ButtonIconPositon,
@@ -16,7 +17,6 @@ import {
 import { DataSourceInput } from '../../model/data-source.model';
 import { BroadcastEventService } from '../broadcast-event.service';
 import { HelperService } from '../helper/helper.service';
-import { InjectComponentService } from '../inject-component.service';
 import { ValidatorsService } from '../validators.service';
 
 /**
@@ -307,11 +307,20 @@ export class GenerateComponentViewService {
 
         if (!this.getViewContainerRef()) return;
 
-        const componentToAdd = this.injectComponentService.returnComponentClassFromType(componentType);
+        const componentToAdd = this.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
             [{ config: configComponent }],
             callback
         );
+    }
+
+    private returnComponentClassFromType(typeOfComponent: InputComponents) {
+        if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
+            const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+            throw new Error(error);
+        } else {
+            return ClasseComponents[typeOfComponent];
+        }
     }
 }

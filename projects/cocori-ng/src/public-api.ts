@@ -3,7 +3,7 @@
  */
 
 /** Sub entries */
-export * from './lib/feature-form';
+export * from './lib/feature-core';
 
 export * from './lib/feature-cms';
 
@@ -97,11 +97,11 @@ export * from './lib/core/model/form-datas.model';
 export * from './lib/core/model/data-source.model';
 export * from './lib/core/model/modal.model';
 
+// export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/interceptors/loading-interceptor.service';
 export * from './lib/core/service/interceptors/request-interceptor.service';
 export * from './lib/core/service/interceptors/global-error-interceptor.service';
 
-export * from './lib/core/service/inject-component.service';
 export * from './lib/core/service/storage.service';
 export * from './lib/core/service/token.service';
 export * from './lib/core/service/http.service';

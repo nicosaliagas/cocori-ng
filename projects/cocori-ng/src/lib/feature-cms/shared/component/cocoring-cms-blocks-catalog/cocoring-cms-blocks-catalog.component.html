@@ -1,6 +1,5 @@
 <div class="blocks-container">
-    <img src="assets/images/cms/design-blocks/1.jpg" />
-    <img src="assets/images/cms/design-blocks/26.jpg" />
-    <img src="assets/images/cms/design-blocks/26.jpg" />
-    <img src="assets/images/cms/design-blocks/1.jpg" />
+    <ng-container *ngFor="let block of cmsService.catalog; let i = index; trackBy: trackBy">
+        <img src="assets/images/cms/design-blocks/{{block.filename}}" (click)="selectBlock(block)" />
+    </ng-container>
 </div>

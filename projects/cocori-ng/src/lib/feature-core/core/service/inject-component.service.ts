@@ -1,7 +1,5 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 
-import { ClasseComponents, InputComponents } from '../../shared/component/form';
-
 export interface InputsComponent {
     [key: string]: any;
 }
@@ -14,18 +12,7 @@ export interface OutputsComponent {
     providedIn: 'root',
 })
 export class InjectComponentService {
-    private référencesComposants: any[] = [];
-
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
-
-    returnComponentClassFromType(typeOfComponent: InputComponents) {
-        if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
-            const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
-            throw new Error(error);
-        } else {
-            return ClasseComponents[typeOfComponent];
-        }
-    }
 
     loadAndAddComponentToContainer(
         componentClass: any,
@@ -55,7 +42,5 @@ export class InjectComponentService {
         // });
 
         référenceComposant.changeDetectorRef.detectChanges();
-
-        this.référencesComposants.push(référenceComposant);
     }
 }

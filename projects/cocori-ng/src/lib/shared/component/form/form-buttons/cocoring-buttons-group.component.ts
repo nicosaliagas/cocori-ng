@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/
 
 import { ButtonSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
-import { InjectComponentService } from '../../../../core/service/inject-component.service';
 
 @Component({
     selector: 'cocoring-buttons-group',
@@ -28,7 +27,6 @@ export class CocoringButtonsGroupComponent implements OnInit {
     }
 
     constructor(
-        private injectComponentService: InjectComponentService,
         public formBuilderService: FormBuilderService) { }
 
     ngOnInit() {

@@ -6,7 +6,6 @@ import { FormContainerInputs } from '../../../../core/model/component-inputs.mod
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
-import { InjectComponentService } from '../../../../core/service/inject-component.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 
 @Component({
@@ -52,8 +51,7 @@ export class CocoringFormContainerComponent implements OnInit, OnDestroy {
     constructor(
         public fb: FormBuilder,
         public formBuilderService: FormBuilderService,
-        public mappingBuilderService: MappingBuilderService,
-        public injectComponentService: InjectComponentService) {
+        public mappingBuilderService: MappingBuilderService) {
 
         this.formBuilderService.newForm();
     }

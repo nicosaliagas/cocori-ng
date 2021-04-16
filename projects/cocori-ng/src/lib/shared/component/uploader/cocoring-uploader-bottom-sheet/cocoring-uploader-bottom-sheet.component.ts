@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { FileActions, FileDetailsComponent } from '../../../../core/model/component-uploader.model';
-import { InjectComponentService } from '../../../../core/service/inject-component.service';
 
 @Component({
   selector: 'cocoring-uploader-bottom-sheet',

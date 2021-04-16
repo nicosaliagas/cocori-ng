@@ -6,24 +6,25 @@
             <mat-sidenav class="sidenav-blocks-catalog" #sidenav [mode]="sidenavMode" position="end" opened="false">
                 <cocoring-cms-blocks-catalog></cocoring-cms-blocks-catalog>                
             </mat-sidenav>
-            <mat-sidenav-content [ngClass]="{'no-margin-right': isSidenavOpen && nbSections}">
-                <div class="sidenav-content">
-                    <div *ngIf="!nbSections && !isSidenavOpen" class="no-section" (click)="toggleSidenavBlocks()">
+            <mat-sidenav-content [ngClass]="{'no-margin-right': isSidenavOpen && totalSections}">
+                <div class="sidenav-content" [ngClass]="{'sidenav-openned': isSidenavOpen}">
+                    <div *ngIf="!totalSections && !isSidenavOpen" class="no-section" (click)="toggleSidenavBlocks()">
                         <div>
                             <h1>Page blanche</h1>
                             <p>(cliquez pour ajouter un bloc)</p>
                         </div>
                     </div>
-                    <div *ngIf="isSidenavOpen && !nbSections" class="col-elements">
+                    <div *ngIf="isSidenavOpen && !totalSections" class="col-elements">
                         <div class="new-block">
                             <h1>Aucun bloc</h1>
                             <p>(cliquez sur un bloc pour l'ajouter)</p>
                         </div>
                     </div>
 
-                    <div *ngIf="nbSections" class="container-sections" [ngClass]="{'col-elements': isSidenavOpen}">
+                    <div *ngIf="totalSections" class="container-sections" [ngClass]="{'col-elements': isSidenavOpen}">
                         <div class="blocks">
-                            <cocoring-cms-section class="cms-section"></cocoring-cms-section>
+                            <!-- <cocoring-cms-section></cocoring-cms-section> -->
+                            <ng-template #ContainerRef></ng-template>
                         </div>
                     </div>
                 </div>
