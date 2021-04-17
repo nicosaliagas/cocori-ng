@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { CocoringVariableHtmlModule } from '../../../pipe/variable-html/cocoring-variable-html.module';
+import {
+    CocoringVariableHtmlModule,
+} from '../../../../feature-core/shared/pipe/variable-html/cocoring-variable-html.module';
 import { CocoringConfirmModalComponent } from './cocoring-confirm-modal.component';
 
 describe('ConfirmModalComponent', () => {

@@ -1,11 +1,11 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -13,7 +13,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { BlockModel } from '../../../core/model/cms.model';
+import { SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -73,15 +73,15 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
   addSectionEvent() {
     this.subscription.add(
-      this.cmsService.blockAdded$.pipe(
+      this.cmsService.sectionAdded$.pipe(
         tap(_ => this.totalSections = this.cmsService.sections.length),
         tap(_ => this.cdr.detectChanges()),
-        tap((datas: BlockModel) => {
+        tap((datas: SectionModel) => {
 
-          console.log("blockmodel", datas)
+          console.log("New Section : ", datas)
 
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [], null
+            [{ section: datas }], null
           )
         }),
       ).subscribe()

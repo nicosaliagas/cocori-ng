@@ -68,8 +68,8 @@ export * from './lib/shared/pipe/pretty-print/cocoring-pretty-print.module';
 export * from './lib/shared/pipe/file-size/cocoring-file-size.pipe';
 export * from './lib/shared/pipe/file-size/cocoring-file-size.module';
 
-export * from './lib/shared/pipe/variable-html/cocoring-variable-html.pipe';
-export * from './lib/shared/pipe/variable-html/cocoring-variable-html.module';
+// export * from './lib/feature-core/shared/pipe/variable-html/cocoring-variable-html.pipe';
+// export * from './lib/feature-core/shared/pipe/variable-html/cocoring-variable-html.module';
 
 export * from './lib/shared/pipe/sanitize-url/cocoring-sanitize-url.pipe';
 export * from './lib/shared/pipe/sanitize-url/cocoring-sanitize-url.module';

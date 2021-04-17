@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CocoringVariableHtmlModule } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { CocoringCmsBlocksCatalogComponent } from '../cocoring-cms-blocks-catalog/cocoring-cms-blocks-catalog.component';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
@@ -24,7 +25,8 @@ import { CocoringCmsComponent } from './cocoring-cms.component';
         MatSidenavModule,
         MatButtonToggleModule,
         MatIconModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        CocoringVariableHtmlModule
     ],
     exports: [
         CocoringCmsComponent,

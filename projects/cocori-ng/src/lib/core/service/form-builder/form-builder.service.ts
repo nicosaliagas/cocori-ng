@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
+import { HelperService, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { configdefault } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
@@ -16,7 +16,6 @@ import {
 } from '../../model/component-inputs.model';
 import { DataSourceInput } from '../../model/data-source.model';
 import { BroadcastEventService } from '../broadcast-event.service';
-import { HelperService } from '../helper/helper.service';
 import { ValidatorsService } from '../validators.service';
 
 /**

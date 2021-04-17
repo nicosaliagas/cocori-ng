@@ -1,11 +1,15 @@
-
-export interface SectionModel {
-    idSection: string,
-    idBlock: string,
-}
-
 export interface BlockModel {
     idBlock: string,
     filename: string,
-    description: string,
+    label: string,
+    content: ContentDescriptionSection
+}
+
+export interface SectionModel {
+    idSection: string,
+    block: BlockModel,
+}
+
+export interface ContentDescriptionSection {
+    texte: string,
 }
