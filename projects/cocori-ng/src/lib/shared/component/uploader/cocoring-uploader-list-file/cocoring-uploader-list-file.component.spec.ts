@@ -144,7 +144,6 @@ describe('CocoringUploaderListFileComponent', () => {
     expect(component.fileType).toEqual("image")
   })
 
-
   it('should display correct informations of an empty file from the list', () => {
     file = { description: 'description file' }
 
@@ -157,6 +156,80 @@ describe('CocoringUploaderListFileComponent', () => {
 
     expect(fileInfo.nativeElement.textContent).toEqual('description file');
     expect(fileMatIcon.nativeElement.textContent).toEqual('upload_file');
+  })
+
+  it('should display the progress bar when upload a file', () => {
+    file = { description: 'test' }
+
+    component.fileModel = file
+
+    fixture.detectChanges();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename.png";
+
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        length: 1,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+
+    component.emitFiles(getFileList())
+
+    expect(component.isUploading).toBeTrue()
+
+    component.uploaderService.progressSource.next(50)
+
+    expect(component.progress).toEqual(50);
+
+    const progressBar: DebugElement = fixture.debugElement.query(By.css('.progress-bar'));
+
+    expect(progressBar).toBeTruthy()
+  })
+
+  it('should display an error message when the upload goes wrong', () => {
+    file = { description: 'test' }
+
+    component.fileModel = file
+
+    fixture.detectChanges();
+
+    const getFileList = () => {
+      const blob = new Blob([""], { type: "image/png" });
+
+      blob["lastModifiedDate"] = "";
+      blob["name"] = "filename.png";
+
+      const file = <File>blob;
+      const fileList: FileList = {
+        0: file,
+        length: 1,
+        item: (index: number) => file
+      };
+      return fileList;
+    };
+
+    component.emitFiles(getFileList())
+
+    expect(component.isUploading).toBeTrue()
+
+    fixture.detectChanges();
+
+    component.uploaderService.fileOnError$.next()
+
+    expect(component.isUploading).toBeFalse()
+    expect(component.onError).toBeTrue()
+
+    const fileOnError: DebugElement = fixture.debugElement.query(By.css('.fileOnError'));
+
+    expect(fileOnError).toBeTruthy()
+    expect(component.upoaderFormArray.length).toEqual(0)
   })
 
   it('should display the file uploaded in the list', () => {
@@ -183,13 +256,13 @@ describe('CocoringUploaderListFileComponent', () => {
     component.fileModel = file
 
     const theSpy = spyOn(component, 'openBottomSheet');
-    
+
     const listOption: DebugElement = fixture.debugElement.query(By.css('mat-list-option'));
-    
+
     listOption.triggerEventHandler('click', null);
-    
+
     fixture.detectChanges();
-    
+
     expect(theSpy).toHaveBeenCalled();
   })
 });
