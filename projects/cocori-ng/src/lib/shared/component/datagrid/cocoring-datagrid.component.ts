@@ -1,19 +1,19 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatasourceOdata } from '@cocori-ng/lib/src/lib/feature-core';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
-import { DatasourceOdata } from '../../../core/model/data-source.model';
 import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
 
 @Component({

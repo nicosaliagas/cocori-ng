@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { CocoringInputErrorModule } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { CocoringInputErrorModule } from '../../../error-handler/input-error-handler/cocoring-input-error.module';
 import { InputIconModule } from '../extend-inputs/input-icon/input-icon.module';
 import { CocoringPasswordComponent } from './cocoring-password.component';
 

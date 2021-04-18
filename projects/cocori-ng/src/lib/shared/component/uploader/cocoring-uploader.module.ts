@@ -11,10 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CocoringInputErrorModule } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { CocoringFileSizeModule } from '../../pipe/file-size/cocoring-file-size.module';
 import { CocoringButtonModule } from '../button/cocoring-button.module';
-import { CocoringInputErrorModule } from '../error-handler/input-error-handler/cocoring-input-error.module';
 import {
   CocoringUploaderBottomSheetComponent,
 } from './cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
@@ -28,32 +28,32 @@ import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
 
 @NgModule({
-    declarations: [
-        CocoringUploaderComponent,
-        CocoringUploaderListFileComponent,
-        CocoringUploaderFileOptionsComponent,
-        CocoringUploaderFileActionsComponent,
-        CocoringUploaderBottomSheetComponent,
-    ],
-    imports: [
-        CommonModule,
-        DragDropModule,
-        CocoringFileSizeModule,
-        ReactiveFormsModule,
-        MatListModule,
-        MatFormFieldModule,
-        MatMenuModule,
-        MatProgressBarModule,
-        MatDialogModule,
-        MatBottomSheetModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        CocoringInputErrorModule,
-        CocoringButtonModule,
-    ],
-    exports: [
-        CocoringUploaderComponent
-    ],
+  declarations: [
+    CocoringUploaderComponent,
+    CocoringUploaderListFileComponent,
+    CocoringUploaderFileOptionsComponent,
+    CocoringUploaderFileActionsComponent,
+    CocoringUploaderBottomSheetComponent,
+  ],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    CocoringFileSizeModule,
+    ReactiveFormsModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatBottomSheetModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    CocoringInputErrorModule,
+    CocoringButtonModule,
+  ],
+  exports: [
+    CocoringUploaderComponent
+  ],
 })
 export class CocoringUploaderModule { }

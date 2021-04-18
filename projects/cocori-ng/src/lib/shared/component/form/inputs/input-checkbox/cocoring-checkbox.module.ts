@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CocoringInputErrorModule } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { CocoringInputErrorModule } from '../../../error-handler/input-error-handler/cocoring-input-error.module';
 import { CocoringCheckboxComponent } from './cocoring-checkbox.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { CocoringCheckboxComponent } from './cocoring-checkbox.component';
         MatCheckboxModule,
         MatFormFieldModule,
         CocoringInputErrorModule,
-        ],
+    ],
     exports: [
         CocoringCheckboxComponent,
     ]

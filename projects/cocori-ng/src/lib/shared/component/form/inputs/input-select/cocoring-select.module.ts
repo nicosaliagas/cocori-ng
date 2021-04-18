@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { CocoringInputErrorModule } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { CocoringInputErrorModule } from '../../../error-handler/input-error-handler/cocoring-input-error.module';
 import { InputIconModule } from '../extend-inputs/input-icon/input-icon.module';
 import { CocoringSelectComponent } from './cocoring-select.component';
 
@@ -17,7 +17,7 @@ import { CocoringSelectComponent } from './cocoring-select.component';
         MatSelectModule,
         CocoringInputErrorModule,
         InputIconModule,
-        ],
+    ],
     exports: [CocoringSelectComponent]
 })
 export class CocoringSelectModule { }

@@ -5,7 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { By } from '@angular/platform-browser';
 
-import { ConfigAPIsFile, FileModel } from '../../../../core/model/component-uploader.model';
+import { ConfigAPIsFile, FileModel } from '../../../../feature-core/core/model/component-uploader.model';
 import { CocoringFileSizeModule } from '../../../pipe/file-size/cocoring-file-size.module';
 import { CocoringUploaderBottomSheetComponent } from './cocoring-uploader-bottom-sheet.component';
 

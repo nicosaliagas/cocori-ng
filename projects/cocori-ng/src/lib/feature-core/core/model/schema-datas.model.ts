@@ -1,6 +1,5 @@
-import { InputComponents } from '../../shared/component/form';
-import { NameControl } from './component-inputs.model';
 import { DataSourceInput } from './data-source.model';
+import { FormInputComponents } from './form-input-components.model';
 
 export interface Schema {
     page: any,
@@ -21,10 +20,10 @@ export interface FormSchema {
 
 export interface FieldSchema {
     label: string;
-    name: NameControl;
-    type: InputComponents;
+    name: string;
+    type: FormInputComponents;
     dataSource: DataSourceInput;
-    inRelationWith: NameControl;
+    inRelationWith: string;
 }
 /** / Form */
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ConfirmModalService, FormBuilderService, InputComponents, ModalOptionsModel } from '@cocori-ng/lib';
+import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from '@cocori-ng/lib';
+import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
 export interface EmailModalModel {
   email: string,
@@ -60,7 +61,7 @@ export class ModalPageComponent implements OnInit {
       .addInput('email', config => config
         .nameLabel('Email')
         .isRequired()
-        .typeInput(InputComponents.INPUT_EMAIL))
+        .typeInput(FormInputComponents.INPUT_EMAIL))
       .configInputsForm
   }
 }

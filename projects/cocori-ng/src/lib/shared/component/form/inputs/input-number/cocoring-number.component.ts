@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
-import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
-import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
+import {
+  ExtendInputsComponent,
+} from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
 
-import { configdefault } from '../../../config/config.components';
+import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigAPIsFile, FileModel } from '../../../core/model/component-uploader.model';
 import { ConfigWysiwygModel, InitWysiwyg, PluginsAvailable } from '../../../core/model/component-wysiwyg.model';
 import { UploaderService } from '../../../core/service/uploader/uploader.service';
@@ -29,8 +29,8 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
   @Input() height: number = 500;
   @Input() inline: boolean = false;
   @Input() menubar: boolean = true;
-  @Input() plugins: PluginsAvailable[] = <PluginsAvailable[]>configdefault.wysiwyg.plugins;
-  @Input() toolbar: string = configdefault.wysiwyg.toolbar;
+  @Input() plugins: PluginsAvailable[] = <PluginsAvailable[]>DefaultConfigComponent.wysiwyg.plugins;
+  @Input() toolbar: string = DefaultConfigComponent.wysiwyg.toolbar;
   callbackFileUplad: any;
   fileUploaded: File;
   uploadImageDialogInstance: any;

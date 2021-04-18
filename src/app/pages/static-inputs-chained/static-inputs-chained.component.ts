@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DataSourceType, FormBuilderService, InputComponents } from '@cocori-ng/lib';
+import { FormBuilderService } from '@cocori-ng/lib';
+import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
 @Component({
   selector: 'ct-static-inputs-chained',
@@ -31,14 +32,14 @@ export class StaticInputsChainedComponent implements OnInit {
       .setViewContainerRef(this.formContainerRef)
       .addInput('regimes', config => config
         .nameLabel('Régime alimentaire')
-        .typeInput(InputComponents.INPUT_SELECT)
+        .typeInput(FormInputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
           value: [{ id: "vegi", name: "Végétarien" }, { id: "vegetalien", name: "Végétalien" }, { id: "aucun", name: "Aucun" }]
         }))
       .addInput('plat', config => config
         .nameLabel('Plat')
-        .typeInput(InputComponents.INPUT_SELECT)
+        .typeInput(FormInputComponents.INPUT_SELECT)
         .inRelationWith('regimes')
         .dataSource({
           type: DataSourceType.BRUTE,

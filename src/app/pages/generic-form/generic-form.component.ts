@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {
-  ConfigInputComponent,
-  FormBuilderService,
-  FormSchema,
-  HttpService,
-  InputComponents,
-  SubmitDatas,
-} from '@cocori-ng/lib';
+import { FormBuilderService, SubmitDatas } from '@cocori-ng/lib';
+import { ConfigInputComponent, FormInputComponents, FormSchema, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -39,7 +33,7 @@ export class GenericFormComponent implements OnInit {
     });
 
     this.inputComponentInputs = {
-      type: InputComponents.INPUT_TEXTAREA,
+      type: FormInputComponents.INPUT_TEXTAREA,
       formGroup: this.generatedForm,
       nameLabel: "Contenu du JSON ici",
       nameControl: 'fieldJsonText',

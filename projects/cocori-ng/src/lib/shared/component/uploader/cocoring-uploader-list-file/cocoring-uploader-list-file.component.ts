@@ -12,18 +12,17 @@ import {
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { debounceTime, filter, tap } from 'rxjs/operators';
-
-import { NameControl } from '../../../../core/model/component-inputs.model';
 import {
   ConfigAPIsFile,
   FileActions,
   FileDetailsComponent,
   FileModel,
-} from '../../../../core/model/component-uploader.model';
+  UploaderService,
+} from '@cocori-ng/lib/src/lib/feature-core';
+import { Subscription } from 'rxjs';
+import { debounceTime, filter, tap } from 'rxjs/operators';
+
 import { HelperUploaderService } from '../../../../core/service/helper/helper-uploader.service';
-import { UploaderService } from '../../../../core/service/uploader/uploader.service';
 import {
   CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
@@ -45,7 +44,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
 
   @Input() formGroup: FormGroup
-  @Input() nameControl: NameControl
+  @Input() nameControl: string
   @Input() fileModel: FileModel
   @Input() apisFile: ConfigAPIsFile
 

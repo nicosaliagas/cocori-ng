@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ConfigAPIsFile, FileActions, FileModel } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ConfigAPIsFile, FileActions, FileModel } from '../../../../core/model/component-uploader.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

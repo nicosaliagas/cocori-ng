@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { CommandMappings } from '../model/schema-datas.model';
+import { CommandMappings } from '@cocori-ng/lib/src/lib/feature-core';
 
 interface ParamsMapping {
     mappingName: string;

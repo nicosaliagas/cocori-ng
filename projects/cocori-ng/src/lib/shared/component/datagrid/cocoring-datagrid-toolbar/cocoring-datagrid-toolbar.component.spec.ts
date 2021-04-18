@@ -6,8 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
 import { ConfigDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DataSourceType } from '../../../../core/model/data-source.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { DataSourceType } from '../../../../feature-core/core/model/data-source.model';
 import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar.component';
 
 describe('CocoringDatagridToolbarComponent', () => {

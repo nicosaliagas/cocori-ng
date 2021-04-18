@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FileModel } from '../../../../core/model/component-uploader.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { FileModel } from '../../../../feature-core/core/model/component-uploader.model';
 import { CocoringUploaderFileOptionsComponent } from './cocoring-uploader-file-options.component';
 
 describe('CocoringUploaderFileOptionsComponent', () => {

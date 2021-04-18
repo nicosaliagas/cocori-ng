@@ -1,22 +1,24 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { HelperService, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
-
-import { configdefault } from '../../../config/config.components';
-import { ConfigEvents } from '../../../config/config.events';
-import { ClasseComponents, InputComponents, OutputCallback } from '../../../shared/component/form';
 import {
+    BroadcastEventService,
     ButtonComponentInputs,
     ButtonIconPositon,
     ConfigComponentInputs,
+    ConfigEvents,
     ConfigInputComponent,
+    DataSourceInput,
+    DefaultConfigComponent,
+    FormInputComponents,
+    HelperService,
+    InjectComponentService,
     InputFieldAppearance,
-    NameControl,
+    OutputCallback,
     TypeButtonEnum,
-} from '../../model/component-inputs.model';
-import { DataSourceInput } from '../../model/data-source.model';
-import { BroadcastEventService } from '../broadcast-event.service';
-import { ValidatorsService } from '../validators.service';
+    ValidatorsService,
+} from '@cocori-ng/lib/src/lib/feature-core';
+
+import { ClasseComponents } from '../../../shared/component/form';
 
 /**
  * https://www.typescriptlang.org/play?#code/C4TwDgpgBAggTgcwK4FsIDtgBVwQM4A8WAfFALxRZQQAewGAJnlABQB0HUAhongFxQAlugBmEOFACqASnKlhYiQCUoAfikD0EAG7iA3AChQkKEohgANlwDGEM8CRx0OSAQDyAGigA5UhXYcXALwyGiYLvjuxLJkpN6GRrhQAEJIghYM4gQA0tR0jMwA1hAgAPYiUADCpejWcBD0qemZcH5QAN4GUFAA2pJC6FDZALoC-bT06ExQAOQARmkZM2pVNXUNEE0Z4n3DUAJmljZ2DY7OuARd3au19Y2LLbseV91bLQQAojTWFkiZOV5JKQJgUoFpdBJ1PMHssBF8fn8IACpMRiFc0QBfBIiJC1YCCGpQBbNcQsaQCN5ZeG-f7FMoVaq3DaUuBeaHNGaojpXO5nMEQADuN3W9xJcDJ3GYXHQIEMGIMBh+XDwzEZIs2D3E3O6XDJAmAAAtBMxOtcoLynFBDcbDN15Vc5nqrUaTS9zadLda8LaoPbusSMk68MA4MIENrrhbBjMRKVSjMffL7QGWmS2LrpGxHZmU2S9FAAPQFqClQoGFOknNpjNZh55wvF0vlzXinN16T5ovUOBwUpwZti6tp3Mdhvd3v9iutrPD9ud4viCcD7bTms1kfz8d95epqt72vNetdxfbqdD-fZg+B0fHnunlvn9PD2eHm8Lu9wIA
@@ -47,7 +49,7 @@ class InputConfigBuilder<Builder> {
     _icon: string;
     _maxlength: number;
     _inRelationWith: string;
-    _type: InputComponents;
+    _type: FormInputComponents;
     _dataSource: DataSourceInput;
     _callbackComponent: OutputCallback;
 
@@ -100,7 +102,7 @@ class InputConfigBuilder<Builder> {
     }
 
     typeInput(
-        type: InputComponents) {
+        type: FormInputComponents) {
         this._type = type
 
         return this
@@ -149,8 +151,8 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
     private currentForm: FormGroup;
     private _configInputsForm: ConfigInputComponent[] = [];
-    private _appearance: InputFieldAppearance = <InputFieldAppearance>configdefault.form.appearance
-    private _styleCompact: boolean = configdefault.form.styleCompact;
+    private _appearance: InputFieldAppearance = <InputFieldAppearance>DefaultConfigComponent.form.appearance
+    private _styleCompact: boolean = DefaultConfigComponent.form.styleCompact;
 
     constructor(
         private fb: FormBuilder,
@@ -202,7 +204,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this.formName = name;
 
-        this.currentForm.addControl(configdefault.form.keyId, new FormControl(id))
+        this.currentForm.addControl(DefaultConfigComponent.form.keyId, new FormControl(id))
 
         return this;
     }
@@ -213,7 +215,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this;
     }
 
-    addInput<InputName extends NameControl, ReturnType extends AddInput<this, InputName>>(
+    addInput<InputName extends string, ReturnType extends AddInput<this, InputName>>(
         inputName: Exclude<InputName, InputNames>,
         configBuilder: (b: InputConfigBuilder<this>) => InputConfigBuilder<this>
     ): ReturnType {
@@ -273,7 +275,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             onClickSubmit: this.onClickSubmit.bind(this)
         };
 
-        this.generateComponentViewService.addComponentToView(InputComponents.BUTTON, configInputComponent, builder._callbackComponent);
+        this.generateComponentViewService.addComponentToView(FormInputComponents.BUTTON, configInputComponent, builder._callbackComponent);
 
         return this as FormBuilderService as ReturnType;
     }
@@ -302,7 +304,7 @@ export class GenerateComponentViewService {
         return this.formContainerRef
     }
 
-    addComponentToView(componentType: InputComponents, configComponent: ConfigComponentInputs, callback: OutputCallback) {
+    addComponentToView(componentType: FormInputComponents, configComponent: ConfigComponentInputs, callback: OutputCallback) {
 
         if (!this.getViewContainerRef()) return;
 
@@ -314,7 +316,7 @@ export class GenerateComponentViewService {
         );
     }
 
-    private returnComponentClassFromType(typeOfComponent: InputComponents) {
+    private returnComponentClassFromType(typeOfComponent: FormInputComponents) {
         if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
             const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
             throw new Error(error);

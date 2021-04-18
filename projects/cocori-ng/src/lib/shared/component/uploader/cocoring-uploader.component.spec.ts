@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
-import { UploaderService } from '../../../core/service/uploader/uploader.service';
+import { UploaderService } from '../../../feature-core/core/service/uploader/uploader.service';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
 
 describe('CocoringUploadComponent', () => {

@@ -3,10 +3,9 @@ import { FormGroup, ValidationErrors } from '@angular/forms';
 import { merge, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { configdefault } from '../../../../config/config.components';
+import { DefaultConfigComponent } from '../../../../config/config.components';
 import { ConfigEvents } from '../../../../config/config.events';
 import { BroadcastEventService } from '../../../../core/service/broadcast-event.service';
-import { ToastMessageService } from '../../../../core/service/toast-message.service';
 import { ValidatorsService, ValidtionError } from '../../../../core/service/validators.service';
 
 @Component({
@@ -29,14 +28,13 @@ export class CocoringInputErrorComponent implements OnInit, OnDestroy {
 
     constructor(
         private broadcastEventService: BroadcastEventService,
-        private validatorsService: ValidatorsService,
-        private toastMessageService: ToastMessageService) { }
+        private validatorsService: ValidatorsService) { }
 
     ngOnInit() {
 
-        if (!this.form.get(configdefault.form.keyId)) return;
+        if (!this.form.get(DefaultConfigComponent.form.keyId)) return;
 
-        this.formId = this.form.get(configdefault.form.keyId).value as string
+        this.formId = this.form.get(DefaultConfigComponent.form.keyId).value as string
 
         const onSubmitObs: Observable<unknown> = this.broadcastEventService.listen([ConfigEvents.FORM_SUBMITTED, this.formId])
         const valueChangesObs: Observable<unknown> = this.form.get(this.controlName).valueChanges

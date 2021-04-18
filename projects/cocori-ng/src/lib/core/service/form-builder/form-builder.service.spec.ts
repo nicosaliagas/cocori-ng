@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DefaultConfigComponent, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { configdefault } from '../../../config/config.components';
-import { InputComponents } from '../../../shared/component/form';
-import { ConfigInputComponent } from '../../model/component-inputs.model';
+import { ConfigInputComponent } from '../../../feature-core/core/model/component-inputs.model';
 import { FormBuilderService } from './form-builder.service';
 
 describe('FormBuilderService', () => {
@@ -28,21 +27,21 @@ describe('FormBuilderService', () => {
 
     expect(Object.keys(formBuilderService.configInputsForm).length).toEqual(0)
 
-    expect(formBuilderService.form.get(configdefault.form.keyId)).toBeTruthy()
+    expect(formBuilderService.form.get(DefaultConfigComponent.form.keyId)).toBeTruthy()
 
-    expect(formBuilderService.form.get(configdefault.form.keyId).value).not.toBeNull()
+    expect(formBuilderService.form.get(DefaultConfigComponent.form.keyId).value).not.toBeNull()
 
-    expect(formBuilderService.form.get(configdefault.form.keyId).value).toEqual(formBuilderService.formId)
+    expect(formBuilderService.form.get(DefaultConfigComponent.form.keyId).value).toEqual(formBuilderService.formId)
   });
 
   it('should create a new form', () => {
     formBuilderService
       .addInput('control1', config => config
         .isRequired()
-        .typeInput(InputComponents.INPUT_TEXT)
+        .typeInput(FormInputComponents.INPUT_TEXT)
         .nameLabel('label control1'))
       .addInput('control2', config => config
-        .typeInput(InputComponents.INPUT_TEXT))
+        .typeInput(FormInputComponents.INPUT_TEXT))
 
 
     expect(Object.keys(formBuilderService.form.controls).length).toEqual(1)
@@ -51,7 +50,7 @@ describe('FormBuilderService', () => {
     const firstConfig: ConfigInputComponent = formBuilderService.configInputsForm[0]
 
     expect(firstConfig.nameControl).toEqual('control1')
-    expect(firstConfig.type).toEqual(InputComponents.INPUT_TEXT)
+    expect(firstConfig.type).toEqual(FormInputComponents.INPUT_TEXT)
     expect(firstConfig.nameLabel).toEqual('label control1')
 
     expect(firstConfig.validators.length).toEqual(1)
@@ -64,10 +63,10 @@ describe('FormBuilderService', () => {
     formBuilderService
       .addInput('control1', config => config
         .isRequired()
-        .typeInput(InputComponents.INPUT_TEXT)
+        .typeInput(FormInputComponents.INPUT_TEXT)
         .nameLabel('label control1'))
       .addInput('control2', config => config
-        .typeInput(InputComponents.INPUT_TEXT))
+        .typeInput(FormInputComponents.INPUT_TEXT))
       .addButton('Valider', config => config
         .isTypeSubmit()
         .icon('check')

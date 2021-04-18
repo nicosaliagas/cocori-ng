@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ButtonSchema } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ButtonSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 
 @Component({

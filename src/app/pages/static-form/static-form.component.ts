@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ButtonIconPositon, DataSourceType, FormBuilderService, HttpService, InputComponents } from '@cocori-ng/lib';
+import { FormBuilderService } from '@cocori-ng/lib';
+import { ButtonIconPositon, DataSourceType, FormInputComponents, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
 
 @Component({
   selector: 'ct-static-form',
@@ -38,7 +39,7 @@ export class StaticFormComponent implements OnInit {
         .appearance('standard')
         .nameLabel('Datasource - brute')
         .icon('search')
-        .typeInput(InputComponents.INPUT_SELECT)
+        .typeInput(FormInputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
           value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
@@ -56,37 +57,37 @@ export class StaticFormComponent implements OnInit {
         .nameLabel('Nom')
         .icon('face')
         .appearance('standard')
-        .typeInput(InputComponents.INPUT_TEXT)
+        .typeInput(FormInputComponents.INPUT_TEXT)
         .maxlength(20)
         )
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .appearance('outline')
-        .typeInput(InputComponents.INPUT_TEXT))
+        .typeInput(FormInputComponents.INPUT_TEXT))
       .addInput('age', config => config
         .nameLabel('Age')
         .appearance('fill')
         .maxlength(2)
-        .typeInput(InputComponents.INPUT_NUMBER))
+        .typeInput(FormInputComponents.INPUT_NUMBER))
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
         .icon('alternate_email')
         .appearance('standard')
-        .typeInput(InputComponents.INPUT_EMAIL))
+        .typeInput(FormInputComponents.INPUT_EMAIL))
       .addInput('password', config => config
         .isRequired()
         .appearance('standard')
         .nameLabel('Mot de passe')
-        .typeInput(InputComponents.INPUT_PASSWORD))
+        .typeInput(FormInputComponents.INPUT_PASSWORD))
       .addInput('zone', config => config
         .isRequired()
         .nameLabel('Zone')
-        .typeInput(InputComponents.INPUT_TEXTAREA)
+        .typeInput(FormInputComponents.INPUT_TEXTAREA)
         .outputCallback({ callback: this.onComponentReady }))
       .addInput('condition', config => config
         .nameLabel("J'ai lu et accepte les conditions")
-        .typeInput(InputComponents.INPUT_CHECKBOX))
+        .typeInput(FormInputComponents.INPUT_CHECKBOX))
       .setViewContainerRef(this.formContainerRef3)
       .addButton('Valider', config => config
         .isTypeSubmit()

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigUploaderModel, DataSourceType, FormBuilderService, InputComponents, ValidatorsService } from '@cocori-ng/lib';
+import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from '@cocori-ng/lib';
+import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 import * as faker from 'faker/locale/fr';
 
 @Component({
@@ -32,7 +33,7 @@ export class UploaderDemoComponent implements OnInit {
         .nameLabel('Nom')
         .icon('face')
         .appearance('standard')
-        .typeInput(InputComponents.INPUT_TEXT)
+        .typeInput(FormInputComponents.INPUT_TEXT)
         .maxlength(20)
       )
       .setViewContainerRef(this.formContainerRef1)
@@ -45,7 +46,7 @@ export class UploaderDemoComponent implements OnInit {
 
   private initConfigUploader() {
     this._config = {
-      type: InputComponents.INPUT_UPLOADER,
+      type: FormInputComponents.INPUT_UPLOADER,
       formGroup: this.formulaire,
       nameControl: "files",
       validators: [ValidatorsService.require],

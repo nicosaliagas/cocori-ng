@@ -2,8 +2,11 @@ import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@an
 import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
-import { OutputCallback } from '../..';
-import { ConfigInputComponent, InputFieldAppearance, NameControl } from '../../../../../core/model/component-inputs.model';
+import {
+    ConfigInputComponent,
+    InputFieldAppearance,
+    OutputCallback,
+} from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../../core/model/data-source.model';
 import { DatasourceService } from '../../../../../core/service/datasource.service';
 import { HttpService } from '../../../../../core/service/http.service';
@@ -17,7 +20,7 @@ import { ValidatorsService } from '../../../../../core/service/validators.servic
 
 export abstract class ExtendInputsComponent implements OnDestroy {
     @Input() formGroup: FormGroup
-    @Input() nameControl: NameControl
+    @Input() nameControl: string
     @Input() nameLabel: string
 
     /** méthode appelée lorsque que le contrôle a été ajouté au formulaire avec en paramètre le nom du contrôle créé */
@@ -26,7 +29,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     subscriptions: Subscription = new Subscription();
 
     dataSource$: Observable<any>;
-    inRelationWith: NameControl;
+    inRelationWith: string;
     validators: ValidatorFn[];
     appearance: InputFieldAppearance;
     httpService: HttpService;

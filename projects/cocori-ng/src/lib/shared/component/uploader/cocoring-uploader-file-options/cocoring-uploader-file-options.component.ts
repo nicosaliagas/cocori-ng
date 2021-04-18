@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FileModel } from '../../../../core/model/component-uploader.model';
+import { FileModel } from '@cocori-ng/lib/src/lib/feature-core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

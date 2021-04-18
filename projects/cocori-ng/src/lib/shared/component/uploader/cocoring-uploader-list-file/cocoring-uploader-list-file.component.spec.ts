@@ -7,8 +7,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { By } from '@angular/platform-browser';
 
-import { ConfigAPIsFile, FileModel } from '../../../../core/model/component-uploader.model';
-import { UploaderService } from '../../../../core/service/uploader/uploader.service';
+import { ConfigAPIsFile, FileModel } from '../../../../feature-core/core/model/component-uploader.model';
+import { UploaderService } from '../../../../feature-core/core/service/uploader/uploader.service';
 import { CocoringFileSizeModule } from '../../../pipe/file-size/cocoring-file-size.module';
 import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file.component';
 

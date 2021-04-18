@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import { ConfigAPIsFile, ConfigUploaderModel } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ConfigAPIsFile, ConfigUploaderModel } from '../../../core/model/component-uploader.model';
-import { ExtendInputsComponent } from '../form/inputs/extend-inputs/extend-inputs.component';
+import {
+  ExtendInputsComponent,
+} from '../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 export interface Section {
   name: string;

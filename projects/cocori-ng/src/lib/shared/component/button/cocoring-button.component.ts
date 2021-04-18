@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+    ButtonComponentInputs,
+    ButtonIconPositon,
+    DefaultConfigComponent,
+    TypeButtonEnum,
+} from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 
-import { configdefault } from '../../../config/config.components';
-import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '../../../core/model/component-inputs.model';
 import { LoadingService } from '../../../core/service/loading.service';
 
 @Component({
@@ -13,7 +17,7 @@ import { LoadingService } from '../../../core/service/loading.service';
 export class CocoringButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
-    @Input() text: string = configdefault.button.text;
+    @Input() text: string = DefaultConfigComponent.button.text;
     @Input() type: string = TypeButtonEnum.SUBMIT;
     @Input() class: string;
 

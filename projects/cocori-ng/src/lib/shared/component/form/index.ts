@@ -1,3 +1,5 @@
+import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+
 import { CocoringButtonComponent } from '../button/cocoring-button.component';
 import { CocoringCheckboxComponent } from './inputs/input-checkbox/cocoring-checkbox.component';
 import { CocoringEmailComponent } from './inputs/input-email/cocoring-email.component';
@@ -8,33 +10,14 @@ import { CocoringTextComponent } from './inputs/input-text/cocoring-text.compone
 import { CocoringTextareaComponent } from './inputs/input-textarea/cocoring-textarea.component';
 import { CocoringViewerComponent } from './inputs/input-viewer/cocoring-viewer.component';
 
-export enum InputComponents {
-    INPUT_UPLOADER = 'input-uploader',
-    INPUT_TEXT = 'input-text',
-    INPUT_EMAIL = 'input-email',
-    INPUT_CHECKBOX = 'input-checkbox',
-    INPUT_NUMBER = 'input-number',
-    INPUT_PASSWORD = 'input-password',
-    INPUT_TEXTAREA = 'input-textarea',
-    INPUT_VIEWER = 'input-viewer',
-    INPUT_SELECT = 'input-select',
-    BUTTON = 'button',
-}
-
 export const ClasseComponents = {
-    [InputComponents.INPUT_TEXT]: CocoringTextComponent,
-    [InputComponents.INPUT_EMAIL]: CocoringEmailComponent,
-    [InputComponents.INPUT_CHECKBOX]: CocoringCheckboxComponent,
-    [InputComponents.INPUT_NUMBER]: CocoringNumberComponent,
-    [InputComponents.INPUT_PASSWORD]: CocoringPasswordComponent,
-    [InputComponents.INPUT_TEXTAREA]: CocoringTextareaComponent,
-    [InputComponents.INPUT_VIEWER]: CocoringViewerComponent,
-    [InputComponents.INPUT_SELECT]: CocoringSelectComponent,
-    [InputComponents.BUTTON]: CocoringButtonComponent,
+    [FormInputComponents.INPUT_TEXT]: CocoringTextComponent,
+    [FormInputComponents.INPUT_EMAIL]: CocoringEmailComponent,
+    [FormInputComponents.INPUT_CHECKBOX]: CocoringCheckboxComponent,
+    [FormInputComponents.INPUT_NUMBER]: CocoringNumberComponent,
+    [FormInputComponents.INPUT_PASSWORD]: CocoringPasswordComponent,
+    [FormInputComponents.INPUT_TEXTAREA]: CocoringTextareaComponent,
+    [FormInputComponents.INPUT_VIEWER]: CocoringViewerComponent,
+    [FormInputComponents.INPUT_SELECT]: CocoringSelectComponent,
+    [FormInputComponents.BUTTON]: CocoringButtonComponent,
 };
-
-export type OutputComponents = "callback";
-
-export type OutputCallback = {
-    [key in OutputComponents]: Function
-}

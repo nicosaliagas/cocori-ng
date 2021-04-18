@@ -1,10 +1,15 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+    ButtonSchema,
+    CommandMappings,
+    FieldSchema,
+    FormContainerInputs,
+    FormSchema,
+} from '@cocori-ng/lib/src/lib/feature-core';
 import { Subject, Subscription } from 'rxjs';
 
-import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
-import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 

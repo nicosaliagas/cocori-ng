@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ConfigInputComponent, NameControl } from '../../../../../core/model/component-inputs.model';
-import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
+import {
+  ExtendInputsComponent,
+} from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +17,7 @@ export class CocoringViewerComponent extends ExtendInputsComponent implements On
 
     nameLabel: string;
     formGroup: FormGroup;
-    nameControl: NameControl;
+    nameControl: string;
 
     @Input()
     set config(config: ConfigInputComponent) {

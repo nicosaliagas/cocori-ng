@@ -4,14 +4,15 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, last, map, tap } from 'rxjs/operators';
 import SparkMD5 from 'spark-md5';
 
-import { configdefault } from '../../../config/config.components';
+import { DefaultConfigComponent } from '../../../config/config.components';
 import {
-  AssembleFilePartsCommand,
-  ConfigAPIsFile,
-  FilePartCommand,
-  NewFileCommand,
+    AssembleFilePartsCommand,
+    ConfigAPIsFile,
+    FilePartCommand,
+    NewFileCommand,
 } from '../../model/component-uploader.model';
 import { HttpService } from '../http.service';
+
 
 interface FileReaderEventTarget extends EventTarget {
   result: string;
@@ -35,7 +36,7 @@ export class UploaderService {
 
   constructor(
     private httpService: HttpService,) {
-    this.chunkSize = configdefault.upload.chunkSize;
+    this.chunkSize = DefaultConfigComponent.upload.chunkSize;
   }
 
   uploadFile(file: File) {

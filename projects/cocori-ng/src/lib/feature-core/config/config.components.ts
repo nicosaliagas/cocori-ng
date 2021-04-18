@@ -1,5 +1,5 @@
 
-export const configdefault = {
+export const DefaultConfigComponent = {
     form: {
         keyId: "formId",
         appearance: 'outline',

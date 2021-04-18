@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
+import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
-import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
+import {
+  ExtendInputsComponent,
+} from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
