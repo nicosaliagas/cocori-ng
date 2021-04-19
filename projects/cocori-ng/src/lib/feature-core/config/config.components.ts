@@ -16,11 +16,13 @@ export const DefaultConfigComponent = {
     },
     wysiwyg: {
         plugins: [
+            'quickbars',
             'advlist',
             'autolink',
             'lists',
             'link',
             'image',
+            'media',
             'imagetools',
             'emoticons',
             'preview',
@@ -31,8 +33,9 @@ export const DefaultConfigComponent = {
             'code',
             'help',
         ],
-        toolbar: 'undo redo | formatselect | bold italic backcolor | \
+        toolbar: 'undo redo | formatselect | bold italic forecolor backcolor | \
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat',
+        quickbars: 'bullist numlist | imageoptions media | quicklink | quicktable | emoticons'
     }
 }

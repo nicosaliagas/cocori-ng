@@ -51,5 +51,9 @@ describe('CocoringUploaderFileActionsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+    expect(component.apiFile).toEqual('url1-fileId')
+
+    expect(component.apiFileDownload).toEqual('url2-fileId')
   });
 });

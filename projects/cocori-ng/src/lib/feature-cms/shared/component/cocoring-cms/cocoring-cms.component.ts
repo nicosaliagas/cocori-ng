@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -13,7 +14,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { SectionModel } from '../../../core/model/cms.model';
+import { ConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -26,6 +27,16 @@ import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cm
 export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
+  configCms: ConfigCmsModel;
+
+  @Input()
+  set config(config: ConfigCmsModel) {
+    if (!config) {
+      throw new Error(`La config du composant uploader n'est pas correcte... config: ${config}`);
+    }
+
+    this.configCms = config
+  }
 
   responsive: string = 'computer'
   subscription: Subscription = new Subscription();
@@ -81,7 +92,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
           console.log("New Section : ", datas)
 
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas }], null
+            [{ section: datas }, { wysiwyg: this.configCms.wysiwygOptions }], null
           )
         }),
       ).subscribe()

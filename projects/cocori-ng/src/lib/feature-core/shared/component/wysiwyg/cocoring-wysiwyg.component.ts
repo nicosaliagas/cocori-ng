@@ -31,6 +31,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
   @Input() menubar: boolean = true;
   @Input() plugins: PluginsAvailable[] = <PluginsAvailable[]>DefaultConfigComponent.wysiwyg.plugins;
   @Input() toolbar: string = DefaultConfigComponent.wysiwyg.toolbar;
+  @Input() quickbars: string = DefaultConfigComponent.wysiwyg.quickbars;
   callbackFileUplad: any;
   fileUploaded: File;
   uploadImageDialogInstance: any;
@@ -60,19 +61,23 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
     const inline = params.inline || this.inline
     const menubar = params.menubar || this.menubar
     const plugins = params.plugins || this.plugins
+    const quickbars = params.quickbars || this.quickbars
     const toolbar = params.toolbar ? this.wysiwygService.toolbarOptionsToString(params.toolbar) : this.toolbar
 
     this.initParams = {
       language: 'fr_FR',
       height: height,
       inline: inline,
-      // menubar: menubar,
-      menubar: false,
-      // plugins: plugins,
-      plugins: 'quickbars image imagetools',
-      quickbars_image_toolbar: 'alignleft aligncenter alignright | rotateleft rotateright | imageoptions',
-      // toolbar: toolbar,
-      toolbar: false,
+      menubar: menubar,
+      toolbar: toolbar,
+      contextmenu: false,
+      plugins: plugins,
+      // menubar: false,
+      // toolbar: false,
+      // quickbars_selection_toolbar: 'bold italic underline forecolor backcolor | fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | removeformat | formatselect | quicklink blockquote table | imageoptions media | emoticons',
+      quickbars_selection_toolbar: 'bold forecolor | fontsizeselect | quicklink | removeformat',
+      quickbars_insert_toolbar: quickbars,
+      // contextmenu: 'undo redo | bullist numlist | image | media | link | table | hr | emoticons | help',
       image_title: true,
       automatic_uploads: true,
       paste_data_images: true,

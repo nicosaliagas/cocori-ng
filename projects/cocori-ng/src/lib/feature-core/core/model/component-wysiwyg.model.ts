@@ -11,6 +11,7 @@ export interface InitWysiwyg {
     inline?: boolean;
     plugins?: PluginsAvailable[];
     toolbar?: ToolbarOptions[][];
+    quickbars?: ToolbarOptions[][];
 }
 
 export type PluginsAvailable = 'advlist' | 'autolink' | 'lists' | 'link' | 'image' | 'charmap' | 'print' | 'preview' | 'anchor' | 'searchreplace' | 'visualblocks' | 'code' | 'fullscreen' | 'insertdatetime' | 'media' | 'table' | 'paste' | 'code' | 'help' | 'wordcount'

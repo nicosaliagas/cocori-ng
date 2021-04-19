@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
+import { Component, OnInit } from '@angular/core';
+import { ConfigCmsModel } from '@cocori-ng/lib/src/lib/feature-cms/core/model/cms.model';
 
 @Component({
   selector: 'page-cms',
@@ -8,80 +7,26 @@ import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService 
   styleUrls: ['./page-cms.component.scss']
 })
 export class PageCMSComponent implements OnInit {
-  @ViewChild('FormContainerRefButton', { static: true, read: ViewContainerRef }) formContainerRefButton: ViewContainerRef;
 
-  _config: ConfigWysiwygModel;
-  _configInline: ConfigWysiwygModel;
+  configCms: ConfigCmsModel;
 
-  formulaire: FormGroup
-
-  constructor(
-    private formBuilderService: FormBuilderService,) { }
+  constructor() { }
 
   ngOnInit() {
-    this.buildForm()
+    this.initConfigCms()
   }
 
-  private buildForm() {
-    this.formulaire = this.formBuilderService
-      .setViewContainerRef(this.formContainerRefButton)
-      .addButton('Valider', config => config
-        .isTypeSubmit()
-        .icon('check')
-        .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
-      .form
-
-    this._config = this.initConfigComponent("editor", false, true)
-
-    this._configInline = this.initConfigComponent("editorInline", true, false)
-  }
-
-  private initConfigComponent(nameControl: string, inline: boolean, require: boolean) {
-    let config = {
-      apiFile: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
-      },
-      apiFileDownload: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId}?download=true`
-      },
-      apiKey: "fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f",
-      params: <InitWysiwyg>{
-        height: 300,
-        inline: inline
-      },
-      nameLabel: '',
-      formGroup: this.formulaire,
-      nameControl: nameControl,
-      validators: []
+  private initConfigCms() {
+    this.configCms = <ConfigCmsModel>{
+      wysiwygOptions: {
+        apiFile: (fileId) => {
+          return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+        },
+        apiFileDownload: (fileId) => {
+          return `http://localhost:8080/api/file/${fileId}?download=true`
+        },
+        apiKey: 'fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f'
+      }
     }
-
-    if (require) {
-      config.validators.push(ValidatorsService.require)
-    }
-
-    return config
-  }
-
-  callback(controlName: string) {
-    switch (controlName) {
-      case 'editor':
-        this.formulaire.get(controlName).setValue("<p>Hello World !!</p>")
-
-        break;
-
-      case 'editorInline':
-        this.formulaire.get(controlName).setValue("<p>Vous pouvez m'éditer : 🤡</p>")
-
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  validateFrom({ value, valid }: { value: any, valid: boolean }) {
-    if (!valid) return;
-
-    console.log("values", value);
   }
 }

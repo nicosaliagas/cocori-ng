@@ -29,9 +29,6 @@ import {
 import {
   CocoringUploaderFileActionsComponent,
 } from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
-import {
-  CocoringUploaderFileOptionsComponent,
-} from '../cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -143,18 +140,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     } else {
       this.browseFile()
     }
-  }
-
-  openModalOptions() {
-    const dialogRef = this.dialog.open(CocoringUploaderFileOptionsComponent, {
-      data: { file: this.fileModel },
-      autoFocus: false,
-      width: '300px'
-    });
-
-    dialogRef.afterClosed().subscribe((datas: any) => {
-      console.log("modal fermée", datas)
-    });
   }
 
   openBottomSheet() {

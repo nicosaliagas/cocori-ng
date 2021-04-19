@@ -19,6 +19,12 @@
     color: mat-color($palette-blue, 200);
   }
 
+  /** les puces restent à côté du texte */
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+
   .mat-snack-bar-container {
     margin-bottom: 20px !important;
 
@@ -138,9 +144,24 @@
   }
 
   /** Tiny MCE */
+  .tox-tinymce {
+    // transform: translateY(-10px);
+    // z-index: 5;
+    
+    // left: 50% !important; /* à 50%/50% du parent référent */
+    // transform: translate(-50%, -50%);
+    // z-index: 9999;
+
+    // @media screen and (max-width: 600px) {
+    //   & {
+    //     left: 0 !important;
+    //     transform: none;
+    //   }
+    // }
+  }
   .mce-content-body {
     &:focus {
-      outline: 0 solid transparent;
+      // outline: 0 solid transparent;
     }
   }
 }

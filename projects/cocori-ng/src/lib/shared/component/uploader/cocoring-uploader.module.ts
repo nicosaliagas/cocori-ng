@@ -21,9 +21,6 @@ import {
 import {
   CocoringUploaderFileActionsComponent,
 } from './cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
-import {
-  CocoringUploaderFileOptionsComponent,
-} from './cocoring-uploader-file-options/cocoring-uploader-file-options.component';
 import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file/cocoring-uploader-list-file.component';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
 
@@ -31,7 +28,6 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
   declarations: [
     CocoringUploaderComponent,
     CocoringUploaderListFileComponent,
-    CocoringUploaderFileOptionsComponent,
     CocoringUploaderFileActionsComponent,
     CocoringUploaderBottomSheetComponent,
   ],

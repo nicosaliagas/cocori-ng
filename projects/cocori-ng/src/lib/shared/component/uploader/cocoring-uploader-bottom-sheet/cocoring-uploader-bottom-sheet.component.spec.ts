@@ -7,6 +7,9 @@ import { By } from '@angular/platform-browser';
 
 import { ConfigAPIsFile, FileModel } from '../../../../feature-core/core/model/component-uploader.model';
 import { CocoringFileSizeModule } from '../../../pipe/file-size/cocoring-file-size.module';
+import {
+  CocoringUploaderFileActionsComponent,
+} from '../cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import { CocoringUploaderBottomSheetComponent } from './cocoring-uploader-bottom-sheet.component';
 
 registerLocaleData(localeFr);
@@ -21,13 +24,22 @@ describe('CocoringUploaderBottomSheetComponent', () => {
   beforeEach(async () => {
     file = { size: 82.12, dateUpload: new Date('11/11/2021 11:11'), description: 'file description', 'fileName': 'filename.jpg' }
 
+    apisFile = {
+      apiFile: (fileId) => {
+        return `url1-${fileId}`
+      },
+      apiFileDownload: (fileId) => {
+        return `url2-${fileId}`
+      }
+    }
+
     await TestBed.configureTestingModule({
       declarations: [CocoringUploaderBottomSheetComponent],
       imports: [CocoringFileSizeModule],
       providers: [
         {
           provide: MAT_BOTTOM_SHEET_DATA,
-          useValue: { 'file': file, 'component': null }
+          useValue: { 'file': file, 'apisFile': apisFile, 'component': CocoringUploaderFileActionsComponent }
         },
         { provide: LOCALE_ID, useValue: 'fr-FR' },
         {
@@ -43,14 +55,6 @@ describe('CocoringUploaderBottomSheetComponent', () => {
     fixture = TestBed.createComponent(CocoringUploaderBottomSheetComponent);
     component = fixture.componentInstance;
 
-    apisFile = {
-      apiFile: (fileId) => {
-        return `url1-${fileId}`
-      },
-      apiFileDownload: (fileId) => {
-        return `url2-${fileId}`
-      }
-    }
 
   });
 
@@ -73,5 +77,18 @@ describe('CocoringUploaderBottomSheetComponent', () => {
     expect(filename.nativeElement.textContent).toEqual('filename.jpg')
     expect(size.nativeElement.textContent).toEqual('82.12 octets')
     expect(date.nativeElement.textContent).toEqual('11/11/2021, 11:11')
+  });
+
+  it('should load dynamically the component in the view as content of the bottom sheet', () => {
+    
+    let actionsList: DebugElement = fixture.debugElement.query(By.css('cocoring-uploader-file-actions'));
+    
+    expect(actionsList).toBeFalsy()
+    
+    fixture.detectChanges();
+    
+    actionsList = fixture.debugElement.query(By.css('cocoring-uploader-file-actions'));
+
+    expect(actionsList).toBeTruthy()
   });
 });

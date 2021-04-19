@@ -14,7 +14,9 @@ export const configBlocksDesign: BlockModel[] = [
         filename: '26.jpg',
         label: 'bloc avec une image et une zone de texte',
         content: {
-            texte: "<h1>Made with ❤️ by 👽👽</h1>"
+            texte: `<h1><span style="font-size: 24pt;"><strong><span style="color: #3598db;">Alien</span> <span style="color: #e03e2d;">Family</span></strong></span></h1>
+            <p>&nbsp;</p>
+            <p><span style="font-size: 36pt;">👽</span><span style="font-size: 24pt;">👽</span><span style="font-size: 18pt;">👽</span><span style="font-size: 14pt;">👽</span></p>`
         }
     },
     {
