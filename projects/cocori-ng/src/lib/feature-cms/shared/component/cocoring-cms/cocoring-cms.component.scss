@@ -91,10 +91,6 @@
     -ms-transition: transform 0.25s linear;
     -o-transition: transform 0.25s linear;
     transition: transform 0.25s linear;
-    
-    ::ng-deep section {
-      margin-bottom: 10px;
-    }
   }
 
   .new-block {

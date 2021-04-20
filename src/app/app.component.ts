@@ -3,8 +3,10 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 import { SidenavItem } from './core/model/Sidenav.model';
+import { EnvironmentService, IConfigEnvironment } from './core/service/environment.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,7 @@ export class AppComponent {
       label: 'Accueil démos', route: '/lib-demo'
     },
     {
-      label: 'Démos', route:'/demos', children: [
+      label: 'Démos', route: '/demos', children: [
         { label: 'Form générique', route: '/demos/generic-form' },
         { label: 'Form statique', route: '/demos/static-form' },
         { label: 'Inputs chaînés', route: '/demos/static-inputs-chained' },
@@ -31,7 +33,7 @@ export class AppComponent {
       ]
     },
     {
-      label: 'Composants', route:'/component', children: [
+      label: 'Composants', route: '/component', children: [
         { label: 'Grille', route: '/component/grille' },
         { label: 'Upload', route: '/component/upload' },
         { label: 'Wysiwyg', route: '/component/wysiwyg' },
@@ -51,7 +53,9 @@ export class AppComponent {
   constructor(
     mediaObserver: MediaObserver,
     public elementRef: ElementRef,
-    public router: Router,) {
+    public router: Router,
+    private environnement: EnvironmentService,
+  ) {
     this.sidenavContent = elementRef;
 
     /** au changement de route */
@@ -69,6 +73,14 @@ export class AppComponent {
     );
 
     this.eventSizeScreen(mediaObserver);
+
+    this.loadEnvironment()
+  }
+
+  private loadEnvironment() {
+    environment.then((config: IConfigEnvironment) => {
+      this.environnement.conf = config
+    })
   }
 
   private eventSizeScreen(mediaObserver: MediaObserver) {

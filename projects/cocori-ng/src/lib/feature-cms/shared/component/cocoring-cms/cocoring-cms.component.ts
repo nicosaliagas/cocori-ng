@@ -28,6 +28,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
   configCms: ConfigCmsModel;
+  componentsRefs: any[] = [];
 
   @Input()
   set config(config: ConfigCmsModel) {
@@ -56,6 +57,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.addSectionEvent()
+
+    this.onPageRefreshed()
   }
 
   ngOnDestroy(): void {
@@ -80,9 +83,11 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.sidenav.toggle()
 
     this.isSidenavOpen = this.sidenav.opened
+
+    this.cmsService.catalogBlocksOpened$.next(this.isSidenavOpen)
   }
 
-  addSectionEvent() {
+  private addSectionEvent() {
     this.subscription.add(
       this.cmsService.sectionAdded$.pipe(
         tap(_ => this.totalSections = this.cmsService.sections.length),
@@ -91,10 +96,20 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
           console.log("New Section : ", datas)
 
-          this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
+          const componentRef = this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
             [{ section: datas }, { wysiwyg: this.configCms.wysiwygOptions }], null
           )
+
+          this.componentsRefs.push(componentRef)
         }),
+      ).subscribe()
+    )
+  }
+
+  private onPageRefreshed() {
+    this.subscription.add(
+      this.cmsService.onPageRefreshed().pipe(
+        tap(_ => this.injectComponentService.removeComponentFromViewContainer(1, this.componentsRefs, this.containerRef)),
       ).subscribe()
     )
   }

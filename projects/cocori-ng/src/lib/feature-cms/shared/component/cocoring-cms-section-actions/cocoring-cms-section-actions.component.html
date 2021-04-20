@@ -1,0 +1,25 @@
+<div class="bottom-sheet-header">
+    <button class="actions-header-modal" mat-icon-button aria-label="Fermer la fenêtre" (click)="close($event)">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <div class="header-part-right">
+        <div class="description-file">Votre rapport</div>
+    </div>
+</div>
+<mat-nav-list class="bottom-sheet-list">
+    <a href="#" mat-list-item (click)="close($event)">
+        <mat-icon mat-list-icon>format_color_fill</mat-icon>
+        <span mat-line>Changer la couleur de fond</span>
+    </a>
+    
+    <a href="#" mat-list-item (click)="close($event)">
+        <mat-icon mat-list-icon>content_copy</mat-icon>
+        <span mat-line>Dupliquer</span>
+    </a>
+
+    <a href="#" target="_blank" mat-list-item (click)="removeSection($event)">
+        <mat-icon mat-list-icon>delete_outline</mat-icon>
+        <span mat-line>Supprimer</span>
+    </a>
+
+</mat-nav-list>

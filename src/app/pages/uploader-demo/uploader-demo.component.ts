@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from '@cocori-ng/lib';
 import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 import * as faker from 'faker/locale/fr';
+import { EnvironmentService } from 'src/app/core/service/environment.service';
 
 @Component({
   selector: 'uploader-demo',
@@ -17,7 +18,10 @@ export class UploaderDemoComponent implements OnInit {
 
   formulaire: FormGroup;
 
-  constructor(private formBuilderService: FormBuilderService,) { }
+  constructor(
+    private environmentService: EnvironmentService,
+    private formBuilderService: FormBuilderService,
+    ) { }
 
   ngOnInit() {
     this.buildForm()
@@ -52,10 +56,10 @@ export class UploaderDemoComponent implements OnInit {
       validators: [ValidatorsService.require],
       nameLabel: "Veuillez joindre les pièces justificatives au dossier",
       apiFile: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+        return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
       },
       apiFileDownload: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId}?download=true`
+        return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
       },
       dataSource: {
         type: DataSourceType.BRUTE, value: [

@@ -18,8 +18,11 @@ export interface BlockModel {
 export interface SectionModel {
     idSection: string,
     block: BlockModel,
+    values: any[]
 }
 
 export interface ContentDescriptionSection {
     texte: string,
 }
+
+export type BottomSheetSectionActions = 'duplicate' | 'remove'

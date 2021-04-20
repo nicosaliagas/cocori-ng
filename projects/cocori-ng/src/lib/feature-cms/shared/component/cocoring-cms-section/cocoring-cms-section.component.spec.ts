@@ -1,7 +1,8 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 
-import { WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
 import { CocoringCmsSectionComponent } from './cocoring-cms-section.component';
 
 describe('CocoringCmsSectionComponent', () => {
@@ -13,7 +14,8 @@ describe('CocoringCmsSectionComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [CocoringCmsSectionComponent],
       providers: [
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: FormBuilder, useValue: formBuilder },
+        Overlay
       ]
     })
       .compileComponents();
@@ -38,7 +40,14 @@ describe('CocoringCmsSectionComponent', () => {
       apiFileDownload: apisFile.apiFileDownload,
     }
 
+    const section: SectionModel = {
+      idSection: 'sectionId',
+      block: {idBlock: 'blockid', content: {texte: 'aucun texte'}, filename: 'image.png', label: 'Template de base'},
+      values: null
+    }
+
     component.wysiwyg = wysiwyg
+    component.section = section
 
     fixture.detectChanges();
   });

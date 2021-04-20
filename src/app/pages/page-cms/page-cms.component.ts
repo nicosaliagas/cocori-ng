@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigCmsModel } from '@cocori-ng/lib/src/lib/feature-cms/core/model/cms.model';
+import { EnvironmentService } from 'src/app/core/service/environment.service';
 
 @Component({
   selector: 'page-cms',
@@ -10,7 +11,7 @@ export class PageCMSComponent implements OnInit {
 
   configCms: ConfigCmsModel;
 
-  constructor() { }
+  constructor(private environmentService: EnvironmentService,) { }
 
   ngOnInit() {
     this.initConfigCms()
@@ -20,12 +21,12 @@ export class PageCMSComponent implements OnInit {
     this.configCms = <ConfigCmsModel>{
       wysiwygOptions: {
         apiFile: (fileId) => {
-          return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+          return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
         },
         apiFileDownload: (fileId) => {
-          return `http://localhost:8080/api/file/${fileId}?download=true`
+          return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
         },
-        apiKey: 'fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f'
+        apiKey: this.environmentService.tinymceApiKey
       }
     }
   }

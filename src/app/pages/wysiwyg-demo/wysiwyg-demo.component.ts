@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
+import { EnvironmentService } from 'src/app/core/service/environment.service';
 
 @Component({
   selector: 'wysiwyg-demo',
@@ -16,6 +17,7 @@ export class WysiwygDemoComponent implements OnInit {
   formulaire: FormGroup
 
   constructor(
+    private environmentService: EnvironmentService,
     private formBuilderService: FormBuilderService,) { }
 
   ngOnInit() {
@@ -39,12 +41,12 @@ export class WysiwygDemoComponent implements OnInit {
   private initConfigComponent(nameControl: string, inline: boolean, require: boolean) {
     let config = {
       apiFile: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId ? fileId : ''}`
+        return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
       },
       apiFileDownload: (fileId) => {
-        return `http://localhost:8080/api/file/${fileId}?download=true`
+        return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
       },
-      apiKey: "fgijz3yzk7apwi527umteuey9tcto85mzsiz0m9k77avn70f",
+      apiKey: this.environmentService.tinymceApiKey,
       params: <InitWysiwyg>{
         height: 300,
         inline: inline

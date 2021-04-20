@@ -42,5 +42,13 @@ export class InjectComponentService {
         // });
 
         référenceComposant.changeDetectorRef.detectChanges();
+
+        return référenceComposant
+    }
+
+    removeComponentFromViewContainer(index: number, componentsRefs: any[], viewContainerRef: ViewContainerRef) {
+        viewContainerRef.remove(index);
+
+        componentsRefs.splice(index, 1);
     }
 }
