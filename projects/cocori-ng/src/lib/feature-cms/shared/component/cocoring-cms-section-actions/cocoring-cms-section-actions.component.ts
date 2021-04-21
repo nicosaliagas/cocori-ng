@@ -31,4 +31,10 @@ export class CocoringCmsSectionActionsComponent implements OnInit {
 
     event.preventDefault();
   }
+
+  duplicateSection(event) {
+    this._bottomSheetRef.dismiss(<BottomSheetSectionActions>'duplicate');
+
+    event.preventDefault();
+  }
 }

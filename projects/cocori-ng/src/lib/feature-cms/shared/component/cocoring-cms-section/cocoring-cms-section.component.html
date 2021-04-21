@@ -1,7 +1,7 @@
 <section class="cms-block bg-dark" [ngClass]="{'sidenav-openned': readOnly}" (click)="openBottomSheet()">
     <div class="container">
         <div class="text-center">
-            <cocoring-wysiwyg *ngIf="!readOnly" [config]="_configInline" (callback)="callback($event)">
+            <cocoring-wysiwyg *ngIf="!readOnly" [config]="_configInline">
             </cocoring-wysiwyg>
             <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
         </div>

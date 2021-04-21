@@ -25,4 +25,9 @@ export interface ContentDescriptionSection {
     texte: string,
 }
 
+export interface InsertSectionAt {
+    section: SectionModel
+    index?: number,
+}
+
 export type BottomSheetSectionActions = 'duplicate' | 'remove'

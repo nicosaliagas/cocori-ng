@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { BlockModel, SectionModel } from '../model/cms.model';
+import { BlockModel, InsertSectionAt, SectionModel } from '../model/cms.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CmsService {
-  public sectionAdded$: Subject<SectionModel> = new Subject<SectionModel>();
+  public sectionAdded$: Subject<InsertSectionAt> = new Subject<InsertSectionAt>();
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private pageContentSaved$: Subject<void> = new Subject<void>();
-  private pageContentRefresh$: Subject<void> = new Subject<void>();
+  private sectionRemoved$: Subject<number> = new Subject<number>();
 
   public sections: SectionModel[] = []
   private blocksDesign: BlockModel[]
@@ -26,8 +26,8 @@ export class CmsService {
     return this.blocksDesign
   }
 
-  public onPageRefreshed(): Subject<void> {
-    return this.pageContentRefresh$
+  public onSectionRemoved(): Subject<number> {
+    return this.sectionRemoved$
   }
 
   public onContentPageSaved(): Subject<void> {
@@ -47,7 +47,7 @@ export class CmsService {
 
     this.sections.push(newSection)
 
-    this.sectionAdded$.next(newSection)
+    this.sectionAdded$.next({ section: newSection })
   }
 
   public removeSection(sectionId: string) {
@@ -57,6 +57,28 @@ export class CmsService {
 
     console.log("sections :::: ", this.sections)
 
-    this.pageContentRefresh$.next()
+    this.sectionRemoved$.next(index)
+  }
+
+  public duplicateSection(section: SectionModel) {
+    const index: number = this.sections.findIndex((s: SectionModel) => s.idSection === section.idSection)
+
+    const newIndex: number = index + 1
+
+    const sectionToDuplicate: SectionModel = this.sections[index]
+
+    const sectionDuplicated: SectionModel = JSON.parse(JSON.stringify(sectionToDuplicate));
+
+    sectionDuplicated.idSection = this.helperService.generateGuid()
+
+    this.sections.splice(newIndex, 0, sectionDuplicated)
+
+    console.log("duplicate section :::: ", sectionToDuplicate)
+
+    console.log("sectionDuplicated", sectionDuplicated)
+
+    console.log("sections", this.sections)
+
+    this.sectionAdded$.next({ section: sectionDuplicated, index: newIndex })
   }
 }

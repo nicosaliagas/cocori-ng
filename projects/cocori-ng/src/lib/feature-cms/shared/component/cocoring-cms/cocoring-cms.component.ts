@@ -14,7 +14,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { ConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
+import { ConfigCmsModel, InsertSectionAt } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -22,13 +22,13 @@ import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cm
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-cms',
   templateUrl: './cocoring-cms.component.html',
-  styleUrls: ['./cocoring-cms.component.scss']
+  styleUrls: ['./cocoring-cms.component.scss'],
+  providers: [InjectComponentService]
 })
 export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
   configCms: ConfigCmsModel;
-  componentsRefs: any[] = [];
 
   @Input()
   set config(config: ConfigCmsModel) {
@@ -58,7 +58,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.addSectionEvent()
 
-    this.onPageRefreshed()
+    this.onSectionRemoved()
   }
 
   ngOnDestroy(): void {
@@ -90,27 +90,30 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   private addSectionEvent() {
     this.subscription.add(
       this.cmsService.sectionAdded$.pipe(
-        tap(_ => this.totalSections = this.cmsService.sections.length),
-        tap(_ => this.cdr.detectChanges()),
-        tap((datas: SectionModel) => {
-
-          console.log("New Section : ", datas)
-
-          const componentRef = this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas }, { wysiwyg: this.configCms.wysiwygOptions }], null
+        tap(_ => this.refreshNumberSection()),
+        tap((datas: InsertSectionAt) => {
+          this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
+            [{ section: datas.section }, { wysiwyg: this.configCms.wysiwygOptions }], null, datas.index
           )
-
-          this.componentsRefs.push(componentRef)
         }),
       ).subscribe()
     )
   }
 
-  private onPageRefreshed() {
+  private onSectionRemoved() {
     this.subscription.add(
-      this.cmsService.onPageRefreshed().pipe(
-        tap(_ => this.injectComponentService.removeComponentFromViewContainer(1, this.componentsRefs, this.containerRef)),
+      this.cmsService.onSectionRemoved().pipe(
+        tap((indexSection: number) => {
+          this.injectComponentService.removeComponentFromViewContainer(indexSection, this.containerRef)
+        }),
+        tap(_ => this.refreshNumberSection()),
       ).subscribe()
     )
+  }
+
+  private refreshNumberSection() {
+    this.totalSections = this.cmsService.sections.length
+
+    this.cdr.detectChanges()
   }
 }

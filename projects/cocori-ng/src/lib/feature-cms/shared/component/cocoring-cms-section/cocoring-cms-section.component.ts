@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ConfigWysiwygModel, InitWysiwyg } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
@@ -34,21 +34,33 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
     private _bottomSheet: MatBottomSheet,
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
-  ) {
-    this.formulaire = this.fb.group({});
-  }
+  ) { }
 
   ngOnInit(): void {
+
+    this.formulaire = this.fb.group({});
+
+    this.formulaire.addControl(this.nameControl, new FormControl(null))
+
     console.log("datas section", this.section)
     console.log("datas wysiwyg 😁 ", this.wysiwyg)
 
     this._configInline = this.initConfigComponent(true)
 
-    this.value = this.section.block.content.texte
+    this.initSectionValue()
 
     this.catalogBlocksOpenedEvent()
 
     this.pageContentSavedEvent()
+  }
+
+  private initSectionValue() {
+    const blockContent: any = this.section.block.content.texte
+    const sectionValue: any = this.section.values[0]
+
+    this.value = sectionValue || blockContent
+
+    this.formulaire.get(this.nameControl).setValue(this.value)
   }
 
   ngOnDestroy() {
@@ -95,10 +107,6 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
     )
   }
 
-  callback(controlName: string) {
-    this.formulaire.get(controlName).setValue(this.value)
-  }
-
   openBottomSheet() {
     if (!this.readOnly) return;
 
@@ -118,9 +126,22 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
 
           break;
 
+        case 'duplicate':
+          this.saveSectionValue()
+
+          this.cmsService.duplicateSection(this.section)
+
+          break;
+
         default:
           break;
       }
     });
+  }
+
+  private saveSectionValue() {
+    const value = this.formulaire.get(this.nameControl).value
+
+    this.section.values[0] = value
   }
 }

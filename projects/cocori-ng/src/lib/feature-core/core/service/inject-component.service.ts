@@ -12,16 +12,19 @@ export interface OutputsComponent {
     providedIn: 'root',
 })
 export class InjectComponentService {
+    componentsRefs: any[] = [];
+
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
     loadAndAddComponentToContainer(
         componentClass: any,
         viewContainerRef: ViewContainerRef,
         inputs: InputsComponent[] = [],
-        outputs?: OutputsComponent
+        outputs?: OutputsComponent,
+        index?: number
     ) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
-        const référenceComposant = viewContainerRef.createComponent(factory);
+        const référenceComposant = viewContainerRef.createComponent(factory, index ? index : null);
 
         inputs.forEach((input: InputsComponent) => {
             for (const [key, value] of Object.entries(input)) {
@@ -43,12 +46,12 @@ export class InjectComponentService {
 
         référenceComposant.changeDetectorRef.detectChanges();
 
-        return référenceComposant
+        this.componentsRefs.push(référenceComposant)
     }
 
-    removeComponentFromViewContainer(index: number, componentsRefs: any[], viewContainerRef: ViewContainerRef) {
+    removeComponentFromViewContainer(index: number, viewContainerRef: ViewContainerRef) {
         viewContainerRef.remove(index);
 
-        componentsRefs.splice(index, 1);
+        this.componentsRefs.splice(index, 1);
     }
 }
