@@ -12,6 +12,7 @@ import { CocoringVariableHtmlModule, CocoringWysiwygModule } from '@cocori-ng/li
 
 import { CocoringCmsBlocksCatalogComponent } from '../cocoring-cms-blocks-catalog/cocoring-cms-blocks-catalog.component';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
+import { SectionsTemplatesComponents } from '../cocoring-cms-section-templates';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 import { CocoringToolbarCmsComponent } from '../cocoring-toolbar-cms/cocoring-toolbar-cms.component';
 import { CocoringCmsComponent } from './cocoring-cms.component';
@@ -22,7 +23,8 @@ import { CocoringCmsComponent } from './cocoring-cms.component';
         CocoringCmsBlocksCatalogComponent,
         CocoringCmsSectionComponent,
         CocoringCmsSectionActionsComponent,
-        CocoringToolbarCmsComponent
+        CocoringToolbarCmsComponent,
+        ...SectionsTemplatesComponents
     ],
     imports: [
         CommonModule,

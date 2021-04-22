@@ -1,5 +1,7 @@
 import { ConfigWysiwygModel } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { Block } from '../service/block';
+
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
 export type WysiwygSectionCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 
@@ -8,7 +10,7 @@ export interface ConfigCmsModel {
     wysiwygOptions: WysiwygSectionCmsModel,
 }
 
-export interface BlockModel {
+export interface BlockDatasModel {
     idBlock: string,
     filename: string,
     label: string,
@@ -17,7 +19,7 @@ export interface BlockModel {
 
 export interface SectionModel {
     idSection: string,
-    block: BlockModel,
+    block: Block,
     values: any[]
 }
 

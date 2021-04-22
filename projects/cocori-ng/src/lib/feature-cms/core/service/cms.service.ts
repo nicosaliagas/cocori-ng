@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { BlockModel, InsertSectionAt, SectionModel } from '../model/cms.model';
+import { InsertSectionAt, SectionModel } from '../model/cms.model';
+import { Block } from './block';
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +15,9 @@ export class CmsService {
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
   public sections: SectionModel[] = []
-  private blocksDesign: BlockModel[]
+  public blocks: Block[]
 
   constructor(private helperService: HelperService) { }
-
-  public set catalog(datas: BlockModel[]) {
-    this.blocksDesign = datas
-  }
-
-  public get catalog() {
-    return this.blocksDesign
-  }
 
   public onSectionRemoved(): Subject<number> {
     return this.sectionRemoved$
@@ -38,10 +31,10 @@ export class CmsService {
     this.pageContentSaved$.next()
   }
 
-  public addSection(newBlock: BlockModel) {
+  public addSection(fromBlock: Block) {
     const newSection: SectionModel = {
       idSection: this.helperService.generateGuid(),
-      block: newBlock,
+      block: fromBlock,
       values: []
     }
 

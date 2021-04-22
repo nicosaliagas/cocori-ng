@@ -10,13 +10,13 @@ ng new my-first-project
 
 ## Generate commands :
 ng g service file
-ng g component cocoring-cms-section-actions --display-block=true --skip-import=true --style=scss
+ng g component two-zones-h-tpl --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 
 `Mode développement : lancer la commande pour builder la lib`
 
-npm run build-lib-watch
+npm run lib
 
 `Créer un lien symbolique vers la lib`
 
@@ -25,8 +25,8 @@ cd dist\cocori-ng
 npm link (sudo avant si linux)
 
 `Projet cible :`
-npm link @cocori-ng/lib
 
+npm link @cocori-ng/lib
 
 `Il est possible de lancer le projet Angular pour tester la librairie`
 dans une autre fenêtre cmd, lancer la commande : 

@@ -1,0 +1,16 @@
+<section class="cms-block bg-dark" [ngClass]="{'sidenav-openned': readOnly}" (click)="openBottomSheet()">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <cocoring-wysiwyg *ngIf="!readOnly" [config]="_configInline">
+                </cocoring-wysiwyg>
+                <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
+            </div>
+            <div class="col-6">
+                <cocoring-wysiwyg *ngIf="!readOnly" [config]="_configInline">
+                </cocoring-wysiwyg>
+                <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
+            </div>
+        </div>
+    </div>
+</section>
