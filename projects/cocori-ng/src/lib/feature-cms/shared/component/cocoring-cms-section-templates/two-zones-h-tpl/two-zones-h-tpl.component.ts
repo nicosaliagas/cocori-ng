@@ -14,8 +14,6 @@ export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements 
   }
 
   ngOnInit(): void {
-    console.log("TwoZonesHTplComponent")
-
-    this.init()
+    this.init(1)
   }
 }

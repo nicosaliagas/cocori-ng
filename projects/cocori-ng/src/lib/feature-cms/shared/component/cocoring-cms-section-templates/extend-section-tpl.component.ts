@@ -5,7 +5,12 @@ import { ConfigWysiwygModel, InitWysiwyg } from '@cocori-ng/lib/src/lib/feature-
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { BottomSheetSectionActions, SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import {
+    BottomSheetSectionActions,
+    SectionModel,
+    SectionValue,
+    WysiwygSectionCmsModel,
+} from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
 
@@ -27,9 +32,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     private cmsService: CmsService;
 
     formulaire: FormGroup
-    nameControl: string = 'editorInline' // #todo: mettre un id ou un FormArray
+    wysiwygsNb: number
+    nameControl: string = 'editor'
 
-    _configInline: ConfigWysiwygModel;
+    configsWysiwyg: ConfigWysiwygModel[];
     subscription: Subscription = new Subscription();
     readOnly: boolean = true;
     value: any;
@@ -45,43 +51,48 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.subscriptions.unsubscribe()
     }
 
-    init() {
-        this.formulaire = this.fb.group({});
+    init(wysiwygsNb: number) {
+        this.wysiwygsNb = wysiwygsNb
 
-        this.formulaire.addControl(this.nameControl, new FormControl(null))
-
-        console.log("datas section", this.section)
-        console.log("datas wysiwyg 😎 ", this.wysiwyg)
-
-        this._configInline = this.initConfigComponent(true)
-
-        this.initSectionValue()
+        this.buildForm();
 
         this.catalogBlocksOpenedEvent()
 
         this.pageContentSavedEvent()
     }
 
-    private initSectionValue() {
-        const blockContent: any = this.section.block.data.content.texte
-        const sectionValue: any = this.section.values[0]
+    private buildForm() {
+        this.formulaire = this.fb.group({});
+        this.configsWysiwyg = []
 
-        this.value = sectionValue || blockContent
+        for (let i = 1; i <= this.wysiwygsNb; i++) {
+            const nameControl: string = `${this.nameControl}${i}`
 
-        this.formulaire.get(this.nameControl).setValue(this.value)
+            this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
+
+            this.configsWysiwyg.push(this.configComponent(nameControl))
+        }
     }
 
-    private initConfigComponent(inline: boolean) {
+    /** variabiliser pour prendre en compte le multi-valeur */
+    private initSectionValue(nameControl: string) {
+        const blockContent: any = this.section.block.data.content.texte
+        const sectionValue: SectionValue = this.section.values[0]?.value
+
+        return sectionValue || blockContent
+    }
+
+    private configComponent(nameControl: string) {
         let config = {
             apiFile: this.wysiwyg.apiFile,
             apiFileDownload: this.wysiwyg.apiFileDownload,
             apiKey: this.wysiwyg.apiKey,
             params: <InitWysiwyg>{
-                inline: inline
+                inline: true
             },
             nameLabel: '',
             formGroup: this.formulaire,
-            nameControl: this.nameControl,
+            nameControl: nameControl,
             validators: []
         }
 
@@ -94,8 +105,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
                 tap((isOpened: boolean) => {
                     this.readOnly = isOpened
 
-                    if (isOpened && this.formulaire.get(this.nameControl)) {
-                        this.value = this.formulaire.get(this.nameControl).value
+                    /** pas sûr pour le .controls... */
+                    /** variabiliser pour prendre en compte le multi-valeur */
+                    if (isOpened && this.formulaire.controls) {
+                        this.value = this.formulaire.get(`${this.nameControl}1`).value
                     }
                 }),
                 tap(_ => this.cdr.detectChanges())
@@ -103,10 +116,11 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         )
     }
 
+    /** #todo */
     private pageContentSavedEvent() {
         this.subscription.add(
             this.cmsService.onContentPageSaved().pipe(
-                tap(_ => console.log(`Save section ${this.section.idSection} : ${this.formulaire.get(this.nameControl).value}`)),
+                tap(_ => console.log(`Save section ${this.section.idSection}`)),
             ).subscribe()
         )
     }
@@ -143,11 +157,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         });
     }
 
+    /** variabiliser pour prendre en compte le multi-valeur */
     private saveSectionValue() {
-        const value = this.formulaire.get(this.nameControl).value
+        const value = this.formulaire.get(`${this.nameControl}1`).value
 
-        this.section.values[0] = value
+        this.section.values[0] = { editorId: `${this.nameControl}1`, value: value }
     }
-
-
 }

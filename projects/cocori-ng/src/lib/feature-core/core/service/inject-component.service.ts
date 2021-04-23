@@ -23,6 +23,9 @@ export class InjectComponentService {
         outputs?: OutputsComponent,
         index?: number
     ) {
+
+        console.log("componentClass", componentClass)
+
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
         const référenceComposant = viewContainerRef.createComponent(factory, index ? index : null);
 

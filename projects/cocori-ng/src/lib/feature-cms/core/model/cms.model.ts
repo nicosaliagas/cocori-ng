@@ -20,7 +20,12 @@ export interface BlockDatasModel {
 export interface SectionModel {
     idSection: string,
     block: Block,
-    values: any[]
+    values: SectionValue[] /** mettre un type avec id et valeur */
+}
+
+export interface SectionValue {
+    editorId: string,
+    value: any
 }
 
 export interface ContentDescriptionSection {

@@ -10,12 +10,12 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 })
 export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
 
-  constructor(injector: Injector) {
+  constructor(
+    public injector: Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
-    console.log("CenterZoneTplComponent")
-    this.init()
+    this.init(1)
   }
 }

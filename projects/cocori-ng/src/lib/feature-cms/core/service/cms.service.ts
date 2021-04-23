@@ -54,6 +54,9 @@ export class CmsService {
   }
 
   public duplicateSection(section: SectionModel) {
+
+    console.log("section à dupliquer", section)
+
     const index: number = this.sections.findIndex((s: SectionModel) => s.idSection === section.idSection)
 
     const newIndex: number = index + 1
@@ -62,6 +65,7 @@ export class CmsService {
 
     const sectionDuplicated: SectionModel = JSON.parse(JSON.stringify(sectionToDuplicate));
 
+    sectionDuplicated.block.component = sectionToDuplicate.block.component
     sectionDuplicated.idSection = this.helperService.generateGuid()
 
     this.sections.splice(newIndex, 0, sectionDuplicated)
