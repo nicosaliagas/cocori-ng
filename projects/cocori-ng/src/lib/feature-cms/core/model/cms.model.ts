@@ -14,23 +14,18 @@ export interface BlockDatasModel {
     idBlock: string,
     filename: string,
     label: string,
-    content: ContentDescriptionSection
+    content: EditorValues
 }
 
 export interface SectionModel {
     idSection: string,
     block: Block,
-    values: SectionValue[] /** mettre un type avec id et valeur */
+    values: EditorValues
 }
 
-export interface SectionValue {
+export interface EditorValues {
     [key: string]: string;
 }
-
-// export interface SectionValue {
-//     editorId: string,
-//     value: any
-// }
 
 export interface ContentDescriptionSection {
     texte: string,

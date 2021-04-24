@@ -35,7 +35,7 @@ export class CmsService {
     const newSection: SectionModel = {
       idSection: this.helperService.generateGuid(),
       block: fromBlock,
-      values: []
+      values: null
     }
 
     this.sections.push(newSection)

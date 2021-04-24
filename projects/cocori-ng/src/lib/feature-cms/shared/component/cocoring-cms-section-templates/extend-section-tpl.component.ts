@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import {
-    BottomSheetSectionActions,
-    SectionModel,
-    SectionValue,
-    WysiwygSectionCmsModel,
+  BottomSheetSectionActions,
+  EditorValues,
+  SectionModel,
+  WysiwygSectionCmsModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
@@ -77,10 +77,12 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     }
 
     private initSectionValue(nameControl: string) {
-        const blockContent: any = this.section.block.data.content.texte
-        const sectionValue: SectionValue = this.section.values.hasOwnProperty(nameControl) ? this.section.values[nameControl] : null
+        const blockContent: EditorValues = this.section.block.data.content
 
-        return sectionValue || blockContent
+        const blockValue: string = blockContent?.hasOwnProperty(nameControl) ? blockContent[nameControl] : null
+        const sectionValue: string = this.section.values?.hasOwnProperty(nameControl) ? this.section.values[nameControl] : null
+
+        return sectionValue || blockValue
     }
 
     private configComponent(nameControl: string) {

@@ -66,6 +66,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
 
     this.initParams = {
       language: 'fr_FR',
+      resize: false,
       height: height,
       inline: inline,
       menubar: menubar,

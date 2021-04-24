@@ -198,14 +198,23 @@
 
     // left: 50% !important; /* à 50%/50% du parent référent */
     // transform: translate(-50%, -50%);
-    // z-index: 9999;
 
-    // @media screen and (max-width: 600px) {
-    //   & {
-    //     left: 0 !important;
-    //     transform: none;
-    //   }
-    // }
+    // left: 10% !important;
+    // width: 100vh;
+
+    // z-index: 5;
+
+    .tox-editor-header {
+      // max-width: none !important;
+    }
+
+    @media screen and (max-width: 600px) {
+      & {
+        // left: 0 !important;
+        // width: auto !important;
+        // transform: none;
+      }
+    }
   }
   .mce-content-body {
     &:focus {

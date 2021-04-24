@@ -17,7 +17,7 @@ export class CatalogService {
         idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '1.jpg',
         label: 'bloc avec une zone de texte',
         content: {
-          texte: '<h1 style="text-align: center;">Made with ❤️ by Cocorisoft</h1>'
+          editor1: '<h1 style="text-align: center;">Made with ❤️ by Cocorisoft</h1>'
         }
       }),
 
@@ -26,7 +26,7 @@ export class CatalogService {
         filename: '26.jpg',
         label: 'bloc avec une image et une zone de texte',
         content: {
-          texte: `<h1 style="text-align: center;"><span style="font-size: 24pt;"><strong><span style="color: #3598db;">Alien</span> <span style="color: #e03e2d;">Family</span></strong></span></h1>
+          editor1: `<h1 style="text-align: center;"><span style="font-size: 24pt;"><strong><span style="color: #3598db;">Alien</span> <span style="color: #e03e2d;">Family</span></strong></span></h1>
           <p>&nbsp;</p>
           <p style="text-align: center;"><span style="font-size: 36pt;">👽</span><span style="font-size: 24pt;">👽</span><span style="font-size: 18pt;">👽</span><span style="font-size: 14pt;">👽</span></p>`
         }
@@ -37,7 +37,8 @@ export class CatalogService {
         filename: '14.jpg',
         label: 'bloc avec une image et une zone de texte',
         content: {
-          texte: "<h1>On est pas bien là ?!</h1>"
+          editor1: `<h1 style="text-align: center;">On est pas bien l&agrave; ?!</h1>`,
+          editor2: `<h1 style="text-align: center;">Grave bro ! On est bien entre <span style="font-size: 36pt;">🍆</span>🍆</h1>`,
         }
       }),
 
@@ -46,7 +47,8 @@ export class CatalogService {
         filename: '1.jpg',
         label: 'bloc avec une image et une zone de texte',
         content: {
-          texte: "<h1>😍</h1>"
+          editor1: `<h1 style="text-align: center;">😍</h1>`,
+          editor2: `<h1 style="text-align: center;">😍</h1>`
         }
       }),
     ];
