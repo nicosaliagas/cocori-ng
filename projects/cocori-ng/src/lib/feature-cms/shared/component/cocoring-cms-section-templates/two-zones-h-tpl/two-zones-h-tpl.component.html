@@ -2,14 +2,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-6">
-                <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg[0]">
+                <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']">
                 </cocoring-wysiwyg>
-                <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
+                <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
             </div>
             <div class="col-6">
-                <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg[0]">
+                <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor2']">
                 </cocoring-wysiwyg>
-                <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
+                <div *ngIf="readOnly" [innerHtml]="value['editor2'] | variableHtml"></div>
             </div>
         </div>
     </div>

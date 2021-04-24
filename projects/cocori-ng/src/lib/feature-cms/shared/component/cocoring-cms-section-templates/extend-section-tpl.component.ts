@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { ConfigWysiwygModel, InitWysiwyg } from '@cocori-ng/lib/src/lib/feature-core';
+import { FormHelperService, InitWysiwyg, WysiwygConfigSection } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-acti
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'extend-section-tpl',
     template: '',
-    host: { 'class': 'input-form' }
+    host: { 'class': 'input-form' },
 })
 
 export abstract class ExtendSectionTplComponent implements OnDestroy {
@@ -35,16 +35,18 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     wysiwygsNb: number
     nameControl: string = 'editor'
 
-    configsWysiwyg: ConfigWysiwygModel[];
+    configsWysiwyg: WysiwygConfigSection[];
     subscription: Subscription = new Subscription();
     readOnly: boolean = true;
     value: any;
+    formHelper: FormHelperService;
 
     constructor(injector: Injector) {
         this.fb = injector.get(FormBuilder);
         this._bottomSheet = injector.get(MatBottomSheet);
         this.cdr = injector.get(ChangeDetectorRef);
         this.cmsService = injector.get(CmsService);
+        this.formHelper = injector.get(FormHelperService);
     }
 
     ngOnDestroy() {
@@ -70,14 +72,13 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
             this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
 
-            this.configsWysiwyg.push(this.configComponent(nameControl))
+            this.configsWysiwyg[nameControl] = this.configComponent(nameControl)
         }
     }
 
-    /** variabiliser pour prendre en compte le multi-valeur */
     private initSectionValue(nameControl: string) {
         const blockContent: any = this.section.block.data.content.texte
-        const sectionValue: SectionValue = this.section.values[0]?.value
+        const sectionValue: SectionValue = this.section.values.hasOwnProperty(nameControl) ? this.section.values[nameControl] : null
 
         return sectionValue || blockContent
     }
@@ -105,10 +106,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
                 tap((isOpened: boolean) => {
                     this.readOnly = isOpened
 
-                    /** pas sûr pour le .controls... */
-                    /** variabiliser pour prendre en compte le multi-valeur */
-                    if (isOpened && this.formulaire.controls) {
-                        this.value = this.formulaire.get(`${this.nameControl}1`).value
+                    if (isOpened && this.formHelper.countControlsForm(this.formulaire) > 0) {
+                        this.value = this.formulaire.value
                     }
                 }),
                 tap(_ => this.cdr.detectChanges())
@@ -157,10 +156,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         });
     }
 
-    /** variabiliser pour prendre en compte le multi-valeur */
+    /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private saveSectionValue() {
-        const value = this.formulaire.get(`${this.nameControl}1`).value
-
-        this.section.values[0] = { editorId: `${this.nameControl}1`, value: value }
+        this.section.values = this.formulaire.value
     }
 }

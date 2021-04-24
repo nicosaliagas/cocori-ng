@@ -1,9 +1,9 @@
 <section class="cms-block bg-dark" [ngClass]="{'sidenav-openned': readOnly}" (click)="openBottomSheet()">
     <div class="container">
         <div class="row justify-content-center">
-            <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg[0]">
+            <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']">
             </cocoring-wysiwyg>
-            <div *ngIf="readOnly" [innerHtml]="value | variableHtml"></div>
+            <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
         </div>
     </div>
 </section>

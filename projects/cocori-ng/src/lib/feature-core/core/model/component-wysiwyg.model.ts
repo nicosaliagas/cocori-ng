@@ -5,6 +5,10 @@ export interface ConfigWysiwygModel extends ConfigUploaderModel {
     params?: InitWysiwyg
 }
 
+export interface WysiwygConfigSection {
+    [key: string]: ConfigWysiwygModel;
+}
+
 export interface InitWysiwyg {
     height?: number;
     menubar?: boolean;

@@ -5,6 +5,7 @@ export * from './config/config.events';
 export * from './core/service/inject-component.service';
 export * from './core/service/validators.service';
 export * from './core/service/helper/helper.service';
+export * from './core/service/helper/helper-form.service';
 export * from './core/service/http.service';
 export * from './core/service/datasource.service';
 export * from './core/service/uploader/uploader.service';

@@ -24,9 +24,13 @@ export interface SectionModel {
 }
 
 export interface SectionValue {
-    editorId: string,
-    value: any
+    [key: string]: string;
 }
+
+// export interface SectionValue {
+//     editorId: string,
+//     value: any
+// }
 
 export interface ContentDescriptionSection {
     texte: string,
