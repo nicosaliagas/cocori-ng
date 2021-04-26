@@ -42,9 +42,12 @@
             ],
             "styles": [
               "src/theme/cocoring-project-theme.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"
+            ]
           },
           "configurations": {
             "production": {

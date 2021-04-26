@@ -19,7 +19,8 @@ export * from './core/model/component-inputs.model';
 export * from './core/model/component-wysiwyg.model';
 export * from './core/model/component-uploader.model';
 
-
+export * from './shared/directive/color-picker/cocoring-colorpicker.module';
+export * from './shared/directive/color-picker/cocoring-colorpicker.directive';
 
 export * from './shared/pipe/variable-html/cocoring-variable-html.module';
 export * from './shared/pipe/variable-html/cocoring-variable-html.pipe';

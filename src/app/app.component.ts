@@ -37,6 +37,7 @@ export class AppComponent {
         { label: 'Grille', route: '/component/grille' },
         { label: 'Upload', route: '/component/upload' },
         { label: 'Wysiwyg', route: '/component/wysiwyg' },
+        { label: 'Color picker', route: '/component/colorpicker' },
       ]
     },
     { label: "Liens externes", menuGroup: true },

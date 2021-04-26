@@ -13,7 +13,7 @@ import { LibDemoComponent } from './lib-demo.component';
     LibDemoRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
-    CocoringButtonModule
+    CocoringButtonModule,
   ],
   declarations: [LibDemoComponent]
 })

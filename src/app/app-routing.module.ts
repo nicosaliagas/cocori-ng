@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'component/wysiwyg',
     loadChildren: () => import('./pages/wysiwyg-demo/wysiwyg-demo.module').then(mod => mod.WysiwygDemoModule)
   },
+  {
+    path: 'component/colorpicker',
+    loadChildren: () => import('./pages/colorpicker-demo/colorpicker-demo.module').then(mod => mod.ColorpickerDemoModule)
+  },
 ];
 
 @NgModule({

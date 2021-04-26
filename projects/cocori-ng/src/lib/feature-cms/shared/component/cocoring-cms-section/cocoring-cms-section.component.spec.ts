@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 
 import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import { CenterZoneTplComponent } from '../cocoring-cms-section-templates/center-zone-tpl/center-zone-tpl.component';
 import { CocoringCmsSectionComponent } from './cocoring-cms-section.component';
 
 describe('CocoringCmsSectionComponent', () => {
@@ -42,7 +43,7 @@ describe('CocoringCmsSectionComponent', () => {
 
     const section: SectionModel = {
       idSection: 'sectionId',
-      block: {idBlock: 'blockid', content: {texte: 'aucun texte'}, filename: 'image.png', label: 'Template de base'},
+      block: { component: CenterZoneTplComponent, data: { idBlock: 'blockid', content: { texte: 'aucun texte' }, filename: 'image.png', label: 'Template de base' } },
       values: null
     }
 
