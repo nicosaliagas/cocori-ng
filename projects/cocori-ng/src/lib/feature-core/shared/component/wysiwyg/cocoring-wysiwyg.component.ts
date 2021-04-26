@@ -65,20 +65,19 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
     const toolbar = params.toolbar ? this.wysiwygService.toolbarOptionsToString(params.toolbar) : this.toolbar
 
     this.initParams = {
+      toolbar_mode: 'scrolling', // https://www.tiny.cloud/docs/configure/editor-appearance/#toolbar_sticky
       language: 'fr_FR',
       resize: false,
       height: height,
       inline: inline,
-      menubar: menubar,
+      menubar: 'file edit insert format table tools',
+      // menubar: false,
       toolbar: toolbar,
+      // toolbar: false,
       contextmenu: false,
       plugins: plugins,
-      // menubar: false,
-      // toolbar: false,
-      // quickbars_selection_toolbar: 'bold italic underline forecolor backcolor | fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | removeformat | formatselect | quicklink blockquote table | imageoptions media | emoticons',
-      quickbars_selection_toolbar: 'bold forecolor | fontsizeselect | quicklink | removeformat',
+      quickbars_selection_toolbar: 'bold italic underline forecolor backcolor | fontsizeselect | alignleft | aligncenter | alignright | quicklink | removeformat',
       quickbars_insert_toolbar: quickbars,
-      // contextmenu: 'undo redo | bullist numlist | image | media | link | table | hr | emoticons | help',
       image_title: true,
       automatic_uploads: true,
       paste_data_images: true,

@@ -33,9 +33,7 @@ export const DefaultConfigComponent = {
             'code',
             'help',
         ],
-        toolbar: 'undo redo | formatselect | bold italic forecolor backcolor | \
-        alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat',
+        toolbar: 'undo redo | bullist numlist | imageoptions media | quicklink | quicktable | emoticons',
         quickbars: 'bullist numlist | imageoptions media | quicklink | quicktable | emoticons'
     }
 }

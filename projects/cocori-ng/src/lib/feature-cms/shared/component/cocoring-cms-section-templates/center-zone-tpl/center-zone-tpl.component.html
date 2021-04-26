@@ -1,5 +1,5 @@
 <section class="cms-block bg-dark" [ngClass]="{'sidenav-openned': readOnly}" (click)="openBottomSheet()">
-    <div class="container">
+    <div class="container" fxLayout="row" fxFlex="100%" fxFlex.gt-lg="75%" fxFlex.gt-md="80%" fxFlex.gt-sm="90%"  fxFlex.gt-xs="100%">
         <div class="row justify-content-center" fxLayout="row">
             <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']">
             </cocoring-wysiwyg>
