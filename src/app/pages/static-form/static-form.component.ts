@@ -69,6 +69,7 @@ export class StaticFormComponent implements OnInit {
         .appearance('fill')
         .maxlength(2)
         .typeInput(FormInputComponents.INPUT_NUMBER))
+        
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')

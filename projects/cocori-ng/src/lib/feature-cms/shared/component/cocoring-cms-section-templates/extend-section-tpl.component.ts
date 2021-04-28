@@ -3,10 +3,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { FormHelperService, InitWysiwyg, WysiwygConfigSection } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 import {
-  BottomSheetSectionActions,
+  BottomSheetSectionReturnAction,
   EditorValues,
   SectionModel,
   WysiwygSectionCmsModel,
@@ -61,6 +61,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.catalogBlocksOpenedEvent()
 
         this.pageContentSavedEvent()
+
+        this.onBackgroundColorEvent()
     }
 
     private buildForm() {
@@ -126,40 +128,62 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         )
     }
 
+    private onBackgroundColorEvent() {
+        this.subscription.add(
+            this.cmsService.backgroundColor$.pipe(
+                filter((idSection: string) => idSection === this.section.idSection),
+                tap(_ => this.cdr.detectChanges()),
+            ).subscribe()
+        )
+    }
+
     openBottomSheet() {
         if (!this.readOnly) return;
+
+        this.saveSectionValue()
 
         const bottomSheet = this._bottomSheet.open(CocoringCmsSectionActionsComponent, {
             panelClass: 'bottom-sheet-container',
             data: <any>{
-                idSection: this.section.idSection,
+                section: this.section,
             }
         });
 
-        bottomSheet.afterDismissed().subscribe((action: BottomSheetSectionActions) => {
-            console.log("return bottom sheet", action)
+        this.subscription.add(
+            bottomSheet.afterDismissed().subscribe((datas: BottomSheetSectionReturnAction) => {
+                if (!datas) return;
 
-            switch (action) {
-                case 'remove':
-                    this.cmsService.removeSection(this.section.idSection)
+                switch (datas.action) {
+                    case 'remove':
+                        this.cmsService.removeSection(this.section.idSection)
 
-                    break;
+                        break;
 
-                case 'duplicate':
-                    this.saveSectionValue()
+                    case 'duplicate':
+                        this.cmsService.duplicateSection(this.section)
 
-                    this.cmsService.duplicateSection(this.section)
+                        break;
 
-                    break;
+                    case 'backgroundColor':
+                        this.saveSectionBackgroundColor(datas.value)
 
-                default:
-                    break;
-            }
-        });
+                        console.log("value backgroundColor", datas.value)
+
+                        break;
+
+                    default:
+                        break;
+                }
+            })
+        )
     }
 
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private saveSectionValue() {
         this.section.values = this.formulaire.value
+    }
+
+    private saveSectionBackgroundColor(color: string) {
+        this.section.backgroundColor = color
     }
 }

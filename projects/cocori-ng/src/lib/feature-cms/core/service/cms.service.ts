@@ -11,6 +11,7 @@ import { Block } from './block';
 export class CmsService {
   public sectionAdded$: Subject<InsertSectionAt> = new Subject<InsertSectionAt>();
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public backgroundColor$: Subject<string> = new Subject<string>();
   private pageContentSaved$: Subject<void> = new Subject<void>();
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
@@ -35,6 +36,7 @@ export class CmsService {
     const newSection: SectionModel = {
       idSection: this.helperService.generateGuid(),
       block: fromBlock,
+      backgroundColor: fromBlock.data.backgroundColor,
       values: null
     }
 
@@ -48,15 +50,10 @@ export class CmsService {
 
     this.sections.splice(index, 1)
 
-    console.log("sections :::: ", this.sections)
-
     this.sectionRemoved$.next(index)
   }
 
   public duplicateSection(section: SectionModel) {
-
-    console.log("section à dupliquer", section)
-
     const index: number = this.sections.findIndex((s: SectionModel) => s.idSection === section.idSection)
 
     const newIndex: number = index + 1
@@ -70,12 +67,14 @@ export class CmsService {
 
     this.sections.splice(newIndex, 0, sectionDuplicated)
 
-    console.log("duplicate section :::: ", sectionToDuplicate)
-
-    console.log("sectionDuplicated", sectionDuplicated)
-
-    console.log("sections", this.sections)
-
     this.sectionAdded$.next({ section: sectionDuplicated, index: newIndex })
+  }
+
+  public changeBackgroundColorSection(idSection: string, value: string) {
+    const section: SectionModel = this.sections.find((s: SectionModel) => s.idSection === idSection)
+
+    section.backgroundColor = value
+
+    this.backgroundColor$.next(idSection)
   }
 }

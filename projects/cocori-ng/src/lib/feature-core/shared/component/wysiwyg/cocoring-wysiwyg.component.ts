@@ -31,7 +31,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
   @Input() menubar: boolean = true;
   @Input() plugins: PluginsAvailable[] = <PluginsAvailable[]>DefaultConfigComponent.wysiwyg.plugins;
   @Input() toolbar: string = DefaultConfigComponent.wysiwyg.toolbar;
-  @Input() quickbars: string = DefaultConfigComponent.wysiwyg.quickbars;
+  @Input() quickbarsInsert: string = DefaultConfigComponent.wysiwyg.quickbarsInsert;
   callbackFileUplad: any;
   fileUploaded: File;
   uploadImageDialogInstance: any;
@@ -61,7 +61,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
     const inline = params.inline || this.inline
     const menubar = params.menubar || this.menubar
     const plugins = params.plugins || this.plugins
-    const quickbars = params.quickbars || this.quickbars
+    const quickbars = params.quickbars || this.quickbarsInsert
     const toolbar = params.toolbar ? this.wysiwygService.toolbarOptionsToString(params.toolbar) : this.toolbar
 
     this.initParams = {

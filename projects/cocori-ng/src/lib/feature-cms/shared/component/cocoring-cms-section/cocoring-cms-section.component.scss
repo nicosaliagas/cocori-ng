@@ -2,6 +2,13 @@
   display: block;
 }
 
+.example-custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
 section.cms-block {
   -webkit-transition: opacity 0.3s ease-out;
   -moz-transition: opacity 0.3s ease-out;
@@ -40,14 +47,15 @@ section.cms-block {
       .row {
         width: 100%;
         display: flex;
-        align-items: baseline;
+        align-items: flex-start;
         flex-wrap: wrap;
-        margin-right: -15px;
-        margin-left: -15px;
 
-        .col-6 {
-          flex: 0 0 50%;
-          max-width: 50%;
+        .zone-editor {
+          padding: 0 15px;
+
+          &:hover {
+            border: 1px dashed #909090;
+          }
         }
       }
     }

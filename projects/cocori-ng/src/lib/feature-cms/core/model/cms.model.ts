@@ -14,13 +14,15 @@ export interface BlockDatasModel {
     idBlock: string,
     filename: string,
     label: string,
+    backgroundColor: string,
     content: EditorValues
 }
 
 export interface SectionModel {
     idSection: string,
     block: Block,
-    values: EditorValues
+    values: EditorValues,
+    backgroundColor: string
 }
 
 export interface EditorValues {
@@ -36,4 +38,9 @@ export interface InsertSectionAt {
     index?: number,
 }
 
-export type BottomSheetSectionActions = 'duplicate' | 'remove'
+export interface BottomSheetSectionReturnAction {
+    action: BottomSheetSectionActions
+    value: any
+}
+
+export type BottomSheetSectionActions = 'duplicate' | 'remove' | 'backgroundColor'

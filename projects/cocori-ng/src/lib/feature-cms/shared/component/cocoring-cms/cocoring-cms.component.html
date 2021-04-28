@@ -22,7 +22,7 @@
                     </div>
 
                     <div *ngIf="totalSections" class="container-sections" [ngClass]="{'col-elements': isSidenavOpen}">
-                        <div class="blocks">
+                        <div class="blocks" cdkDropList (cdkDropListDropped)="dropSection($event)">
                             <ng-template #ContainerRef></ng-template>
                         </div>
                     </div>

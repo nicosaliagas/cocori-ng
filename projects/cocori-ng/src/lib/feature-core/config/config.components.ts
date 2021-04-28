@@ -33,7 +33,7 @@ export const DefaultConfigComponent = {
             'code',
             'help',
         ],
-        toolbar: 'undo redo | bullist numlist | imageoptions media | quicklink | quicktable | emoticons',
-        quickbars: 'bullist numlist | imageoptions media | quicklink | quicktable | emoticons'
+        toolbar: 'undo redo | bullist | imageoptions | quicklink | outdent | indent | emoticons',
+        quickbarsInsert: 'bullist numlist | imageoptions media | quicklink | quicktable | emoticons'
     }
 }
