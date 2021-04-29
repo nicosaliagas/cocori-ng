@@ -1,13 +1,13 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -119,6 +119,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   public dropSection(event: CdkDragDrop<any[]>) {
-    console.log("drop section", event.previousIndex, event.currentIndex)
+    moveItemInArray(this.cmsService.sections, event.previousIndex, event.currentIndex);
+
+    this.injectComponentService.moveComponentFromViewContainer(event.currentIndex, event.previousIndex, this.containerRef)
   }
 }

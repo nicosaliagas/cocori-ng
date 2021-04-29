@@ -50,8 +50,17 @@ export class InjectComponentService {
     }
 
     removeComponentFromViewContainer(index: number, viewContainerRef: ViewContainerRef) {
+
+        console.log("remove index", index)
+
         viewContainerRef.remove(index);
 
         this.componentsRefs.splice(index, 1);
+    }
+
+    moveComponentFromViewContainer(currentIndex: number, previousIndex: number, viewContainerRef: ViewContainerRef) {
+        viewContainerRef.move(viewContainerRef.get(previousIndex), currentIndex);
+
+        this.componentsRefs.splice(previousIndex, 0, this.componentsRefs.splice(currentIndex, 1)[0]);
     }
 }
