@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
 import {
-  BottomSheetSectionReturnAction,
-  EditorValues,
-  SectionModel,
-  WysiwygSectionCmsModel,
+    BottomSheetSectionReturnAction,
+    EditorValues,
+    SectionModel,
+    WysiwygSectionCmsModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
@@ -166,8 +166,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
                     case 'backgroundColor':
                         this.saveSectionBackgroundColor(datas.value)
-
-                        console.log("value backgroundColor", datas.value)
 
                         break;
 

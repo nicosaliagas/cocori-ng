@@ -15,7 +15,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { ConfigCmsModel, InsertSectionAt } from '../../../core/model/cms.model';
+import { ConfigCmsModel, InsertSectionAt, SectionMoveIndexes } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -60,6 +60,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.addSectionEvent()
 
     this.onSectionRemoved()
+
+    this.onSectionMoved()
   }
 
   ngOnDestroy(): void {
@@ -112,6 +114,16 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     )
   }
 
+  private onSectionMoved() {
+    this.subscription.add(
+      this.cmsService.moveSection$.pipe(
+        tap((values: any) => {
+          this.moveSectionContainer({ previousIndex: values.previousIndex, currentIndex: values.currentIndex })
+        }),
+      ).subscribe()
+    )
+  }
+
   private refreshNumberSection() {
     this.totalSections = this.cmsService.sections.length
 
@@ -119,8 +131,12 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   public dropSection(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.cmsService.sections, event.previousIndex, event.currentIndex);
+    this.moveSectionContainer({ previousIndex: event.previousIndex, currentIndex: event.currentIndex })
+  }
 
-    this.injectComponentService.moveComponentFromViewContainer(event.currentIndex, event.previousIndex, this.containerRef)
+  private moveSectionContainer(moveIndexes: SectionMoveIndexes) {
+    moveItemInArray(this.cmsService.sections, moveIndexes.previousIndex, moveIndexes.currentIndex);
+
+    this.injectComponentService.moveComponentFromViewContainer(moveIndexes.currentIndex, moveIndexes.previousIndex, this.containerRef)
   }
 }

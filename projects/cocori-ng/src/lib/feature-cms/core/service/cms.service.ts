@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { InsertSectionAt, SectionModel } from '../model/cms.model';
+import { InsertSectionAt, MoveOrientationSectionActions, SectionModel, SectionMoveIndexes } from '../model/cms.model';
 import { Block } from './block';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class CmsService {
   public sectionAdded$: Subject<InsertSectionAt> = new Subject<InsertSectionAt>();
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public backgroundColor$: Subject<string> = new Subject<string>();
+  public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
   private pageContentSaved$: Subject<void> = new Subject<void>();
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
@@ -76,5 +77,18 @@ export class CmsService {
     section.backgroundColor = value
 
     this.backgroundColor$.next(idSection)
+  }
+
+  public moveSection(idSection: string, orientation: MoveOrientationSectionActions) {
+    const previousIndex: number = this.sections.findIndex((s: SectionModel) => s.idSection === idSection)
+    let currentIndex: number = previousIndex
+
+    if (orientation === 'move-up' && previousIndex > 0) {
+      currentIndex = previousIndex - 1
+    } else if (orientation === 'move-down' && previousIndex < this.sections.length - 1) {
+      currentIndex = previousIndex + 1
+    }
+
+    this.moveSection$.next({ previousIndex: previousIndex, currentIndex: currentIndex })
   }
 }

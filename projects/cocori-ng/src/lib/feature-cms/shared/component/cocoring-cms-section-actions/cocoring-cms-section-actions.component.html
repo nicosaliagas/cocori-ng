@@ -13,6 +13,16 @@
         <span mat-line>Changer la couleur de fond</span>
     </a>
     
+    <a href="#" mat-list-item (click)="moveUpSection($event)">
+        <mat-icon mat-list-icon>keyboard_arrow_up</mat-icon>
+        <span mat-line>Déplacer vers le haut</span>
+    </a>
+    
+    <a href="#" mat-list-item (click)="moveDownSection($event)">
+        <mat-icon mat-list-icon>keyboard_arrow_down</mat-icon>
+        <span mat-line>Déplacer vers le bas</span>
+    </a>
+
     <a href="#" mat-list-item (click)="duplicateSection($event)">
         <mat-icon mat-list-icon>content_copy</mat-icon>
         <span mat-line>Dupliquer</span>

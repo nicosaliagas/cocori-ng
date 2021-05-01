@@ -1,37 +1,59 @@
-
 @mixin arrow() {
-    border-style: solid;
-    border-width: 0.07em 0.07em 0 0;
-    content: '';
-    display: inline-block;
-    height: 0.65em;
-    left: 0.15em;
-    position: relative;
-    top: 0.15em;
-    transform: rotate(-45deg);
-    vertical-align: top;
-    width: 0.65em;
-    -webkit-transition: 0.250s ease-in-out;
-    -moz-transition: 0.250s ease-in-out;
-    -o-transition: 0.250s ease-in-out;
-    transition: 0.250s ease-in-out;
+  border-style: solid;
+  border-width: 0.07em 0.07em 0 0;
+  content: "";
+  display: inline-block;
+  height: 0.65em;
+  left: 0.15em;
+  position: relative;
+  top: 0.15em;
+  transform: rotate(-45deg);
+  vertical-align: top;
+  width: 0.65em;
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
 }
 
 @mixin arrow-down() {
-    @include arrow();
-    transform: rotate(135deg);
+  @include arrow();
+  transform: rotate(135deg);
 }
 
 @mixin arrow-up() {
-    @include arrow();
+  @include arrow();
 }
 
 @mixin arrow-left() {
-    @include arrow();
-    transform: rotate(-135deg);
+  @include arrow();
+  transform: rotate(-135deg);
 }
 
 @mixin arrow-right() {
-    @include arrow();
-    transform: rotate(45deg);
+  @include arrow();
+  transform: rotate(45deg);
+}
+
+@mixin md-icon-size($size: 24px) {
+  font-size: $size !important;
+  height: $size !important;
+  width: $size !important;
+  line-height: $size !important;
+}
+
+@mixin material-icon-btn-size($size: 24px) {
+  width: $size !important;
+  height: $size !important;
+
+  .mat-icon {
+    @include material-icon-size($size);
+  }
+}
+
+@mixin material-icon-size($size: 24px) {
+  font-size: $size !important;
+  height: $size !important;
+  width: $size !important;
+  line-height: $size !important;
 }

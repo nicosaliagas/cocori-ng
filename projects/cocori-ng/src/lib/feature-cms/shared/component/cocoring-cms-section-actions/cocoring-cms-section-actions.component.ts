@@ -39,6 +39,18 @@ export class CocoringCmsSectionActionsComponent implements OnInit {
 
     event.preventDefault();
   }
+  
+  moveUpSection(event) {
+    this.cmsService.moveSection(this.section.idSection, 'move-up');
+
+    event.preventDefault();
+  }
+
+  moveDownSection(event) {
+    this.cmsService.moveSection(this.section.idSection, 'move-down');
+
+    event.preventDefault();
+  }
 
   duplicateSection(event) {
     this._bottomSheetRef.dismiss(<BottomSheetSectionReturnAction>{ action: 'duplicate' });

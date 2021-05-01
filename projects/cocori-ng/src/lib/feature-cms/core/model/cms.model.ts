@@ -43,4 +43,11 @@ export interface BottomSheetSectionReturnAction {
     value: any
 }
 
-export type BottomSheetSectionActions = 'duplicate' | 'remove' | 'backgroundColor'
+export interface SectionMoveIndexes {
+    currentIndex: number
+    previousIndex: number
+}
+
+export type BottomSheetSectionActions = 'duplicate' | 'remove' | 'backgroundColor' | 'move-up' | 'move-down'
+
+export type MoveOrientationSectionActions = 'move-up' | 'move-down'
