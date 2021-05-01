@@ -1,8 +1,8 @@
 <div class="cms-section">
-    <div class="placeholder" *cdkDragPlaceholder></div>
-    <div cdkDrag cdkDragLockAxis="y" cdkDragBoundary=".blocks">
+    <!-- <div class="placeholder" *cdkDragPlaceholder></div> -->
+    <div cdkDrag [cdkDragDisabled]="!readOnly" cdkDragLockAxis="y" cdkDragBoundary=".blocks">
         <ng-template #ContainerRef></ng-template>
-        <!-- <div class="example-custom-placeholder" *cdkDragPlaceholder></div> -->
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
         <!-- <img *cdkDragPreview src="https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg"> -->
         <div *cdkDragPreview></div>
     </div>

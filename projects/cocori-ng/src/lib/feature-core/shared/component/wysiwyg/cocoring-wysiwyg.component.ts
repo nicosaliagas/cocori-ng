@@ -65,6 +65,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
     const toolbar = params.toolbar ? this.wysiwygService.toolbarOptionsToString(params.toolbar) : this.toolbar
 
     this.initParams = {
+      placeholder: 'Ecrivez quelque chose',
       toolbar_mode: 'scrolling', // https://www.tiny.cloud/docs/configure/editor-appearance/#toolbar_sticky
       language: 'fr_FR',
       resize: false,

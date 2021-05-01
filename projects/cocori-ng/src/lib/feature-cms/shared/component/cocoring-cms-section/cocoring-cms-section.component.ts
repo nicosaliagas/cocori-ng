@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -10,8 +11,11 @@ import {
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import { CmsService } from '../../../core/service/cms.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,15 +31,33 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   @Input() section: SectionModel
   @Input() wysiwyg: WysiwygSectionCmsModel
 
+  subscription: Subscription = new Subscription();
+  readOnly: boolean = true;
+
   constructor(
+    private cdr: ChangeDetectorRef,
+    private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
   ) { }
 
   ngOnInit(): void {
     this.addTemplateSectionComponent()
+
+    this.catalogBlocksOpenedEvent()
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() { this.subscription.unsubscribe() }
+
+  private catalogBlocksOpenedEvent() {
+    this.subscription.add(
+      this.cmsService.catalogBlocksOpened$.pipe(
+        tap((isOpened: boolean) => {
+          this.readOnly = isOpened
+        }),
+        tap(_ => this.cdr.detectChanges())
+      ).subscribe()
+    )
+  }
 
   private addTemplateSectionComponent() {
     this.injectComponentService.loadAndAddComponentToContainer(this.section.block.component, this.containerRef,

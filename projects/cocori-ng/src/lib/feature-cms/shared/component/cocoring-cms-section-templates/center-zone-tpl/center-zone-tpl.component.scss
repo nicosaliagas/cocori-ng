@@ -1,3 +1,16 @@
 :host {
   display: block;
 }
+
+.placeholder-editor {
+  position: absolute;
+  font-size: 44px;
+  line-height: 66px;
+  color: #aaa;
+  font-family: sans-serif;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
