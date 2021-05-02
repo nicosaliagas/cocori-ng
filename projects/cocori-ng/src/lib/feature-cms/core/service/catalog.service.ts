@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import {
-  CenterZoneTplComponent,
-} from '../../shared/component/cocoring-cms-section-templates/center-zone-tpl/center-zone-tpl.component';
-import {
-  TwoZonesHTplComponent,
-} from '../../shared/component/cocoring-cms-section-templates/two-zones-h-tpl/two-zones-h-tpl.component';
 import { Block } from './block';
 
 @Injectable()
@@ -13,7 +7,7 @@ export class CatalogService {
 
   getBlocks() {
     return [
-      new Block(CenterZoneTplComponent, {
+      new Block("CenterZoneTpl", {
         idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '1.jpg',
         label: 'bloc avec une zone de texte',
         backgroundColor: '#343a40',
@@ -22,7 +16,7 @@ export class CatalogService {
         }
       }),
 
-      new Block(CenterZoneTplComponent, {
+      new Block("CenterZoneTpl", {
         idBlock: '5298A104-33DD-40CF-A11F-AF810FE31670',
         filename: '26.jpg',
         label: 'bloc avec une image et une zone de texte',
@@ -34,7 +28,7 @@ export class CatalogService {
         }
       }),
 
-      new Block(TwoZonesHTplComponent, {
+      new Block("TwoZonesHTpl", {
         idBlock: 'DF59F046-E689-4A37-A874-E03C15D45EDF',
         filename: '14.jpg',
         label: 'bloc avec une image et une zone de texte',
@@ -60,7 +54,7 @@ export class CatalogService {
         }
       }),
 
-      new Block(TwoZonesHTplComponent, {
+      new Block("TwoZonesHTpl", {
         idBlock: 'B817C586-2D5D-4807-9B76-592487433E64',
         filename: '1.jpg',
         label: 'bloc avec une image et une zone de texte',

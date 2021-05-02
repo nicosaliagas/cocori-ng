@@ -17,6 +17,6 @@ export class CocoringToolbarCmsComponent implements OnInit {
   }
 
   saveContentPage() {
-    this.cmsService.saveContentPage()
+    this.cmsService.exportPage()
   }
 }

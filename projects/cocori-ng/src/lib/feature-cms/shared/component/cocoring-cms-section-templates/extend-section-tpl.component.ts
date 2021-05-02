@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { FormHelperService, InitWysiwyg, WysiwygConfigSection } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
     BottomSheetSectionReturnAction,
@@ -60,8 +60,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
         this.catalogBlocksOpenedEvent()
 
-        this.pageContentSavedEvent()
-
         this.onBackgroundColorEvent()
     }
 
@@ -76,6 +74,26 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
             this.configsWysiwyg[nameControl] = this.configComponent(nameControl)
         }
+
+        this.saveSectionValues()
+
+        this.onSectionValuesChanged()
+    }
+
+    /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
+    private onSectionValuesChanged() {
+        this.subscription.add(
+            this.formulaire.valueChanges.pipe(
+                debounceTime(500),
+                tap((values: any) => {
+                    this.section.values = values
+                })
+            ).subscribe()
+        )
+    }
+
+    private saveSectionValues() {
+        this.section.values = this.formulaire.value
     }
 
     private initSectionValue(nameControl: string) {
@@ -119,15 +137,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         )
     }
 
-    /** #todo */
-    private pageContentSavedEvent() {
-        this.subscription.add(
-            this.cmsService.onContentPageSaved().pipe(
-                tap(_ => console.log(`Save section ${this.section.idSection}`)),
-            ).subscribe()
-        )
-    }
-
     private onBackgroundColorEvent() {
         this.subscription.add(
             this.cmsService.backgroundColor$.pipe(
@@ -139,8 +148,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
     openBottomSheet() {
         if (!this.readOnly) return;
-
-        this.saveSectionValue()
 
         const bottomSheet = this._bottomSheet.open(CocoringCmsSectionActionsComponent, {
             panelClass: 'bottom-sheet-container',
@@ -174,11 +181,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
                 }
             })
         )
-    }
-
-    /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
-    private saveSectionValue() {
-        this.section.values = this.formulaire.value
     }
 
     private saveSectionBackgroundColor(color: string) {

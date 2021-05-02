@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
+import { AdapterWritePagCmsModel } from '../model/adapter-cms.model';
 import { InsertSectionAt, MoveOrientationSectionActions, SectionModel, SectionMoveIndexes } from '../model/cms.model';
+import { AdapterPageCmsService } from './adapter-page-cms.service';
 import { Block } from './block';
 
 @Injectable({
@@ -13,24 +15,23 @@ export class CmsService {
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public backgroundColor$: Subject<string> = new Subject<string>();
   public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
-  private pageContentSaved$: Subject<void> = new Subject<void>();
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
   public sections: SectionModel[] = []
   public blocks: Block[]
 
-  constructor(private helperService: HelperService) { }
+  constructor(
+    private helperService: HelperService,
+    private adapterPageCmsService: AdapterPageCmsService) { }
 
   public onSectionRemoved(): Subject<number> {
     return this.sectionRemoved$
   }
 
-  public onContentPageSaved(): Subject<void> {
-    return this.pageContentSaved$
-  }
+  public exportPage() {
+    const pageExported: AdapterWritePagCmsModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
 
-  public saveContentPage() {
-    this.pageContentSaved$.next()
+    console.log("pageExported", pageExported)
   }
 
   public addSection(fromBlock: Block) {

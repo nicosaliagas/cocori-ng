@@ -48,6 +48,6 @@ import { CocoringCmsComponent } from './cocoring-cms.component';
     ],
     exports: [
         CocoringCmsComponent,
-    ],
+    ]
 })
 export class CocoringCMSModule { }

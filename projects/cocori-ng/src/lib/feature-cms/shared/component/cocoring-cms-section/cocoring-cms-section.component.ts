@@ -14,6 +14,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { TemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
 import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 
@@ -60,7 +61,7 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   }
 
   private addTemplateSectionComponent() {
-    this.injectComponentService.loadAndAddComponentToContainer(this.section.block.component, this.containerRef,
+    this.injectComponentService.loadAndAddComponentToContainer(TemplatesClassesComponents[this.section.block.component], this.containerRef,
       [{ section: this.section }, { wysiwyg: this.wysiwyg }], null)
   }
 }
