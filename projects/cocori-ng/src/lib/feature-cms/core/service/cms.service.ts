@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
+import { HelperService, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { AdapterWritePagCmsModel } from '../model/adapter-cms.model';
@@ -22,6 +22,7 @@ export class CmsService {
 
   constructor(
     private helperService: HelperService,
+    private storageService: StorageService,
     private adapterPageCmsService: AdapterPageCmsService) { }
 
   public onSectionRemoved(): Subject<number> {
@@ -30,6 +31,8 @@ export class CmsService {
 
   public exportPage() {
     const pageExported: AdapterWritePagCmsModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
+
+    this.storageService.setLocalStorageItem('cms-page-save', pageExported)
 
     console.log("pageExported", pageExported)
   }

@@ -85,7 +85,6 @@ export * from './lib/core/service/interceptors/loading-interceptor.service';
 export * from './lib/core/service/interceptors/request-interceptor.service';
 export * from './lib/core/service/interceptors/global-error-interceptor.service';
 
-export * from './lib/core/service/storage.service';
 export * from './lib/core/service/token.service';
 export * from './lib/core/service/form-builder/form-builder.service';
 

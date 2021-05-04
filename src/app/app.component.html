@@ -1,15 +1,1 @@
-<app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
-<mat-sidenav-container class="layout-container" fullscreen>
-    <mat-sidenav class="sidenav" #sidenav [disableClose]="isSidenavCloseDisabled" [mode]="sidenavPosition"
-        position="start" [opened]="isSidenavOpen">
-        <mat-nav-list>
-            <cocoring-sidenav-item *ngFor="let item of menuItems; trackBy: trackBy" [item]="item">
-            </cocoring-sidenav-item>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content #sidenavContent>
-        <div class="main">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<router-outlet></router-outlet>

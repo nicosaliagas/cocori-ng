@@ -11,6 +11,7 @@ export * from './core/service/datasource.service';
 export * from './core/service/uploader/uploader.service';
 export * from './core/service/broadcast-event.service';
 export * from './core/service/toast-message.service';
+export * from './core/service/storage.service';
 
 export * from './core/model/data-source.model';
 export * from './core/model/form-input-components.model';

@@ -1,7 +1,7 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { StorageService } from '../storage.service';
+import { StorageService } from '../../../feature-core/core/service/storage.service';
 
 const LIMIT_MAX_RELOAD: number = 2
 const TIME_MAX_RELOAD: number = 30 // secondes

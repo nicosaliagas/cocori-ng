@@ -14,8 +14,13 @@
         </mat-button-toggle>
     </mat-button-toggle-group> -->
 
-    <div class="toggle-sidenav" (click)="saveContentPage()">
-        <mat-icon>save</mat-icon>
+    <div class="group-left">
+        <div class="toggle-sidenav" (click)="saveContentPage()">
+            <mat-icon>save</mat-icon>
+        </div>
+        <!-- <div class="toggle-sidenav" (click)="previewContentPage()">
+            <mat-icon>preview</mat-icon>
+        </div> -->
     </div>
     <div class="toggle-sidenav" (click)="toggleSidenav.emit()">
         <mat-icon>segment</mat-icon>

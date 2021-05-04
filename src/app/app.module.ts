@@ -19,6 +19,7 @@ import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorServi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CmsLayoutComponent } from './layouts/cms-layout.component';
 import { ToolbarComponent } from './shared/component/toolbar/toolbar.component';
 import { SharedProjectModule } from './shared/shared-project.module';
 
@@ -28,6 +29,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
   declarations: [
     AppComponent,
+    CmsLayoutComponent,
     ToolbarComponent
   ],
   imports: [

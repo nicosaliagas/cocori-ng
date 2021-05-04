@@ -18,9 +18,7 @@ export class AdapterPageCmsService {
         values: section.values
       })
     });
-
-    console.log("pageCmsExport>>>", pageCmsExport)
-
+    
     return pageCmsExport
   }
 }
