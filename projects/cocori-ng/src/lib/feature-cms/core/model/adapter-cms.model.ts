@@ -1,8 +1,8 @@
 import {
-    CenterZoneTplComponent,
+  CenterZoneTplComponent,
 } from '../../shared/component/cocoring-cms-section-templates/center-zone-tpl/center-zone-tpl.component';
 import {
-    TwoZonesHTplComponent,
+  TwoZonesHTplComponent,
 } from '../../shared/component/cocoring-cms-section-templates/two-zones-h-tpl/two-zones-h-tpl.component';
 import { EditorValues } from './cms.model';
 
@@ -11,7 +11,7 @@ export const TemplatesClassesComponents = {
     "TwoZonesHTpl": TwoZonesHTplComponent,
 };
 
-export interface AdapterWritePagCmsModel {
+export interface SectionPageDatasModel {
     backgroundColor: string,
     values: EditorValues,
     template: string,

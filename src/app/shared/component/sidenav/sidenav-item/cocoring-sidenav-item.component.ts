@@ -16,7 +16,6 @@ export const animateExpandListItem =
   animations: [animateExpandListItem],
   templateUrl: './cocoring-sidenav-item.component.html',
   styleUrls: ['./cocoring-sidenav-item.component.scss'],
-  providers: [CurrentUrlRoutingService]
 })
 export class CocoringSidenavItemComponent implements OnInit {
   expanded: boolean = false;

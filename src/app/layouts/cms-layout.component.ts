@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { NavigationEnd, Router } from '@angular/router';
+import { CurrentUrlRoutingService } from '@cocori-ng/lib';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
@@ -25,7 +26,8 @@ import { SidenavItem } from '../core/model/Sidenav.model';
       </mat-sidenav-content>
   </mat-sidenav-container>
 `,
-  styleUrls: ['./cms-layout.component.scss']
+  styleUrls: ['./cms-layout.component.scss'],
+  providers: [CurrentUrlRoutingService]
 })
 export class CmsLayoutComponent {
   @ViewChild('sidenavContent', { static: true, read: ElementRef })
@@ -71,6 +73,7 @@ export class CmsLayoutComponent {
   isSidenavOpen: boolean = true;
 
   constructor(
+    private navService: CurrentUrlRoutingService,
     mediaObserver: MediaObserver,
     public elementRef: ElementRef,
     public router: Router,
@@ -82,7 +85,8 @@ export class CmsLayoutComponent {
       this.router.events
         .pipe(
           filter((event) => event instanceof NavigationEnd),
-          tap(() => {
+          tap((event: any) => this.navService.currentUrl.next(event.urlAfterRedirects)),
+          tap(_ => {
             setTimeout(() => {
               this.sidenavContent.nativeElement.scrollTo(0, 0);
             });

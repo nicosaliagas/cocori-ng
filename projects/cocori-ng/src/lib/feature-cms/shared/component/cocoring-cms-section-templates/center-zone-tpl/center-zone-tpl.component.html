@@ -5,7 +5,6 @@
                 <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']">
                 </cocoring-wysiwyg>
                 <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
-                <!-- <span class="placeholder-editor">Ecrivez quelque chose</span> -->
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AdapterWritePagCmsModel } from '../model/adapter-cms.model';
+import { SectionPageDatasModel } from '../model/adapter-cms.model';
 import { SectionModel } from '../model/cms.model';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { SectionModel } from '../model/cms.model';
 export class AdapterPageCmsService {
 
   adapterWrite(sections: SectionModel[]) {
-    const pageCmsExport: AdapterWritePagCmsModel[] = []
+    const pageCmsExport: SectionPageDatasModel[] = []
 
     sections.forEach((section: SectionModel) => {
       pageCmsExport.push({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HelperService, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { AdapterWritePagCmsModel } from '../model/adapter-cms.model';
+import { SectionPageDatasModel } from '../model/adapter-cms.model';
 import { InsertSectionAt, MoveOrientationSectionActions, SectionModel, SectionMoveIndexes } from '../model/cms.model';
 import { AdapterPageCmsService } from './adapter-page-cms.service';
 import { Block } from './block';
@@ -30,7 +30,7 @@ export class CmsService {
   }
 
   public exportPage() {
-    const pageExported: AdapterWritePagCmsModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
+    const pageExported: SectionPageDatasModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
 
     this.storageService.setLocalStorageItem('cms-page-save', pageExported)
 
