@@ -29,7 +29,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
     private cdr: any;
-    private cmsService: CmsService;
+    public cmsService: CmsService;
 
     formulaire: FormGroup
     wysiwygsNb: number
