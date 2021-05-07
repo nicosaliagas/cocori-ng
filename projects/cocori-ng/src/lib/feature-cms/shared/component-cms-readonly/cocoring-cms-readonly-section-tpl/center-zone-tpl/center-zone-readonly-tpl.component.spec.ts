@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CocoringLoaderComponent } from './cocoring-loader.component';
+import { CenterZoneTplComponent } from './center-zone-readonly-tpl.component';
 
-describe('CocoringLoaderComponent', () => {
-  let component: CocoringLoaderComponent;
-  let fixture: ComponentFixture<CocoringLoaderComponent>;
+describe('CenterZoneTplComponent', () => {
+  let component: CenterZoneTplComponent;
+  let fixture: ComponentFixture<CenterZoneTplComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocoringLoaderComponent ]
+      declarations: [ CenterZoneTplComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CocoringLoaderComponent);
+    fixture = TestBed.createComponent(CenterZoneTplComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

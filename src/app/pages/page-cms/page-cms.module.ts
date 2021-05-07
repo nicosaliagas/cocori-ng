@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CocoringCMSModule, CocoringLoaderModule } from '@cocori-ng/lib/src/lib/feature-cms';
+import { CocoringCMSModule, CocoringCmsReadonlyModule } from '@cocori-ng/lib/src/lib/feature-cms';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { PageCMSRoutingModule } from './page-cms-routing.module';
@@ -13,7 +13,7 @@ import { PageTestComponent } from './page-test/page-test.component';
     PageCMSRoutingModule,
     SharedProjectModule,
     CocoringCMSModule,
-    CocoringLoaderModule,
+    CocoringCmsReadonlyModule,
   ],
   declarations: [
     PageCMSComponent,

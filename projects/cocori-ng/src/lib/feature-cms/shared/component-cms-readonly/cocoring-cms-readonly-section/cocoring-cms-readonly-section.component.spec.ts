@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CocoringLoaderSectionComponent } from './cocoring-loader-section.component';
+import { CocoringCmsReadonlySectionComponent } from './cocoring-cms-readonly-section.component';
 
 describe('CocoringLoaderSectionComponent', () => {
-  let component: CocoringLoaderSectionComponent;
-  let fixture: ComponentFixture<CocoringLoaderSectionComponent>;
+  let component: CocoringCmsReadonlySectionComponent;
+  let fixture: ComponentFixture<CocoringCmsReadonlySectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocoringLoaderSectionComponent ]
+      declarations: [ CocoringCmsReadonlySectionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CocoringLoaderSectionComponent);
+    fixture = TestBed.createComponent(CocoringCmsReadonlySectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
