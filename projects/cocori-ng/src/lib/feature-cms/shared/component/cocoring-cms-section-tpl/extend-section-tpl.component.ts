@@ -32,7 +32,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     public cmsService: CmsService;
 
     formulaire: FormGroup
-    wysiwygsNb: number
+    nbEditorView: number
     nameControl: string = 'editor'
 
     configsWysiwyg: WysiwygConfigSection[];
@@ -53,8 +53,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.subscriptions.unsubscribe()
     }
 
-    init(wysiwygsNb: number) {
-        this.wysiwygsNb = wysiwygsNb
+    init(nbEditorView: number) {
+        this.nbEditorView = nbEditorView
 
         this.buildForm();
 
@@ -67,7 +67,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.formulaire = this.fb.group({});
         this.configsWysiwyg = []
 
-        for (let i = 1; i <= this.wysiwygsNb; i++) {
+        for (let i = 1; i <= this.nbEditorView; i++) {
             const nameControl: string = `${this.nameControl}${i}`
 
             this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))

@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-cms-readonly',
   templateUrl: './cocoring-cms-readonly.component.html',
   styleUrls: ['./cocoring-cms-readonly.component.scss']

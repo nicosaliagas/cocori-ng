@@ -1,9 +1,19 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { ReadonlyTemplatesClassesComponents, SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   selector: 'cocoring-cms-readonly-section',
   templateUrl: './cocoring-cms-readonly-section.component.html',
   styleUrls: ['./cocoring-cms-readonly-section.component.scss']
@@ -18,13 +28,11 @@ export class CocoringCmsReadonlySectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("config section >>> ", this.config)
-
     this.addTemplateSectionComponent()
   }
 
   private addTemplateSectionComponent() {
     this.injectComponentService.loadAndAddComponentToContainer(ReadonlyTemplatesClassesComponents[this.config.template], this.containerRef,
-      [], null)
+      [{section: this.config}], null)
   }
 }

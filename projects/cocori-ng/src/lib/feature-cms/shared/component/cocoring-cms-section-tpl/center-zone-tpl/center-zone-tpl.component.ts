@@ -13,7 +13,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   providers: [FormHelperService]
 })
 export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
-  @ViewChild('ContainerEditorRef', { static: false, read: ViewContainerRef }) containerEditorRef: ViewContainerRef;
+  @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
 
   editorSubscription: Subscription = new Subscription();
 
@@ -35,7 +35,7 @@ export class CenterZoneTplComponent extends ExtendSectionTplComponent implements
         tap((isOpened: boolean) => {
           if (isOpened) return
 
-          this.injectComponentService.loadAndAddComponentToContainer(CocoringWysiwygComponent, this.containerEditorRef,
+          this.injectComponentService.loadAndAddComponentToContainer(CocoringWysiwygComponent, this.containerEditor1Ref,
             [{ config: this.configsWysiwyg['editor1'] }], null)
         }),
       ).subscribe()

@@ -1,3 +1,47 @@
+@import "../../../../assets/mixins";
+
 :host {
   display: block;
+}
+
+.cms-section {
+  position: relative;
+}
+
+cocoring-cms-readonly-section {
+  section {
+    &.cms-block {
+      padding: 7.5rem 0;
+      background-color: #fff;
+  
+      .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+  
+        .row {
+          width: 100%;
+          display: flex;
+          align-items: flex-start;
+          flex-wrap: wrap;
+  
+          .zone-editor {
+            padding: 0 15px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  
+    &.bg-dark {
+      color: #f2f2f2;
+      background-color: #343a40 !important;
+    }
+  
+    .justify-content-center {
+      justify-content: center;
+    }
+  }
 }

@@ -2,7 +2,7 @@
     <div class="container" fxLayout="row" fxFlex="100%" fxFlex.gt-lg="75%" fxFlex.gt-md="80%" fxFlex.gt-sm="90%"  fxFlex.gt-xs="100%">
         <div class="row justify-content-center" fxLayout="row">
             <div class="zone-editor">
-                <ng-template *ngIf="!readOnly" #ContainerEditorRef></ng-template>
+                <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
                 <!-- <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']"></cocoring-wysiwyg> -->
                 <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
             </div>
