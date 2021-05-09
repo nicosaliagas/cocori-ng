@@ -4,7 +4,7 @@ import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tp
 
 @Component({
   selector: 'center-zone-ro-tpl',
-  templateUrl: '../../../templates/center-zone-tpl/center-zone-tpl.component.html',
+  templateUrl: '../../../templates/center-zone-tpl.component.html',
   styleUrls: ['./center-zone-readonly-tpl.component.scss']
 })
 export class CenterZoneReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {

@@ -1,7 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnDestroy } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Injector,
+    Input,
+    OnDestroy,
+    ViewContainerRef,
+} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { FormHelperService, InitWysiwyg, WysiwygConfigSection } from '@cocori-ng/lib/src/lib/feature-core';
+import {
+    CocoringWysiwygComponent,
+    FormHelperService,
+    InitWysiwyg,
+    InjectComponentService,
+    WysiwygConfigSection,
+} from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
@@ -40,8 +54,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     readOnly: boolean = true;
     value: any;
     formHelper: FormHelperService;
+    injectComponentService: any;
 
     constructor(injector: Injector) {
+        this.injectComponentService = injector.get(InjectComponentService);
         this.fb = injector.get(FormBuilder);
         this._bottomSheet = injector.get(MatBottomSheet);
         this.cdr = injector.get(ChangeDetectorRef);
@@ -135,6 +151,18 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
                 tap(_ => this.cdr.detectChanges())
             ).subscribe()
         )
+    }
+
+    /** @param : tableau des références où seront ajouter le composant Wysiwyg */
+    public addWysiwygComponentToViewEvent(refs: ViewContainerRef[]) {
+        for (let i = 1; i <= refs.length; i++) {
+            const nameControl: string = `${this.nameControl}${i}`
+
+            this.injectComponentService.loadAndAddComponentToContainer(CocoringWysiwygComponent, refs[i - 1],
+                [{ config: this.configsWysiwyg[nameControl] }], null)
+        }
+
+        this.cdr.detectChanges()
     }
 
     private onBackgroundColorEvent() {

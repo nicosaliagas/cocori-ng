@@ -4,7 +4,7 @@ import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tp
 
 @Component({
   selector: 'two-zones-h-tpl',
-  templateUrl: '../../../templates/center-zone-tpl/two-zones-h-tpl.component.html',
+  templateUrl: '../../../templates/two-zones-h-tpl.component.html',
   styleUrls: ['./two-zones-h-readonly-tpl.component.scss']
 })
 export class TwoZonesHReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {
