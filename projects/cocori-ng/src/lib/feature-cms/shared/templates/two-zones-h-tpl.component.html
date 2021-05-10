@@ -1,16 +1,12 @@
 <section class="cms-block" [style.background-color]="section.backgroundColor" [ngClass]="{'sidenav-openned': readOnly}" (click)="openBottomSheet()">
-    <div class="container" fxLayout="row" fxFlex="100%" fxFlex.gt-lg="75%" fxFlex.gt-md="80%" fxFlex.gt-sm="90%"  fxFlex.gt-xs="100%">
-        <div class="row justify-content-center" fxLayout="row" fxFlex="100%">
+    <div class="container" [fxLayout]="orientation" fxFlex="100%" fxFlex.gt-lg="75%" fxFlex.gt-md="80%" fxFlex.gt-sm="90%"  fxFlex.gt-xs="100%">
+        <div class="row justify-content-center" [fxLayout]="orientation" fxFlex="100%" [ngClass]="{'orientation-column': orientation === 'column'}">
             <div fxFlex="50%" fxFlex.lt-md="100%" class="zone-editor" [ngClass.lt-md]="'zone-left-mobile'">
                 <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
-                <!-- <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor1']">
-                </cocoring-wysiwyg> -->
                 <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
             </div>
             <div fxFlex="41%" fxFlex.lt-md="100%" class="zone-editor zone-right">
                 <ng-template *ngIf="!readOnly" #ContainerEditor2Ref></ng-template>
-                <!-- <cocoring-wysiwyg *ngIf="!readOnly" [config]="configsWysiwyg['editor2']">
-                </cocoring-wysiwyg> -->
                 <div *ngIf="readOnly" [innerHtml]="value['editor2'] | variableHtml"></div>
             </div>
         </div>

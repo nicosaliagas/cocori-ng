@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BroadcastEventService, ConfigEvents } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { CmsService } from '../../../core/service/cms.service';
 
@@ -11,16 +12,21 @@ import { CmsService } from '../../../core/service/cms.service';
 export class CocoringToolbarCmsComponent implements OnInit {
   @Output() toggleSidenav: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private cmsService: CmsService,) { }
+  responsive: string = 'computer'
+
+  constructor(
+    private cmsService: CmsService,
+    private broadcastEventService: BroadcastEventService,) { }
 
   ngOnInit(): void {
+
   }
 
   saveContentPage() {
     this.cmsService.exportPage()
   }
-  
-  previewContentPage() {
-    // save to localstorage & open new url
+
+  onResponsiveChange($event) {
+    this.broadcastEventService.broadcast({ eventKeys: [ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED], eventData: $event })
   }
 }

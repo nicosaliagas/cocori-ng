@@ -15,6 +15,7 @@ export abstract class ExtendSectionReadonlyTplComponent implements OnDestroy {
     nbEditorView: number
     readOnly: boolean = true;
     value: any;
+    orientation: string = 'row'
 
     constructor() { }
 

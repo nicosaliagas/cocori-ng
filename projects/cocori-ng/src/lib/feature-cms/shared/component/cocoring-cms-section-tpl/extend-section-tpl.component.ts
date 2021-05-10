@@ -10,7 +10,9 @@ import {
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
+    BroadcastEventService,
     CocoringWysiwygComponent,
+    ConfigEvents,
     FormHelperService,
     InitWysiwyg,
     InjectComponentService,
@@ -45,6 +47,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     private cdr: any;
     public cmsService: CmsService;
 
+    orientation: string = 'row'
     formulaire: FormGroup
     nbEditorView: number
     nameControl: string = 'editor'
@@ -55,6 +58,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     value: any;
     formHelper: FormHelperService;
     injectComponentService: any;
+    broadcastEventService: BroadcastEventService;
 
     constructor(injector: Injector) {
         this.injectComponentService = injector.get(InjectComponentService);
@@ -63,6 +67,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.cdr = injector.get(ChangeDetectorRef);
         this.cmsService = injector.get(CmsService);
         this.formHelper = injector.get(FormHelperService);
+        this.broadcastEventService = injector.get(BroadcastEventService);
     }
 
     ngOnDestroy() {
@@ -77,6 +82,22 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.catalogBlocksOpenedEvent()
 
         this.onBackgroundColorEvent()
+
+        this.onOrientationChanged()
+    }
+
+    private onOrientationChanged() {
+        this.subscription.add(
+            this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).subscribe((screen: string) => {
+                if (screen !== 'computer') {
+                    this.orientation = 'column'
+                } else {
+                    this.orientation = 'row'
+                }
+
+                this.cdr.detectChanges()
+            })
+        )
     }
 
     private buildForm() {
