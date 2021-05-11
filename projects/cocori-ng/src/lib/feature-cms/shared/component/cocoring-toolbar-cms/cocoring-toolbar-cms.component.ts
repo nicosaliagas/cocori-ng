@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BroadcastEventService, ConfigEvents } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { ResponsiveOrientation } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 
 @Component({
@@ -13,6 +14,11 @@ export class CocoringToolbarCmsComponent implements OnInit {
   @Output() toggleSidenav: EventEmitter<void> = new EventEmitter<void>();
 
   responsive: string = 'computer'
+
+  orientationComputer: ResponsiveOrientation = 'computer'
+  orientationTabletLand: ResponsiveOrientation = 'tablet-land'
+  orientationTabletPort: ResponsiveOrientation = 'tablet-port'
+  orientationMobile: ResponsiveOrientation = 'mobile'
 
   constructor(
     private cmsService: CmsService,

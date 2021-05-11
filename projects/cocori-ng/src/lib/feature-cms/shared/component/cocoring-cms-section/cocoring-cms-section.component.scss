@@ -72,8 +72,6 @@ cocoring-cms-section {
 
     /** style wysiwyg */
     .mce-content-body {
-      // padding: 20px 50px;
-
       :is(h1, h2, h3, h4, h5, h6, p) {
         margin: 0;
       }
@@ -89,6 +87,16 @@ cocoring-cms-section {
     &.cms-block {
       padding: 7.5rem 0;
       background-color: #fff;
+
+      &.orientation-column {
+        margin: 0 auto;
+
+        .zone-editor {
+          max-width: 100%;
+          padding: 0 !important;
+          max-height: none !important;
+        }
+      }
 
       .container {
         width: 100%;
@@ -111,20 +119,8 @@ cocoring-cms-section {
               border: 1px dashed #909090;
             }
           }
-
-          &.orientation-column {
-            .zone-editor {
-              max-width: 100%;
-              max-height: none !important;
-            }
-          }
         }
       }
-    }
-
-    &.bg-dark {
-      color: #f2f2f2;
-      background-color: #343a40 !important;
     }
 
     .justify-content-center {

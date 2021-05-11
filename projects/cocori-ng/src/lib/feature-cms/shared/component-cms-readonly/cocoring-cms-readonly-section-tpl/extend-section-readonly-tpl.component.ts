@@ -16,6 +16,7 @@ export abstract class ExtendSectionReadonlyTplComponent implements OnDestroy {
     readOnly: boolean = true;
     value: any;
     orientation: string = 'row'
+    orientationWidth: string = '100%';
 
     constructor() { }
 

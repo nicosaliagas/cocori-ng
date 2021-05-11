@@ -2,6 +2,8 @@ import { ConfigWysiwygModel } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { Block } from '../service/block';
 
+export type ResponsiveOrientation = 'computer' | 'tablet-land' | 'tablet-port' | 'mobile'
+
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
 export type WysiwygSectionCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 

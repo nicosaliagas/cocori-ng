@@ -1,3 +1,6 @@
+/**
+ * Adapteur lecture / écriture entre le back et le front
+ */
 import {
     CenterZoneReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/center-zone-tpl/center-zone-readonly-tpl.component';
@@ -11,6 +14,7 @@ import {
     TwoZonesHTplComponent,
 } from '../../shared/component/cocoring-cms-section-tpl/two-zones-h-tpl/two-zones-h-tpl.component';
 import { EditorValues } from './cms.model';
+
 
 export const TemplatesClassesComponents = {
     "CenterZoneTpl": CenterZoneTplComponent,
