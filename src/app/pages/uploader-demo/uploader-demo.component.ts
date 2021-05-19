@@ -56,10 +56,10 @@ export class UploaderDemoComponent implements OnInit {
       validators: [ValidatorsService.require],
       nameLabel: "Veuillez joindre les pièces justificatives au dossier",
       apiFile: (fileId) => {
-        return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
+        return `${this.environmentService.appServerPath}/api/upload/file/${fileId ? fileId : ''}`
       },
       apiFileDownload: (fileId) => {
-        return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
+        return `${this.environmentService.appServerPath}/api/upload/file/${fileId}?download=true`
       },
       dataSource: {
         type: DataSourceType.BRUTE, value: [

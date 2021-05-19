@@ -91,18 +91,33 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     private onOrientationChanged() {
         this.subscription.add(
             this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).subscribe((orientation: ResponsiveOrientation) => {
-                if (orientation !== 'computer') {
+
+                if(orientation === 'mobile') {
                     this.orientation = 'column'
-
-                    if(orientation === 'mobile') this.orientationWidth = '375px'
-                    if(orientation === 'tablet-land') this.orientationWidth = '1024px' // pas colonne !!
-                    if(orientation === 'tablet-port') this.orientationWidth = '768px'
-
-                     /** #todo mettre en variable */
+                    this.orientationWidth = '375px'
+                } else if(orientation === 'tablet-port') {
+                    this.orientation = 'column'
+                    this.orientationWidth = '768px'
+                } else if(orientation === 'tablet-land') {
+                    this.orientation = 'row'
+                    this.orientationWidth = '1024px'
                 } else {
                     this.orientation = 'row'
                     this.orientationWidth = '100%'
                 }
+
+                // if (orientation !== 'computer') {
+                //     this.orientation = 'column'
+
+                //     if(orientation === 'mobile') this.orientationWidth = '375px'
+                //     if(orientation === 'tablet-land') this.orientationWidth = '1024px' // pas colonne !!
+                //     if(orientation === 'tablet-port') this.orientationWidth = '768px'
+
+                //      /** #todo mettre en variable */
+                // } else {
+                //     this.orientation = 'row'
+                //     this.orientationWidth = '100%'
+                // }
 
                 this.cdr.detectChanges()
             })

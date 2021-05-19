@@ -21,10 +21,10 @@ export class PageCMSComponent implements OnInit {
     this.configCms = <ConfigCmsModel>{
       wysiwygOptions: {
         apiFile: (fileId) => {
-          return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
+          return `${this.environmentService.appServerPath}/api/upload/file/${fileId ? fileId : ''}`
         },
         apiFileDownload: (fileId) => {
-          return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
+          return `${this.environmentService.appServerPath}/api/upload/file/${fileId}?download=true`
         },
         apiKey: this.environmentService.tinymceApiKey
       }

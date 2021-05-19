@@ -41,10 +41,10 @@ export class WysiwygDemoComponent implements OnInit {
   private initConfigComponent(nameControl: string, inline: boolean, require: boolean) {
     let config = {
       apiFile: (fileId) => {
-        return `${this.environmentService.appServerPath}/api/file/${fileId ? fileId : ''}`
+        return `${this.environmentService.appServerPath}/api/upload/file/${fileId ? fileId : ''}`
       },
       apiFileDownload: (fileId) => {
-        return `${this.environmentService.appServerPath}/api/file/${fileId}?download=true`
+        return `${this.environmentService.appServerPath}/api/upload/file/${fileId}?download=true`
       },
       apiKey: this.environmentService.tinymceApiKey,
       params: <InitWysiwyg>{

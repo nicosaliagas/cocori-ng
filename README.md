@@ -28,6 +28,13 @@ npm link (sudo avant si linux)
 
 npm link @cocori-ng/lib
 
+
+`si erreur`
+
+* se mettre en version node : 15.12.0
+* projet cible : "projects.$name.architect.build.options.preserveSymlinks: true" in angular.json
+* installer les dépendances manquantes dans le projet cible et refaire un coup de : npm link @cocori-ng/lib
+
 `Il est possible de lancer le projet Angular pour tester la librairie`
 dans une autre fenêtre cmd, lancer la commande : 
 

@@ -40,15 +40,15 @@
   }
 }
 
+.mat-drawer-content {
+  background-color: #ecebeb;
+}
+
 .sidenav-content {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #fff;
-
-  &.sidenav-openned {
-    background-color: #ecebeb;
-  }
+  // background-color: #ecebeb;
 }
 
 .sidenav-blocks-catalog {
