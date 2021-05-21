@@ -8,7 +8,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 @Component({
   selector: 'two-zones-h-tpl',
   templateUrl: '../../../section-templates/two-zones-h-tpl.component.html',
-  styleUrls: ['./two-zones-h-tpl.component.scss'],
+  styleUrls: ['./two-zones-h-tpl.component.scss', '../../../section-styles/two-zones-h-tpl.component.scss'],
   providers: [FormHelperService]
 })
 export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements OnInit {

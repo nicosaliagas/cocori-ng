@@ -1,13 +1,7 @@
-<section class="cms-block" [style.background-color]="section.backgroundColor" [style.width]="orientationWidth"
-    [ngClass]="{'sidenav-openned': readOnly, 'orientation-column': orientation === 'column'}"
-    (click)="openBottomSheet()">
-    <div class="container" fxFlex="100%" [fxLayout]="orientation" [fxFlex.gt-lg]="flexWidth || '75%'"
-        [fxFlex.gt-md]="flexWidth || '80%'" [fxFlex.gt-sm]="flexWidth || '90%'" fxFlex.gt-xs="100%">
-        <div class="row justify-content-center" [fxLayout]="orientation" fxFlex="100%">
-            <div fxFlex="100%" class="zone-editor">
-                <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
-                <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
-            </div>
-        </div>
+<section-tpl [backgroundColor]="section.backgroundColor" [flexWidth]="flexWidth" [orientation]="orientation"
+    [orientationWidth]="orientationWidth" (openBottomSheet)="openBottomSheet()">
+    <div fxFlex="100%" class="zone-editor">
+        <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
+        <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
     </div>
-</section>
+</section-tpl>

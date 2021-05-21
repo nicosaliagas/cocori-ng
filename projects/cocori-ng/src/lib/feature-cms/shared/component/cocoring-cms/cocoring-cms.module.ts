@@ -15,6 +15,7 @@ import {
     CocoringWysiwygModule,
 } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { SharedCMSModule } from '../../shared-cms.module';
 import { CocoringCmsBlocksCatalogComponent } from '../cocoring-cms-blocks-catalog/cocoring-cms-blocks-catalog.component';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
 import { SectionsTemplatesComponents } from '../cocoring-cms-section-tpl';
@@ -34,6 +35,7 @@ import { CocoringCmsComponent } from './cocoring-cms.component';
     imports: [
         CommonModule,
         FormsModule,
+        SharedCMSModule,
         DragDropModule,
         MatSidenavModule,
         MatBottomSheetModule,

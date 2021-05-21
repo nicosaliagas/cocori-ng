@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { CocoringVariableHtmlModule } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { SharedCMSModule } from '../shared-cms.module';
 import { SectionsReadonlyTemplatesComponents } from './cocoring-cms-readonly-section-tpl';
 import {
     CocoringCmsReadonlySectionComponent,
@@ -20,6 +21,7 @@ import { CocoringCmsReadonlyComponent } from './cocoring-cms-readonly/cocoring-c
         CommonModule,
         FormsModule,
         CocoringVariableHtmlModule,
+        SharedCMSModule,
         FlexLayoutModule,
     ],
     exports: [

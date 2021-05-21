@@ -34,6 +34,15 @@ section {
           padding: 0 15px;
           width: 100%;
         }
+
+        &.row-mobile {
+          img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            float: none !important;
+          }
+        }
       }
     }
   }

@@ -49,7 +49,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     private cdr: any;
     public cmsService: CmsService;
 
-    orientation: string = 'row'
     formulaire: FormGroup
     nbEditorView: number
     nameControl: string = 'editor'
@@ -61,6 +60,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     formHelper: FormHelperService;
     injectComponentService: any;
     broadcastEventService: BroadcastEventService;
+
+    orientation: string = 'row'
     orientationWidth: string = '100%';
     flexWidth: string;
 

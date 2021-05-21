@@ -34,10 +34,11 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
 
   subscription: Subscription = new Subscription();
   readOnly: boolean = true;
-
+  
   constructor(
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
+    private _bottomSheet: MatBottomSheet,
     private injectComponentService: InjectComponentService,
   ) { }
 

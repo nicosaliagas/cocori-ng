@@ -2,11 +2,6 @@
   display: block;
 }
 
-.zone-right {
-  margin-left: auto;
-}
-
-.orientation-column .zone-left,
-.zone-left-mobile {
+::ng-deep .orientation-column .zone-left {
   margin-bottom: 1.5rem;
 }
