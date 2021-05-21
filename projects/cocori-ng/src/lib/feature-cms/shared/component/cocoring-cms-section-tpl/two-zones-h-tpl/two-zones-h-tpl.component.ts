@@ -7,7 +7,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 
 @Component({
   selector: 'two-zones-h-tpl',
-  templateUrl: '../../../templates/two-zones-h-tpl.component.html',
+  templateUrl: '../../../section-templates/two-zones-h-tpl.component.html',
   styleUrls: ['./two-zones-h-tpl.component.scss'],
   providers: [FormHelperService]
 })

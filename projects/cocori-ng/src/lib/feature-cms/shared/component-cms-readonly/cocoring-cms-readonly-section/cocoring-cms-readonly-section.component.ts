@@ -16,7 +16,7 @@ import { ReadonlyTemplatesClassesComponents, SectionPageDatasModel } from '../..
   encapsulation: ViewEncapsulation.None,
   selector: 'cocoring-cms-readonly-section',
   templateUrl: './cocoring-cms-readonly-section.component.html',
-  styleUrls: ['./cocoring-cms-readonly-section.component.scss']
+  styleUrls: ['../../section-styles/section-styles.component.scss' , './cocoring-cms-readonly-section.component.scss']
 })
 export class CocoringCmsReadonlySectionComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;

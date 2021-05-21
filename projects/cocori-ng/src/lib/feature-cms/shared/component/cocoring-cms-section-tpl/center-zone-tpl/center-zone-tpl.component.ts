@@ -8,7 +8,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'center-zone-tpl',
-  templateUrl: '../../../templates/center-zone-tpl.component.html',
+  templateUrl: '../../../section-templates/center-zone-tpl.component.html',
   styleUrls: ['./center-zone-tpl.component.scss'],
   providers: [FormHelperService]
 })

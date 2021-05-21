@@ -4,40 +4,10 @@
   display: block;
 }
 
-.cms-section {
-  position: relative;
-}
-
-.btn-icon-up {
-  @include material-icon-btn-size(90px);
-  position: absolute !important;
-  top: 0;
-}
-
 .placeholder {
   background-color: #fff;
   min-height: 200px;
   border: 4px solid rgb(98, 98, 247);
-}
-
-.example-custom-placeholder {
-  // background: #ccc;
-  // border: dotted 3px #999;
-  // min-height: 300px;
-  // transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.cdk-drag-preview {
-  // height: 50px;
-  // background-color: red;
-  // transform: scale(0.25);
-  // transform-origin: 25px 25px;
-  // height: auto;
-  // width: 50px;
-  // box-sizing: border-box;
-  // border-radius: 4px;
-  // box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  //   0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drop-list-dragging {
@@ -71,13 +41,6 @@ cocoring-cms-section {
       cursor: pointer;
     }
 
-    /** style wysiwyg */
-    .mce-content-body {
-      :is(h1, h2, h3, h4, h5, h6, p) {
-        margin: 0;
-      }
-    }
-
     .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
       font-size: 2.5em;
       text-align: center;
@@ -86,45 +49,23 @@ cocoring-cms-section {
     }
 
     &.cms-block {
-      padding: 7.5rem 0;
-      background-color: #fff;
       margin: 0 auto;
 
       &.orientation-column {
         .zone-editor {
-          max-width: 100%;
-          padding: 0 !important;
           max-height: none !important;
         }
       }
 
       .container {
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-
         .row {
-          width: 100%;
-          display: flex;
-          align-items: flex-start;
-          flex-wrap: wrap;
-
           .zone-editor {
-            padding: 0 15px;
-            width: 100%;
-
             &:hover {
               border: 1px dashed #909090;
             }
           }
         }
       }
-    }
-
-    .justify-content-center {
-      justify-content: center;
     }
   }
 }

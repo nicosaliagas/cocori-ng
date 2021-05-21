@@ -1,5 +1,8 @@
-<section class="cms-block" [style.background-color]="section.backgroundColor" [style.width]="orientationWidth" [ngClass]="{'sidenav-openned': readOnly, 'orientation-column': orientation === 'column'}" (click)="openBottomSheet()">
-    <div class="container" [fxLayout]="orientation" fxFlex="100%" fxFlex.gt-lg="75%" fxFlex.gt-md="80%" fxFlex.gt-sm="90%"  fxFlex.gt-xs="100%">
+<section class="cms-block" [style.background-color]="section.backgroundColor" [style.width]="orientationWidth"
+    [ngClass]="{'sidenav-openned': readOnly, 'orientation-column': orientation === 'column'}"
+    (click)="openBottomSheet()">
+    <div class="container" fxFlex="100%" [fxLayout]="orientation" [fxFlex.gt-lg]="flexWidth || '75%'"
+        [fxFlex.gt-md]="flexWidth || '80%'" [fxFlex.gt-sm]="flexWidth || '90%'" fxFlex.gt-xs="100%">
         <div class="row justify-content-center" [fxLayout]="orientation" fxFlex="100%">
             <div fxFlex="50%" fxFlex.lt-md="100%" class="zone-editor zone-left" [ngClass.lt-md]="'zone-left-mobile'">
                 <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>

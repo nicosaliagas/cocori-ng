@@ -23,7 +23,7 @@ import { CmsService } from '../../../core/service/cms.service';
   encapsulation: ViewEncapsulation.None,
   selector: 'cocoring-cms-section',
   templateUrl: './cocoring-cms-section.component.html',
-  styleUrls: ['./cocoring-cms-section.component.scss'],
+  styleUrls: ['../../section-styles/section-styles.component.scss', './cocoring-cms-section.component.scss'],
   providers: [MatBottomSheet]
 })
 export class CocoringCmsSectionComponent implements OnInit, OnDestroy {

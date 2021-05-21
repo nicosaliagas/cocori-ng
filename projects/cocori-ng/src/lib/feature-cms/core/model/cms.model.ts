@@ -4,6 +4,8 @@ import { Block } from '../service/block';
 
 export type ResponsiveOrientation = 'computer' | 'tablet-land' | 'tablet-port' | 'mobile'
 
+export type OrientationParamsTpl = { [type in ResponsiveOrientation]: Function};
+
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
 export type WysiwygSectionCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 

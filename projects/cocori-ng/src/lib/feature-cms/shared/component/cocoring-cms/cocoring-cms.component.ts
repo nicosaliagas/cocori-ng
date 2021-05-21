@@ -31,6 +31,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
   configCms: ConfigCmsModel;
 
+  orientation = 'column'
+
   @Input()
   set config(config: ConfigCmsModel) {
     if (!config) {

@@ -25,6 +25,12 @@
     list-style-position: inside;
   }
 
+  .mat-typography {
+    :is(h1, h2, h3, h4, h5, h6, p) {
+      margin: 0;
+    }
+  }
+
   .mat-snack-bar-container {
     margin-bottom: 20px !important;
 
