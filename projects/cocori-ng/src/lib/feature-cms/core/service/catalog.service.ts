@@ -12,19 +12,29 @@ export class CatalogService {
         label: 'bloc avec une zone de texte',
         backgroundColor: '#343a40',
         content: {
-          editor1: '<h1 style="text-align: center;">Made with ❤️ by Cocorisoft</h1>'
+          editor1: '<h1 style="text-align: center;"><span style="color: #ffffff;">Made with ❤️ by Cocorisoft</span></h1>'
         }
       }),
-
+      
       new Block("CenterZoneTpl", {
-        idBlock: '5298A104-33DD-40CF-A11F-AF810FE31670',
-        filename: '26.jpg',
+        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '2.jpg',
+        label: 'bloc avec une zone de texte',
+        backgroundColor: '#ffffff',
+        content: {
+          editor1: '<h1 style="text-align: center;"><span style="color: #000000;">Cocorisoft Design Blocks</span></h1>'
+        }
+      }),
+      
+      new Block("TwoZonesHTpl", {
+        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '3.jpg',
         label: 'bloc avec une image et une zone de texte',
         backgroundColor: '#ffffff',
         content: {
-          editor1: `<h1 style="text-align: center;"><span style="font-size: 24pt;"><strong><span style="color: #3598db;">Alien</span> <span style="color: #e03e2d;">Family</span></strong></span></h1>
-          <p>&nbsp;</p>
-          <p style="text-align: center;"><span style="font-size: 36pt;">👽</span><span style="font-size: 24pt;">👽</span><span style="font-size: 18pt;">👽</span><span style="font-size: 14pt;">👽</span></p>`
+          editor1: `<p><img style="float: right;" title="phone.jpg" src="http://localhost:8080/api/upload/image/phone.jpg" alt="" width="378" height="251" /></p>`,
+          editor2: `
+          <div style="text-align: justify;"><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>
+          <div style="text-align: justify;">&nbsp;</div>
+          <div style="text-align: left; line-height: 2;"><span style="font-size: 12pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet porta tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></div>`,
         }
       }),
 
