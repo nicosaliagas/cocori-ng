@@ -38,8 +38,8 @@ section {
         &.row-mobile {
           img {
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: auto !important;
+            margin-right: auto !important;
             max-width: 100%;
             height: auto;
             float: none !important;
