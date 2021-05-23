@@ -41,6 +41,13 @@ cocoring-cms-section {
       cursor: pointer;
     }
 
+    .mce-content-body {
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
     .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
       font-size: 2.5em;
       text-align: center;
@@ -60,6 +67,8 @@ cocoring-cms-section {
       .container {
         .row {
           .zone-editor {
+            border: 1px dashed transparent;
+
             &:hover {
               border: 1px dashed #909090;
             }

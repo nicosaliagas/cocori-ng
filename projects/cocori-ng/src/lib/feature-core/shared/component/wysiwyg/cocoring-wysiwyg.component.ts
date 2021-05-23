@@ -71,6 +71,7 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
       resize: false,
       height: height,
       inline: inline,
+      image_advtab: true,
       menubar: 'file edit insert format table tools',
       // menubar: false,
       toolbar: toolbar,
