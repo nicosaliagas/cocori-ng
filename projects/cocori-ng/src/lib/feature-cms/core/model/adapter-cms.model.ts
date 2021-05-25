@@ -2,6 +2,9 @@ import {
     CenterZoneReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/center-zone-tpl/center-zone-readonly-tpl.component';
 import {
+    TextImageFullReadonlyTplComponent,
+} from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/text-image-full-tpl/text-image-full-readonly-tpl.component';
+import {
     TitleTwoZonesReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/title-two-zones-tpl/title-two-zones-readonly-tpl.component';
 import {
@@ -10,6 +13,9 @@ import {
 import {
     CenterZoneTplComponent,
 } from '../../shared/component/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
+import {
+    TextImageFullTplComponent,
+} from '../../shared/component/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
 import {
     TitleTwoZonesTplComponent,
 } from '../../shared/component/cocoring-cms-section-tpl/title-two-zones-tpl/title-two-zones-tpl.component';
@@ -26,12 +32,14 @@ export const TemplatesClassesComponents = {
     "CenterZoneTpl": CenterZoneTplComponent,
     "TwoZonesHTpl": TwoZonesHTplComponent,
     "TitleTwoZonesTpl": TitleTwoZonesTplComponent,
+    "TextImageFullTpl": TextImageFullTplComponent,
 };
 
 export const ReadonlyTemplatesClassesComponents = {
     "CenterZoneTpl": CenterZoneReadonlyTplComponent,
     "TwoZonesHTpl": TwoZonesHReadonlyTplComponent,
     "TitleTwoZonesTpl": TitleTwoZonesReadonlyTplComponent,
+    "TextImageFullTpl": TextImageFullReadonlyTplComponent,
 };
 
 export interface SectionPageDatasModel {

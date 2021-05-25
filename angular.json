@@ -193,7 +193,7 @@
       "projectType": "library",
       "root": "projects/cocori-ng",
       "sourceRoot": "projects/cocori-ng/src",
-      "prefix": "ct",
+      "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

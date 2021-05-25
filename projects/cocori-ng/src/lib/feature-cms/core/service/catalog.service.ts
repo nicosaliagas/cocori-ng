@@ -111,21 +111,15 @@ export class CatalogService {
         }
       }),
 
-      new Block("TitleTwoZonesTpl", {
+      new Block("TextImageFullTpl", {
         idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '8.jpg',
         label: 'bloc avec deux zones : une zone de texte et une image qui prends toute la moitiée de la section',
         backgroundColor: '#e4ebec',
         content: {
           editor1: `
-          <div style="text-align: center;"><strong><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></strong></div>
-          `,          
-          editor2: `
           <div><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>
           <div>&nbsp;</div>
           <div style="text-align: left; line-height: 2;"><a title="Lorem ipsum" href="https://lipsum.cafe/">Lorem ipsum</a>&nbsp;dolor sit amet, consectetur adipiscing elit. Sed hendrerit lacus tempor odio malesuada, sit&nbsp;<a title="lipsum" href="https://lipsum.cafe/">lipsum</a>&nbsp;amet maximus est ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec a tempor nisis actis. Duis vel elementum urna, rhoncus molestie ipsum. Nunc vel lobortis leo, at hendrerit urna. Suspendisse ut cursus ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque vitae lorem sed mauris ultrices viverra. Duis et tortor sed ex aliquam sollicitudin. Fusce aliquet erat id molestie tempor.</div>
-          `,
-          editor3: `
-          <p><img style="display: block; margin-left: auto; margin-right: auto;" title="Smiley" src="http://localhost:8080/api/upload/image/shape.png" alt="" width="227" height="227" /></p>
           `,
         }
       }),
