@@ -1,4 +1,16 @@
 import {
+    CenterZoneTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
+import {
+    TextImageFullTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
+import {
+    TitleTwoZonesTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/title-two-zones-tpl/title-two-zones-tpl.component';
+import {
+    TwoZonesHTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/two-zones-h-tpl/two-zones-h-tpl.component';
+import {
     CenterZoneReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/center-zone-tpl/center-zone-readonly-tpl.component';
 import {
@@ -10,18 +22,6 @@ import {
 import {
     TwoZonesHReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/two-zones-h-tpl/two-zones-h-readonly-tpl.component';
-import {
-    CenterZoneTplComponent,
-} from '../../shared/component/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
-import {
-    TextImageFullTplComponent,
-} from '../../shared/component/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
-import {
-    TitleTwoZonesTplComponent,
-} from '../../shared/component/cocoring-cms-section-tpl/title-two-zones-tpl/title-two-zones-tpl.component';
-import {
-    TwoZonesHTplComponent,
-} from '../../shared/component/cocoring-cms-section-tpl/two-zones-h-tpl/two-zones-h-tpl.component';
 import { EditorValues } from './cms.model';
 
 /**

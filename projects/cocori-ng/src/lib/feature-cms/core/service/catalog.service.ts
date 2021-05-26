@@ -76,7 +76,7 @@ export class CatalogService {
       new Block("TitleTwoZonesTpl", {
         idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '6.jpg',
         label: 'bloc avec un titre et deux zones en deuxième ligne : une image et une zone de texte',
-        backgroundColor: '#e4ebec',
+        backgroundColor: '#fff',
         content: {
           editor1: `
           <div style="text-align: center;"><strong><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></strong></div>
@@ -114,7 +114,7 @@ export class CatalogService {
       new Block("TextImageFullTpl", {
         idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '8.jpg',
         label: 'bloc avec deux zones : une zone de texte et une image qui prends toute la moitiée de la section',
-        backgroundColor: '#e4ebec',
+        backgroundColor: '#e4e4e2',
         content: {
           editor1: `
           <div><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>

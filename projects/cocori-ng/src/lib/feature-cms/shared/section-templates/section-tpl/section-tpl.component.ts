@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'section-tpl',
   templateUrl: './section-tpl.component.html',
-  styleUrls: ['./section-tpl.component.scss']
+  styleUrls: []
 })
 export class SectionTplComponent implements OnInit {
 
