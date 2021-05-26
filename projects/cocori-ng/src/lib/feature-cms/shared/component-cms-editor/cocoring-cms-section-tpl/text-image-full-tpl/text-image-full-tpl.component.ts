@@ -1,4 +1,12 @@
-import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -6,13 +14,15 @@ import { tap } from 'rxjs/operators';
 import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'text-image-full-tpl',
   templateUrl: '../../../section-templates/text-image-full-tpl.component.html',
-  styleUrls: ['./text-image-full-tpl.component.scss' ,'../../../section-styles/text-image-full-tpl.component.scss'],
+  styleUrls: ['./text-image-full-tpl.component.scss', '../../../section-styles/text-image-full-tpl.component.scss'],
   providers: [FormHelperService]
 })
 export class TextImageFullTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
+  @ViewChild('uploader') uploaderInputRef: ElementRef;
 
   editorSubscription: Subscription = new Subscription();
 
@@ -37,5 +47,10 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
         }),
       ).subscribe()
     )
+  }
+
+  browseFile() {
+    // let el: HTMLElement = this.uploaderInputRef.nativeElement;
+    // el.click();
   }
 }

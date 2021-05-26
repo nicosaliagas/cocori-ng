@@ -24,6 +24,24 @@
   align-items: center;
 }
 
+/** progress circle */
+.progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.progress-circle {
+  stroke-width: 2;
+  stroke: black;
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+}
+/** / progress circle */
+
 .file-image {
   flex: none;
   width: 50px;

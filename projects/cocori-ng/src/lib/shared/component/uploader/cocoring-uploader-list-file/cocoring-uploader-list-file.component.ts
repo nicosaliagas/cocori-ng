@@ -39,6 +39,7 @@ import {
 })
 export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
+  @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
   @Input() formGroup: FormGroup
   @Input() nameControl: string
@@ -63,7 +64,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,) { }
 
   ngOnInit(): void {
-
     this.addFileControl()
 
     this.subscriptions.add(
@@ -88,6 +88,10 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
         filter(_ => !!this.fileUploaded),
         tap((progress: number) => {
           this.progress = progress
+
+          const circumference = this.progressCircleRef.nativeElement.getTotalLength()
+          
+          this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
 
           this.cdr.detectChanges()
         })

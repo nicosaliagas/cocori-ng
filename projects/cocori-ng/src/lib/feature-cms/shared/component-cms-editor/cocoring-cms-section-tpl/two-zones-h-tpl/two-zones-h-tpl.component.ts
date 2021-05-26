@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'two-zones-h-tpl',
   templateUrl: '../../../section-templates/two-zones-h-tpl.component.html',
   styleUrls: ['./two-zones-h-tpl.component.scss', '../../../section-styles/two-zones-h-tpl.component.scss'],

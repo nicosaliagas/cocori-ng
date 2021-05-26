@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tpl.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'center-zone-ro-tpl',
   templateUrl: '../../../section-templates/center-zone-tpl.component.html',
 })

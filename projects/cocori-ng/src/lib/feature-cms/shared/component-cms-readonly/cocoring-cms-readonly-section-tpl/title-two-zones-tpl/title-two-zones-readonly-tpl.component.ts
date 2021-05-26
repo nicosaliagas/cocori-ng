@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tpl.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'title-two-zones-tpl',
   templateUrl: '../../../section-templates/title-two-zones-tpl.component.html',
   styleUrls: ['../../../section-styles/title-two-zones-tpl.component.scss']
