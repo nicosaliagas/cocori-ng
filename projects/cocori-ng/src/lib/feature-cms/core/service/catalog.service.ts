@@ -121,6 +121,7 @@ export class CatalogService {
           <div>&nbsp;</div>
           <div style="text-align: left; line-height: 2;"><a title="Lorem ipsum" href="https://lipsum.cafe/">Lorem ipsum</a>&nbsp;dolor sit amet, consectetur adipiscing elit. Sed hendrerit lacus tempor odio malesuada, sit&nbsp;<a title="lipsum" href="https://lipsum.cafe/">lipsum</a>&nbsp;amet maximus est ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec a tempor nisis actis. Duis vel elementum urna, rhoncus molestie ipsum. Nunc vel lobortis leo, at hendrerit urna. Suspendisse ut cursus ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque vitae lorem sed mauris ultrices viverra. Duis et tortor sed ex aliquam sollicitudin. Fusce aliquet erat id molestie tempor.</div>
           `,
+          backgroundImage1: `http://localhost:8080/api/upload/image/office.jpg`
         }
       }),
     ];

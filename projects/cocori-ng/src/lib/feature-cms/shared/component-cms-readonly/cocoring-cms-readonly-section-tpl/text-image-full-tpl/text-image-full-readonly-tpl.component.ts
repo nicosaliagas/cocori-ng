@@ -9,6 +9,7 @@ import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tp
   styleUrls: ['../../../section-styles/text-image-full-tpl.component.scss']
 })
 export class TextImageFullReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {
+  apiFile: string;
 
   constructor() {
     super();

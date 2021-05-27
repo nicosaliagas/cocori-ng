@@ -40,6 +40,8 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     }
 
     this.configCms = config
+
+    console.log("config cms", this.configCms)
   }
 
   responsive: string = 'computer'

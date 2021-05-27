@@ -17,7 +17,7 @@ import { ExtendInputsComponent } from '../form/inputs/extend-inputs/extend-input
   selector: 'cocoring-wysiwyg',
   templateUrl: './cocoring-wysiwyg.component.html',
   styleUrls: ['./cocoring-wysiwyg.component.scss'],
-  providers: [WysiwygService]
+  providers: [WysiwygService, UploaderService]
 })
 export class CocoringWysiwygComponent extends ExtendInputsComponent implements OnInit {
   initParams: any

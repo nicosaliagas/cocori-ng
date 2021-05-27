@@ -90,7 +90,7 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
           this.progress = progress
 
           const circumference = this.progressCircleRef.nativeElement.getTotalLength()
-          
+
           this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
 
           this.cdr.detectChanges()

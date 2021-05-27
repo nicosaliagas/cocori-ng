@@ -43,15 +43,19 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     @Input() section: SectionModel
     @Input() wysiwyg: WysiwygSectionCmsModel
 
-    private subscriptions: Subscription = new Subscription();
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
-    private cdr: any;
+    public cdr: any;
+    public subscriptions: Subscription = new Subscription();
     public cmsService: CmsService;
 
     formulaire: FormGroup
+    
     nbEditorView: number
+    nbBackgroundImage: number;
+
     nameControl: string = 'editor'
+    backgroundImageControl: string = 'backgroundImage'
 
     configsWysiwyg: WysiwygConfigSection[];
     subscription: Subscription = new Subscription();
@@ -79,8 +83,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.subscriptions.unsubscribe()
     }
 
-    init(nbEditorView: number) {
+    init(nbEditorView: number, nbBackgroundImage: number = 0) {
         this.nbEditorView = nbEditorView
+
+        this.nbBackgroundImage = nbBackgroundImage
 
         this.buildForm();
 
@@ -137,6 +143,12 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
             this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
 
             this.configsWysiwyg[nameControl] = this.configComponent(nameControl)
+        }
+        
+        for (let i = 1; i <= this.nbBackgroundImage; i++) {
+            const nameControl: string = `${this.backgroundImageControl}${i}`
+
+            this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
         }
 
         this.saveSectionValues()
