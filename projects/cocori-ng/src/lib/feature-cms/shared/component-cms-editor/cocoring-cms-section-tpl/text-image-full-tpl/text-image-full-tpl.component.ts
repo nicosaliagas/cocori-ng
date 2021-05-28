@@ -1,14 +1,14 @@
 import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    HostListener,
-    Injector,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Injector,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
-import { FileModel, FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
+import { FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
@@ -24,14 +24,13 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 export class TextImageFullTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('uploader') uploaderInputRef: ElementRef;
+  @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
   editorSubscription: Subscription = new Subscription();
   fileUploaded: File;
-  fileModel: FileModel
-  isUploading: boolean = false;
   apiFile: string;
   onError: boolean = false;
-  progress: number;
+  fileToUpload: string;
 
   constructor(
     injector: Injector,
@@ -40,13 +39,19 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
   }
 
   ngOnInit(): void {
-    this.init(1)
+    this.init(1, 1)
 
     this.uploaderService.apisFile = this.wysiwyg
 
     this.addWysiwygToView()
 
     this.eventsFileUpload()
+
+    // this.uploadProgress = 64
+
+    // const circumference = this.progressCircleRef.nativeElement.getTotalLength()
+
+    // this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (this.uploadProgress / 100) * circumference;
   }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
@@ -55,19 +60,13 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
     if (!file) return;
 
     this.isUploading = true
-    // this.onError = false
+    this.onError = false
 
-    this.fileModel = {description: 'fuck'}
+    this.backgroundImageUpload = { description: null }
 
     this.fileUploaded = file;
 
-    this.fileModel.fileName = this.fileUploaded.name
-    this.fileModel.size = this.fileUploaded.size
-    this.fileModel.mimeType = this.fileUploaded.type
-
-    // this.fileType = HelperUploaderService.checkTypeImage(this.fileUploaded.type) ? 'image' : 'doc'
-
-    // this.cdr.detectChanges()
+    this.backgroundImageUpload.size = this.fileUploaded.size
 
     this.uploaderService.uploadFile(this.fileUploaded)
   }
@@ -84,7 +83,9 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
     )
   }
 
-  browseFile() {
+  browseFile(nameFile: string) {
+    this.fileToUpload = nameFile
+
     let el: HTMLElement = this.uploaderInputRef.nativeElement;
     el.click();
   }
@@ -92,7 +93,7 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
   private eventsFileUpload() {
     this.subscriptions.add(
       this.uploaderService.fileUploaded$.pipe(
-        tap((id: string) => this.storeFileValue(id)),
+        tap((id: string) => this.getFileId(id)),
         // tap(_ => this.cdr.detectChanges()),
         tap(_ => this.isUploading = false),
         tap(_ => this.setFileApi()),
@@ -110,30 +111,27 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
       this.uploaderService.progressSource.pipe(
         filter(_ => !!this.fileUploaded),
         tap((progress: number) => {
-          this.progress = progress
+          this.uploadProgress = progress
 
-          console.log("Progress", progress)
+          const circumference = this.progressCircleRef.nativeElement.getTotalLength()
 
-          // const circumference = this.progressCircleRef.nativeElement.getTotalLength()
+          this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
 
-          // this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
-
-          // this.cdr.detectChanges()
+          this.cdr.detectChanges()
         })
       ).subscribe()
     )
   }
 
   /** store the file id */
-  private storeFileValue(id: string) {
-    this.fileModel.id = id
-    this.fileModel.dateUpload = new Date()
+  private getFileId(id: string) {
+    this.backgroundImageUpload.id = id
   }
 
   private setFileApi() {
-    this.apiFile = this.wysiwyg.apiFile(this.fileModel.id);
+    this.apiFile = this.wysiwyg.apiFile(this.backgroundImageUpload.id);
 
-    console.log("Api File", this.apiFile)
+    this.onBackgroundFileUploaded(this.fileToUpload, this.apiFile)
   }
 
   private errorFile() {
@@ -148,8 +146,7 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
 
   removeFile() {
     this.fileUploaded = null
-    this.fileModel.id = null
-    this.fileModel.fileName = null
+    this.backgroundImageUpload.id = null
 
     this.uploaderInputRef.nativeElement.value = ''
   }

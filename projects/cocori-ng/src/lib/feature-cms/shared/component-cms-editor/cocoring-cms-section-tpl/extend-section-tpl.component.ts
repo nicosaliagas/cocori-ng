@@ -1,33 +1,34 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Injector,
-    Input,
-    OnDestroy,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+  ViewContainerRef,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-    BroadcastEventService,
-    CocoringWysiwygComponent,
-    ConfigEvents,
-    FormHelperService,
-    InitWysiwyg,
-    InjectComponentService,
-    WysiwygConfigSection,
+  BroadcastEventService,
+  CocoringWysiwygComponent,
+  ConfigEvents,
+  FileModel,
+  FormHelperService,
+  InitWysiwyg,
+  InjectComponentService,
+  WysiwygConfigSection,
 } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
-    BottomSheetSectionReturnAction,
-    EditorValues,
-    OrientationParamsTpl,
-    ResponsiveOrientation,
-    SectionModel,
-    WysiwygSectionCmsModel,
+  BottomSheetSectionReturnAction,
+  EditorValues,
+  OrientationParamsTpl,
+  ResponsiveOrientation,
+  SectionModel,
+  WysiwygSectionCmsModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
@@ -50,12 +51,14 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     public cmsService: CmsService;
 
     formulaire: FormGroup
-    
     nbEditorView: number
     nbBackgroundImage: number;
-
+    
     nameControl: string = 'editor'
     backgroundImageControl: string = 'backgroundImage'
+    backgroundImageUpload: FileModel
+    uploadProgress: number;
+    isUploading: boolean = false;
 
     configsWysiwyg: WysiwygConfigSection[];
     subscription: Subscription = new Subscription();
@@ -85,7 +88,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
     init(nbEditorView: number, nbBackgroundImage: number = 0) {
         this.nbEditorView = nbEditorView
-
         this.nbBackgroundImage = nbBackgroundImage
 
         this.buildForm();
@@ -144,7 +146,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
             this.configsWysiwyg[nameControl] = this.configComponent(nameControl)
         }
-        
+
         for (let i = 1; i <= this.nbBackgroundImage; i++) {
             const nameControl: string = `${this.backgroundImageControl}${i}`
 
@@ -154,6 +156,10 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.saveSectionValues()
 
         this.onSectionValuesChanged()
+    }
+
+    onBackgroundFileUploaded(nameControl: string, apiFileUploaded: string) {
+        this.formulaire.get(nameControl).setValue(apiFileUploaded)
     }
 
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */

@@ -18,6 +18,5 @@ export class TextImageFullReadonlyTplComponent extends ExtendSectionReadonlyTplC
   ngOnInit(): void {
     this.init(1)
   }
-
-  browseFile() { }
+  browseFile(name) { }
 }

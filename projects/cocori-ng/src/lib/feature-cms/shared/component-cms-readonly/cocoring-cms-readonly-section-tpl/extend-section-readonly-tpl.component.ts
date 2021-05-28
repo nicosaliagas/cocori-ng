@@ -18,6 +18,8 @@ export abstract class ExtendSectionReadonlyTplComponent implements OnDestroy {
     orientation: string = 'row'
     flexWidth: string
     orientationWidth: string = '100%';
+    uploadProgress: number;
+    isUploading: boolean;
 
     constructor() { }
 

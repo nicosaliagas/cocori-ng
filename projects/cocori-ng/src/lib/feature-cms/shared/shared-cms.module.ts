@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SectionTplComponent } from './section-templates/section-tpl/section-tpl.component';
 
-
 @NgModule({
   declarations: [SectionTplComponent],
   imports: [

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { CocoringVariableHtmlModule } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { SharedCMSModule } from '../shared-cms.module';
@@ -23,6 +24,7 @@ import { CocoringCmsReadonlyComponent } from './cocoring-cms-readonly/cocoring-c
         CocoringVariableHtmlModule,
         SharedCMSModule,
         FlexLayoutModule,
+        MatIconModule
     ],
     exports: [
         CocoringCmsReadonlyComponent,
