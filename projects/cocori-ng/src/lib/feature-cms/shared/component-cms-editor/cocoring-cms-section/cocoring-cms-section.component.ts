@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { TemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
-import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
   @Input() section: SectionModel
-  @Input() wysiwyg: WysiwygSectionCmsModel
+  @Input() apisConfig: ApisConfigCmsModel
 
   subscription: Subscription = new Subscription();
   readOnly: boolean = true;
@@ -63,6 +63,6 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
 
   private addTemplateSectionComponent() {
     this.injectComponentService.loadAndAddComponentToContainer(TemplatesClassesComponents[this.section.block.component], this.containerRef,
-      [{ section: this.section }, { wysiwyg: this.wysiwyg }], null)
+      [{ section: this.section }, { wysiwyg: this.apisConfig }], null)
   }
 }

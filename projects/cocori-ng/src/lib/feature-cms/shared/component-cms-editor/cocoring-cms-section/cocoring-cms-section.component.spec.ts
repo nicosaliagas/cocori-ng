@@ -2,7 +2,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 
-import { SectionModel, WysiwygSectionCmsModel } from '../../../core/model/cms.model';
+import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
 import { CenterZoneTplComponent } from '../cocoring-cms-section-templates/center-zone-tpl/center-zone-tpl.component';
 import { CocoringCmsSectionComponent } from './cocoring-cms-section.component';
 
@@ -35,7 +35,7 @@ describe('CocoringCmsSectionComponent', () => {
       }
     }
 
-    const wysiwyg: WysiwygSectionCmsModel = {
+    const wysiwyg: ApisConfigCmsModel = {
       apiKey: 'apikey',
       apiFile: apisFile.apiFile,
       apiFileDownload: apisFile.apiFileDownload,
@@ -47,7 +47,7 @@ describe('CocoringCmsSectionComponent', () => {
       values: null
     }
 
-    component.wysiwyg = wysiwyg
+    component.apisConfig = wysiwyg
     component.section = section
 
     fixture.detectChanges();

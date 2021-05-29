@@ -23,12 +23,12 @@ import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
+  ApisConfigCmsModel,
   BottomSheetSectionReturnAction,
   EditorValues,
   OrientationParamsTpl,
   ResponsiveOrientation,
   SectionModel,
-  WysiwygSectionCmsModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
@@ -42,7 +42,7 @@ import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-acti
 
 export abstract class ExtendSectionTplComponent implements OnDestroy {
     @Input() section: SectionModel
-    @Input() wysiwyg: WysiwygSectionCmsModel
+    @Input() wysiwyg: ApisConfigCmsModel
 
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
@@ -53,7 +53,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     formulaire: FormGroup
     nbEditorView: number
     nbBackgroundImage: number;
-    
+
     nameControl: string = 'editor'
     backgroundImageControl: string = 'backgroundImage'
     backgroundImageUpload: FileModel
@@ -162,6 +162,18 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.formulaire.get(nameControl).setValue(apiFileUploaded)
     }
 
+    removeBackground(event, nameControl: string) {
+        event.stopPropagation()
+
+        this.formulaire.get(nameControl).reset()
+
+        this.saveSectionValues()
+
+        console.log("values:::", this.section.values)
+
+        this.cdr.detectChanges()
+    }
+
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private onSectionValuesChanged() {
         this.subscription.add(
@@ -169,6 +181,8 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
                 debounceTime(500),
                 tap((values: any) => {
                     this.section.values = values
+
+                    this.cdr.detectChanges()
                 })
             ).subscribe()
         )

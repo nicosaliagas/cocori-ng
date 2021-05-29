@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
-import { SectionModel, WysiwygSectionCmsModel } from '../../../../core/model/cms.model';
+import { ApisConfigCmsModel, SectionModel } from '../../../../core/model/cms.model';
 import { CenterZoneTplComponent } from '../center-zone-tpl/center-zone-tpl.component';
 import { TwoZonesHTplComponent } from './two-zones-h-tpl.component';
 
@@ -35,7 +35,7 @@ describe('TwoZonesHTplComponent', () => {
       }
     }
 
-    const wysiwyg: WysiwygSectionCmsModel = {
+    const wysiwyg: ApisConfigCmsModel = {
       apiKey: 'apikey',
       apiFile: apisFile.apiFile,
       apiFileDownload: apisFile.apiFileDownload,

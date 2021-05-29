@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  Injector,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostListener,
+    Injector,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
@@ -46,12 +46,6 @@ export class TextImageFullTplComponent extends ExtendSectionTplComponent impleme
     this.addWysiwygToView()
 
     this.eventsFileUpload()
-
-    // this.uploadProgress = 64
-
-    // const circumference = this.progressCircleRef.nativeElement.getTotalLength()
-
-    // this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (this.uploadProgress / 100) * circumference;
   }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {

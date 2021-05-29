@@ -7,11 +7,11 @@ export type ResponsiveOrientation = 'computer' | 'tablet-land' | 'tablet-port' |
 export type OrientationParamsTpl = { [type in ResponsiveOrientation]: Function};
 
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
-export type WysiwygSectionCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
+export type ApisConfigCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 
 /** configuration du cms */
 export interface ConfigCmsModel {
-    wysiwygOptions: WysiwygSectionCmsModel,
+    wysiwygOptions: ApisConfigCmsModel,
 }
 
 export interface BlockDatasModel {

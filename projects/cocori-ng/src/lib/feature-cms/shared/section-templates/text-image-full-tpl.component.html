@@ -8,16 +8,16 @@
             </div>
         </div>
         <div fxFlex="50%" fxFlex.lt-md="100%" class="zone-editor">
-            <div class="container-image-full" (click)="browseFile('backgroundImage1')">
+            <div *ngIf="!readOnly" class="container-image-full" (click)="browseFile('backgroundImage1')">
                 <div class="image-full"
-                    [ngStyle]="{'background-image': 'url(' + (apiFile ?  apiFile : 'http://localhost:8080/api/upload/image/office.jpg') + ')'}">
+                    [ngStyle]="{'background-image': 'url(' + (section.values['backgroundImage1'] ?  section.values['backgroundImage1'] : '') + ')'}">
                 </div>
                 <div class="addNewFile">
                     <div class="badges-actions" *ngIf="!isUploading">
                         <div class="badge">
                             <mat-icon>add_photo_alternate</mat-icon>
                         </div>
-                        <div class="badge badge-delete">
+                        <div class="badge badge-delete" (click)="removeBackground($event, 'backgroundImage1')">
                             <mat-icon>delete_outline</mat-icon>
                         </div>
                     </div>
@@ -27,6 +27,11 @@
                             {{uploadProgress}} %
                         </text>
                     </svg>
+                </div>
+            </div>
+            <div *ngIf="readOnly" class="container-image-full">
+                <div class="image-full"
+                    [ngStyle]="{'background-image': 'url(' + (section.values['backgroundImage1'] ?  section.values['backgroundImage1'] : '') + ')'}">
                 </div>
             </div>
         </div>

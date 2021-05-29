@@ -35,7 +35,7 @@ export abstract class ExtendSectionReadonlyTplComponent implements OnDestroy {
         this.value = this.section.values
     }
 
-    openBottomSheet() {
-        return ;
-    }
+    openBottomSheet() { }
+
+    removeBackground(event, nameControl) { }
 }
