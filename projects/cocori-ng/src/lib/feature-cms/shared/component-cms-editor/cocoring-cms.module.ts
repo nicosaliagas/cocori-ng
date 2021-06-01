@@ -17,6 +17,7 @@ import {
 
 import { SharedCMSModule } from '../shared-cms.module';
 import { CocoringCmsBlocksCatalogComponent } from './cocoring-cms-blocks-catalog/cocoring-cms-blocks-catalog.component';
+import { CocoringCmsImageUploadComponent } from './cocoring-cms-image-upload/cocoring-cms-image-upload.component';
 import { CocoringCmsSectionActionsComponent } from './cocoring-cms-section-actions/cocoring-cms-section-actions.component';
 import { SectionsTemplatesComponents } from './cocoring-cms-section-tpl';
 import { CocoringCmsSectionComponent } from './cocoring-cms-section/cocoring-cms-section.component';
@@ -30,6 +31,7 @@ import { CocoringToolbarCmsComponent } from './cocoring-toolbar-cms/cocoring-too
         CocoringCmsSectionComponent,
         CocoringCmsSectionActionsComponent,
         CocoringToolbarCmsComponent,
+        CocoringCmsImageUploadComponent,
         ...SectionsTemplatesComponents
     ],
     imports: [

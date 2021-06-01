@@ -16,6 +16,15 @@ export class InjectComponentService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
+    /**
+     * Exemple d'utilisation:
+     
+     * this.injectComponentService.loadAndAddComponentToContainer(MyClasseComponent, #DomReference,
+            [{ @InputName_1: Value, @InputName_2: Value }], { @OutputName_1: (valueEmited: any) => this.callback(valueEmited)})
+     * Ou si le composant n'a pas de @Output
+     * this.injectComponentService.loadAndAddComponentToContainer(MyClasseComponent, #DomReference,
+            [{ @InputName_1: Value, @InputName_2: Value }], null)
+     */
     loadAndAddComponentToContainer(
         componentClass: any,
         viewContainerRef: ViewContainerRef,
@@ -38,21 +47,12 @@ export class InjectComponentService {
             }
         }
 
-        // outputs.forEach((output: OutputsComponent) => {
-        //     for (const [key, value] of Object.entries(output)) {
-        //         (référenceComposant.instance)[key].subscribe(data => value(data));
-        //     }
-        // });
-
         référenceComposant.changeDetectorRef.detectChanges();
 
         this.componentsRefs.push(référenceComposant)
     }
 
     removeComponentFromViewContainer(index: number, viewContainerRef: ViewContainerRef) {
-
-        console.log("remove index", index)
-
         viewContainerRef.remove(index);
 
         this.componentsRefs.splice(index, 1);

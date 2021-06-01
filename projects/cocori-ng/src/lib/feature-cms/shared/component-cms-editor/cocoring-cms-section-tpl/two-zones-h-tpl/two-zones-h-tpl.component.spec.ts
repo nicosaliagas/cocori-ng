@@ -48,7 +48,7 @@ describe('TwoZonesHTplComponent', () => {
     }
 
     component.section = section
-    component.wysiwyg = wysiwyg
+    component.apisConfig = wysiwyg
 
     fixture.detectChanges();
   });

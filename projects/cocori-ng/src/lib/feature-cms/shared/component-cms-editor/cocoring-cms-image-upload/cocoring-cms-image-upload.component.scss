@@ -1,0 +1,45 @@
+.background-image-full {
+  cursor: pointer;
+}
+
+.background-image-full:hover {
+  opacity: 0.3;
+}
+
+.addNewFile {
+  transition: 0.5s ease;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+
+  .badges-actions {
+    display: flex;
+    align-items: center;
+
+    .badge {
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: #fff;
+      padding: 17px 17px 12px 17px;
+
+      &.badge-delete {
+        padding: 10px;
+        margin-left: 10px;
+        height: 25px;
+      }
+    }
+  }
+
+  .progress-circle {
+    stroke-width: 3;
+    stroke: #606060;
+    stroke-dasharray: 215;
+    stroke-dashoffset: 215;
+  }
+}
+
+.text-progress {
+  fill: #606060;
+}

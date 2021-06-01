@@ -10,8 +10,7 @@ ng new my-first-project
 
 ## Generate commands :
 ng g service file
-ng g component two-zones-h-tpl --display-block=true --skip-import=true --style=scss
-ng g component section-tpl --display-block=true --skip-import=true --style=scss
+ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 

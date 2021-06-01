@@ -1,0 +1,20 @@
+<div class="background-image-full" (click)="browseFile()"
+    [ngStyle]="{'background-image': 'url(' + (section.values[nameBackgroundImage] ?  section.values[nameBackgroundImage] : '') + ')'}">
+</div>
+<div class="addNewFile">
+    <div class="badges-actions" *ngIf="!isUploading">
+        <div class="badge" (click)="browseFile()">
+            <mat-icon>add_photo_alternate</mat-icon>
+        </div>
+        <div class="badge badge-delete" (click)="onBackgroundImageRemoved($event)">
+            <mat-icon>delete_outline</mat-icon>
+        </div>
+    </div>
+    <svg *ngIf="isUploading" class="progress" width="59" height="59">
+        <circle #progressCircle class="progress-circle" cx="30" cy="30" r="28" fill="white" />
+        <text class="text-progress" x="30" y="30" alignment-baseline="middle" text-anchor="middle">
+            {{uploadProgress}} %
+        </text>
+    </svg>
+</div>
+<input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />

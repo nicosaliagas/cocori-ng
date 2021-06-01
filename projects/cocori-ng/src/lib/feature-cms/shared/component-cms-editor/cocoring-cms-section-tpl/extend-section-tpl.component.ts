@@ -1,36 +1,37 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Injector,
-  Input,
-  OnDestroy,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Injector,
+    Input,
+    OnDestroy,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-  BroadcastEventService,
-  CocoringWysiwygComponent,
-  ConfigEvents,
-  FileModel,
-  FormHelperService,
-  InitWysiwyg,
-  InjectComponentService,
-  WysiwygConfigSection,
+    BroadcastEventService,
+    CocoringWysiwygComponent,
+    ConfigEvents,
+    FileModel,
+    FormHelperService,
+    InitWysiwyg,
+    InjectComponentService,
+    WysiwygConfigSection,
 } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
-  ApisConfigCmsModel,
-  BottomSheetSectionReturnAction,
-  EditorValues,
-  OrientationParamsTpl,
-  ResponsiveOrientation,
-  SectionModel,
+    ApisConfigCmsModel,
+    BottomSheetSectionReturnAction,
+    EditorValues,
+    OrientationParamsTpl,
+    ResponsiveOrientation,
+    SectionModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
+import { CocoringCmsImageUploadComponent } from '../cocoring-cms-image-upload/cocoring-cms-image-upload.component';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
 
 @Component({
@@ -42,7 +43,7 @@ import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-acti
 
 export abstract class ExtendSectionTplComponent implements OnDestroy {
     @Input() section: SectionModel
-    @Input() wysiwyg: ApisConfigCmsModel
+    @Input() apisConfig: ApisConfigCmsModel
 
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
@@ -158,18 +159,14 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.onSectionValuesChanged()
     }
 
-    onBackgroundFileUploaded(nameControl: string, apiFileUploaded: string) {
+    onBackgroundFileUploadedCallback(nameControl: string, apiFileUploaded: string,) {
         this.formulaire.get(nameControl).setValue(apiFileUploaded)
     }
 
-    removeBackground(event, nameControl: string) {
-        event.stopPropagation()
-
+    removeBackgroundFileCallback(nameControl: string) {
         this.formulaire.get(nameControl).reset()
 
         this.saveSectionValues()
-
-        console.log("values:::", this.section.values)
 
         this.cdr.detectChanges()
     }
@@ -203,9 +200,9 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
     private configComponent(nameControl: string) {
         let config = {
-            apiFile: this.wysiwyg.apiFile,
-            apiFileDownload: this.wysiwyg.apiFileDownload,
-            apiKey: this.wysiwyg.apiKey,
+            apiFile: this.apisConfig.apiFile,
+            apiFileDownload: this.apisConfig.apiFileDownload,
+            apiKey: this.apisConfig.apiKey,
             params: <InitWysiwyg>{
                 inline: true
             },
@@ -241,8 +238,19 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
             this.injectComponentService.loadAndAddComponentToContainer(CocoringWysiwygComponent, refs[i - 1],
                 [{ config: this.configsWysiwyg[nameControl] }], null)
         }
+    }
 
-        this.cdr.detectChanges()
+    public addImageUploadComponentToViewEvent(refs: ViewContainerRef[]) {
+        for (let i = 1; i <= refs.length; i++) {
+            const nameControl: string = `${this.backgroundImageControl}${i}`
+
+            this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsImageUploadComponent, refs[i - 1],
+                [{ section: this.section, apisConfig: this.apisConfig, nameBackgroundImage: nameControl }],
+                {
+                    apiFileUploaded: (apiFile: string) => this.onBackgroundFileUploadedCallback(nameControl, apiFile),
+                    removeBackgroundImage: () => this.removeBackgroundFileCallback(nameControl)
+                })
+        }
     }
 
     private onBackgroundColorEvent() {
