@@ -17,4 +17,9 @@
         </text>
     </svg>
 </div>
+<div *ngIf="onError" class="error-upload">
+    <div class="badge badge-delete error" title="Une erreur est survenue, veuillez réessayer">
+        <mat-icon>error</mat-icon>
+    </div>
+</div>
 <input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="image/*" />
