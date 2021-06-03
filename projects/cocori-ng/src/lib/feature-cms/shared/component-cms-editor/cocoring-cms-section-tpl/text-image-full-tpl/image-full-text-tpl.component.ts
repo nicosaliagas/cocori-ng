@@ -6,12 +6,12 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'text-image-full-tpl',
-  templateUrl: '../../../section-templates/text-image-full-tpl.component.html',
+  selector: 'image-full-text-tpl',
+  templateUrl: '../../../section-templates/image-full-text-tpl.component.html',
   styleUrls: ['./text-image-full-tpl.component.scss', '../../../section-styles/text-image-full-tpl.component.scss'],
   providers: [FormHelperService, UploaderService]
 })
-export class TextImageFullTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
+export class ImageFullTextTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerImageUpload', { static: false, read: ViewContainerRef }) containerImageUpload: ViewContainerRef;
 

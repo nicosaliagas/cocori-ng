@@ -21,8 +21,6 @@ export class CocoringCmsSectionActionsComponent implements OnInit {
     this.section = data.section
 
     this.color = this.section.backgroundColor
-
-    console.log("datas section in bottom", this.section)
   }
 
   ngOnInit(): void {

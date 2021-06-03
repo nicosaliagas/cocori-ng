@@ -2,6 +2,9 @@ import {
   CenterZoneTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
 import {
+  ImageFullTextTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/image-full-text-tpl.component';
+import {
   TextImageFullTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
 import {
@@ -13,6 +16,9 @@ import {
 import {
   CenterZoneReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/center-zone-tpl/center-zone-readonly-tpl.component';
+import {
+  ImageFullTextReadonlyTplComponent,
+} from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/image-full-text-tpl/image-full-text-readonly-tpl.component';
 import {
   TextImageFullReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/text-image-full-tpl/text-image-full-readonly-tpl.component';
@@ -33,7 +39,7 @@ export const TemplatesClassesComponents = {
     "TwoZonesHTpl": TwoZonesHTplComponent,
     "TitleTwoZonesTpl": TitleTwoZonesTplComponent,
     "TextImageFullTpl": TextImageFullTplComponent,
-    "ImageFullTextTpl": TextImageFullTplComponent,
+    "ImageFullTextTpl": ImageFullTextTplComponent,
 };
 
 export const ReadonlyTemplatesClassesComponents = {
@@ -41,7 +47,7 @@ export const ReadonlyTemplatesClassesComponents = {
     "TwoZonesHTpl": TwoZonesHReadonlyTplComponent,
     "TitleTwoZonesTpl": TitleTwoZonesReadonlyTplComponent,
     "TextImageFullTpl": TextImageFullReadonlyTplComponent,
-    "ImageFullTextTpl": TextImageFullReadonlyTplComponent,
+    "ImageFullTextTpl": ImageFullTextReadonlyTplComponent,
 };
 
 export interface SectionPageDatasModel {

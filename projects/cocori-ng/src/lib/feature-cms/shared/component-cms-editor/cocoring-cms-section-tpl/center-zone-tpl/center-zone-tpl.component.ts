@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
@@ -12,10 +11,8 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   styleUrls: ['./center-zone-tpl.component.scss'],
   providers: [FormHelperService]
 })
-export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
+export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
-
-  editorSubscription: Subscription = new Subscription();
 
   constructor(
     public injector: Injector) {
@@ -28,8 +25,12 @@ export class CenterZoneTplComponent extends ExtendSectionTplComponent implements
     this.addWysiwygToView()
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe()
+  }
+
   private addWysiwygToView() {
-    this.editorSubscription.add(
+    this.subscriptions.add(
       this.cmsService.catalogBlocksOpened$.pipe(
         tap((isOpened: boolean) => {
           if (isOpened) return

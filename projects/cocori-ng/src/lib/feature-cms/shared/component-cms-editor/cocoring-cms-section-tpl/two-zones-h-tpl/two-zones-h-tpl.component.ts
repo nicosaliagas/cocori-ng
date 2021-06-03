@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   styleUrls: ['./two-zones-h-tpl.component.scss', '../../../section-styles/two-zones-h-tpl.component.scss'],
   providers: [FormHelperService]
 })
-export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements OnInit {
+export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerEditor2Ref', { static: false, read: ViewContainerRef }) containerEditor2Ref: ViewContainerRef;
 
@@ -29,8 +29,12 @@ export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements 
     this.addWysiwygToView()
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe()
+  }
+
   private addWysiwygToView() {
-    this.editorSubscription.add(
+    this.subscriptions.add(
       this.cmsService.catalogBlocksOpened$.pipe(
         tap((isOpened: boolean) => {
           if (isOpened) return
