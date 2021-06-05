@@ -4,9 +4,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
+# [Installation du poste de travail]
+
+- installer NVM pour gérer différentes version de nodejs sur le poste
+tuto : https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
+
 ## New project
 
-ng new my-first-project
+- ng new my-first-project
+
+si erreur lors de la création d'un nouveau projet : 
+    Odd numbered Node.js versions will not enter LTS status and should not be used for production
+
+Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
+
 
 ## Generate commands :
 ng g service file
@@ -95,6 +106,18 @@ Raison : il y a des imports erronés dans la lib cocori-ng,
 
 ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe
 
+
+## Nouveau projet from scratch avec la lib
+
+- ng new my-project
+- install librairies:
+    - ng add @angular/material
+    - npm i @angular/flex-layout
+    - npm link @cocori-ng/lib (après avoir crééer le lien symbolique vers la lib cocoring)
+
+
+## Mise à jour d'Angular sur un projet
+- recommandation ici : https://update.angular.io/?l=3&v=11.0-12.0
 
 ## Ressources
 
