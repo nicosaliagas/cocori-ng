@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 $mat-primary: (main: #424241,
     lighter: #797978,
     darker: #202020,
@@ -25,7 +26,7 @@ $mat-warn: (main: #ff0000,
         darker: #000000,
     ));
 
-$mat-blue: (main: #90CAF9,
+mat.$blue-palette: (main: #90CAF9,
     lighter: #BBDEFB,
     darker: #0011FF,
     200: #90CAF9,
@@ -34,7 +35,7 @@ $mat-blue: (main: #90CAF9,
         darker: #000000,
     ));
 
-$mat-green: (main: #85ccac,
+mat.$green-palette: (main: #85ccac,
     lighter: #b6e0cd,
     darker: #088548,
     200: #18E089,

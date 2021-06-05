@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~@angular/material/theming";
 
 @mixin lib-theme($config-or-theme, $palette-green, $palette-blue) {
@@ -8,15 +9,15 @@
   $warn: map-get($config, warn);
 
   .error {
-    color: mat-color($warn, 200);
+    color: mat.get-color-from-palette($warn, 200);
   }
 
   .success {
-    color: mat-color($palette-green, 200);
+    color: mat.get-color-from-palette($palette-green, 200);
   }
 
   .info {
-    color: mat-color($palette-blue, 200);
+    color: mat.get-color-from-palette($palette-blue, 200);
   }
 
   /** les puces restent à côté du texte */
@@ -35,17 +36,17 @@
     margin-bottom: 20px !important;
 
     &.succesToast {
-      background-color: mat-color($palette-green, 200);
+      background-color: mat.get-color-from-palette($palette-green, 200);
       color: #ffffff;
     }
 
     &.errorToast {
-      background-color: mat-color($warn, 200);
+      background-color: mat.get-color-from-palette($warn, 200);
       color: #ffffff;
     }
 
     &.infoToast {
-      background-color: mat-color($palette-blue, 200);
+      background-color: mat.get-color-from-palette($palette-blue, 200);
       color: #ffffff;
     }
 

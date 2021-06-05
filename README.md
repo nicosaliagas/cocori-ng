@@ -119,6 +119,7 @@ ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_
 ## Mise à jour d'Angular sur un projet
 - recommandation ici : https://update.angular.io/?l=3&v=11.0-12.0
 - ng update pour voir les packages à mettre à jour
+- ex : ng update @angular/cdk @angular/flex-layout @angular/material
 
 ## Ressources
 
