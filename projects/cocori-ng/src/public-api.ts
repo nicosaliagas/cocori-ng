@@ -68,9 +68,6 @@ export * from './lib/shared/pipe/sanitize-url/cocoring-sanitize-url.module';
 export * from './lib/shared/pipe/truncate/cocoring-truncate.pipe';
 export * from './lib/shared/pipe/truncate/cocoring-truncate.module';
 
-export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.directive';
-export * from './lib/shared/directive/ellipsis/cocoring-ellipsis.module';
-
 export * from './lib/shared/directive/default-image/cocoring-default-image.directive';
 export * from './lib/shared/directive/default-image/cocoring-default-image.module';
 

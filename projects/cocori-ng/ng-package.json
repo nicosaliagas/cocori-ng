@@ -8,10 +8,8 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
-      "resize-observer-polyfill": "ResizeObserver"
     }
   },
   "whitelistedNonPeerDependencies": [
-    "resize-observer-polyfill"
   ]
 }
