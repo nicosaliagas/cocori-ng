@@ -112,8 +112,9 @@ ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_
 - ng new my-project
 - install librairies:
     - ng add @angular/material
-    - npm i @angular/flex-layout
-    - npm link @cocori-ng/lib (après avoir crééer le lien symbolique vers la lib cocoring)
+    - npm i @angular/flex-layout @tinymce/tinymce-angular spark-md5
+- dans angular.json : architect.build.options.preserveSymlinks = true
+- npm link @cocori-ng/lib (après avoir créé le lien symbolique vers la lib cocoring)
 
 
 ## Mise à jour d'Angular sur un projet

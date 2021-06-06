@@ -3,7 +3,7 @@
   "dest": "../../dist/cocori-ng",
   "assets": [
     "**/*.theme.scss",
-    "**/images"
+    "**/images/**"
   ],
   "lib": {
     "entryFile": "src/public-api.ts",
