@@ -111,7 +111,6 @@ Erreur du type :
 9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;
 Il faut que les versions d'Angular entre la lib et le projet cible soit la même
 
-
 ## Nouveau projet from scratch avec la lib
 
 - ng new my-project
