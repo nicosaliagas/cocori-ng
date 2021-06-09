@@ -98,6 +98,24 @@ https://example.cypress.io/commands/connectors
 `lire un fichier json`
 https://example.cypress.io/commands/files
 
+## Nouveau projet Angular avec installation de la lib Cocori-ng
+
+- ng new my-project
+- install librairies:
+    - ng add @angular/material
+    - npm i @angular/flex-layout @tinymce/tinymce-angular spark-md5
+- dans angular.json : architect.build.options.preserveSymlinks = true
+- npm link @cocori-ng/lib (après avoir créé le lien symbolique vers la lib cocoring)
+
+
+## Mise à jour d'Angular sur un projet
+
+- s'il s'agit d'une version majeur d'Angular ex : passage du version 11 vers 12 ou 12 vers 13 ...
+    * mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/README.md)
+- étapes à suivre pour faire une montée de version d'Angular : https://update.angular.io/?l=3&v=11.0-12.0
+- ng update pour voir les packages à mettre à jour
+- ex : ng update @angular/cdk @angular/flex-layout @angular/material
+
 ## Erreurs
 
 1.
@@ -109,22 +127,15 @@ ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_
 2.
 Erreur du type :
 9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;
-Il faut que les versions d'Angular entre la lib et le projet cible soit la même
 
-## Nouveau projet from scratch avec la lib
+Il faut que les versions d'Angular entre la lib et le projet cible soit identique
 
-- ng new my-project
-- install librairies:
-    - ng add @angular/material
-    - npm i @angular/flex-layout @tinymce/tinymce-angular spark-md5
-- dans angular.json : architect.build.options.preserveSymlinks = true
-- npm link @cocori-ng/lib (après avoir créé le lien symbolique vers la lib cocoring)
+Comment voir si on est dans les mêmes versions 'Angular ?!
 
+Pour vérifier, consulter les fichiers package.json du projet Cocori-ng et du projet angular cible.
+La ligne "@angular/core": "~12.0.3" => indique le numérode de version d'Angular du projet
 
-## Mise à jour d'Angular sur un projet
-- recommandation ici : https://update.angular.io/?l=3&v=11.0-12.0
-- ng update pour voir les packages à mettre à jour
-- ex : ng update @angular/cdk @angular/flex-layout @angular/material
+NB : Pensez à faire "npm install" après un changement de version d'une lib dans le fichier package.json
 
 ## Ressources
 
