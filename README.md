@@ -126,16 +126,20 @@ ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_
 
 2.
 Erreur du type :
-9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;
+
+```9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;```
 
 Il faut que les versions d'Angular entre la lib et le projet cible soit identique
 
-Comment voir si on est dans les mêmes versions 'Angular ?!
+Comment voir si on est dans les mêmes versions Angular ?
 
 Pour vérifier, consulter les fichiers package.json du projet Cocori-ng et du projet angular cible.
-La ligne "@angular/core": "~12.0.3" => indique le numérode de version d'Angular du projet
 
-NB : Pensez à faire "npm install" après un changement de version d'une lib dans le fichier package.json
+La ligne ```"@angular/core": "~12.0.3"``` => indique le numéro de de version d'Angular du projet ici c'est la version 12
+
+Si le numéro de version majeure d'angular est différent => le mettre à jour à la version la plus récente dans le proejt concernée
+
+NB : Pensez à faire ```npm install``` après un changement de version d'une lib dans le fichier package.json
 
 ## Ressources
 
