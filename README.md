@@ -106,6 +106,11 @@ Raison : il y a des imports erronés dans la lib cocori-ng,
 
 ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe
 
+2.
+Erreur du type :
+9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;
+Il faut que les versions d'Angular entre la lib et le projet cible soit la même
+
 
 ## Nouveau projet from scratch avec la lib
 
