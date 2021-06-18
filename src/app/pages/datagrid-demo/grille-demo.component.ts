@@ -47,4 +47,8 @@ export class GrilleDemoComponent implements OnInit {
       }
     })
   }
+
+  eventClickRow($event) {
+    console.log("get datas row >>> ", $event)
+  }
 }

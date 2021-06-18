@@ -10,6 +10,6 @@
       <cocoring-datagrid [config]="_config"></cocoring-datagrid>
     </div> -->
     <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar>
-    <cocoring-datagrid [config]="_config"></cocoring-datagrid>
+    <cocoring-datagrid [config]="_config" (eventClickRow)="eventClickRow($event)"></cocoring-datagrid>
   </div>
 </div>

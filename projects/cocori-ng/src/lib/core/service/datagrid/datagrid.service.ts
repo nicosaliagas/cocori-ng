@@ -23,6 +23,7 @@ export class DatagridService {
   private _reOrderColumns$: Subject<OrderColumnModel> = new Subject<OrderColumnModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   
+  public rowSelectedEvent$: Subject<any> = new Subject<any>();
   public allRowsChecked$: Subject<boolean> = new Subject<boolean>();
   public refreshNeeded$: Subject<void> = new Subject<void>();
   public checkboxesDatagridForm: FormGroup;

@@ -16,6 +16,7 @@ import { LoadingService } from '../../../core/service/loading.service';
 })
 export class CocoringButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
+    @Output() click: EventEmitter<string> = new EventEmitter<string>();
 
     @Input() text: string = DefaultConfigComponent.button.text;
     @Input() type: string = TypeButtonEnum.SUBMIT;
@@ -54,6 +55,10 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
     }
 
     onClick() {
-        if (this.type === TypeButtonEnum.SUBMIT && this.onClickSubmit) this.onClickSubmit()
+        if (this.type === TypeButtonEnum.SUBMIT && this.onClickSubmit) {
+            this.onClickSubmit()
+        } else if (this.type === TypeButtonEnum.BUTTON && this.onClickSubmit) {
+            this.click.emit()
+        }
     }
 }

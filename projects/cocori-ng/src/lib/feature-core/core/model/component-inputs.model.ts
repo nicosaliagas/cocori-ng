@@ -4,10 +4,9 @@ import { DataSourceInput } from './data-source.model';
 import { FormInputComponents } from './form-input-components.model';
 import { ButtonSchema, FormSchema } from './schema-datas.model';
 
-export type OutputComponents = "callback";
-
 export type OutputCallback = {
-    [key in OutputComponents]: Function
+    callback?: Function
+    click?: Function
 }
 
 export type ConfigComponentInputs = ConfigInputComponent | ButtonComponentInputs | any

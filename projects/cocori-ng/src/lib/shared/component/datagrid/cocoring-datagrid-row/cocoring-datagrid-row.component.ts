@@ -27,7 +27,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     this.initCellsValues();
   }
   @Input() datagridService: DatagridService
-
+  
   _datas: any;
   cellValues: CellValueDatagridModel[] = []
   checkboxRowFormGroup: FormGroup;
@@ -106,6 +106,10 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   private getDatasourceValue(column: string) {
     return this._datas.hasOwnProperty(column) ? this._datas[column] : null
+  }
+
+  selectRow() {
+    this.datagridService.rowSelectedEvent$.next(this._datas)
   }
 
   trackBy(index: number) {

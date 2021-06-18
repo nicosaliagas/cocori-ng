@@ -1,4 +1,4 @@
-<tr>
+<tr (click)="selectRow()">
     <ng-container *ngFor="let cell of cellValues; let i = index; trackBy: trackBy">
         <ng-container *ngIf="datagridService.config.withBatchProcessing">
             <td class="column-select" *ngIf="i===0">

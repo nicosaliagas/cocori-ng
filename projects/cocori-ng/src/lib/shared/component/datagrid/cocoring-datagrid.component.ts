@@ -2,10 +2,12 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    EventEmitter,
     HostBinding,
     Input,
     OnDestroy,
     OnInit,
+    Output,
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -49,7 +51,11 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         this.loadDataSource();
 
         this.onReOrderColumns()
+
+        this.onRowSelected()
     }
+
+    @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
 
     private loadDataSource() {
         const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
@@ -81,6 +87,14 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         this.subscriptions.add(
             this.datagridService.reOrderColumns$.pipe(
                 tap(_ => this.cdr.detectChanges()),
+            ).subscribe()
+        )
+    }
+    
+    private onRowSelected() {
+        this.subscriptions.add(
+            this.datagridService.rowSelectedEvent$.pipe(
+                tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
             ).subscribe()
         )
     }
