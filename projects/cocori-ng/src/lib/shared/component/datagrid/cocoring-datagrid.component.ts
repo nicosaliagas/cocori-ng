@@ -57,6 +57,16 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
 
+    ngOnInit() { }
+
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe()
+    }
+
+    refreshDatagrid() {
+        this.datagridService.refreshNeeded$.next()
+    }
+
     private loadDataSource() {
         const emptySearch$ = this.datagridService.refreshNeeded$.pipe(
             debounceTime(400),
@@ -90,19 +100,13 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
             ).subscribe()
         )
     }
-    
+
     private onRowSelected() {
         this.subscriptions.add(
             this.datagridService.rowSelectedEvent$.pipe(
                 tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
             ).subscribe()
         )
-    }
-
-    ngOnInit() { }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
     }
 
     trackBy(item: any, index: number) {
