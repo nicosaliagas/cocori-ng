@@ -2,5 +2,6 @@
     (click)="onClick()">
     <mat-icon *ngIf="icon && iconPosition === 'start' ">{{icon}}</mat-icon>
     {{text}}
+    <ng-content></ng-content>
     <mat-icon *ngIf="icon && iconPosition === 'end'">{{icon}}</mat-icon>
 </button>

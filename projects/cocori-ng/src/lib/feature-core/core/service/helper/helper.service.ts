@@ -16,6 +16,11 @@ export class HelperService {
             .substring(1);
     }
 
+    removeValueFromArrayByIndex(arrayValues: any[], index: number): any[] {
+        if (index === -1) return arrayValues;
+        return [...arrayValues.slice(0, index), ...arrayValues.slice(index + 1)];
+    }
+
     /**  */
 
     static retourneNomDeDomaine(): string {
@@ -283,15 +288,6 @@ export class HelperService {
         }
 
         return tableau;
-    }
-
-    static retirerValeurTableau(tableau: any[], valeur: any): any[] {
-        return this.retirerValeurTableauParIndex(tableau, tableau.indexOf(valeur));
-    }
-
-    static retirerValeurTableauParIndex(tableau: any[], index: number): any[] {
-        if (index === -1) return tableau;
-        return [...tableau.slice(0, index), ...tableau.slice(index + 1)];
     }
 
     static arrondirZeroCinqPrès(nombre: number): number {

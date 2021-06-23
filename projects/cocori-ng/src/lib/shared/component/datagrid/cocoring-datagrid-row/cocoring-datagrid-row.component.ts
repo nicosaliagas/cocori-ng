@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -27,7 +28,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     this.initCellsValues();
   }
   @Input() datagridService: DatagridService
-  
+
   _datas: any;
   cellValues: CellValueDatagridModel[] = []
   checkboxRowFormGroup: FormGroup;
@@ -35,6 +36,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private helperService: HelperService,
     private cdr: ChangeDetectorRef,
   ) { }
 
@@ -55,16 +57,23 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     this.checkboxRowFormGroup.addControl(this._datas.id, this.fb.control(false));
 
     checkboxesFormControlArray.push(this.checkboxRowFormGroup);
+
+    this.subscriptions.add(
+      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((value: boolean) => {
+        this.datagridService.storeIdsRowsSelected(this._datas.id, value)
+      })
+    )
   }
 
   private initCellsValues() {
     this.columns.forEach((column: ColumnDatagridModel) => {
-      this.cellValues.push({ 
-        dataField: column.dataField, 
-        caption: column.caption, 
-        visible: column.visible, 
-        dataType: column.dataType, 
-        value: this.getDatasourceValue(column.dataField) });
+      this.cellValues.push({
+        dataField: column.dataField,
+        caption: column.caption,
+        visible: column.visible,
+        dataType: column.dataType,
+        value: this.getDatasourceValue(column.dataField)
+      });
     });
   }
 

@@ -30,10 +30,10 @@ type AddInput<Builder, InputName extends string> =
     ? FormBuilderService<InputNames | InputName, ButtonNames>
     : never
 
-type AddButton<Builder, ButtonName extends string> =
-    Builder extends FormBuilderService<infer InputNames, infer ButtonNames>
-    ? FormBuilderService<InputNames, ButtonNames | ButtonName>
-    : never
+// type AddButton<Builder, ButtonName extends string> =
+//     Builder extends FormBuilderService<infer InputNames, infer ButtonNames>
+//     ? FormBuilderService<InputNames, ButtonNames | ButtonName>
+//     : never
 
 type InferInputNames<Builder> =
     Builder extends FormBuilderService<infer InputNames>
@@ -260,10 +260,10 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this
     }
 
-    addButton<ButtonName extends string, ReturnType extends AddButton<this, ButtonName>>(
+    addButton<ButtonName extends string>(
         buttonName: Exclude<ButtonName, ButtonNames>,
         configBuilder: (b: ButtonConfigBuilder<this>) => ButtonConfigBuilder<this>
-    ): ReturnType {
+    ) {
 
         const builder = configBuilder(new ButtonConfigBuilder);
 
@@ -277,7 +277,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this.generateComponentViewService.addComponentToView(FormInputComponents.BUTTON, configInputComponent, builder._callbackComponent);
 
-        return this as FormBuilderService as ReturnType;
+        return this as FormBuilderService;
     }
 
     onClickSubmit() {

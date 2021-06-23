@@ -1,10 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {
-    ButtonComponentInputs,
-    ButtonIconPositon,
-    DefaultConfigComponent,
-    TypeButtonEnum,
-} from '@cocori-ng/lib/src/lib/feature-core';
+import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 
 import { LoadingService } from '../../../core/service/loading.service';
@@ -18,7 +13,7 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
     @Output() click: EventEmitter<string> = new EventEmitter<string>();
 
-    @Input() text: string = DefaultConfigComponent.button.text;
+    @Input() text: string;
     @Input() type: string = TypeButtonEnum.SUBMIT;
     @Input() class: string;
 

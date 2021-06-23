@@ -146,3 +146,25 @@ NB : Pensez à faire ```npm install``` après un changement de version d'une lib
 // dynamically-create-nested-objects
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
+
+FlexLayout | MediaObserver :
+
+/** implémentation côté code pour détecter la taille de l'écran */
+
+https://github.com/angular/flex-layout/wiki/MediaObserver
+
+exemple :
+
+private eventSizeScreen(mediaObserver: MediaObserver) {
+    this.subscription.add(
+        mediaObserver.media$.subscribe((change: MediaChange) => {
+        this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+
+        if (change.mqAlias === 'xs') {
+            /** si taille d'écran mobile */
+        } else {
+            /** sinon */
+        }
+        })
+    );
+}

@@ -53,9 +53,12 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         this.onReOrderColumns()
 
         this.onRowSelected()
+
+        this.onRowsDeleted()
     }
 
     @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
+    @Output() eventRowsDeleted: EventEmitter<string[]> = new EventEmitter<string[]>();
 
     ngOnInit() { }
 
@@ -105,6 +108,14 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         this.subscriptions.add(
             this.datagridService.rowSelectedEvent$.pipe(
                 tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
+            ).subscribe()
+        )
+    }
+
+    private onRowsDeleted() {
+        this.subscriptions.add(
+            this.datagridService.rowsDeletedEvent$.pipe(
+                tap((idsRowsSelected: string[]) => this.eventRowsDeleted.emit(idsRowsSelected)),
             ).subscribe()
         )
     }
