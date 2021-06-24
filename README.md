@@ -23,7 +23,29 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 ng g service file
 ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
 
-## Lancer le projet web et le projet library en même temps
+## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet : 
+
+Depuis le projet Cocori-ng : 
+```
+npm i
+npm run lib:build
+cd dist/cocori-ng 
+npm link
+```
+
+⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
+
+Depuis le projet client qui utilise Cocori-ng : 
+
+```
+npm i
+npm link @cocori-ng/lib
+```
+_Puis lancer la commande de build du project cible (npm build, npm run...)_
+
+⚠️ La commande `npm link @cocori-ng/lib` doit être relancée après chaque `npm i` car ce denier détruit les liens symboliques créés pour ier cocori-ng au projet client.
+
+## Développer sur la lib Cocori-ng et sur le projet client en même temps (avec watch) :
 
 Mode développement : lancer la commande pour builder la lib
 
