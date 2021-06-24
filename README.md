@@ -22,46 +22,51 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 ng g service file
 ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
 
-## Lancer le projet web et le projet library en même temps
+## Builder la lib et la lier pour l'utiliser dans un autre projet
 
-`Commandes pour builder la lib`
+Commandes pour builder la lib :
+
 - pour développer sur le projet cocori-ng
 - pour utiliser la lib dans un autre projet avec la méthode `link`
 
-`Lancer les commandes à la racine du projet`
+Lancer les commandes à la racine du projet :
+
 - se mettre à la racine du projet, là où se trouve le fichier ```package.json```
 
-`Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier)` : ```npm run lib```
+Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : ```npm run lib```
+
 - à lancer si vous souhaitez développer la lib
 
-`Commande qui build la lib et rends la main` : ```npm run lib:build```
+Commande qui build la lib et rends la main : ```npm run lib:build```
+
 - à lancer si la lib est utilisée dans un autre projet
 
-`Créer un lien symbolique vers la lib`
+Créer un lien symbolique vers la lib :
+
 - builder la lib avant !
 - se placer dans le dossier générer : ```cd dist\cocori-ng```
 - lancer la commande : ```npm link```
 
-`Depuis le projet cible :`
+Depuis le projet cible :
+
 - se mettre à la racine du projet, là où se trouve le fichier ```package.json```
 - commande : ```npm link @cocori-ng/lib```
 - cela va permettre de faire un lien vers le contenu de la lib ```dist\cocori-ng``` du projet cocori-ng
 
 
-`si erreur`
+si erreur :
 
 * se mettre en version node : 15.12.0
 * projet cible : "projects.$name.architect.build.options.preserveSymlinks: true" in angular.json
 * installer les dépendances manquantes dans le projet cible et refaire un coup de : npm link @cocori-ng/lib
 
-`Il est possible de lancer le projet Angular pour tester la librairie`
-dans une autre fenêtre cmd, lancer la commande : 
+## Lancer le projet pour tester les composants de la lib...
 
-ng serve
+lancer la commande : ```ng serve```
 
-## Package lib
+## Packager la lib
 
-After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
+After building your library with ```ng build --project=cocori-ng```, go to the dist folder ```cd dist/cocori-ng``` and run ```npm pack```.
 
 ## Librairie Utilisée
 
