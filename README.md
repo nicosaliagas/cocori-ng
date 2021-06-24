@@ -18,26 +18,34 @@ si erreur lors de la création d'un nouveau projet :
 
 Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
 
-
-## Generate commands :
+## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
 ng g service file
 ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
 
 ## Lancer le projet web et le projet library en même temps
 
-`Mode développement : lancer la commande pour builder la lib`
+`Commandes pour builder la lib`
+- pour développer sur le projet cocori-ng
+- pour utiliser la lib dans un autre projet avec la méthode `link`
 
-npm run lib
+`Lancer les commandes à la racine du projet`
+- se mettre à la racine du projet, là où se trouve le fichier ```package.json```
+
+`Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier)` : ```npm run lib```
+- à lancer si vous souhaitez développer la lib
+
+`Commande qui build la lib et rends la main` : ```npm run lib:build```
+- à lancer si la lib est utilisée dans un autre projet
 
 `Créer un lien symbolique vers la lib`
+- builder la lib avant !
+- se placer dans le dossier générer : ```cd dist\cocori-ng```
+- lancer la commande : ```npm link```
 
-cd dist\cocori-ng
-
-npm link (sudo avant si linux)
-
-`Projet cible :`
-
-npm link @cocori-ng/lib
+`Depuis le projet cible :`
+- se mettre à la racine du projet, là où se trouve le fichier ```package.json```
+- commande : ```npm link @cocori-ng/lib```
+- cela va permettre de faire un lien vers le contenu de la lib ```dist\cocori-ng``` du projet cocori-ng
 
 
 `si erreur`
