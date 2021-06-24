@@ -25,28 +25,30 @@ ng g component cocoring-cms-image-upload --display-block=true --skip-import=true
 
 ## Lancer le projet web et le projet library en même temps
 
-`Mode développement : lancer la commande pour builder la lib`
+Mode développement : lancer la commande pour builder la lib
 
-npm run lib
+`npm run lib`
 
-`Créer un lien symbolique vers la lib`
+Créer un lien symbolique vers la lib
 
+```
 cd dist\cocori-ng
+#sudo avant si linux
+npm link 
+```
 
-npm link (sudo avant si linux)
+Projet cible (ex Boulle):
 
-`Projet cible :`
-
-npm link @cocori-ng/lib
+`npm link @cocori-ng/lib`
 
 
-`si erreur`
+si erreur
 
 * se mettre en version node : 15.12.0
 * projet cible : "projects.$name.architect.build.options.preserveSymlinks: true" in angular.json
 * installer les dépendances manquantes dans le projet cible et refaire un coup de : npm link @cocori-ng/lib
 
-`Il est possible de lancer le projet Angular pour tester la librairie`
+Il est possible de lancer le projet Angular pour tester la librairie : 
 dans une autre fenêtre cmd, lancer la commande : 
 
 ng serve
