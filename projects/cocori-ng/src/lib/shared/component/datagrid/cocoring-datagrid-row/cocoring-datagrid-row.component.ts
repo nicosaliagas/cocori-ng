@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import {
-  CellValueDatagridModel,
-  ColumnDatagridModel,
-  OrderColumnModel,
+    CellValueDatagridModel,
+    ColumnDatagridModel,
+    OrderColumnModel,
 } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
@@ -118,7 +118,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   }
 
   selectRow() {
-    this.datagridService.rowSelectedEvent$.next(this._datas)
+    this.datagridService.rowSelectedByClickEvent$.next(this._datas)
   }
 
   trackBy(index: number) {

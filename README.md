@@ -129,31 +129,6 @@ https://example.cypress.io/commands/files
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
 
-## Erreurs
-
-1.
-Problème : A la compilation, le site utilisant la lib ne reconnait plus les balises ou attributs Form, Angular Material...
-Raison : il y a des imports erronés dans la lib cocori-ng,
-
-ex : import { * } from 'project\cocori-ng\src...\ma_classe' au lieu de ../../ma_classe
-
-2.
-Erreur du type :
-
-```9 static ɵprov: i0.ɵɵInjectableDef<CurrentUrlRoutingService>;```
-
-Il faut que les versions d'Angular entre la lib et le projet cible soit identique
-
-Comment voir si on est dans les mêmes versions Angular ?
-
-Pour vérifier, consulter les fichiers package.json du projet Cocori-ng et du projet angular cible.
-
-La ligne ```"@angular/core": "~12.0.3"``` => indique le numéro de de version d'Angular du projet ici c'est la version 12
-
-Si le numéro de version majeure d'angular est différent => le mettre à jour à la version la plus récente dans le proejt concernée
-
-NB : Pensez à faire ```npm install``` après un changement de version d'une lib dans le fichier package.json
-
 ## Ressources
 
 // dynamically-create-nested-objects

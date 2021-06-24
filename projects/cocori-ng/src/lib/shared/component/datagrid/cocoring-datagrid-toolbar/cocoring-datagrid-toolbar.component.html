@@ -22,7 +22,7 @@
         </div>
         <ng-container *ngIf="datagridService.config?.withBatchProcessing">
             <div class="toolbar-option">
-                <button mat-icon-button disabled="false" title="supprimer les lignes sélectionnées"
+                <button mat-icon-button [disabled]="!nbRowsChecked" title="supprimer les lignes sélectionnées"
                     aria-label="supprimer les lignes sélectionnées" (click)="deleteSelectedRows()">
                     <mat-icon>delete_outline</mat-icon>
                 </button>

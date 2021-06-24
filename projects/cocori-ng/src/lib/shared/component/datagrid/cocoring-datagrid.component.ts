@@ -78,6 +78,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
                 /** on désactive la case à cocher qui permet de sélectionner / désélectionner toutes les lignes du tableau */
                 this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").setValue(false, { emitEvent: false })
             }),
+            tap(_ => this.datagridService.checkUncheckAllRows(false)),
             tap(_ => this.cdr.detectChanges()),
             switchMap(() => this.datagridService.getAllDatas())
         )
@@ -106,7 +107,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     private onRowSelected() {
         this.subscriptions.add(
-            this.datagridService.rowSelectedEvent$.pipe(
+            this.datagridService.rowSelectedByClickEvent$.pipe(
                 tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
             ).subscribe()
         )
@@ -115,7 +116,7 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
     private onRowsDeleted() {
         this.subscriptions.add(
             this.datagridService.rowsDeletedEvent$.pipe(
-                tap((idsRowsSelected: string[]) => this.eventRowsDeleted.emit(idsRowsSelected)),
+                tap(_ => this.eventRowsDeleted.emit(this.datagridService.rowsSelectedDatagrid)),
             ).subscribe()
         )
     }

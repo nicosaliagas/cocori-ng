@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import {
-    CocoringDatagridFilterModalComponent,
+  CocoringDatagridFilterModalComponent,
 } from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 
 @Component({
@@ -17,6 +17,7 @@ import {
 export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   totalRows: number
+  nbRowsChecked: number = 0;
 
   // list: { id: number; name: string; }[];
   // checkboxesFormControlArray: FormArray;
@@ -27,9 +28,11 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
     public datagridService: DatagridService) { }
 
   ngOnInit(): void {
-    this.setCheckboxHeaderColumn();
+    this.setCheckboxHeaderColumn()
 
-    this.onLengthDataSourceChange();
+    this.onLengthDataSourceChange()
+
+    this.onRowsChecked()
   }
 
   private onLengthDataSourceChange() {
@@ -50,7 +53,16 @@ export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
   }
 
   deleteSelectedRows() {
-    this.datagridService.rowsDeletedEvent$.next(this.datagridService.rowsSelectedDatagrid);
+    this.datagridService.rowsDeletedEvent$.next();
+  }
+
+  onRowsChecked() {
+    this.subscriptions.add(
+      this.datagridService.rowsCheckedEvent$.subscribe(() => {
+        this.nbRowsChecked = this.datagridService.rowsSelectedDatagrid.length
+        this.cdr.detectChanges()
+      })
+    )
   }
 
   filterModal() {

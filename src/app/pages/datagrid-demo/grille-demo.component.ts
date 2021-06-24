@@ -51,4 +51,8 @@ export class GrilleDemoComponent implements OnInit {
   eventClickRow($event) {
     console.log("get datas row >>> ", $event)
   }
+
+  eventRowsDeleted(idsRowsSelected: string[]) {
+    console.log("Ids rows to delete >>> ", idsRowsSelected)
+  }
 }
