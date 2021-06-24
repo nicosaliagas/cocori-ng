@@ -25,7 +25,7 @@ ng g component cocoring-cms-image-upload --display-block=true --skip-import=true
 
 ## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet : 
 
-Depuis le projet Cocori-ng : 
+__Depuis le projet Cocori-ng__ : 
 ```
 npm i
 npm run lib:build
@@ -35,8 +35,7 @@ npm link
 
 ⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-Depuis le projet client qui utilise Cocori-ng : 
-
+__Depuis le projet client qui utilise Cocori-ng__ : 
 ```
 npm i
 npm link @cocori-ng/lib
