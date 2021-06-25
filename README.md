@@ -131,7 +131,7 @@ npm install cypress --save-dev
 `connecteurs`
 https://example.cypress.io/commands/connectors
 
-`lire un fichier json`
+`lire un fichier json` 
 https://example.cypress.io/commands/files
 
 ## Nouveau projet Angular avec installation de la lib Cocori-ng
