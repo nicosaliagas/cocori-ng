@@ -22,7 +22,7 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 ng g service file
 ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
 
-## Builder la lib et la lier pour l'utiliser dans un autre projet
+## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet : 
 
 Commandes pour builder la lib :
 
@@ -33,25 +33,47 @@ Lancer les commandes à la racine du projet :
 
 - se mettre à la racine du projet, là où se trouve le fichier ```package.json```
 
-Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : ```npm run lib```
-
-- à lancer si vous souhaitez développer la lib
+__Depuis le projet Cocori-ng__ :
 
 Commande qui build la lib et rends la main : ```npm run lib:build```
 
 - à lancer si la lib est utilisée dans un autre projet
 
-Créer un lien symbolique vers la lib :
+```
+npm i
+npm run lib:build
+cd dist/cocori-ng 
+npm link
+```
 
-- builder la lib avant !
-- se placer dans le dossier générer : ```cd dist\cocori-ng```
-- lancer la commande : ```npm link```
+⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-Depuis le projet cible :
+__Depuis le projet client qui utilise Cocori-ng__ : 
+```
+npm i
+npm link @cocori-ng/lib
+```
+_Puis lancer la commande de build du project cible (npm build, npm run...)_
 
-- se mettre à la racine du projet, là où se trouve le fichier ```package.json```
-- commande : ```npm link @cocori-ng/lib```
-- cela va permettre de faire un lien vers le contenu de la lib ```dist\cocori-ng``` du projet cocori-ng
+⚠️ La commande `npm link @cocori-ng/lib` doit être relancée après chaque `npm i` car ce denier détruit les liens symboliques créés pour ier cocori-ng au projet client.
+
+## Développer sur la lib Cocori-ng et sur le projet client en même temps (avec watch) :
+
+Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : ```npm run lib```
+
+- à lancer si vous souhaitez développer la lib
+
+Créer un lien symbolique vers la lib
+
+```
+cd dist\cocori-ng
+#sudo avant si linux
+npm link 
+```
+
+Projet cible (ex Boulle):
+
+`npm link @cocori-ng/lib`
 
 
 si erreur :
@@ -63,6 +85,7 @@ si erreur :
 ## Lancer le projet pour tester les composants de la lib...
 
 lancer la commande : ```ng serve```
+
 
 ## Packager la lib
 
