@@ -1,0 +1,17 @@
+<div class="container-page">
+  <div class="titre-page">Démo du composant Toast</div>
+  <div class="formulaires">
+    <div class="content-frm part">
+      <div>
+        <button mat-raised-button class="bg-success" (click)="toastSuccess()">Succès</button>
+        <button mat-raised-button class="bg-error" (click)="toastError()">Erreur</button>
+        <button mat-raised-button class="bg-info" (click)="toastInfo()">Info</button>
+      </div>
+      <div style="margin: 20px 0;">
+        <button mat-raised-button class="bg-success" (click)="toastSuccessCb()">Succès avec callback</button>
+        <button mat-raised-button class="bg-error" (click)="toastErrorCb()">Erreur avec callback</button>
+        <button mat-raised-button class="bg-info" (click)="toastInfoCb()">Info avec callback</button>
+      </div>
+    </div>
+  </div>
+</div>
