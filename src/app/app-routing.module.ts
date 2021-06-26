@@ -65,6 +65,11 @@ const routes: Routes = [
     component: CmsLayoutComponent,
     loadChildren: () => import('./pages/colorpicker-demo/colorpicker-demo.module').then(mod => mod.ColorpickerDemoModule)
   },
+  {
+    path: 'component/toast',
+    component: CmsLayoutComponent,
+    loadChildren: () => import('./pages/toast-demo/toast-demo.module').then(mod => mod.ToastDemoModule)
+  },
 ];
 
 @NgModule({

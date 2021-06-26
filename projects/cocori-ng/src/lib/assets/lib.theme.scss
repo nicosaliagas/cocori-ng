@@ -9,15 +9,30 @@
   $warn: map-get($config, warn);
 
   .error {
-    color: mat.get-color-from-palette($warn, 200);
+    color: mat.get-color-from-palette($warn, 200) !important;
+  }
+
+  .bg-error {
+    background-color: mat.get-color-from-palette($warn, 200) !important;
+    color: white !important;
   }
 
   .success {
-    color: mat.get-color-from-palette($palette-green, 200);
+    color: mat.get-color-from-palette($palette-green, 200) !important;
+  }
+
+  .bg-success {
+    background-color: mat.get-color-from-palette($palette-green, 200) !important;
+    color: white !important;
   }
 
   .info {
-    color: mat.get-color-from-palette($palette-blue, 200);
+    color: mat.get-color-from-palette($palette-blue, 200) !important;
+  }
+
+  .bg-info {
+    background-color: mat.get-color-from-palette($palette-blue, 200) !important;
+    color: white !important;
   }
 
   /** les puces restent à côté du texte */

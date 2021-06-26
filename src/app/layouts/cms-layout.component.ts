@@ -59,6 +59,7 @@ export class CmsLayoutComponent {
         { label: 'Upload', route: '/component/upload' },
         { label: 'Wysiwyg', route: '/component/wysiwyg' },
         { label: 'Color picker', route: '/component/colorpicker' },
+        { label: 'Toast / Snackbar', route: '/component/toast' },
       ]
     },
     { label: "Liens externes", menuGroup: true },
