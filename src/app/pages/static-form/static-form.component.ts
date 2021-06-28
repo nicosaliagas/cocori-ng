@@ -42,6 +42,7 @@ export class StaticFormComponent implements OnInit {
         .typeInput(FormInputComponents.INPUT_SELECT)
         .dataSource({
           type: DataSourceType.BRUTE,
+          dataSourceNameProperty: 'name',
           value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
         }))
       // .addInput('api', config => config

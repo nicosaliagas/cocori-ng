@@ -3,9 +3,9 @@ import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
 import {
-    ConfigInputComponent,
-    InputFieldAppearance,
-    OutputCallback,
+  ConfigInputComponent,
+  InputFieldAppearance,
+  OutputCallback,
 } from '../../../../../core/model/component-inputs.model';
 import { DataSourceInput } from '../../../../../core/model/data-source.model';
 import { DatasourceService } from '../../../../../core/service/datasource.service';
@@ -29,6 +29,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     subscriptions: Subscription = new Subscription();
 
     dataSource$: Observable<any>;
+    dataSourceNameProperty: string
     inRelationWith: string;
     validators: ValidatorFn[];
     appearance: InputFieldAppearance;
@@ -107,6 +108,8 @@ export abstract class ExtendInputsComponent implements OnDestroy {
 
     loadDataSource(configDataSource: DataSourceInput): Observable<any> {
         if (!configDataSource) return;
+
+        this.dataSourceNameProperty = configDataSource.dataSourceNameProperty || 'name'
 
         return this.datasourceService.loadDataSource(configDataSource)
     }

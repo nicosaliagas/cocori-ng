@@ -3,6 +3,7 @@
 export interface DataSourceInput {
     type: DataSourceType,
     value: any,
+    dataSourceNameProperty?: string, /** property of the datasource used in the view */
 }
 
 export enum DataSourceType {
