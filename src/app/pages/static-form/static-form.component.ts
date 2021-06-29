@@ -37,7 +37,7 @@ export class StaticFormComponent implements OnInit {
       .addInput('brute', config => config
         .isRequired()
         .appearance('standard')
-        .nameLabel('Datasource - brute')
+        .nameLabel('Datasource - Données en dur')
         .icon('search')
         .typeInput(FormInputComponents.INPUT_SELECT)
         .dataSource({
@@ -45,14 +45,17 @@ export class StaticFormComponent implements OnInit {
           dataSourceNameProperty: 'name',
           value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
         }))
-      // .addInput('api', config => config
-      //   .isRequired()
-      //   .nameLabel('Datasource - API')
-      //   .typeInput(InputComponents.INPUT_SELECT)
-      //   .dataSource({
-      //     type: DataSourceType.API,
-      //     value: "https://localhost:5000/select-items/LastDegree/options"
-      //   }))
+      .addInput('api', config => config
+        .isRequired()
+        .appearance('standard')
+        .icon('cloud_queue')
+        .nameLabel('Datasource - API')
+        .typeInput(FormInputComponents.INPUT_SELECT)
+        .dataSource({
+          type: DataSourceType.API,
+          dataSourceNameProperty: 'nameOption', /** default property : 'name' */
+          value: "https://localhost:8080/api/cocoring-apis/select-datasource"
+        }))
       .addInput('nom', config => config
         .isRequired()
         .nameLabel('Nom')
@@ -60,7 +63,7 @@ export class StaticFormComponent implements OnInit {
         .appearance('standard')
         .typeInput(FormInputComponents.INPUT_TEXT)
         .maxlength(20)
-        )
+      )
       .addInput('prenom', config => config
         .nameLabel('Prénom')
         .appearance('outline')
@@ -70,7 +73,7 @@ export class StaticFormComponent implements OnInit {
         .appearance('fill')
         .maxlength(2)
         .typeInput(FormInputComponents.INPUT_NUMBER))
-        
+
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')

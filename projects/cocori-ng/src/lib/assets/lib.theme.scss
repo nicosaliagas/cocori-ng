@@ -22,7 +22,10 @@
   }
 
   .bg-success {
-    background-color: mat.get-color-from-palette($palette-green, 200) !important;
+    background-color: mat.get-color-from-palette(
+      $palette-green,
+      200
+    ) !important;
     color: white !important;
   }
 
@@ -257,4 +260,10 @@
   }
 
   /** / Color picker */
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
