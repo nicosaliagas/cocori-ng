@@ -15,6 +15,7 @@ import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
 import { ConfigCmsModel, InsertSectionAt, SectionMoveIndexes } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
@@ -50,12 +51,12 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   totalSections: number = 0;
 
   constructor(
-    mediaObserver: MediaObserver,
+    private mediaObserver: MediaObserver,
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
   ) {
-    this.eventSizeScreen(mediaObserver);
+    this.eventSizeScreen();
   }
 
   ngOnInit(): void {
@@ -70,9 +71,9 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  private eventSizeScreen(mediaObserver: MediaObserver) {
+  private eventSizeScreen() {
     this.subscription.add(
-      mediaObserver.media$.subscribe((change: MediaChange) => {
+      this.mediaObserver.media$.subscribe((change: MediaChange) => {
         this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
 
         if (change.mqAlias === 'xs') {
@@ -90,6 +91,10 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.isSidenavOpen = this.sidenav.opened
 
     this.cmsService.catalogBlocksOpened$.next(this.isSidenavOpen)
+  }
+
+  public getPageCMSDatas(): SectionPageDatasModel[] {
+    return this.cmsService.sectionsPageDatas()
   }
 
   private addSectionEvent() {

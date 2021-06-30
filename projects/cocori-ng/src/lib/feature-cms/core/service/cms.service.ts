@@ -30,11 +30,13 @@ export class CmsService {
   }
 
   public exportPage() {
-    const pageExported: SectionPageDatasModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
+    this.storageService.setLocalStorageItem('cms-page-save', this.sectionsPageDatas())
 
-    this.storageService.setLocalStorageItem('cms-page-save', pageExported)
+    console.log("pageExported", this.storageService.getLocalStorageItem('cms-page-save'))
+  }
 
-    console.log("pageExported", pageExported)
+  public sectionsPageDatas(): SectionPageDatasModel[] {
+    return this.adapterPageCmsService.adapterWrite(this.sections)
   }
 
   public addSection(fromBlock: Block) {

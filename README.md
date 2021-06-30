@@ -152,13 +152,13 @@ https://example.cypress.io/commands/files
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
 
-## Ressources
+## Angular Tips & Ressources + Aides + Help !
 
 // dynamically-create-nested-objects
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
 
-FlexLayout | MediaObserver :
+``FlexLayout | MediaObserver :``
 
 /** implémentation côté code pour détecter la taille de l'écran */
 
@@ -179,3 +179,8 @@ private eventSizeScreen(mediaObserver: MediaObserver) {
         })
     );
 }
+
+`` Référence un composant enfant et accès à ces propriétés depuis un composant parent ``
+
+@ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
+
