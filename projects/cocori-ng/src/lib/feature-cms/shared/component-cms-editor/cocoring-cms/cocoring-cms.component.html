@@ -1,5 +1,5 @@
 <div class="page">
-    <cocoring-toolbar-cms (toggleSidenav)="toggleSidenavBlocks()"></cocoring-toolbar-cms>
+    <cocoring-toolbar-cms [showSaveBtn]="_showSaveBtn" (toggleSidenav)="toggleSidenavBlocks()"></cocoring-toolbar-cms>
 
     <div class="sidenav-container">
         <mat-sidenav-container class="layout-container" [hasBackdrop]="false" fullscreen>

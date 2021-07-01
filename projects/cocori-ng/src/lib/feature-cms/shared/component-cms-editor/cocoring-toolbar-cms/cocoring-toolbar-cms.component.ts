@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { BroadcastEventService, ConfigEvents } from '@cocori-ng/lib/src/lib/feature-core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BroadcastEventService, ConfigEvents, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { ResponsiveOrientation } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
@@ -11,6 +11,7 @@ import { CmsService } from '../../../core/service/cms.service';
   styleUrls: ['./cocoring-toolbar-cms.component.scss']
 })
 export class CocoringToolbarCmsComponent implements OnInit {
+  @Input() showSaveBtn: boolean = false;
   @Output() toggleSidenav: EventEmitter<void> = new EventEmitter<void>();
 
   responsive: string = 'computer'
@@ -22,14 +23,17 @@ export class CocoringToolbarCmsComponent implements OnInit {
 
   constructor(
     private cmsService: CmsService,
+    private storageService: StorageService,
     private broadcastEventService: BroadcastEventService,) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   saveContentPage() {
-    this.cmsService.exportPage()
+    this.cmsService.onSaveCmsContent$.next(this.cmsService.sectionsPageDatas())
+
+    // this.storageService.setLocalStorageItem('cms-page-save', this.cmsService.sectionsPageDatas())
+
+    // console.log("pageExported", this.storageService.getLocalStorageItem('cms-page-save'))
   }
 
   onResponsiveChange($event) {

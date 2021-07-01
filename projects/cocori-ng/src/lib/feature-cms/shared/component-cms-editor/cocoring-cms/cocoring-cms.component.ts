@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -33,6 +35,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   configCms: ConfigCmsModel;
 
   orientation = 'column'
+  _showSaveBtn: boolean = false;
 
   @Input()
   set config(config: ConfigCmsModel) {
@@ -41,7 +44,20 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     }
 
     this.configCms = config
+
+    this.cmsService.init()
   }
+
+  @Input()
+  set showSaveBtn(data: boolean) {
+    this._showSaveBtn = data
+
+    if (data) {
+      this.onPageSaved()
+    }
+  }
+
+  @Output() onSaveBtn: EventEmitter<SectionPageDatasModel[]> = new EventEmitter<SectionPageDatasModel[]>();
 
   responsive: string = 'computer'
   subscription: Subscription = new Subscription();
@@ -65,6 +81,14 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.onSectionRemoved()
 
     this.onSectionMoved()
+  }
+
+  private onPageSaved() {
+    this.subscription.add(
+      this.cmsService.onSaveCmsContent$.subscribe((contentPage: SectionPageDatasModel[]) => {
+        this.onSaveBtn.emit(contentPage)
+      })
+    )
   }
 
   ngOnDestroy(): void {

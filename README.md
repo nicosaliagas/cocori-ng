@@ -99,6 +99,15 @@ After building your library with ```ng build --project=cocori-ng```, go to the d
     npm install faker --save-dev
     npm install @types/faker --save-dev
 
+`Utiliser le color picker dans un projet`
+
+doc lib : https://www.cssscript.com/chrome-devtools-color-picker/
+
+- installer la lib color picker (tjrs depuis la racine du projet cible) : ```npm i @r-tek/colr_pickr --save```
+- référencer la lib dans le fichier angular.json :
+    > architect / build / options / styles : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"]
+    > architect / build / options / scripts : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]
+
 
 ## Initialise le thème de la lib Cocori-ng
 
@@ -133,6 +142,10 @@ https://example.cypress.io/commands/connectors
 
 `lire un fichier json`
 https://example.cypress.io/commands/files
+
+
+`Conserver le localstorage entre les tests CypressJs`
+https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1
 
 ## Nouveau projet Angular avec installation de la lib Cocori-ng
 

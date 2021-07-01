@@ -19,8 +19,8 @@
         </mat-button-toggle-group>
     </div>
     <div class="group-right">
-        <div class="toggle-sidenav" (click)="saveContentPage()">
-            <mat-icon>save</mat-icon>
+        <div *ngIf="showSaveBtn" class="toggle-sidenav" (click)="saveContentPage()">
+            <mat-icon>save_alt</mat-icon>
         </div>
         <div class="toggle-sidenav" (click)="toggleSidenav.emit()">
             <mat-icon>segment</mat-icon>

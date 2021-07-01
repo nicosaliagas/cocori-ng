@@ -1,7 +1,7 @@
 <div class="container-page">
   <div class="formulaires">
     <div class="content-frm part">
-      <cocoring-cms [config]="configCms"></cocoring-cms>
+      <cocoring-cms [config]="configCms" [showSaveBtn]=true (onSaveBtn)="onSaveBtn($event)"></cocoring-cms>
     </div>
   </div>
 </div>

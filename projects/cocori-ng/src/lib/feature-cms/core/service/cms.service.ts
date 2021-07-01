@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HelperService, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { SectionPageDatasModel } from '../model/adapter-cms.model';
@@ -15,6 +15,7 @@ export class CmsService {
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public backgroundColor$: Subject<string> = new Subject<string>();
   public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
+  public onSaveCmsContent$: Subject<SectionPageDatasModel[]> = new Subject<SectionPageDatasModel[]>();
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
   public sections: SectionModel[] = []
@@ -22,17 +23,16 @@ export class CmsService {
 
   constructor(
     private helperService: HelperService,
-    private storageService: StorageService,
-    private adapterPageCmsService: AdapterPageCmsService) { }
+    private adapterPageCmsService: AdapterPageCmsService) {
+    this.init()
+  }
+
+  public init() {
+    this.sections.splice(0, this.sections.length)
+  }
 
   public onSectionRemoved(): Subject<number> {
     return this.sectionRemoved$
-  }
-
-  public exportPage() {
-    this.storageService.setLocalStorageItem('cms-page-save', this.sectionsPageDatas())
-
-    console.log("pageExported", this.storageService.getLocalStorageItem('cms-page-save'))
   }
 
   public sectionsPageDatas(): SectionPageDatasModel[] {
