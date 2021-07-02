@@ -39,13 +39,11 @@ export class CmsService {
     return this.adapterPageCmsService.adapterWrite(this.sections)
   }
 
-  public addSection(fromBlock: Block) {
-    const newSection: SectionModel = {
-      idSection: this.helperService.generateGuid(),
-      block: fromBlock,
-      backgroundColor: fromBlock.data.backgroundColor,
-      values: null
-    }
+  public importSections(datas: SectionPageDatasModel[]): SectionModel[] {
+    return this.adapterPageCmsService.adapterRead(datas)
+  }
+
+  public addSection(newSection: SectionModel) {
 
     this.sections.push(newSection)
 

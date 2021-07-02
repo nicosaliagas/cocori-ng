@@ -35,23 +35,24 @@ import { EditorValues } from './cms.model';
  */
 
 export const TemplatesClassesComponents = {
-    "CenterZoneTpl": CenterZoneTplComponent,
-    "TwoZonesHTpl": TwoZonesHTplComponent,
-    "TitleTwoZonesTpl": TitleTwoZonesTplComponent,
-    "TextImageFullTpl": TextImageFullTplComponent,
-    "ImageFullTextTpl": ImageFullTextTplComponent,
+  "CenterZoneTpl": CenterZoneTplComponent,
+  "TwoZonesHTpl": TwoZonesHTplComponent,
+  "TitleTwoZonesTpl": TitleTwoZonesTplComponent,
+  "TextImageFullTpl": TextImageFullTplComponent,
+  "ImageFullTextTpl": ImageFullTextTplComponent,
 };
 
 export const ReadonlyTemplatesClassesComponents = {
-    "CenterZoneTpl": CenterZoneReadonlyTplComponent,
-    "TwoZonesHTpl": TwoZonesHReadonlyTplComponent,
-    "TitleTwoZonesTpl": TitleTwoZonesReadonlyTplComponent,
-    "TextImageFullTpl": TextImageFullReadonlyTplComponent,
-    "ImageFullTextTpl": ImageFullTextReadonlyTplComponent,
+  "CenterZoneTpl": CenterZoneReadonlyTplComponent,
+  "TwoZonesHTpl": TwoZonesHReadonlyTplComponent,
+  "TitleTwoZonesTpl": TitleTwoZonesReadonlyTplComponent,
+  "TextImageFullTpl": TextImageFullReadonlyTplComponent,
+  "ImageFullTextTpl": ImageFullTextReadonlyTplComponent,
 };
 
 export interface SectionPageDatasModel {
-    backgroundColor: string,
-    values: EditorValues,
-    template: string,
+  id: string,
+  backgroundColor: string,
+  values: EditorValues,
+  template: string,
 }

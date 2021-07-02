@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
-import { ConfigCmsModel, InsertSectionAt, SectionMoveIndexes } from '../../../core/model/cms.model';
+import { ConfigCmsModel, InsertSectionAt, SectionModel, SectionMoveIndexes } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -36,6 +36,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
   orientation = 'column'
   _showSaveBtn: boolean = false;
+  importSections: SectionModel[] = [];
 
   @Input()
   set config(config: ConfigCmsModel) {
@@ -46,6 +47,11 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.configCms = config
 
     this.cmsService.init()
+  }
+
+  @Input()
+  set datas(sectionDatas: SectionPageDatasModel[]) {
+    this.importSections = this.cmsService.importSections(sectionDatas)
   }
 
   @Input()
@@ -81,6 +87,18 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     this.onSectionRemoved()
 
     this.onSectionMoved()
+
+    /** on dessine les sections chargées ! */
+    if (this.importSections.length) {
+      console.log("letsgo", this.importSections)
+
+      this.importSections.forEach((section: SectionModel) => {
+
+        console.log("section>>>", section)
+
+        this.cmsService.addSection(section)
+      })
+    }
   }
 
   private onPageSaved() {
@@ -122,10 +140,16 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   private addSectionEvent() {
+
+    console.log("addSectionEvent!!")
+
     this.subscription.add(
       this.cmsService.sectionAdded$.pipe(
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
+
+          console.log("datas>>>", datas)
+
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
             [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }], null, datas.index
           )
