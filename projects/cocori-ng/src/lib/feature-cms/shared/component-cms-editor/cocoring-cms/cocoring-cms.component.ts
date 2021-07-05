@@ -90,12 +90,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
 
     /** on dessine les sections chargées ! */
     if (this.importSections.length) {
-      console.log("letsgo", this.importSections)
-
       this.importSections.forEach((section: SectionModel) => {
-
-        console.log("section>>>", section)
-
         this.cmsService.addSection(section)
       })
     }
@@ -140,16 +135,10 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   private addSectionEvent() {
-
-    console.log("addSectionEvent!!")
-
     this.subscription.add(
       this.cmsService.sectionAdded$.pipe(
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
-
-          console.log("datas>>>", datas)
-
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
             [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }], null, datas.index
           )

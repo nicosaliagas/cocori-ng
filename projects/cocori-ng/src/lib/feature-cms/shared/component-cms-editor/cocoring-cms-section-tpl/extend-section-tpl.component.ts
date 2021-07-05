@@ -63,7 +63,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
     configsWysiwyg: WysiwygConfigSection[];
     subscription: Subscription = new Subscription();
-    readOnly: boolean = true;
+    readOnly: boolean = false;
     value: any;
     formHelper: FormHelperService;
     injectComponentService: any;
