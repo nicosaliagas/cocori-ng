@@ -94,7 +94,7 @@ lancer la commande : ```ng serve```
 
 After building your library with ```ng build --project=cocori-ng```, go to the dist folder ```cd dist/cocori-ng``` and run ```npm pack```.
 
-## Styles et Thème de la lib
+## 🎨 Styles et Thème de la lib
 
 - De quoi parle t'on ?
 
