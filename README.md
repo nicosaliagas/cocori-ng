@@ -1,8 +1,10 @@
 # CocoriLibrary : projet library
 
-2 projets : un projet de type library et un projet web angular classique 
+2 projets : un projet de type library et un projet web angular classique permettant de dév et tester les composants de la lib 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+
+Version actuelle d'Angular : 12.0.3  (Août 2021)
 
 # [Installation du poste de travail]
 
@@ -19,8 +21,10 @@ si erreur lors de la création d'un nouveau projet :
 Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
 
 ## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
-ng g service file
-ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
+
+```ng g service file```
+
+```ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss```
 
 ## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet : 
 
@@ -86,10 +90,53 @@ si erreur :
 
 lancer la commande : ```ng serve```
 
-
 ## Packager la lib
 
 After building your library with ```ng build --project=cocori-ng```, go to the dist folder ```cd dist/cocori-ng``` and run ```npm pack```.
+
+## Styles et Thème de la lib
+
+- De quoi parle t'on ?
+
+
+Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
+
+Tous ces styles sont réunis dans un fichier scss : ```cocori-ng.theme.scss```
+
+Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéficier des styles de la lib et de les consommer ou de les redéfinir dans son projet web. 
+
+Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet cible. Ainsi les composants de la lib seront aux couleurs du projets cibles.
+
+- Comment charger les styles et paramétrer le thème de la lib dans mon projet :
+
+Depuis le thème principal de mon projet : 
+
+on importe le thème et tous les fichiers scss de la lib : ```@import 'cocori-ng/cocori-ng.theme.scss';```
+
+on charge le thème de la lib avec les palettes de couleurs du site en paramètre :
+
+    - le thème du site
+    - la palette de couleurs vertes (pour les notifs succès par exemple)
+    - la palette de couleurs bleues
+
+exemple : ```@include cocori-ng-theme($theme-principal, $palette-green, $palette-blue);```
+
+- Utiliser une mixin dans un fichier scss de mon projet :
+
+on importe les mixins depuis la lib : ```@import "@cocori-ng/lib/src/lib/assets/mixins";```
+
+puis par exemple :
+
+```
+.main {
+    padding: 2.25rem 2.25rem 0.75rem;
+
+    /* j'utilise une mixin */
+    @include for-phone-only { 
+        padding: 0.75rem;
+    }
+  }
+```
 
 ## Librairie Utilisée
 
@@ -107,12 +154,6 @@ doc lib : https://www.cssscript.com/chrome-devtools-color-picker/
 - référencer la lib dans le fichier angular.json :
     > architect / build / options / styles : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"]
     > architect / build / options / scripts : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]
-
-
-## Initialise le thème de la lib Cocori-ng
-
-@import 'cocori-ng/cocori-ng.theme.scss';
-@include cocori-ng-theme($theme-principal, $palette-green);
 
 
 **********************
