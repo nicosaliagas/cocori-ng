@@ -98,7 +98,6 @@ After building your library with ```ng build --project=cocori-ng```, go to the d
 
 - De quoi parle t'on ?
 
-
 Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
 
 Tous ces styles sont réunis dans un fichier scss : ```cocori-ng.theme.scss```
@@ -106,6 +105,7 @@ Tous ces styles sont réunis dans un fichier scss : ```cocori-ng.theme.scss```
 Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéficier des styles de la lib et de les consommer ou de les redéfinir dans son projet web. 
 
 Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet cible. Ainsi les composants de la lib seront aux couleurs du projets cibles.
+
 
 - Comment charger les styles et paramétrer le thème de la lib dans mon projet :
 
@@ -120,6 +120,7 @@ on charge le thème de la lib avec les palettes de couleurs du site en paramètr
     - la palette de couleurs bleues
 
 exemple : ```@include cocori-ng-theme($theme-principal, $palette-green, $palette-blue);```
+
 
 - Utiliser une mixin dans un fichier scss de mon projet :
 
@@ -137,6 +138,45 @@ puis par exemple :
     }
   }
 ```
+
+
+- Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ?
+
+1. Définir ses couleurs dans son fchier _variables.scss
+
+exemple différents contrastes de couleur orange :
+```
+$mat-orange: (
+  main: #ffc107,
+  lighter: #fadb7b,
+  darker: #be9004,
+  200: #ffc107,
+  contrast: (
+    main: #000000,
+    lighter: #000000,
+    darker: #000000,
+  )
+);
+```
+
+
+2. Initialiser sa palette dans son thème.scss
+
+```
+$palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
+```
+
+3. L'utiliser dans sa feuille de style :
+
+import du thème : ```@import '../../../../theme/theme.scss';```
+
+puis 
+```
+.fab-color {
+    background-color: mat-color($palette-orange, main);
+}
+```
+
 
 ## Librairie Utilisée
 
@@ -237,4 +277,18 @@ private eventSizeScreen(mediaObserver: MediaObserver) {
 `` Référence un composant enfant et accès à ces propriétés depuis un composant parent ``
 
 @ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
+
+`` Typescript : callback function ``
+
+model : 
+```
+export interface HeaderMenuItem {
+    callback: Function;
+}
+```
+
+component :
+```
+callback: () => this.my_function()
+```
 
