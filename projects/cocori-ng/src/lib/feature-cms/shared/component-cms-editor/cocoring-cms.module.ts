@@ -22,6 +22,7 @@ import { CocoringCmsSectionActionsComponent } from './cocoring-cms-section-actio
 import { SectionsTemplatesComponents } from './cocoring-cms-section-tpl';
 import { CocoringCmsSectionComponent } from './cocoring-cms-section/cocoring-cms-section.component';
 import { CocoringCmsComponent } from './cocoring-cms/cocoring-cms.component';
+import { CocoringPreviewOptionsComponent } from './cocoring-preview-options/cocoring-preview-options.component';
 import { CocoringToolbarCmsComponent } from './cocoring-toolbar-cms/cocoring-toolbar-cms.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CocoringToolbarCmsComponent } from './cocoring-toolbar-cms/cocoring-too
         CocoringCmsSectionComponent,
         CocoringCmsSectionActionsComponent,
         CocoringToolbarCmsComponent,
+        CocoringPreviewOptionsComponent,
         CocoringCmsImageUploadComponent,
         ...SectionsTemplatesComponents
     ],

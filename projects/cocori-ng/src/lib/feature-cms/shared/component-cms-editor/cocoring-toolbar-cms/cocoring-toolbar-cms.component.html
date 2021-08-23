@@ -1,22 +1,6 @@
 <div class="sidenav-header" style="z-index: 9;">
     <div class="group-left">
-        <mat-button-toggle-group [(ngModel)]="responsive" (ngModelChange)="onResponsiveChange($event)"
-            class="resolutions-group" #group="matButtonToggleGroup">
-            <mat-button-toggle [value]="orientationComputer" title="Vision ordinateur" aria-label="Ordinateur">
-                <mat-icon>computer</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle [value]="orientationTabletLand" title="Vision tablette en mode paysage"
-                aria-label="Tablette paysage">
-                <mat-icon>tablet</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle [value]="orientationTabletPort" title="Vision tablette en mode portrait"
-                aria-label="Tablette portrait">
-                <mat-icon>tablet_mac</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle [value]="orientationMobile" title="Vision téléphone" aria-label="Téléphone">
-                <mat-icon>phone_iphone</mat-icon>
-            </mat-button-toggle>
-        </mat-button-toggle-group>
+        <cocoring-preview-options></cocoring-preview-options>
     </div>
     <div class="group-right">
         <div *ngIf="showSaveBtn" class="toggle-sidenav" (click)="saveContentPage()">
