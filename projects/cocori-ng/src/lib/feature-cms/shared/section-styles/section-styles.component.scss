@@ -1,6 +1,6 @@
 /**
 * !!!
-* Styles des sections en commun en celui utilisé pour l'édition des pages et cemui en lecture seule
+* Styles des sections en commun pour l'édition des pages et en lecture seule
 * !!!
 */
 
@@ -30,12 +30,6 @@ section {
         align-items: flex-start;
         flex-wrap: wrap;
 
-        .zone-editor {
-          padding-left: 15px;
-          padding-right: 15px;
-          width: 100%;
-        }
-
         &.row-mobile {
           img {
             display: block;
@@ -45,6 +39,16 @@ section {
             height: auto;
             float: none !important;
           }
+        }
+
+        .zone-editor {
+          padding-left: 15px;
+          padding-right: 15px;
+          width: 100%;
+        }
+
+        .row-zones {
+          flex-wrap: wrap;
         }
       }
     }

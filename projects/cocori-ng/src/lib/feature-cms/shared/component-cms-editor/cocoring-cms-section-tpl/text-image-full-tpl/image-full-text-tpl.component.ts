@@ -8,7 +8,10 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'image-full-text-tpl',
   templateUrl: '../../../section-templates/image-full-text-tpl.component.html',
-  styleUrls: ['./text-image-full-tpl.component.scss', '../../../section-styles/text-image-full-tpl.component.scss'],
+  styleUrls: [
+    './text-image-full-tpl.component.scss',
+    '../../../section-styles/text-image-full-tpl.component.scss',
+    '../../../section-styles/editor-section-styles.component.scss'],
   providers: [FormHelperService, UploaderService]
 })
 export class ImageFullTextTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
