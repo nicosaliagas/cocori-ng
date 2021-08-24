@@ -10,7 +10,6 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   selector: 'title-two-zones-tpl',
   templateUrl: '../../../section-templates/title-two-zones-tpl.component.html',
   styleUrls: [
-    './title-two-zones-tpl.component.scss' ,
     '../../../section-styles/title-two-zones-tpl.component.scss',
     '../../../section-styles/editor-section-styles.component.scss'],
   providers: [FormHelperService]

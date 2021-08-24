@@ -3,7 +3,7 @@
     (click)="openBottomSheet.emit()">
     <div class="container" fxFlex="100%" [fxLayout]="orientation" [fxFlex.gt-lg]="flexWidth || '75%'"
         [fxFlex.gt-md]="flexWidth || '80%'" [fxFlex.gt-sm]="flexWidth || '90%'" fxFlex.gt-xs="100%">
-        <div class="row justify-content-center" [fxLayout]="orientation" fxFlex="100%" [ngClass.lt-md]="'row-mobile'">
+        <div class="row justify-content-center" [fxLayout]="orientation" fxFlex="100%" [ngClass.lt-md]="'row-mobile'" [ngClass]="{'row-mobile': orientation === 'column'}">
             <ng-content></ng-content>
         </div>
     </div>

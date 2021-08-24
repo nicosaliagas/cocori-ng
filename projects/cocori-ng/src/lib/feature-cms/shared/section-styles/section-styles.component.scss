@@ -8,6 +8,21 @@
   display: block;
 }
 
+.orientation-column {
+  .zone-left {
+    margin-bottom: 1.5rem;
+  }
+
+  .row-zones {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.zone-left-mobile {
+  margin-bottom: 1.5rem;
+  max-height: 100% !important;
+}
+
 .cms-section {
   position: relative;
 }

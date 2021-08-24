@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+
+import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -6,18 +8,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   templateUrl: './section-tpl.component.html',
   styleUrls: []
 })
-export class SectionTplComponent implements OnInit {
+export class SectionTplComponent extends ExtendPreviewActionsComponent implements OnInit {
 
   @Input() backgroundColor: string
   @Input() readOnly: boolean = false
-  @Input() orientationWidth: string = '100%';
-  @Input() flexWidth: string
-  @Input() orientation: string = 'row'
+
   @Output() openBottomSheet: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(injector: Injector) {
+    super(injector);
   }
 
+  ngOnInit(): void { }
 }

@@ -3,7 +3,7 @@ import {
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
 import {
   ImageFullTextTplComponent,
-} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/image-full-text-tpl.component';
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/image-full-text-tpl/image-full-text-tpl.component';
 import {
   TextImageFullTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';

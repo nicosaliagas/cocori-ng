@@ -54,6 +54,7 @@ import { CocoringToolbarCmsComponent } from './cocoring-toolbar-cms/cocoring-too
     ],
     exports: [
         CocoringCmsComponent,
+        CocoringPreviewOptionsComponent
     ]
 })
 export class CocoringCMSModule { }
