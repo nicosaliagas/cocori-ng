@@ -252,9 +252,9 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
 
-``FlexLayout | MediaObserver :``
+``Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? ``
 
-/** implémentation côté code pour détecter la taille de l'écran */
+``FlexLayout | MediaObserver :``
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
 

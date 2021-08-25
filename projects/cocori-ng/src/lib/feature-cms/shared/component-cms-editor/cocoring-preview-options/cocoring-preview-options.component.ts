@@ -24,8 +24,13 @@ export class CocoringPreviewOptionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  reset() {
+    this.responsive = this.orientationComputer
+
+    this.broadcastEventService.broadcast({ eventKeys: [ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED], eventData: this.responsive })
+  }
+
   onResponsiveChange($event) {
     this.broadcastEventService.broadcast({ eventKeys: [ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED], eventData: $event })
   }
-
 }
