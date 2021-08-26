@@ -1,4 +1,4 @@
-<section class="cms-block" [style.background-color]="backgroundColor" [style.width]="orientationWidth"
+<section class="cms-block" [style.background-color]="backgroundColor" [style.max-width]="orientationWidth"
     [ngClass]="{'sidenav-openned': readOnly, 'orientation-column': orientation === 'column'}"
     (click)="openBottomSheet.emit()">
     <div class="container" fxFlex="100%" [fxLayout]="orientation" [fxFlex.gt-lg]="flexWidth || '75%'"

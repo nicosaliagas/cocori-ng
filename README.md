@@ -254,8 +254,6 @@ https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create
 
 ``Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? ``
 
-``FlexLayout | MediaObserver :``
-
 https://github.com/angular/flex-layout/wiki/MediaObserver
 
 exemple :
@@ -292,3 +290,19 @@ component :
 callback: () => this.my_function()
 ```
 
+`` Angular : récupérer la valeur d'un paramètre contenu de l'url (ex : get id param : http://url?id=toto) ``
+```
+this.subscriptions.add(
+    this.route.queryParams.subscribe(params => {
+    this.pageId = params['id']
+
+    if (this.pageId) this.titreModal = "Modification de la page"
+    })
+)
+```
+
+`` Angular : change URL params sans refresh ``
+
+```
+this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
+```

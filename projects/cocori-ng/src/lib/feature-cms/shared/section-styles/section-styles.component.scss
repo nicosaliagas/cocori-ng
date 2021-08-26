@@ -29,7 +29,9 @@
 
 section {
   &.cms-block {
+    width: 100%;
     padding: 7.5rem 0;
+    margin: 0 auto;
     background-color: #fff;
 
     .container {
