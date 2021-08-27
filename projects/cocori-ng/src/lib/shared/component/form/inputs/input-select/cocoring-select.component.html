@@ -7,7 +7,7 @@
         <mat-select [formControlName]="nameControl">
             <mat-option value="" class="noValueOption">Aucune valeur</mat-option>
             <mat-option *ngFor="let item of (dataSource$ | async)" [value]="item.id">
-                {{item.name}}
+                {{item[dataSourceNameProperty]}}
             </mat-option>
         </mat-select>
         <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>

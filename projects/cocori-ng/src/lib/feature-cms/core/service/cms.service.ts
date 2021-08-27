@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HelperService, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { SectionPageDatasModel } from '../model/adapter-cms.model';
@@ -15,6 +15,7 @@ export class CmsService {
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public backgroundColor$: Subject<string> = new Subject<string>();
   public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
+  public onSaveCmsContent$: Subject<SectionPageDatasModel[]> = new Subject<SectionPageDatasModel[]>();
   private sectionRemoved$: Subject<number> = new Subject<number>();
 
   public sections: SectionModel[] = []
@@ -22,28 +23,27 @@ export class CmsService {
 
   constructor(
     private helperService: HelperService,
-    private storageService: StorageService,
-    private adapterPageCmsService: AdapterPageCmsService) { }
+    private adapterPageCmsService: AdapterPageCmsService) {
+    this.init()
+  }
+
+  public init() {
+    this.sections.splice(0, this.sections.length)
+  }
 
   public onSectionRemoved(): Subject<number> {
     return this.sectionRemoved$
   }
 
-  public exportPage() {
-    const pageExported: SectionPageDatasModel[] =  this.adapterPageCmsService.adapterWrite(this.sections)
-
-    this.storageService.setLocalStorageItem('cms-page-save', pageExported)
-
-    console.log("pageExported", pageExported)
+  public sectionsPageDatas(): SectionPageDatasModel[] {
+    return this.adapterPageCmsService.adapterWrite(this.sections)
   }
 
-  public addSection(fromBlock: Block) {
-    const newSection: SectionModel = {
-      idSection: this.helperService.generateGuid(),
-      block: fromBlock,
-      backgroundColor: fromBlock.data.backgroundColor,
-      values: null
-    }
+  public importSections(datas: SectionPageDatasModel[]): SectionModel[] {
+    return this.adapterPageCmsService.adapterRead(datas)
+  }
+
+  public addSection(newSection: SectionModel) {
 
     this.sections.push(newSection)
 

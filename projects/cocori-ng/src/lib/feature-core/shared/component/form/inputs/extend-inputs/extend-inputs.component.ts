@@ -29,6 +29,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     subscriptions: Subscription = new Subscription();
 
     dataSource$: Observable<any>;
+    dataSourceNameProperty: string
     inRelationWith: string;
     validators: ValidatorFn[];
     appearance: InputFieldAppearance;
@@ -107,6 +108,8 @@ export abstract class ExtendInputsComponent implements OnDestroy {
 
     loadDataSource(configDataSource: DataSourceInput): Observable<any> {
         if (!configDataSource) return;
+
+        this.dataSourceNameProperty = configDataSource.dataSourceNameProperty || 'name'
 
         return this.datasourceService.loadDataSource(configDataSource)
     }

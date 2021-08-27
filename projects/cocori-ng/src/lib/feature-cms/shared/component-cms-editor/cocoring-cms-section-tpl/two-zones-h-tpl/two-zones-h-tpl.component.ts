@@ -9,7 +9,10 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'two-zones-h-tpl',
   templateUrl: '../../../section-templates/two-zones-h-tpl.component.html',
-  styleUrls: ['./two-zones-h-tpl.component.scss', '../../../section-styles/two-zones-h-tpl.component.scss'],
+  styleUrls: [
+    '../../../section-styles/two-zones-h-tpl.component.scss',
+    '../../../section-styles/editor-section-styles.component.scss'
+  ],
   providers: [FormHelperService]
 })
 export class TwoZonesHTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { SectionModel } from '../../../core/model/cms.model';
 import { Block } from '../../../core/service/block';
 import { CatalogService } from '../../../core/service/catalog.service';
 import { CmsService } from '../../../core/service/cms.service';
@@ -14,6 +16,7 @@ import { CmsService } from '../../../core/service/cms.service';
 export class CocoringCmsBlocksCatalogComponent implements OnInit {
   constructor(
     public cmsService: CmsService,
+    private helperService: HelperService,
     private catalogService: CatalogService
   ) {
     this.cmsService.blocks = this.catalogService.getBlocks()
@@ -22,7 +25,14 @@ export class CocoringCmsBlocksCatalogComponent implements OnInit {
   ngOnInit(): void { }
 
   selectBlock(block: Block) {
-    this.cmsService.addSection(block)
+    const newSection: SectionModel = {
+      idSection: this.helperService.generateGuid(),
+      block: block,
+      backgroundColor: block.data.backgroundColor,
+      values: null
+    }
+    
+    this.cmsService.addSection(newSection)
   }
 
   trackBy(index: number) {

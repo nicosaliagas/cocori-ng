@@ -38,7 +38,6 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
-    private _bottomSheet: MatBottomSheet,
     private injectComponentService: InjectComponentService,
   ) { }
 
@@ -62,9 +61,6 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   }
 
   private addTemplateSectionComponent() {
-
-    console.log("before add addTemplateSectionComponent...")
-
     this.injectComponentService.loadAndAddComponentToContainer(TemplatesClassesComponents[this.section.block.component], this.containerRef,
       [{ section: this.section }, { apisConfig: this.apisConfig }], null)
   }

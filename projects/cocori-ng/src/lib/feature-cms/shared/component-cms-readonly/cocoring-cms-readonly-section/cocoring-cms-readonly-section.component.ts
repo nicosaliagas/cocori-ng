@@ -20,19 +20,27 @@ import { ReadonlyTemplatesClassesComponents, SectionPageDatasModel } from '../..
 })
 export class CocoringCmsReadonlySectionComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
+  private _config: SectionPageDatasModel;
 
-  @Input() config: SectionPageDatasModel
+  // @Input() config: SectionPageDatasModel
+  @Input()
+  set config(datas: SectionPageDatasModel) {
+
+    this._config = datas
+
+    this.containerRef.clear()
+
+    this.addTemplateSectionComponent()
+  }
 
   constructor(
     private injectComponentService: InjectComponentService,
   ) { }
 
-  ngOnInit(): void {
-    this.addTemplateSectionComponent()
-  }
+  ngOnInit(): void { }
 
   private addTemplateSectionComponent() {
-    this.injectComponentService.loadAndAddComponentToContainer(ReadonlyTemplatesClassesComponents[this.config.template], this.containerRef,
-      [{section: this.config}], null)
+    this.injectComponentService.loadAndAddComponentToContainer(ReadonlyTemplatesClassesComponents[this._config.template], this.containerRef,
+      [{section: this._config}], null)
   }
 }

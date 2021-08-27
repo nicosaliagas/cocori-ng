@@ -1,8 +1,10 @@
 # CocoriLibrary : projet library
 
-2 projets : un projet de type library et un projet web angular classique 
+2 projets : un projet de type library et un projet web angular classique permettant de dév et tester les composants de la lib 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+
+Version actuelle d'Angular : 12.0.3  (Août 2021)
 
 # [Installation du poste de travail]
 
@@ -19,8 +21,10 @@ si erreur lors de la création d'un nouveau projet :
 Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
 
 ## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
-ng g service file
-ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
+
+```ng g service file```
+
+```ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss```
 
 ## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet : 
 
@@ -86,10 +90,93 @@ si erreur :
 
 lancer la commande : ```ng serve```
 
-
 ## Packager la lib
 
 After building your library with ```ng build --project=cocori-ng```, go to the dist folder ```cd dist/cocori-ng``` and run ```npm pack```.
+
+## 🎨 Styles et Thème de la lib
+
+- De quoi parle t'on ?
+
+Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
+
+Tous ces styles sont réunis dans un fichier scss : ```cocori-ng.theme.scss```
+
+Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéficier des styles de la lib et de les consommer ou de les redéfinir dans son projet web. 
+
+Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet cible. Ainsi les composants de la lib seront aux couleurs du projets cibles.
+
+
+- Comment charger les styles et paramétrer le thème de la lib dans mon projet :
+
+Depuis le thème principal de mon projet : 
+
+on importe le thème et tous les fichiers scss de la lib : ```@import 'cocori-ng/cocori-ng.theme.scss';```
+
+on charge le thème de la lib avec les palettes de couleurs du site en paramètre :
+
+    - le thème du site
+    - la palette de couleurs vertes (pour les notifs succès par exemple)
+    - la palette de couleurs bleues
+
+exemple : ```@include cocori-ng-theme($theme-principal, $palette-green, $palette-blue);```
+
+
+- Utiliser une mixin dans un fichier scss de mon projet :
+
+on importe les mixins depuis la lib : ```@import "@cocori-ng/lib/src/lib/assets/mixins";```
+
+puis par exemple :
+
+```
+.main {
+    padding: 2.25rem 2.25rem 0.75rem;
+
+    /* j'utilise une mixin */
+    @include for-phone-only { 
+        padding: 0.75rem;
+    }
+  }
+```
+
+
+- Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ?
+
+1. Définir ses couleurs dans son fchier _variables.scss
+
+exemple différents contrastes de couleur orange :
+```
+$mat-orange: (
+  main: #ffc107,
+  lighter: #fadb7b,
+  darker: #be9004,
+  200: #ffc107,
+  contrast: (
+    main: #000000,
+    lighter: #000000,
+    darker: #000000,
+  )
+);
+```
+
+
+2. Initialiser sa palette dans son thème.scss
+
+```
+$palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
+```
+
+3. L'utiliser dans sa feuille de style :
+
+import du thème : ```@import '../../../../theme/theme.scss';```
+
+puis 
+```
+.fab-color {
+    background-color: mat-color($palette-orange, main);
+}
+```
+
 
 ## Librairie Utilisée
 
@@ -99,11 +186,14 @@ After building your library with ```ng build --project=cocori-ng```, go to the d
     npm install faker --save-dev
     npm install @types/faker --save-dev
 
+`Utiliser le color picker dans un projet`
 
-## Initialise le thème de la lib Cocori-ng
+doc lib : https://www.cssscript.com/chrome-devtools-color-picker/
 
-@import 'cocori-ng/cocori-ng.theme.scss';
-@include cocori-ng-theme($theme-principal, $palette-green);
+- installer la lib color picker (tjrs depuis la racine du projet cible) : ```npm i @r-tek/colr_pickr --save```
+- référencer la lib dans le fichier angular.json :
+    > architect / build / options / styles : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"]
+    > architect / build / options / scripts : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]
 
 
 **********************
@@ -134,6 +224,10 @@ https://example.cypress.io/commands/connectors
 `lire un fichier json` 
 https://example.cypress.io/commands/files
 
+
+`Conserver le localstorage entre les tests CypressJs`
+https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1
+
 ## Nouveau projet Angular avec installation de la lib Cocori-ng
 
 - ng new my-project
@@ -152,15 +246,13 @@ https://example.cypress.io/commands/files
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
 
-## Ressources
+## Angular Tips & Ressources + Aides + Help !
 
 // dynamically-create-nested-objects
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
 
-FlexLayout | MediaObserver :
-
-/** implémentation côté code pour détecter la taille de l'écran */
+``Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? ``
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
 
@@ -179,3 +271,38 @@ private eventSizeScreen(mediaObserver: MediaObserver) {
         })
     );
 }
+
+`` Référence un composant enfant et accès à ces propriétés depuis un composant parent ``
+
+@ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
+
+`` Typescript : callback function ``
+
+model : 
+```
+export interface HeaderMenuItem {
+    callback: Function;
+}
+```
+
+component :
+```
+callback: () => this.my_function()
+```
+
+`` Angular : récupérer la valeur d'un paramètre contenu de l'url (ex : get id param : http://url?id=toto) ``
+```
+this.subscriptions.add(
+    this.route.queryParams.subscribe(params => {
+    this.pageId = params['id']
+
+    if (this.pageId) this.titreModal = "Modification de la page"
+    })
+)
+```
+
+`` Angular : change URL params sans refresh ``
+
+```
+this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
+```

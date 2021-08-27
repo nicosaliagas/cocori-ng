@@ -1,4 +1,6 @@
 @import 'src/lib/assets/lib.theme.scss';
+@import 'src/lib/assets/common';
+@import 'src/lib/assets/mixins';
 
 @mixin cocori-ng-theme($theme, $palette-green, $palette-blue) {
     @include lib-theme($theme, $palette-green, $palette-blue);

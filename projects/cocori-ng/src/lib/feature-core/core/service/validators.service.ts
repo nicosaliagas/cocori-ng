@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 import { HelperService } from './helper/helper.service';
 
@@ -46,11 +46,11 @@ export class ValidatorsService {
         return configClésErreurs[error.key];
     }
 
-    public static require(control: FormControl): any {
+    public static require(control: FormControl): ValidationErrors {
         return HelperService.retourneNullSiNonDéfini(control.value) === null ? { "required": true } : null;
     }
 
-    public static emailValidator(control: FormControl): any {
+    public static emailValidator(control: FormControl): ValidationErrors {
         if (!control.value) return null;
 
         // RFC 2822 compliant regex

@@ -18,8 +18,6 @@ export class CocoringCmsReadonlyComponent implements OnInit {
     }
 
     this.sectionPageDatas = datas
-
-    console.log("SectionPageDatasModel >>>> ", datas)
   }
 
   constructor() { }

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { CocoringButtonModule } from '@cocori-ng/lib';
 import { CocoringCMSModule, CocoringCmsReadonlyModule } from '@cocori-ng/lib/src/lib/feature-cms';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
@@ -13,6 +15,8 @@ import { PageTestComponent } from './page-test/page-test.component';
     PageCMSRoutingModule,
     SharedProjectModule,
     CocoringCMSModule,
+    CocoringButtonModule,
+    MatIconModule,
     CocoringCmsReadonlyModule,
   ],
   declarations: [
