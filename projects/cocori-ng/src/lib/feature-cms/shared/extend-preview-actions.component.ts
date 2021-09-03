@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy } from '@angular/core';
-import { BroadcastEventService, ConfigEvents } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, BroadcastEventService, ConfigEvents } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.model';
 
@@ -11,11 +10,9 @@ import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.m
     template: ''
 })
 
-export abstract class ExtendPreviewActionsComponent implements OnDestroy {
+export abstract class ExtendPreviewActionsComponent extends AutoUnsubscribeComponent implements OnDestroy {
     public cdr: any;
-    public subscriptions: Subscription = new Subscription();
 
-    subscription: Subscription = new Subscription();
     broadcastEventService: BroadcastEventService;
 
     orientation: string = 'row'
@@ -23,18 +20,16 @@ export abstract class ExtendPreviewActionsComponent implements OnDestroy {
     flexWidth: string;
 
     constructor(injector: Injector) {
+        super()
+
         this.cdr = injector.get(ChangeDetectorRef);
         this.broadcastEventService = injector.get(BroadcastEventService);
 
         this.onOrientationChanged()
     }
 
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
-    }
-
     private onOrientationChanged() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).subscribe((orientation: ResponsiveOrientation) => {
                 this.getOrientationParams(orientation)
 

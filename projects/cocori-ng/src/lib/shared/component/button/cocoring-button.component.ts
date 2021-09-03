@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import {
+    AutoUnsubscribeComponent,
+    ButtonComponentInputs,
+    ButtonIconPositon,
+    TypeButtonEnum,
+} from '@cocori-ng/lib/src/lib/feature-core';
 
 import { LoadingService } from '../../../core/service/loading.service';
 
@@ -9,7 +13,7 @@ import { LoadingService } from '../../../core/service/loading.service';
     templateUrl: 'cocoring-button.component.html',
     styleUrls: ['./cocoring-button.component.scss']
 })
-export class CocoringButtonComponent implements OnInit, OnDestroy {
+export class CocoringButtonComponent extends AutoUnsubscribeComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
     @Output() click: EventEmitter<string> = new EventEmitter<string>();
 
@@ -19,15 +23,18 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
 
     onClickSubmit: Function;
 
-    subscription: Subscription;
     isLoading: boolean = false;
     icon: string;
     iconPosition: ButtonIconPositon;
 
     constructor(private loadingService: LoadingService) {
-        this.subscription = this.loadingService.subject.subscribe((isLoading: boolean) => {
-            this.isLoading = isLoading
-        })
+        super()
+
+        this.subscriptions.add(
+            this.loadingService.subject.subscribe((isLoading: boolean) => {
+                this.isLoading = isLoading
+            })
+        )
     }
 
     @Input()
@@ -43,10 +50,6 @@ export class CocoringButtonComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.callback.emit(this.text);
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe()
     }
 
     onClick() {

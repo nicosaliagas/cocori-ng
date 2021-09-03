@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
     '../../../section-styles/editor-section-styles.component.scss'],
   providers: [FormHelperService]
 })
-export class TitleTwoZonesTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
+export class TitleTwoZonesTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerEditor2Ref', { static: false, read: ViewContainerRef }) containerEditor2Ref: ViewContainerRef;
   @ViewChild('ContainerEditor3Ref', { static: false, read: ViewContainerRef }) containerEditor3Ref: ViewContainerRef;
@@ -30,10 +30,6 @@ export class TitleTwoZonesTplComponent extends ExtendSectionTplComponent impleme
     this.init(3)
 
     this.addWysiwygToView()
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 
   private addWysiwygToView() {

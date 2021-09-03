@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { debounceTime, tap } from 'rxjs/operators';
 
 @Component({
@@ -7,12 +8,14 @@ import { debounceTime, tap } from 'rxjs/operators';
   templateUrl: './cocoring-datagrid-searchbar.component.html',
   styleUrls: ['./cocoring-datagrid-searchbar.component.scss']
 })
-export class CocoringDatagridSearchbarComponent implements OnInit {
+export class CocoringDatagridSearchbarComponent extends AutoUnsubscribeComponent implements OnInit {
   @Output() searchValue = new EventEmitter<string>();
 
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder,) { }
+  constructor(private fb: FormBuilder) {
+    super()
+  }
 
   ngOnInit(): void {
     this.buildSearchForm()
@@ -23,10 +26,12 @@ export class CocoringDatagridSearchbarComponent implements OnInit {
       'inputSearch': null
     });
 
-    this.searchForm.get('inputSearch').valueChanges.pipe(
-      debounceTime(400),
-      tap((data: string) => this.searchValue.emit(data))
-    ).subscribe()
+    this.subscriptions.add(
+      this.searchForm.get('inputSearch').valueChanges.pipe(
+        debounceTime(400),
+        tap((data: string) => this.searchValue.emit(data))
+      ).subscribe()
+    )
   }
 
   clearValue() {

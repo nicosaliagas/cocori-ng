@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   styleUrls: ['./center-zone-tpl.component.scss'],
   providers: [FormHelperService]
 })
-export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
+export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
 
   constructor(
@@ -23,10 +23,6 @@ export class CenterZoneTplComponent extends ExtendSectionTplComponent implements
     this.init(1)
 
     this.addWysiwygToView()
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 
   private addWysiwygToView() {
