@@ -10,7 +10,6 @@ export class AutoUnsubscribeComponent implements OnDestroy {
     protected subscriptions: Subscription = new Subscription();
 
     public ngOnDestroy(): void {
-        console.log("yeah cassos !")
         this.subscriptions.unsubscribe()
     }
 }
