@@ -140,7 +140,7 @@ puis par exemple :
 ```
 
 
-- Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ?
+- 🎨 Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ?
 
 1. Définir ses couleurs dans son fchier _variables.scss
 

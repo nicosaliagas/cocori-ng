@@ -10,6 +10,7 @@ import { SidenavItem } from '../core/model/Sidenav.model';
 @Component({
   selector: 'app-cms-layout',
   template: `
+  <!-- linkedin -->
   <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
     <mat-sidenav-container class="layout-container" fullscreen>
       <mat-sidenav class="sidenav" #sidenav [disableClose]="isSidenavCloseDisabled" [mode]="sidenavPosition"
@@ -70,7 +71,7 @@ export class CmsLayoutComponent extends AutoUnsubscribeComponent {
   hidemobile: boolean = false;
   sidenavPosition: string = "side";
   isSidenavCloseDisabled = true;
-  isSidenavOpen: boolean = true;
+  isSidenavOpen: boolean = true; /** linkedin */
 
   constructor(
     private navService: CurrentUrlRoutingService,
@@ -111,7 +112,7 @@ export class CmsLayoutComponent extends AutoUnsubscribeComponent {
           this.isSidenavCloseDisabled = false;
         } else {
           this.sidenavPosition = 'side';
-          this.isSidenavOpen = true;
+          this.isSidenavOpen = true; /** linkedin */
           this.isSidenavCloseDisabled = true;
         }
 
