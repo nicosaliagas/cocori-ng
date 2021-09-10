@@ -5,14 +5,12 @@ import {
     EventEmitter,
     HostBinding,
     Input,
-    OnDestroy,
-    OnInit,
     Output,
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DatasourceOdata } from '@cocori-ng/lib/src/lib/feature-core';
-import { merge, Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, DatasourceOdata } from '@cocori-ng/lib/src/lib/feature-core';
+import { merge } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
@@ -25,9 +23,8 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
 })
-export class CocoringDatagridComponent implements OnInit, OnDestroy {
+export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
     checkboxesGroup: FormGroup;
-    subscriptions: Subscription = new Subscription();
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
@@ -38,7 +35,9 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
         public datagridService: DatagridService
-    ) { }
+    ) {
+        super()
+    }
 
     @Input()
     set config(config: ConfigDatagridModel) {
@@ -59,12 +58,6 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
     @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventRowsDeleted: EventEmitter<string[]> = new EventEmitter<string[]>();
-
-    ngOnInit() { }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
-    }
 
     refreshDatagrid() {
         this.datagridService.refreshNeeded$.next()

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 
 import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
 import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
@@ -10,26 +10,23 @@ import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.comp
     host: { 'class': 'input-form' },
 })
 
-export abstract class ExtendSectionReadonlyTplComponent extends ExtendPreviewActionsComponent implements OnDestroy {
+export abstract class ExtendSectionReadonlyTplComponent extends ExtendPreviewActionsComponent {
     @Input() section: SectionPageDatasModel
 
     public cdr: any;
-    
+
     nbEditorView: number
     readOnly: boolean = true;
     value: any;
     uploadProgress: number;
     isUploading: boolean;
-    
+
     constructor(injector: Injector) {
         super(injector);
     }
 
-    ngOnDestroy() { }
-
     init(nbEditorView: number) {
         this.nbEditorView = nbEditorView
-
         this.getValuesEditor();
     }
 

@@ -3,15 +3,13 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
 import { TemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
@@ -26,20 +24,21 @@ import { CmsService } from '../../../core/service/cms.service';
   styleUrls: ['../../section-styles/section-styles.component.scss', './cocoring-cms-section.component.scss'],
   providers: [MatBottomSheet]
 })
-export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
+export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
   @Input() section: SectionModel
   @Input() apisConfig: ApisConfigCmsModel
 
-  subscription: Subscription = new Subscription();
   readOnly: boolean = true;
   
   constructor(
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.addTemplateSectionComponent()
@@ -47,10 +46,8 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
     this.catalogBlocksOpenedEvent()
   }
 
-  ngOnDestroy() { this.subscription.unsubscribe() }
-
   private catalogBlocksOpenedEvent() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.cmsService.catalogBlocksOpened$.pipe(
         tap((isOpened: boolean) => {
           this.readOnly = isOpened

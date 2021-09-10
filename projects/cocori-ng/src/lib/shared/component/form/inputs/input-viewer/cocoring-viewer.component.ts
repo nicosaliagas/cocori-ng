@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
 
 import {
-  ExtendInputsComponent,
+    ExtendInputsComponent,
 } from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({
@@ -43,10 +43,6 @@ export class CocoringViewerComponent extends ExtendInputsComponent implements On
         })
 
         this.formGroup.addControl(this.nameControl, nestedFrom)
-
-        // this.formGroup.get(this.nameControl).get('windowingMin').valueChanges.subscribe((valeur) => {
-        //     this.formGroup.get(this.nameControl).get('windowingMax').setValue(parseInt(valeur) + 2)
-        // })
 
         this.emitEvent()
     }

@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { CocoringAutoUnsubscribeModule } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { CocoringSidenavItemComponent } from './component/sidenav/sidenav-item/cocoring-sidenav-item.component';
 import { TerminalCodePreviewComponent } from './component/terminal-code-preview/terminal-code-preview.component';
@@ -24,6 +25,7 @@ export const ImportsFormComponents: any[] = [
         ReactiveFormsModule,
         FlexLayoutModule,
         MatListModule,
+        CocoringAutoUnsubscribeModule
     ],
     exports: [
         ...ImportsFormComponents,
