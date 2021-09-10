@@ -1,16 +1,15 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
-import { FileModel, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, FileModel, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
 import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
@@ -21,7 +20,7 @@ import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model'
   styleUrls: ['./cocoring-cms-image-upload.component.scss'],
   providers: [UploaderService]
 })
-export class CocoringCmsImageUploadComponent implements OnInit {
+export class CocoringCmsImageUploadComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
   @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
@@ -32,7 +31,6 @@ export class CocoringCmsImageUploadComponent implements OnInit {
   @Output() apiFileUploaded: EventEmitter<string> = new EventEmitter<string>();
   @Output() removeBackgroundImage: EventEmitter<void> = new EventEmitter<void>();
 
-  subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
   uploadProgress: number;
   backgroundImageUpload: FileModel
@@ -43,7 +41,9 @@ export class CocoringCmsImageUploadComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     public uploaderService: UploaderService,
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.uploaderService.apisFile = this.apisConfig

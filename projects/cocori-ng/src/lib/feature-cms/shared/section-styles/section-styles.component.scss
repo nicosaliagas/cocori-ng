@@ -1,11 +1,26 @@
 /**
 * !!!
-* Styles des sections en commun en celui utilisé pour l'édition des pages et cemui en lecture seule
+* Styles des sections en commun pour l'édition des pages et en lecture seule
 * !!!
 */
 
 :host {
   display: block;
+}
+
+.orientation-column {
+  .zone-left {
+    margin-bottom: 1.5rem;
+  }
+
+  .row-zones {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.zone-left-mobile {
+  margin-bottom: 1.5rem;
+  max-height: 100% !important;
 }
 
 .cms-section {
@@ -14,7 +29,9 @@
 
 section {
   &.cms-block {
+    width: 100%;
     padding: 7.5rem 0;
+    margin: 0 auto;
     background-color: #fff;
 
     .container {
@@ -30,12 +47,6 @@ section {
         align-items: flex-start;
         flex-wrap: wrap;
 
-        .zone-editor {
-          padding-left: 15px;
-          padding-right: 15px;
-          width: 100%;
-        }
-
         &.row-mobile {
           img {
             display: block;
@@ -45,6 +56,16 @@ section {
             height: auto;
             float: none !important;
           }
+        }
+
+        .zone-editor {
+          padding-left: 15px;
+          padding-right: 15px;
+          width: 100%;
+        }
+
+        .row-zones {
+          flex-wrap: wrap;
         }
       }
     }

@@ -1,7 +1,13 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from '@cocori-ng/lib';
-import { ButtonIconPositon, DataSourceType, FormInputComponents, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
+import {
+  AutoUnsubscribeComponent,
+  ButtonIconPositon,
+  DataSourceType,
+  FormInputComponents,
+  HttpService,
+} from '@cocori-ng/lib/src/lib/feature-core';
 
 @Component({
   selector: 'ct-static-form',
@@ -9,7 +15,7 @@ import { ButtonIconPositon, DataSourceType, FormInputComponents, HttpService } f
   styleUrls: ['./static-form.component.scss'],
   providers: [FormBuilderService]
 })
-export class StaticFormComponent implements OnInit {
+export class StaticFormComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('FormContainerRef1', { static: true, read: ViewContainerRef }) formContainerRef1: ViewContainerRef;
   @ViewChild('FormContainerRef2', { static: true, read: ViewContainerRef }) formContainerRef2: ViewContainerRef;
   @ViewChild('FormContainerRef3', { static: true, read: ViewContainerRef }) formContainerRef3: ViewContainerRef;
@@ -20,7 +26,9 @@ export class StaticFormComponent implements OnInit {
   constructor(
     private formBuilderService: FormBuilderService,
     private httpService: HttpService
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit() {
     this.buildForm()
@@ -115,8 +123,10 @@ export class StaticFormComponent implements OnInit {
   }
 
   onClick() {
-    this.httpService.get("https://localhost:5000/select-items/LastDegree/options").subscribe((values) => {
-      console.log("call ", values)
-    })
+    this.subscriptions.add(
+      this.httpService.get("https://localhost:5000/select-items/LastDegree/options").subscribe((values) => {
+        console.log("call ", values)
+      })
+    )
   }
 }

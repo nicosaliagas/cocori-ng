@@ -216,38 +216,6 @@
 
   /** / Bottom Sheet Container */
 
-  /** Tiny MCE */
-  .tox-tinymce {
-    // transform: translateY(-10px);
-    // z-index: 5;
-
-    // left: 50% !important; /* à 50%/50% du parent référent */
-    // transform: translate(-50%, -50%);
-
-    // left: 10% !important;
-    // width: 100vh;
-
-    // z-index: 5;
-
-    .tox-editor-header {
-      // max-width: none !important;
-    }
-
-    @media screen and (max-width: 600px) {
-      & {
-        // left: 0 !important;
-        // width: auto !important;
-        // transform: none;
-      }
-    }
-  }
-  .mce-content-body {
-    &:focus {
-      // outline: 0 solid transparent;
-    }
-  }
-  /** / Tiny MCE */
-
   /** Color picker */
 
   .custom_colors_preview {

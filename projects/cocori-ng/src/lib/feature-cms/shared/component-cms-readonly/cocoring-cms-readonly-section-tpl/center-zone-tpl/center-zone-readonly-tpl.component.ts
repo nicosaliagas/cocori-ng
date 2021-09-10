@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
 
 import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tpl.component';
 
@@ -9,8 +9,8 @@ import { ExtendSectionReadonlyTplComponent } from '../extend-section-readonly-tp
 })
 export class CenterZoneReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {
 
-  constructor() {
-    super();
+  constructor(injector: Injector) {
+    super(injector);
   }
 
   ngOnInit(): void {

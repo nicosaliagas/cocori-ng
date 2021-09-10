@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
@@ -8,10 +8,12 @@ import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'image-full-text-tpl',
   templateUrl: '../../../section-templates/image-full-text-tpl.component.html',
-  styleUrls: ['./text-image-full-tpl.component.scss', '../../../section-styles/text-image-full-tpl.component.scss'],
+  styleUrls: [
+    '../../../section-styles/text-image-full-tpl.component.scss'
+  ],
   providers: [FormHelperService, UploaderService]
 })
-export class ImageFullTextTplComponent extends ExtendSectionTplComponent implements OnInit, OnDestroy {
+export class ImageFullTextTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerImageUpload', { static: false, read: ViewContainerRef }) containerImageUpload: ViewContainerRef;
 
@@ -24,10 +26,6 @@ export class ImageFullTextTplComponent extends ExtendSectionTplComponent impleme
     this.init(1, 1)
 
     this.addComponentsToView()
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 
   private addComponentsToView() {

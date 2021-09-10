@@ -10,27 +10,23 @@ import {
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-    BroadcastEventService,
     CocoringWysiwygComponent,
-    ConfigEvents,
     FileModel,
     FormHelperService,
     InitWysiwyg,
     InjectComponentService,
     WysiwygConfigSection,
 } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
     ApisConfigCmsModel,
     BottomSheetSectionReturnAction,
     EditorValues,
-    OrientationParamsTpl,
-    ResponsiveOrientation,
     SectionModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
+import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
 import { CocoringCmsImageUploadComponent } from '../cocoring-cms-image-upload/cocoring-cms-image-upload.component';
 import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-actions/cocoring-cms-section-actions.component';
 
@@ -41,14 +37,13 @@ import { CocoringCmsSectionActionsComponent } from '../cocoring-cms-section-acti
     host: { 'class': 'input-form' },
 })
 
-export abstract class ExtendSectionTplComponent implements OnDestroy {
+export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComponent implements OnDestroy {
     @Input() section: SectionModel
     @Input() apisConfig: ApisConfigCmsModel
 
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
     public cdr: any;
-    public subscriptions: Subscription = new Subscription();
     public cmsService: CmsService;
 
     formulaire: FormGroup
@@ -62,29 +57,20 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     isUploading: boolean = false;
 
     configsWysiwyg: WysiwygConfigSection[];
-    subscription: Subscription = new Subscription();
     readOnly: boolean = false;
     value: any;
     formHelper: FormHelperService;
     injectComponentService: any;
-    broadcastEventService: BroadcastEventService;
-
-    orientation: string = 'row'
-    orientationWidth: string = '100%';
-    flexWidth: string;
 
     constructor(injector: Injector) {
+        super(injector);
+
         this.injectComponentService = injector.get(InjectComponentService);
         this.fb = injector.get(FormBuilder);
         this._bottomSheet = injector.get(MatBottomSheet);
         this.cdr = injector.get(ChangeDetectorRef);
         this.cmsService = injector.get(CmsService);
         this.formHelper = injector.get(FormHelperService);
-        this.broadcastEventService = injector.get(BroadcastEventService);
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
     }
 
     init(nbEditorView: number, nbBackgroundImage: number = 0) {
@@ -96,44 +82,6 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
         this.catalogBlocksOpenedEvent()
 
         this.onBackgroundColorEvent()
-
-        this.onOrientationChanged()
-    }
-
-    private onOrientationChanged() {
-        this.subscription.add(
-            this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).subscribe((orientation: ResponsiveOrientation) => {
-                this.getOrientationParams(orientation)
-
-                this.cdr.detectChanges()
-            })
-        )
-    }
-
-    getOrientationParams(type: ResponsiveOrientation) {
-        this.flexWidth = null
-
-        var orientations: OrientationParamsTpl = {
-            'mobile': () => {
-                this.orientation = 'column'
-                this.orientationWidth = '375px'
-                this.flexWidth = '100%'
-            },
-            'tablet-port': () => {
-                this.orientation = 'column'
-                this.orientationWidth = '768px'
-            },
-            'tablet-land': () => {
-                this.orientation = 'row'
-                this.orientationWidth = '1024px'
-            },
-            'computer': () => {
-                this.orientation = 'row'
-                this.orientationWidth = '100%'
-            }
-        };
-
-        (orientations[type] || orientations['default'])();
     }
 
     private buildForm() {
@@ -173,7 +121,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
 
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private onSectionValuesChanged() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.formulaire.valueChanges.pipe(
                 debounceTime(500),
                 tap((values: any) => {
@@ -216,7 +164,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     }
 
     private catalogBlocksOpenedEvent() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.cmsService.catalogBlocksOpened$.pipe(
                 tap((isOpened: boolean) => {
                     this.readOnly = isOpened
@@ -254,7 +202,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
     }
 
     private onBackgroundColorEvent() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.cmsService.backgroundColor$.pipe(
                 filter((idSection: string) => idSection === this.section.idSection),
                 tap(_ => this.cdr.detectChanges()),
@@ -272,7 +220,7 @@ export abstract class ExtendSectionTplComponent implements OnDestroy {
             }
         });
 
-        this.subscription.add(
+        this.subscriptions.add(
             bottomSheet.afterDismissed().subscribe((datas: BottomSheetSectionReturnAction) => {
                 if (!datas) return;
 
