@@ -46,7 +46,7 @@ Commande qui build la lib et rends la main : `npm run lib:build`
 ```
 npm i
 npm run lib:build
-cd dist/cocori-ng
+cd dist/cocori-ng ; npm link ; cd ../..
 npm link
 ```
 
