@@ -9,7 +9,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutoUnsubscribeComponent, DatasourceOdata } from '@cocori-ng/lib/src/lib/feature-core';
+import { AutoUnsubscribeComponent, Odata, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { merge } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
@@ -22,18 +22,20 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
+    providers: [ Odata ]
 })
 export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
     checkboxesGroup: FormGroup;
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
-    datagridDataSource: DatasourceOdata;
+    datagridDataSource: Odata;
     totalRowsSaved: number = 5;
 
     constructor(
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
+        private odata: Odata,
         public datagridService: DatagridService
     ) {
         super()
@@ -78,12 +80,15 @@ export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
 
         this.subscriptions.add(
             merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
-                map((results: DatasourceOdata) => {
-                    this.datagridDataSource = results
+                map((results: OdataModel) => {
+                    this.odata.setDatasource(results)
+
+                    this.datagridDataSource = this.odata
 
                     this.cdr.detectChanges();
                 }),
-                tap(_ => this.totalRowsSaved = this.datagridDataSource.results.length),
+                // tap(_ => this.totalRowsSaved = this.datagridDataSource.getResults().length),
+                tap(_ => this.totalRowsSaved = this.datagridDataSource.getCount()),
                 tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
             ).subscribe()
         )

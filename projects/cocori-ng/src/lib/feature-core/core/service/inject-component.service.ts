@@ -33,23 +33,23 @@ export class InjectComponentService {
         index?: number
     ) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
-        const référenceComposant = viewContainerRef.createComponent(factory, index ? index : null);
+        const componentRef = viewContainerRef.createComponent(factory, index ? index : null);
 
         inputs.forEach((input: InputsComponent) => {
             for (const [key, value] of Object.entries(input)) {
-                (référenceComposant.instance)[key] = value;
+                (componentRef.instance)[key] = value;
             }
         });
 
         if (outputs) {
             for (const [key, value] of Object.entries(outputs)) {
-                if (key && value && (référenceComposant.instance)[key]) (référenceComposant.instance)[key].subscribe(data => value(data));
+                if (key && value && (componentRef.instance)[key]) (componentRef.instance)[key].subscribe(data => value(data));
             }
         }
 
-        référenceComposant.changeDetectorRef.detectChanges();
+        componentRef.changeDetectorRef.detectChanges();
 
-        this.componentsRefs.push(référenceComposant)
+        this.componentsRefs.push(componentRef);
     }
 
     removeComponentFromViewContainer(index: number, viewContainerRef: ViewContainerRef) {

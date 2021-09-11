@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DatasourceOdata, DataSourceType } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { ConfigDatagridModel, DatagridService, DataSourceType } from '@cocori-ng/lib';
+import { AutoUnsubscribeComponent, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
 
   private initConfigDatagrid() {
     this.subscriptions.add(
-      this.datagridDemoService.mockDatagridDatas().subscribe((values: DatasourceOdata) => {
+      this.datagridDemoService.mockDatagridDatas().subscribe((values: OdataModel) => {
         this._config = {
           columns: [
             { caption: "Nom", dataField: "name", dataType: "string", visible: true },

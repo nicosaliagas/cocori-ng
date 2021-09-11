@@ -83,7 +83,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
   ngOnInit(): void {
     this.addSectionEvent()
 
-    this.onSectionRemoved()
+    // this.onSectionRemoved()
 
     this.onSectionMoved()
 
@@ -135,22 +135,18 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }], null, datas.index
+            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+            { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
           )
         }),
       ).subscribe()
     )
   }
 
-  private onSectionRemoved() {
-    this.subscriptions.add(
-      this.cmsService.onSectionRemoved().pipe(
-        tap((indexSection: number) => {
-          this.injectComponentService.removeComponentFromViewContainer(indexSection, this.containerRef)
-        }),
-        tap(_ => this.refreshNumberSection()),
-      ).subscribe()
-    )
+  private onSectionRemovedAfterAnimation(indexSectionRemoved: number) {
+    this.injectComponentService.removeComponentFromViewContainer(indexSectionRemoved, this.containerRef)
+
+    this.refreshNumberSection()
   }
 
   private onSectionMoved() {

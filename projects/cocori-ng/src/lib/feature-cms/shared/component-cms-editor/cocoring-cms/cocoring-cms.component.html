@@ -11,13 +11,16 @@
                     <div *ngIf="!totalSections && !isSidenavOpen" class="no-section" (click)="toggleSidenavBlocks()">
                         <div>
                             <h1>Customisez votre page facilement 👌 </h1>
-                            <p>(cliquez pour ajouter un bloc)</p>
+                            <p>(cliquez ici pour composer votre page)</p>
                         </div>
                     </div>
                     <div *ngIf="isSidenavOpen && !totalSections" class="col-elements">
+                        <div class="texte-preview">
+                            Aperçu de votre page
+                        </div>
                         <div class="new-block">
-                            <h1>Aucun bloc</h1>
-                            <p>(cliquez sur un bloc pour l'ajouter)</p>
+                            <h1>Aucune section</h1>
+                            <p>cliquez sur une section pour l'ajouter</p>
                         </div>
                     </div>
 

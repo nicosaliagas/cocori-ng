@@ -1,4 +1,4 @@
-<div class="cms-section">
+<div class="cms-section" (animationend)="animationDone($event)">
     <div cdkDrag [cdkDragDisabled]="!readOnly" cdkDragLockAxis="y" cdkDragBoundary=".blocks">
         <ng-template #ContainerRef></ng-template>
         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
