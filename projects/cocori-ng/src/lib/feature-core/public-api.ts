@@ -32,3 +32,6 @@ export * from './shared/component/error-handler/input-error-handler/cocoring-inp
 
 export * from './shared/component/wysiwyg/cocoring-wysiwyg.module';
 export * from './shared/component/wysiwyg/cocoring-wysiwyg.component';
+
+export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.module';
+export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.component';

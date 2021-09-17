@@ -17,7 +17,6 @@ import {
     InjectComponentService,
     WysiwygConfigSection,
 } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
@@ -45,7 +44,6 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     private fb: FormBuilder;
     private _bottomSheet: MatBottomSheet;
     public cdr: any;
-    public subscriptions: Subscription = new Subscription();
     public cmsService: CmsService;
 
     formulaire: FormGroup
@@ -59,7 +57,6 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     isUploading: boolean = false;
 
     configsWysiwyg: WysiwygConfigSection[];
-    subscription: Subscription = new Subscription();
     readOnly: boolean = false;
     value: any;
     formHelper: FormHelperService;
@@ -74,10 +71,6 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
         this.cdr = injector.get(ChangeDetectorRef);
         this.cmsService = injector.get(CmsService);
         this.formHelper = injector.get(FormHelperService);
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
     }
 
     init(nbEditorView: number, nbBackgroundImage: number = 0) {
@@ -128,7 +121,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
 
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private onSectionValuesChanged() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.formulaire.valueChanges.pipe(
                 debounceTime(500),
                 tap((values: any) => {
@@ -171,7 +164,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     }
 
     private catalogBlocksOpenedEvent() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.cmsService.catalogBlocksOpened$.pipe(
                 tap((isOpened: boolean) => {
                     this.readOnly = isOpened
@@ -209,7 +202,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     }
 
     private onBackgroundColorEvent() {
-        this.subscription.add(
+        this.subscriptions.add(
             this.cmsService.backgroundColor$.pipe(
                 filter((idSection: string) => idSection === this.section.idSection),
                 tap(_ => this.cdr.detectChanges()),
@@ -227,7 +220,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
             }
         });
 
-        this.subscription.add(
+        this.subscriptions.add(
             bottomSheet.afterDismissed().subscribe((datas: BottomSheetSectionReturnAction) => {
                 if (!datas) return;
 

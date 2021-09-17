@@ -2,20 +2,21 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
+  EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
+  Output,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
+import { filter, tap } from 'rxjs/operators';
 
 import { TemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
-import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
+import { ApisConfigCmsModel, InsertSectionAt as SectionIndex, SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 
 @Component({
@@ -26,31 +27,59 @@ import { CmsService } from '../../../core/service/cms.service';
   styleUrls: ['../../section-styles/section-styles.component.scss', './cocoring-cms-section.component.scss'],
   providers: [MatBottomSheet]
 })
-export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
+export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
   @Input() section: SectionModel
   @Input() apisConfig: ApisConfigCmsModel
+  @Output() afterRemoveAnimation = new EventEmitter();
 
-  subscription: Subscription = new Subscription();
   readOnly: boolean = true;
-  
+  indexSectionRemoved: number;
+
+  animationDone(event: AnimationEvent) {
+    if (event.animationName === 'sectionOut') {
+      this.afterRemoveAnimation.emit(this.indexSectionRemoved);
+    }
+  }
+
   constructor(
+    private host: ElementRef<HTMLElement>,
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.addTemplateSectionComponent()
 
     this.catalogBlocksOpenedEvent()
+
+    this.onSectionRemoved()
   }
 
-  ngOnDestroy() { this.subscription.unsubscribe() }
+  get container(): HTMLElement {
+    return this.host.nativeElement.querySelector('.cms-section') as HTMLElement;
+  }
+
+  removeSection() {
+    this.container.style.animation = 'sectionOut 0.3s';
+  }
+
+  private onSectionRemoved() {
+    this.subscriptions.add(
+      this.cmsService.onSectionRemoved().pipe(
+        filter((sectionRemoved: SectionIndex) => sectionRemoved.section.idSection === this.section.idSection),
+        tap((sectionRemoved: SectionIndex) => this.indexSectionRemoved = sectionRemoved.index),
+        tap(_ => this.removeSection()),
+      ).subscribe()
+    )
+  }
 
   private catalogBlocksOpenedEvent() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.cmsService.catalogBlocksOpened$.pipe(
         tap((isOpened: boolean) => {
           this.readOnly = isOpened

@@ -1,4 +1,4 @@
-@import './../../../../assets/mixins';
+@import "./../../../../assets/mixins";
 
 $modal-max-height: 400px;
 $modal-height: 100vh;
@@ -41,5 +41,20 @@ $modal-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  ::ng-deep .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+
+    .filters {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .filtersButton {
+      padding: 5px;
+    text-align: right;
+    }
   }
 }

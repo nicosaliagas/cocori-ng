@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 
 import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
@@ -10,7 +10,7 @@ import { SortColumnExtendComponent } from '../common-datagrid/sort-column-extend
   templateUrl: './cocoring-datagrid-head.component.html',
   styleUrls: ['./cocoring-datagrid-head.component.scss']
 })
-export class CocoringDatagridHeadComponent extends SortColumnExtendComponent implements OnInit, OnDestroy {
+export class CocoringDatagridHeadComponent extends SortColumnExtendComponent implements OnInit {
   @Input() column: ColumnDatagridModel
   @Input() datagridService: DatagridService
 
@@ -20,9 +20,5 @@ export class CocoringDatagridHeadComponent extends SortColumnExtendComponent imp
 
   ngOnInit(): void {
     this.onResetColumn()
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 }

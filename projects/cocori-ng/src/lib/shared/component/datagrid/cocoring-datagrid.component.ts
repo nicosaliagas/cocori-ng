@@ -5,14 +5,12 @@ import {
     EventEmitter,
     HostBinding,
     Input,
-    OnDestroy,
-    OnInit,
     Output,
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DatasourceOdata } from '@cocori-ng/lib/src/lib/feature-core';
-import { merge, Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, Odata, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
+import { merge } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
@@ -24,21 +22,24 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
+    providers: [Odata]
 })
-export class CocoringDatagridComponent implements OnInit, OnDestroy {
+export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
     checkboxesGroup: FormGroup;
-    subscriptions: Subscription = new Subscription();
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
-    datagridDataSource: DatasourceOdata;
+    datagridDataSource: Odata;
     totalRowsSaved: number = 5;
 
     constructor(
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
+        private odata: Odata,
         public datagridService: DatagridService
-    ) { }
+    ) {
+        super()
+    }
 
     @Input()
     set config(config: ConfigDatagridModel) {
@@ -54,17 +55,12 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
         this.onRowSelected()
 
-        this.onRowsDeleted()
+        this.onRowsDeletedRestored()
     }
 
     @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventRowsDeleted: EventEmitter<string[]> = new EventEmitter<string[]>();
-
-    ngOnInit() { }
-
-    ngOnDestroy() {
-        this.subscriptions.unsubscribe()
-    }
+    @Output() eventRowsRestored: EventEmitter<string[]> = new EventEmitter<string[]>();
 
     refreshDatagrid() {
         this.datagridService.refreshNeeded$.next()
@@ -85,12 +81,15 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
 
         this.subscriptions.add(
             merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
-                map((results: DatasourceOdata) => {
-                    this.datagridDataSource = results
+                map((results: OdataModel) => {
+                    this.odata.setDatasource(results)
+
+                    this.datagridDataSource = this.odata
 
                     this.cdr.detectChanges();
                 }),
-                tap(_ => this.totalRowsSaved = this.datagridDataSource.results.length),
+                // tap(_ => this.totalRowsSaved = this.datagridDataSource.getResults().length),
+                tap(_ => this.totalRowsSaved = this.datagridDataSource.getCount()),
                 tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
             ).subscribe()
         )
@@ -113,10 +112,16 @@ export class CocoringDatagridComponent implements OnInit, OnDestroy {
         )
     }
 
-    private onRowsDeleted() {
+    private onRowsDeletedRestored() {
         this.subscriptions.add(
             this.datagridService.rowsDeletedEvent$.pipe(
                 tap(_ => this.eventRowsDeleted.emit(this.datagridService.rowsSelectedDatagrid)),
+            ).subscribe()
+        )
+
+        this.subscriptions.add(
+            this.datagridService.rowsRestoredEvent$.pipe(
+                tap(_ => this.eventRowsRestored.emit(this.datagridService.rowsSelectedDatagrid)),
             ).subscribe()
         )
     }

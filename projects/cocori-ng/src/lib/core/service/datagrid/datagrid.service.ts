@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DatasourceOdata, DatasourceService, HelperService } from '@cocori-ng/lib/src/lib/feature-core';
+import { DatasourceService, HelperService, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -23,8 +23,9 @@ export class DatagridService {
   private _reOrderColumns$: Subject<OrderColumnModel> = new Subject<OrderColumnModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public rowSelectedByClickEvent$: Subject<any> = new Subject<any>();
-  public rowsCheckedEvent$: Subject<any> = new Subject<any>();
+  public rowCheckedEvent$: Subject<any> = new Subject<any>();
   public rowsDeletedEvent$: Subject<any> = new Subject<any>();
+  public rowsRestoredEvent$: Subject<any> = new Subject<any>();
   public allRowsChecked$: Subject<boolean> = new Subject<boolean>();
   public refreshNeeded$: Subject<void> = new Subject<void>();
 
@@ -108,13 +109,13 @@ export class DatagridService {
     this.allRowsChecked$.next(value)
   }
 
-  getAllDatas(): Observable<DatasourceOdata> {
-    if (!this.config.dataSource) return <Observable<DatasourceOdata>>of(null);
+  getAllDatas(): Observable<OdataModel> {
+    if (!this.config.dataSource) return <Observable<OdataModel>>of(null);
 
-    this.buildQueryOData();
+    const queryString: string = this.buildQueryStringOData();
 
     // return this.httpService.get(api, {$filter: filter, $top: 20})
-    return this.datasourceService.loadDataSource(this.config.dataSource)
+    return this.datasourceService.loadDataSource(this.config.dataSource, queryString)
 
     // switch (this.config.dataSource.type) {
     //   case DataSourceType.BRUTE:
@@ -130,19 +131,20 @@ export class DatagridService {
     // }
   }
 
-  public storeIdsRowsSelected(rowId: string, rowValue: boolean) {
+  public storeIdsRowsSelected(rowValues: any, checkValue: boolean) {
+    const rowId: string = rowValues.id
     const indexIdFound: number = this.rowsSelectedDatagrid.findIndex((id: string) => id === rowId)
-
-    if (rowValue && indexIdFound === -1) {
+    
+    if (checkValue && indexIdFound === -1) {
       this.rowsSelectedDatagrid.push(rowId)
-      this.rowsCheckedEvent$.next()
-    } else if (!rowValue && indexIdFound !== -1) {
+      this.rowCheckedEvent$.next(rowValues)
+    } else if (!checkValue && indexIdFound !== -1) {
       this.rowsSelectedDatagrid = this.helperService.removeValueFromArrayByIndex(this.rowsSelectedDatagrid, indexIdFound)
-      this.rowsCheckedEvent$.next()
+      this.rowCheckedEvent$.next(rowValues)
     }
   }
 
-  private buildQueryOData(): string {
+  private buildQueryStringOData(): string {
 
     const orderByQuery: string = this.generateSortQuery()
 
@@ -156,11 +158,11 @@ export class DatagridService {
 
     queryBuider = this.generateFilterQuery(queryBuider)
 
-    const query = queryBuider.toQuery()
+    const queryString = queryBuider.toQuery()
 
-    console.log("query : ", query);
+    console.log("queryString : ", queryString);
 
-    return query;
+    return queryString;
   }
 
   private calculPaginationDatas() {

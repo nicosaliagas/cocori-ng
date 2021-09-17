@@ -4,7 +4,8 @@
     <table [formGroup]="datagridService.checkboxesDatagridForm">
       <thead>
         <tr>
-          <ng-container *ngIf="datagridService.config.withBatchProcessing">
+          <!-- <ng-container *ngIf="datagridService.config.withBatchProcessing"> -->
+          <ng-container>
             <th class="column-select" scope="col"></th>
           </ng-container>
           <ng-container *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
@@ -13,7 +14,7 @@
         </tr>
       </thead>
       <tbody *ngIf="datagridDataSource as data; else loadingTpl">
-        <ng-container *ngFor="let rowDatas of data.results; let i = index; trackBy: trackBy">
+        <ng-container *ngFor="let rowDatas of data.getResults(); let i = index; trackBy: trackBy">
           <cocoring-datagrid-row class="table-line" [datagridService]="datagridService"
             [columns]="datagridService.config.columns" [datas]="rowDatas"></cocoring-datagrid-row>
         </ng-container>

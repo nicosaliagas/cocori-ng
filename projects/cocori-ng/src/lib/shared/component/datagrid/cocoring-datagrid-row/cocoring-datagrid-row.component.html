@@ -1,6 +1,7 @@
 <tr (click)="selectRow()">
     <ng-container *ngFor="let cell of cellValues; let i = index; trackBy: trackBy">
-        <ng-container *ngIf="datagridService.config.withBatchProcessing">
+        <!-- <ng-container *ngIf="datagridService.config.withBatchProcessing"> -->
+        <ng-container>
             <td class="column-select" *ngIf="i===0">
                 <cocoring-checkbox [formGroup]="checkboxRowFormGroup" [nameControl]="_datas.id">
                 </cocoring-checkbox>

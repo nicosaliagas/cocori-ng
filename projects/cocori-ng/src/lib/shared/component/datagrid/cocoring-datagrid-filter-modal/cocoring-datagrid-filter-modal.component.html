@@ -13,48 +13,16 @@
     <div mat-dialog-content class="test">
         <mat-sidenav-container class="layout-container" [hasBackdrop]="false">
             <mat-sidenav class="sidenav" #sidenav mode="over" position="end" [opened]="isSidenavOpen">
-                <div>
-                    <div>Partie filtres importants :</div>
-                    <div>- liste des valeurs possibles de la colonne</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>- périodes de date, si colonne de type date</div>
-                    <div>THE END</div>
-                </div>
-
-                <!-- <mat-nav-list cdkDropList (cdkDropListDropped)="dropColumn($event)">
-                    <ng-container
-                        *ngFor="let column of datagridService.config.columns; let i = index; trackBy: trackBy">
-                        <cocoring-datagrid-filter-column [column]="column" [datagridService]="datagridService"
-                            (columnSelected)="columnSelected($event)"></cocoring-datagrid-filter-column>
-                    </ng-container>
-                </mat-nav-list> -->
+                <ng-container *ngIf="currentColumn">
+                    <div class="filters">
+                        <ng-container *ngIf="currentColumn.dataType == 'boolean'">
+                            <ng-template #BooleanFilterFormContainerRef></ng-template>
+                        </ng-container>
+                    </div>
+                    <div class="filtersButton">
+                        <ng-template #ButtonFormContainerRef></ng-template>
+                    </div>
+                </ng-container>
             </mat-sidenav>
             <mat-sidenav-content #sidenavContent>
                 <mat-nav-list cdkDropList (cdkDropListDropped)="dropColumn($event)">

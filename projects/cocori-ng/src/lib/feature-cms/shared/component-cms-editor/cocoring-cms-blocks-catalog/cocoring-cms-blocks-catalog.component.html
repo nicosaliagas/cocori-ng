@@ -1,3 +1,8 @@
+<div class="catalogue-sections">
+    <div class="c1">Catalogue de templates</div>
+    <div class="c2">cliquez & composez votre page</div>
+
+</div>
 <div class="blocks-container">
     <ng-container *ngFor="let block of cmsService.blocks; let i = index; trackBy: trackBy">
         <img src="assets/images/cms/design-blocks/{{block.data.filename}}" (click)="selectBlock(block)" />

@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
 import {
-    CellValueDatagridModel,
-    ColumnDatagridModel,
-    OrderColumnModel,
+  CellValueDatagridModel,
+  ColumnDatagridModel,
+  OrderColumnModel,
 } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
@@ -17,7 +16,7 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
   templateUrl: './cocoring-datagrid-row.component.html',
   styleUrls: ['./cocoring-datagrid-row.component.scss']
 })
-export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
+export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent implements OnInit {
   @Input() columns: ColumnDatagridModel[] = []
   @Input()
   set datas(datas: any) {
@@ -32,13 +31,13 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   _datas: any;
   cellValues: CellValueDatagridModel[] = []
   checkboxRowFormGroup: FormGroup;
-  subscriptions: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
-    private helperService: HelperService,
     private cdr: ChangeDetectorRef,
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.eventAllCheckboxesChecked()
@@ -48,7 +47,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     this.onReOrderColumns()
   }
 
-  /** ajouté le contrôle checkbox de la ligne dans le formulaire */
+  /** ajouter le contrôle checkbox de la ligne dans le formulaire */
   private addCheckboxRow() {
     const checkboxesFormControlArray: FormArray = <FormArray>this.datagridService.checkboxesDatagridForm.get("rowsCheckbox");
 
@@ -59,8 +58,8 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
     checkboxesFormControlArray.push(this.checkboxRowFormGroup);
 
     this.subscriptions.add(
-      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((value: boolean) => {
-        this.datagridService.storeIdsRowsSelected(this._datas.id, value)
+      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((checkValue: boolean) => {
+        this.datagridService.storeIdsRowsSelected(this._datas, checkValue)
       })
     )
   }
@@ -107,10 +106,6 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
         this.checkboxRowFormGroup.get(this._datas.id).setValue(value);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 
   private getDatasourceValue(column: string) {

@@ -1,20 +1,18 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
 import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
@@ -29,7 +27,7 @@ import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cm
   styleUrls: ['./cocoring-cms.component.scss'],
   providers: [InjectComponentService]
 })
-export class CocoringCmsComponent implements OnInit, OnDestroy {
+export class CocoringCmsComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
   configCms: ConfigCmsModel;
@@ -66,7 +64,6 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   @Output() onSaveBtn: EventEmitter<SectionPageDatasModel[]> = new EventEmitter<SectionPageDatasModel[]>();
 
   responsive: string = 'computer'
-  subscription: Subscription = new Subscription();
   activeMediaQuery = '';
   sidenavMode: string = 'side'
   isSidenavOpen: boolean = false;
@@ -78,13 +75,13 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
   ) {
+    super()
+
     this.eventSizeScreen();
   }
 
   ngOnInit(): void {
     this.addSectionEvent()
-
-    this.onSectionRemoved()
 
     this.onSectionMoved()
 
@@ -97,19 +94,15 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   private onPageSaved() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.cmsService.onSaveCmsContent$.subscribe((contentPage: SectionPageDatasModel[]) => {
         this.onSaveBtn.emit(contentPage)
       })
     )
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe()
-  }
-
   private eventSizeScreen() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.mediaObserver.media$.subscribe((change: MediaChange) => {
         this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
 
@@ -135,31 +128,27 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   private addSectionEvent() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.cmsService.sectionAdded$.pipe(
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }], null, datas.index
+            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+            { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
           )
         }),
       ).subscribe()
     )
   }
 
-  private onSectionRemoved() {
-    this.subscription.add(
-      this.cmsService.onSectionRemoved().pipe(
-        tap((indexSection: number) => {
-          this.injectComponentService.removeComponentFromViewContainer(indexSection, this.containerRef)
-        }),
-        tap(_ => this.refreshNumberSection()),
-      ).subscribe()
-    )
+  private onSectionRemovedAfterAnimation(indexSectionRemoved: number) {
+    this.injectComponentService.removeComponentFromViewContainer(indexSectionRemoved, this.containerRef)
+
+    this.refreshNumberSection()
   }
 
   private onSectionMoved() {
-    this.subscription.add(
+    this.subscriptions.add(
       this.cmsService.moveSection$.pipe(
         tap((values: any) => {
           this.moveSectionContainer({ previousIndex: values.previousIndex, currentIndex: values.currentIndex })

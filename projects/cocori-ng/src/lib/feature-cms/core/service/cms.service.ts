@@ -16,7 +16,7 @@ export class CmsService {
   public backgroundColor$: Subject<string> = new Subject<string>();
   public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
   public onSaveCmsContent$: Subject<SectionPageDatasModel[]> = new Subject<SectionPageDatasModel[]>();
-  private sectionRemoved$: Subject<number> = new Subject<number>();
+  private sectionRemoved$: Subject<InsertSectionAt> = new Subject<InsertSectionAt>();
 
   public sections: SectionModel[] = []
   public blocks: Block[]
@@ -31,7 +31,7 @@ export class CmsService {
     this.sections.splice(0, this.sections.length)
   }
 
-  public onSectionRemoved(): Subject<number> {
+  public onSectionRemoved(): Subject<InsertSectionAt> {
     return this.sectionRemoved$
   }
 
@@ -50,12 +50,16 @@ export class CmsService {
     this.sectionAdded$.next({ section: newSection })
   }
 
+  public getIndexCurrentSection(sectionId: string): number {
+    return this.sections.findIndex((section: SectionModel) => section.idSection === sectionId)
+  }
+
   public removeSection(sectionId: string) {
     const index: number = this.sections.findIndex((section: SectionModel) => section.idSection === sectionId)
 
-    this.sections.splice(index, 1)
+    const sectionRemoved: SectionModel[] = this.sections.splice(index, 1)
 
-    this.sectionRemoved$.next(index)
+    this.sectionRemoved$.next(<InsertSectionAt>{ index: index, section: sectionRemoved[0] })
   }
 
   public duplicateSection(section: SectionModel) {

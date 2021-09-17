@@ -16,7 +16,25 @@ export interface SelectOption {
     name: string,
 }
 
-export interface DatasourceOdata {
-    __count: number;
-    results: Object[];
+export interface OdataModel {
+    d: {
+        __count: number;
+        results: Object[];
+    }
+}
+
+export class Odata {
+    private datasource: OdataModel
+
+    setDatasource(datasource: OdataModel) {
+        this.datasource = datasource
+    }
+
+    getCount(): number {
+        return this.datasource.d.__count
+    }
+
+    getResults(): Object[] {
+        return this.datasource.d.results
+    }
 }

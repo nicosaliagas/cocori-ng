@@ -12,7 +12,7 @@ export class DatasourceService {
 
   constructor(private httpService: HttpService,) { }
 
-  loadDataSource<T>(config: DataSourceInput, paramUrl?: any): Observable<T> {
+  loadDataSource<T>(config: DataSourceInput, queryString: string = ''): Observable<T> {
     if (!config) return;
 
     switch (config.type) {
@@ -21,7 +21,7 @@ export class DatasourceService {
         break;
 
       case DataSourceType.API:
-        return this.httpService.get(config.value, paramUrl)
+        return this.httpService.get(`${config.value}${queryString}`)
         break;
 
       default:

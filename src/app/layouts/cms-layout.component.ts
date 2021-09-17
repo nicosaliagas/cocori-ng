@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { NavigationEnd, Router } from '@angular/router';
 import { CurrentUrlRoutingService } from '@cocori-ng/lib';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
 import { SidenavItem } from '../core/model/Sidenav.model';
@@ -10,6 +10,7 @@ import { SidenavItem } from '../core/model/Sidenav.model';
 @Component({
   selector: 'app-cms-layout',
   template: `
+  <!-- toolbar à cacher - linkedin -->
   <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
     <mat-sidenav-container class="layout-container" fullscreen>
       <mat-sidenav class="sidenav" #sidenav [disableClose]="isSidenavCloseDisabled" [mode]="sidenavPosition"
@@ -29,7 +30,7 @@ import { SidenavItem } from '../core/model/Sidenav.model';
   styleUrls: ['./cms-layout.component.scss'],
   providers: [CurrentUrlRoutingService]
 })
-export class CmsLayoutComponent {
+export class CmsLayoutComponent extends AutoUnsubscribeComponent {
   @ViewChild('sidenavContent', { static: true, read: ElementRef })
   sidenavContent: ElementRef;
 
@@ -67,11 +68,10 @@ export class CmsLayoutComponent {
     { label: 'Readme', route: '', url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md' },
   ];
 
-  subscription: Subscription = new Subscription();
   hidemobile: boolean = false;
   sidenavPosition: string = "side";
   isSidenavCloseDisabled = true;
-  isSidenavOpen: boolean = true;
+  isSidenavOpen: boolean = true; /** linkedin */
 
   constructor(
     private navService: CurrentUrlRoutingService,
@@ -79,10 +79,12 @@ export class CmsLayoutComponent {
     public elementRef: ElementRef,
     public router: Router,
   ) {
+    super()
+
     this.sidenavContent = elementRef;
 
     /** au changement de route */
-    this.subscription.add(
+    this.subscriptions.add(
       this.router.events
         .pipe(
           filter((event) => event instanceof NavigationEnd),
@@ -100,7 +102,7 @@ export class CmsLayoutComponent {
   }
 
   private eventSizeScreen(mediaObserver: MediaObserver) {
-    this.subscription.add(
+    this.subscriptions.add(
       mediaObserver.media$.subscribe((change: MediaChange) => {
         this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
 
@@ -110,7 +112,7 @@ export class CmsLayoutComponent {
           this.isSidenavCloseDisabled = false;
         } else {
           this.sidenavPosition = 'side';
-          this.isSidenavOpen = true;
+          this.isSidenavOpen = true; /** linkedin */
           this.isSidenavCloseDisabled = true;
         }
 

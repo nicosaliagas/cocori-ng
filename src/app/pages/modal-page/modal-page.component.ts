@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from '@cocori-ng/lib';
-import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { AutoUnsubscribeComponent, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
 export interface EmailModalModel {
   email: string,
@@ -11,7 +11,7 @@ export interface EmailModalModel {
   templateUrl: './modal-page.component.html',
   styleUrls: ['./modal-page.component.scss']
 })
-export class ModalPageComponent implements OnInit {
+export class ModalPageComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('ModalFormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
   optionsModalFormulaire: ModalOptionsModel = {
@@ -33,6 +33,8 @@ export class ModalPageComponent implements OnInit {
   constructor(
     private dialogService: ConfirmModalService,
     private formBuilderService: FormBuilderService) {
+    super()
+
     this.formBuilderService.newForm()
   }
 
@@ -43,17 +45,21 @@ export class ModalPageComponent implements OnInit {
   openModalConfirmation() {
     this.dialogService.open(this.optionsModalConfirmation);
 
-    this.dialogService.confirmed<boolean>().subscribe(retourModal => {
-      console.log("Fermeture de la modal avec en retour : ", retourModal)
-    });
+    this.subscriptions.add(
+      this.dialogService.confirmed<boolean>().subscribe(retourModal => {
+        console.log("Fermeture de la modal avec en retour : ", retourModal)
+      })
+    )
   }
 
   openModalForm() {
     this.dialogService.open(this.optionsModalFormulaire);
 
-    this.dialogService.confirmed<EmailModalModel>().subscribe(retourModal => {
-      console.log("Fermeture de la modal avec en retour : ", retourModal)
-    });
+    this.subscriptions.add(
+      this.dialogService.confirmed<EmailModalModel>().subscribe(retourModal => {
+        console.log("Fermeture de la modal avec en retour : ", retourModal)
+      })
+    )
   }
 
   private buildForm() {

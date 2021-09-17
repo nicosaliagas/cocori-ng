@@ -5,7 +5,6 @@ import {
   ElementRef,
   HostListener,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -13,13 +12,13 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import {
+  AutoUnsubscribeComponent,
   ConfigAPIsFile,
   FileActions,
   FileDetailsComponent,
   FileModel,
   UploaderService,
 } from '@cocori-ng/lib/src/lib/feature-core';
-import { Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import { HelperUploaderService } from '../../../../core/service/helper/helper-uploader.service';
@@ -37,7 +36,7 @@ import {
   styleUrls: ['./cocoring-uploader-list-file.component.scss'],
   providers: [UploaderService]
 })
-export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
+export class CocoringUploaderListFileComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
   @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
@@ -49,7 +48,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   private fileUploaded: File;
 
   fileFormControl: FormControl;
-  subscriptions: Subscription = new Subscription();
   isUploading: boolean = false;
   progress: number;
   onError: boolean = false;
@@ -61,7 +59,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public uploaderService: UploaderService,
     private _bottomSheet: MatBottomSheet,
-    private cdr: ChangeDetectorRef,) { }
+    private cdr: ChangeDetectorRef,) {
+    super()
+  }
 
   ngOnInit(): void {
     this.addFileControl()
@@ -101,10 +101,6 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
 
   private setFileApi() {
     this.apiFile = this.apisFile.apiFile(this.fileModel.id);
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
   }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
@@ -156,27 +152,23 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
       }
     });
 
-    bottomSheet.afterDismissed().subscribe((action: FileActions) => {
-      switch (action) {
-        case 'browse':
-          this.browseFile()
-          break;
+    this.subscriptions.add(
+      bottomSheet.afterDismissed().subscribe((action: FileActions) => {
+        switch (action) {
+          case 'browse':
+            this.browseFile()
+            break;
 
-        case 'remove':
-          this.removeFile()
-          break;
+          case 'remove':
+            this.removeFile()
+            break;
 
-        default:
-          break;
-      }
-    });
+          default:
+            break;
+        }
+      })
+    )
   }
-
-  // downloadFile() {
-  //   this.uploaderService.GetFileAPI(this.fileModel.id).pipe(
-  //     map(res => this.fileService.downloadFile(res, this.fileModel.fileName))
-  //   ).subscribe()
-  // }
 
   browseFile() {
     let el: HTMLElement = this.uploaderInputRef.nativeElement;

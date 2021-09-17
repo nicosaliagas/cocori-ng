@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, HostListener, Injector, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
 import { ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
@@ -10,15 +10,16 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
     template: ''
 })
 
-export abstract class SortColumnExtendComponent {
+export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent {
     @Input() datagridService: DatagridService
     @Input() column: ColumnDatagridModel
 
-    subscriptions: Subscription = new Subscription();
     shiftKey: boolean = false;
     cdr: ChangeDetectorRef;
 
     constructor(injector: Injector) {
+        super()
+
         this.cdr = injector.get(ChangeDetectorRef);
     }
 

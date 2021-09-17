@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { CurrentUrlRoutingService } from '@cocori-ng/lib';
+import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { SidenavItem } from 'src/app/core/model/Sidenav.model';
 
 export const animateExpandListItem =
@@ -17,19 +18,23 @@ export const animateExpandListItem =
   templateUrl: './cocoring-sidenav-item.component.html',
   styleUrls: ['./cocoring-sidenav-item.component.scss'],
 })
-export class CocoringSidenavItemComponent implements OnInit {
+export class CocoringSidenavItemComponent extends AutoUnsubscribeComponent implements OnInit {
   expanded: boolean = false;
 
   @Input() item: SidenavItem;
 
-  constructor(private navService: CurrentUrlRoutingService) { }
+  constructor(private navService: CurrentUrlRoutingService) {
+    super()
+  }
 
   ngOnInit() {
-    this.navService.currentUrl.subscribe((url: string) => {
-      if (this.item.route && url) {
-        this.expanded = url.indexOf(`${this.item.route}`) === 0;
-      }
-    });
+    this.subscriptions.add(
+      this.navService.currentUrl.subscribe((url: string) => {
+        if (this.item.route && url) {
+          this.expanded = url.indexOf(`${this.item.route}`) === 0;
+        }
+      })
+    )
   }
 
   expandItemSubList() {
