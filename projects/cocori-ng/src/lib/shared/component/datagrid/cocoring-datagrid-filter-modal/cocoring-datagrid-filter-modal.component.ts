@@ -1,11 +1,21 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,6 +24,8 @@ import { DatagridService } from '../../../../core/service/datagrid/datagrid.serv
   styleUrls: ['./cocoring-datagrid-filter-modal.component.scss']
 })
 export class CocoringDatagridFilterModalComponent implements OnInit {
+  @ViewChild('BooleanFilterFormContainerRef', { static: false, read: ViewContainerRef }) booleanFilterFormContainerRef: ViewContainerRef;
+  @ViewChild('ButtonFormContainerRef', { static: false, read: ViewContainerRef }) buttonFormContainerRef: ViewContainerRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   formulaire: FormGroup;
@@ -23,27 +35,35 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   datagridService: DatagridService;
   currentColumn: ColumnDatagridModel;
 
+  display: boolean = false
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { datagridService: DatagridService },
-    private fb: FormBuilder,
+    private cdr : ChangeDetectorRef,
+    private formBuilderService: FormBuilderService,
     private mdDialogRef: MatDialogRef<CocoringDatagridFilterModalComponent>) {
 
     this.datagridService = data.datagridService
-
-    this.formulaire = this.fb.group({
-      acceptGoogleAnalytics: true,
-      acceptCookie: true
-    })
+    this.formulaire = this.formBuilderService.newForm().form
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    
+    setTimeout(() => {
+      this.display = true
+      this.cdr.detectChanges()
+      console.log("display")
+      this.buildFormFilters()
+
+    }, 1000);
+  }
 
   public close(value: any) {
     this.mdDialogRef.close(value);
   }
 
   public validateFrom({ value, valid }: { value: any, valid: boolean }) {
-    this.close({ acceptGoogleAnalytics: value.acceptGoogleAnalytics });
+    console.log("value>>>>", value)
   }
 
   public actionsHeaderModal() {
@@ -59,7 +79,14 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   public columnSelected(column: ColumnDatagridModel) {
     this.currentColumn = column
 
+    /** on fait apparaître le paneau détail de la colonne */
     this.sidenav.toggle()
+
+    /** on mets à jour la vue comme ça les var booleanFilterFormContainerRef et buttonFormContainerRef sont définies */
+    this.cdr.detectChanges()
+
+    /** on init le form et on ajoute les éléments dans la vue dynamiquement 🖕 */
+    this.buildFormFilters()
   }
 
   public trackBy(item: any, index: number) {
@@ -68,7 +95,33 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
   public dropColumn(event: CdkDragDrop<ColumnDatagridModel[]>) {
     moveItemInArray(this.datagridService.config.columns, event.previousIndex, event.currentIndex);
-    
+
     this.datagridService.reOrderColumns$.next({ previousIndex: event.previousIndex, currentIndex: event.currentIndex })
+  }
+
+  private buildFormFilters() {
+    let formBuilderService = this.formBuilderService
+      .appearance('fill') // par défaut c'est outline
+      .setViewContainerRef(this.booleanFilterFormContainerRef)
+      .addInput('name', config => config
+        .nameLabel('Nom')
+        .typeInput(FormInputComponents.INPUT_CHECKBOX)
+      );
+
+    formBuilderService = this.buildFormAddButtonsAction(formBuilderService, this.buttonFormContainerRef)
+
+    this.formulaire = formBuilderService.form
+  }
+
+  private buildFormAddButtonsAction(formBuilderService: FormBuilderService, viewContainerRef: ViewContainerRef) {
+    return formBuilderService
+      .setViewContainerRef(viewContainerRef)
+      .addButton('Enregistrer', config => config
+        .isTypeSubmit()
+        .icon('check')
+        .outputCallback({
+          callback: () => { }
+        })
+      )
   }
 }

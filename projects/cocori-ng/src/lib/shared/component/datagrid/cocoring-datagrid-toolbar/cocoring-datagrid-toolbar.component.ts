@@ -17,6 +17,7 @@ import {
 export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent implements OnInit {
   totalRows: number
   nbRowsChecked: number = 0;
+  rowRemoved: boolean = false;
 
   // list: { id: number; name: string; }[];
   // checkboxesFormControlArray: FormArray;
@@ -55,9 +56,17 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
     this.datagridService.rowsDeletedEvent$.next();
   }
 
+  restoreSelectedRows() {
+    this.datagridService.rowsRestoredEvent$.next();
+  }
+
   onRowsChecked() {
     this.subscriptions.add(
-      this.datagridService.rowsCheckedEvent$.subscribe(() => {
+      this.datagridService.rowCheckedEvent$.subscribe((rowValues: any) => {
+
+        console.log("toolbar : onRowsChecked >>> ", rowValues, this.datagridService.config.propIsArchived)
+
+        this.rowRemoved = <boolean>rowValues[this.datagridService.config.propIsArchived]
         this.nbRowsChecked = this.datagridService.rowsSelectedDatagrid.length
         this.cdr.detectChanges()
       })

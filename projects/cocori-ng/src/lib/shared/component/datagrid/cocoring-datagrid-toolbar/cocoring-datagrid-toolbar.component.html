@@ -23,10 +23,15 @@
         <!-- <ng-container *ngIf="datagridService.config?.withBatchProcessing"> -->
         <ng-container>
             <div class="toolbar-option">
-                <button mat-icon-button [disabled]="!nbRowsChecked || (!datagridService.config?.withBatchProcessing && nbRowsChecked > 1)" title="supprimer les lignes sélectionnées"
-                    aria-label="supprimer les lignes sélectionnées" (click)="deleteSelectedRows()">
-                    <mat-icon>delete_outline</mat-icon>
-                </button>
+                <!-- [disabled]="!nbRowsChecked || (!datagridService.config?.withBatchProcessing && nbRowsChecked > 1)" -->
+                <ng-container *ngIf="!(!nbRowsChecked || (!datagridService.config?.withBatchProcessing && nbRowsChecked > 1))" >
+                    <button mat-icon-button aria-label="supprimer les lignes sélectionnées" (click)="deleteSelectedRows()">
+                        <mat-icon title="supprimer les lignes sélectionnées">delete_outline</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="restaurer les lignes supprimées" (click)="restoreSelectedRows()">
+                        <mat-icon title="restaurer les lignes supprimées">restore_from_trash</mat-icon>
+                    </button>
+                </ng-container>
             </div>
         </ng-container>
     </div>

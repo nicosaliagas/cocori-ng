@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 
 import { CellValueDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
   selector: 'cocoring-datagrid-cell',
@@ -10,22 +11,30 @@ import { CellValueDatagridModel } from '../../../../core/model/component-datagri
 })
 export class CocoringDatagridCellComponent implements OnInit {
   public _cell: CellValueDatagridModel;
+  cellIsArchived: boolean = false;
 
   @Input()
   set cell(value: CellValueDatagridModel) {
     this._cell = value
 
-    this.majValue();
+    this.formatCellValue();
+
+    this.checkIfCellIsArchived();
   }
 
   cellValue: string
 
   constructor(
-    @Inject(LOCALE_ID) private locale: string) { }
+    @Inject(LOCALE_ID) private locale: string,
+    private datagridService: DatagridService) { }
 
   ngOnInit(): void { }
 
-  private majValue() {
+  private formatCellValue() {
     this.cellValue = this._cell.dataType === 'date' ? formatDate(this._cell.value, 'dd/MM/YYYY', this.locale) : this._cell.value;
+  }
+
+  private checkIfCellIsArchived() {
+    this.cellIsArchived =  this._cell.dataField === this.datagridService.config.propIsArchived
   }
 }

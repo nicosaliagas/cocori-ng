@@ -14,6 +14,7 @@ export interface ConfigDatagridModel {
     columns: ColumnDatagridModel[],
     dataSource?: DataSourceInput,
     withBatchProcessing: boolean,
+    propIsArchived: string,
 }
 
 export interface ColumnDatagridModel {

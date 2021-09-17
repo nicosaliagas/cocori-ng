@@ -10,6 +10,10 @@
       <cocoring-datagrid [config]="_config"></cocoring-datagrid>
     </div> -->
     <cocoring-datagrid-toolbar></cocoring-datagrid-toolbar>
-    <cocoring-datagrid [config]="_config" (eventClickRow)="eventClickRow($event)" (eventRowsDeleted)="eventRowsDeleted($event)"></cocoring-datagrid>
+    <cocoring-datagrid 
+      [config]="_config" 
+      (eventClickRow)="eventClickRow($event)" 
+      (eventRowsDeleted)="eventRowsDeleted($event)"
+      (eventRowsRestored)="eventRowsRestored($event)"></cocoring-datagrid>
   </div>
 </div>

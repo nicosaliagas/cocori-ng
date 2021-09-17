@@ -22,7 +22,7 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
-    providers: [ Odata ]
+    providers: [Odata]
 })
 export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
     checkboxesGroup: FormGroup;
@@ -55,11 +55,12 @@ export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
 
         this.onRowSelected()
 
-        this.onRowsDeleted()
+        this.onRowsDeletedRestored()
     }
 
     @Output() eventClickRow: EventEmitter<void> = new EventEmitter<void>();
     @Output() eventRowsDeleted: EventEmitter<string[]> = new EventEmitter<string[]>();
+    @Output() eventRowsRestored: EventEmitter<string[]> = new EventEmitter<string[]>();
 
     refreshDatagrid() {
         this.datagridService.refreshNeeded$.next()
@@ -111,10 +112,16 @@ export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
         )
     }
 
-    private onRowsDeleted() {
+    private onRowsDeletedRestored() {
         this.subscriptions.add(
             this.datagridService.rowsDeletedEvent$.pipe(
                 tap(_ => this.eventRowsDeleted.emit(this.datagridService.rowsSelectedDatagrid)),
+            ).subscribe()
+        )
+
+        this.subscriptions.add(
+            this.datagridService.rowsRestoredEvent$.pipe(
+                tap(_ => this.eventRowsRestored.emit(this.datagridService.rowsSelectedDatagrid)),
             ).subscribe()
         )
     }

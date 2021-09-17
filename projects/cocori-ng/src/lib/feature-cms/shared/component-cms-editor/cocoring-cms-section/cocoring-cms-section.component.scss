@@ -81,6 +81,15 @@ cocoring-cms-section {
   }
 }
 
+.sidenav-openned {
+  section.cms-block {
+    &:hover {
+      opacity: 0.5 !important;
+    }
+  }
+}
+
+
 @keyframes sectionIn {
   from {
     transform: translateX(200px);

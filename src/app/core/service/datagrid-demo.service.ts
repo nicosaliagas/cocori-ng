@@ -15,6 +15,7 @@ export class DatagridDemoService {
     return {
       id: faker.random.uuid(),
       name: faker.name.lastName(),
+      Boulle: faker.random.boolean(),
       surname: faker.name.firstName(),
       age: faker.random.number({
         'min': 18,

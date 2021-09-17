@@ -48,7 +48,7 @@ export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.m
 export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
 
-export * from './lib/shared/directive/datagrid-group/cocoring-datagrid-group.directive';
+export * from './lib/shared/directive/datagrid/cocoring-datagrid-group.directive';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.module';

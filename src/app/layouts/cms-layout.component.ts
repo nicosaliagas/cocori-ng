@@ -10,7 +10,7 @@ import { SidenavItem } from '../core/model/Sidenav.model';
 @Component({
   selector: 'app-cms-layout',
   template: `
-  <!-- linkedin -->
+  <!-- toolbar à cacher - linkedin -->
   <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
     <mat-sidenav-container class="layout-container" fullscreen>
       <mat-sidenav class="sidenav" #sidenav [disableClose]="isSidenavCloseDisabled" [mode]="sidenavPosition"

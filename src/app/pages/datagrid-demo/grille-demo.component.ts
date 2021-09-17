@@ -39,6 +39,7 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
             { caption: "Nom", dataField: "name", dataType: "string", visible: true },
             { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
             { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
+            { caption: "EcoleBoulle", dataField: "Boulle", dataType: "boolean", visible: true },
             { caption: "Age", dataField: "age", dataType: "number", visible: true },
             { caption: "Col Bool", dataField: "testBool", dataType: "boolean", visible: true },
             { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
@@ -48,7 +49,8 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
             { caption: "Col 3", dataField: "test3", dataType: "string", visible: true },
           ],
           dataSource: { type: DataSourceType.BRUTE, value: values },
-          withBatchProcessing: true
+          withBatchProcessing: true,
+          propIsArchived: 'testBool'
         }
       })
     )
@@ -60,5 +62,9 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
 
   eventRowsDeleted(idsRowsSelected: string[]) {
     console.log("Ids rows to delete >>> ", idsRowsSelected)
+  }
+
+  eventRowsRestored(idsRowsSelected: string[]) {
+    console.log("Ids rows to restore >>> ", idsRowsSelected)
   }
 }

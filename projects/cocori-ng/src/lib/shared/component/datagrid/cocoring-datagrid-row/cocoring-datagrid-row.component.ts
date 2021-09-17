@@ -47,7 +47,7 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
     this.onReOrderColumns()
   }
 
-  /** ajouté le contrôle checkbox de la ligne dans le formulaire */
+  /** ajouter le contrôle checkbox de la ligne dans le formulaire */
   private addCheckboxRow() {
     const checkboxesFormControlArray: FormArray = <FormArray>this.datagridService.checkboxesDatagridForm.get("rowsCheckbox");
 
@@ -58,8 +58,8 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
     checkboxesFormControlArray.push(this.checkboxRowFormGroup);
 
     this.subscriptions.add(
-      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((value: boolean) => {
-        this.datagridService.storeIdsRowsSelected(this._datas.id, value)
+      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((checkValue: boolean) => {
+        this.datagridService.storeIdsRowsSelected(this._datas, checkValue)
       })
     )
   }

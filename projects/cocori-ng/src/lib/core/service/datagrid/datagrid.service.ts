@@ -23,8 +23,9 @@ export class DatagridService {
   private _reOrderColumns$: Subject<OrderColumnModel> = new Subject<OrderColumnModel>();
   private _lengthDataSource$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public rowSelectedByClickEvent$: Subject<any> = new Subject<any>();
-  public rowsCheckedEvent$: Subject<any> = new Subject<any>();
+  public rowCheckedEvent$: Subject<any> = new Subject<any>();
   public rowsDeletedEvent$: Subject<any> = new Subject<any>();
+  public rowsRestoredEvent$: Subject<any> = new Subject<any>();
   public allRowsChecked$: Subject<boolean> = new Subject<boolean>();
   public refreshNeeded$: Subject<void> = new Subject<void>();
 
@@ -130,15 +131,16 @@ export class DatagridService {
     // }
   }
 
-  public storeIdsRowsSelected(rowId: string, rowValue: boolean) {
+  public storeIdsRowsSelected(rowValues: any, checkValue: boolean) {
+    const rowId: string = rowValues.id
     const indexIdFound: number = this.rowsSelectedDatagrid.findIndex((id: string) => id === rowId)
-
-    if (rowValue && indexIdFound === -1) {
+    
+    if (checkValue && indexIdFound === -1) {
       this.rowsSelectedDatagrid.push(rowId)
-      this.rowsCheckedEvent$.next()
-    } else if (!rowValue && indexIdFound !== -1) {
+      this.rowCheckedEvent$.next(rowValues)
+    } else if (!checkValue && indexIdFound !== -1) {
       this.rowsSelectedDatagrid = this.helperService.removeValueFromArrayByIndex(this.rowsSelectedDatagrid, indexIdFound)
-      this.rowsCheckedEvent$.next()
+      this.rowCheckedEvent$.next(rowValues)
     }
   }
 
