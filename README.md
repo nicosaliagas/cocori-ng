@@ -313,3 +313,11 @@ changeDetection: ChangeDetectionStrategy.OnPush,
 
 this.cdr.detectChanges()
 ```
+
+`Loop object properties | Iterate through object properties`
+
+```
+Object.entries(values).forEach(([key, value]) => {
+    console.log(">>> ",key, value)
+})
+```

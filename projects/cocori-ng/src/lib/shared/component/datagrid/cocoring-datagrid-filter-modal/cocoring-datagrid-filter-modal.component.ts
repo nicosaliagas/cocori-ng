@@ -35,8 +35,6 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   datagridService: DatagridService;
   currentColumn: ColumnDatagridModel;
 
-  display: boolean = false
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { datagridService: DatagridService },
     private cdr : ChangeDetectorRef,
@@ -48,14 +46,6 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    setTimeout(() => {
-      this.display = true
-      this.cdr.detectChanges()
-      console.log("display")
-      this.buildFormFilters()
-
-    }, 1000);
   }
 
   public close(value: any) {
@@ -103,10 +93,19 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
     let formBuilderService = this.formBuilderService
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.booleanFilterFormContainerRef)
-      .addInput('name', config => config
-        .nameLabel('Nom')
-        .typeInput(FormInputComponents.INPUT_CHECKBOX)
-      );
+      .addInput('selectAll', config => config
+        .nameLabel('Tout sélectionner')
+        .typeInput(FormInputComponents.INPUT_CHECKBOX_INDETERMINATE)
+      )
+      // .addInput('selectNone', config => config
+      //   .nameLabel('non sélectionnée')
+      //   .typeInput(FormInputComponents.INPUT_CHECKBOX)
+      // )
+      // .addInput('selected', config => config
+      //   .nameLabel('sélectionnée')
+      //   .typeInput(FormInputComponents.INPUT_CHECKBOX)
+      // )
+      ;
 
     formBuilderService = this.buildFormAddButtonsAction(formBuilderService, this.buttonFormContainerRef)
 

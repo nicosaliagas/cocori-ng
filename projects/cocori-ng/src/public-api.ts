@@ -42,6 +42,9 @@ export * from './lib/shared/component/form/inputs/input-email/cocoring-email.mod
 export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.component';
 export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.module';
 
+export * from './lib/shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.component';
+export * from './lib/shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.module';
+
 export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.component';
 export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.module';
 

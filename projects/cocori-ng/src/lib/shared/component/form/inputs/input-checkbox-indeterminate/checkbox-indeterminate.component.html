@@ -1,0 +1,24 @@
+<ng-container [formGroup]="formGroup">
+    <mat-checkbox 
+            [formControlName]="nameControl" 
+            [indeterminate]="someComplete"
+            [checked]="allComplete"
+            color="primary"
+            (click)="$event.stopPropagation()">
+        {{nameLabel}}
+    </mat-checkbox>
+
+    <ng-container formGroupName="nestedForm">
+        <mat-checkbox
+                formControlName="noSelected"
+                color="primary">
+            non sélectionnée
+        </mat-checkbox>
+        <mat-checkbox
+                formControlName="allSelected"
+                color="primary"> 
+            sélectionnée
+        </mat-checkbox>
+    </ng-container>
+    <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
+</ng-container>
