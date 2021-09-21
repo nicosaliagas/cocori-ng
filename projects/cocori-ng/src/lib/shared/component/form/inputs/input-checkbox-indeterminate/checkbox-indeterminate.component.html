@@ -2,13 +2,12 @@
     <mat-checkbox 
             [formControlName]="nameControl" 
             [indeterminate]="someComplete"
-            [checked]="allComplete"
             color="primary"
             (click)="$event.stopPropagation()">
         {{nameLabel}}
     </mat-checkbox>
 
-    <ng-container formGroupName="nestedForm">
+    <ng-container [formGroupName]="nestedNameForm">
         <mat-checkbox
                 formControlName="noSelected"
                 color="primary">

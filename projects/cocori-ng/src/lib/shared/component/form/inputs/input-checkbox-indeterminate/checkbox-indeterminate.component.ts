@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigInputComponent, FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 
@@ -22,24 +22,17 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
         this.addControlForm();
 
         this.addNestedForm()
+
+
+        console.log("value >>>> ", this.formGroup.value)
     }
 
-    allComplete: boolean = false;
+    nestedNameForm: string = 'nestedValues'
     someComplete: boolean = false;
-
-    task: any = {
-        name: 'Indeterminate',
-        completed: false,
-        color: 'primary',
-        subtasks: [
-            { name: 'Primary', completed: false },
-            { name: 'Accent', completed: false },
-            { name: 'Warn', completed: false }
-        ]
-    };
 
     constructor(
         private fb: FormBuilder,
+        private cdr: ChangeDetectorRef,
         private formHelperService: FormHelperService,
         injector: Injector) {
         super(injector);
@@ -47,14 +40,14 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
 
     private addNestedForm() {
         const nestedFrom: FormGroup = this.fb.group({
-            noSelected: null,
-            allSelected: null,
+            noSelected: false,
+            allSelected: false,
         })
 
-        this.formGroup.addControl('nestedForm', nestedFrom)
+        this.formGroup.addControl(this.nestedNameForm, nestedFrom)
 
         this.formChangeEvent()
-        
+
         this.nestedFormChangeEvent()
     }
 
@@ -67,29 +60,41 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
     }
 
     private setValueControls(value: boolean) {
-        Object.keys(this.formGroup.get('nestedForm')['controls']).forEach(key => {
-            this.formGroup.get('nestedForm')['controls'][key].setValue(value, { emitEvent: false })
+        Object.keys(this.nestedForm['controls']).forEach(key => {
+            this.nestedForm['controls'][key].setValue(value, { emitEvent: false })
         });
     }
 
     private nestedFormChangeEvent() {
-        const nestedFormPropertiesLength: number = this.formHelperService.countControlsForm(<FormGroup>this.formGroup.get('nestedForm'))
+        const nestedFormPropertiesLength: number = this.formHelperService.countControlsForm(this.nestedForm)
 
         this.subscriptions.add(
-            this.formGroup.get('nestedForm').valueChanges.subscribe((values) => {
+            this.nestedForm.valueChanges.subscribe((values) => {
                 const completed: any[] = Object.entries(values).filter(([key, value]) => <boolean>value === true)
 
                 if (completed.length === nestedFormPropertiesLength) {
-                    this.allComplete = true
-                    this.someComplete = false
+                    this.formGroup.get(this.nameControl).setValue(true, { emitEvent: false })
+
+                    setTimeout(() => {
+                        this.someComplete = false
+                        this.cdr.detectChanges()
+                    });
                 } else if (completed.length > 0 && completed.length < nestedFormPropertiesLength) {
-                    this.someComplete = true
-                    this.allComplete = false
+                    this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
+
+                    setTimeout(() => {
+                        this.someComplete = true
+                        this.cdr.detectChanges()
+                    });
                 } else {
                     this.someComplete = false
-                    this.allComplete = false
+                    this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
                 }
             })
         )
+    }
+
+    private get nestedForm(): FormGroup {
+        return <FormGroup>this.formGroup.get(this.nestedNameForm)
     }
 }

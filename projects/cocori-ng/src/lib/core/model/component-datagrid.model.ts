@@ -22,6 +22,7 @@ export interface ColumnDatagridModel {
     dataField: string
     visible: boolean
     dataType: DataType
+    filters?: BooleanFilters
     alignment?: AlignmentType
     width?: number
     minWidth?: number
@@ -43,4 +44,9 @@ export interface CellValueDatagridModel extends CellColumn {
 export interface OrderColumnModel {
     previousIndex: number
     currentIndex: number
+}
+
+export interface BooleanFilters {
+    selectAll: boolean
+    nestedValues: {allSelected: boolean, noSelected: boolean}
 }
