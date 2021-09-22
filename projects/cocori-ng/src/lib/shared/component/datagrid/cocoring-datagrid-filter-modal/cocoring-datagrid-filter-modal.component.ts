@@ -1,19 +1,19 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { BooleanFilters, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 
@@ -35,11 +35,9 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   datagridService: DatagridService;
   currentColumn: ColumnDatagridModel;
 
-  display: boolean = false
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { datagridService: DatagridService },
-    private cdr : ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     private formBuilderService: FormBuilderService,
     private mdDialogRef: MatDialogRef<CocoringDatagridFilterModalComponent>) {
 
@@ -48,28 +46,30 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    setTimeout(() => {
-      this.display = true
-      this.cdr.detectChanges()
-      console.log("display")
-      this.buildFormFilters()
-
-    }, 1000);
   }
 
   public close(value: any) {
     this.mdDialogRef.close(value);
   }
 
-  public validateFrom({ value, valid }: { value: any, valid: boolean }) {
-    console.log("value>>>>", value)
+  public validateFilters({ value, valid }: { value: any, valid: boolean }) {
+    if (!valid) return;
+    
+    this.currentColumn.filters = <BooleanFilters>value
+    
+    this.datagridService.refreshNeeded$.next()
+
+    this.toggleFiltersOrClose()
   }
 
-  public actionsHeaderModal() {
+  /** Reset le form des filtres selon le mode */
+  public toggleFiltersOrClose() {
     if (this.currentColumn) {
       // back to the list of columns
       this.currentColumn = null
+
+      this.formulaire.reset()
+
       this.sidenav.toggle()
     } else {
       this.close(null)
@@ -86,7 +86,9 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
     this.cdr.detectChanges()
 
     /** on init le form et on ajoute les éléments dans la vue dynamiquement 🖕 */
-    this.buildFormFilters()
+    if (this.currentColumn.dataType == 'boolean') {
+      this.buildFormFiltersBoolean()
+    }
   }
 
   public trackBy(item: any, index: number) {
@@ -99,24 +101,41 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
     this.datagridService.reOrderColumns$.next({ previousIndex: event.previousIndex, currentIndex: event.currentIndex })
   }
 
-  private buildFormFilters() {
+  private buildFormFiltersBoolean() {
     let formBuilderService = this.formBuilderService
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.booleanFilterFormContainerRef)
-      .addInput('name', config => config
-        .nameLabel('Nom')
-        .typeInput(FormInputComponents.INPUT_CHECKBOX)
-      );
+      .addInput('selectAll', config => config
+        .nameLabel('Tout sélectionner')
+        .typeInput(FormInputComponents.INPUT_CHECKBOX_INDETERMINATE)
+        .dataSource({
+          type: DataSourceType.BRUTE,
+          dataSourceNameProperty: 'name',
+          value: [{ id: "noSelected", name: "non sélectionnée" }, { id: "allSelected", name: "sélectionnée" }]
+        })
+      )
+      ;
 
     formBuilderService = this.buildFormAddButtonsAction(formBuilderService, this.buttonFormContainerRef)
 
     this.formulaire = formBuilderService.form
+
+    if (this.currentColumn.filters) {
+      this.formulaire.patchValue(this.currentColumn.filters)
+    }
+
   }
 
   private buildFormAddButtonsAction(formBuilderService: FormBuilderService, viewContainerRef: ViewContainerRef) {
     return formBuilderService
       .setViewContainerRef(viewContainerRef)
-      .addButton('Enregistrer', config => config
+      .addButton('Annuler', config => config
+        .isTypeSubmit(false)
+        .outputCallback({
+          click: () => this.toggleFiltersOrClose()
+        })
+      )
+      .addButton('Appliquer', config => config
         .isTypeSubmit()
         .icon('check')
         .outputCallback({

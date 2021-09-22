@@ -95,7 +95,7 @@ lancer la commande : `ng serve`
 
 After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
 
-## 🎨 Styles et Thème de la lib
+## 🔹 Styles et Thème de la lib
 
 - De quoi parle t'on ?
 
@@ -175,6 +175,35 @@ puis
     background-color: mat-color($palette-orange, main);
 }
 ```
+
+
+
+
+## 🔹 Config des boutons de formulaire dynamique avec Cocori-ng
+
+`Bouton classique - non submit - avec callback sur le clique du bouton `
+
+```
+.addButton('Annuler', config => config
+  .isTypeSubmit(false)
+  .outputCallback({
+    click: () => console.log('callback sur le clique sur mon bouton') 
+  })
+)
+```
+
+`Bouton de validation - type submit `
+
+```
+.addButton('Appliquer', config => config
+  .isTypeSubmit()
+  .icon('check')
+  .outputCallback({
+    callback: () => console.log('callback sur le fait que mon bouton vient d'être ajouté à la vue') 
+  })
+)
+```
+
 
 ## Librairie Utilisée
 
@@ -312,4 +341,12 @@ this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
 changeDetection: ChangeDetectionStrategy.OnPush,
 
 this.cdr.detectChanges()
+```
+
+`Loop object properties | Iterate through object properties`
+
+```
+Object.entries(values).forEach(([key, value]) => {
+    console.log(">>> ",key, value)
+})
 ```

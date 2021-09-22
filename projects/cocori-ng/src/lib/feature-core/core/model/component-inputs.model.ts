@@ -46,8 +46,6 @@ export interface ButtonComponentInputs {
     iconPosition?: ButtonIconPositon
 }
 
-// export type ButtonIconPositon = 'start' | 'end';
-
 export enum ButtonIconPositon {
     START = 'start',
     END = 'end',

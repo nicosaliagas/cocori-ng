@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DatasourceService, HelperService, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import {
@@ -134,7 +134,7 @@ export class DatagridService {
   public storeIdsRowsSelected(rowValues: any, checkValue: boolean) {
     const rowId: string = rowValues.id
     const indexIdFound: number = this.rowsSelectedDatagrid.findIndex((id: string) => id === rowId)
-    
+
     if (checkValue && indexIdFound === -1) {
       this.rowsSelectedDatagrid.push(rowId)
       this.rowCheckedEvent$.next(rowValues)
@@ -211,12 +211,37 @@ export class DatagridService {
 
     let filterQuery: string = '';
 
+    let tabFilters: string[] = []
+    let cpt = 0
+
+    this.config.columns.forEach((column: ColumnDatagridModel) => {
+
+      let tabFiltersLength: number = tabFilters.length;
+
+      if (column.filters) {
+        
+        if (cpt === 1) {
+          tabFilters[0] = `(${tabFilters[0]})`
+        }
+
+        tabFilters = this.setBooleanColumnFilters(tabFilters, column, cpt)
+      }
+
+      if (tabFilters.length === tabFiltersLength + 1) cpt++
+    })
+
+    filterQuery = this.joinFiltersQuery(filterQuery, this.setBlocFilters(tabFilters))
+
     if (this.searchGlobal) {
-      filterQuery = this.config.columns
+      let filterSearchGlobal: string = this.config.columns
         .filter((column: ColumnDatagridModel) => column.dataType === 'string')
         .map((elem: ColumnDatagridModel) => {
-          return `contains(${elem.dataField}, '${this.searchGlobal}')`;
-        }).join(" or ");
+          return `(contains(${elem.dataField}, '${this.searchGlobal}'))`;
+        }).join(" or ")
+
+      filterSearchGlobal = filterSearchGlobal ? `(${filterSearchGlobal})` : ''
+
+      filterQuery = this.joinFiltersQuery(filterQuery, filterSearchGlobal)
     }
 
     if (filterQuery) {
@@ -227,5 +252,41 @@ export class DatagridService {
     }
 
     return qb
+  }
+
+  private joinFiltersQuery(filterQuery, newFilters: string): string {
+    if (filterQuery === '' || newFilters === '') return filterQuery || newFilters
+
+    return `${[filterQuery, newFilters].join(" and ")}`
+  }
+
+  private setBlocFilters(tabFilters: string[]): string {
+
+    if (!tabFilters.length) return ''
+
+    const filtersToString: string = tabFilters.join(" and ")
+
+    return `(${filtersToString})`
+  }
+
+  private setBooleanColumnFilters(tabFilters: string[], column: ColumnDatagridModel, cpt: number): string[] {
+
+    if (column.dataType === 'boolean') {
+
+      if (!column.filters.selectAll) {
+
+        if (column.filters.nestedValues.allSelected) {
+          tabFilters.push(`${column.dataField} eq true`)
+        } else if (column.filters.nestedValues.noSelected) {
+          tabFilters.push(`${column.dataField} eq false`)
+        }
+
+        if (cpt >= 1) {
+          tabFilters[cpt] = `(${tabFilters[cpt]})`
+        }
+      }
+    }
+
+    return tabFilters
   }
 }

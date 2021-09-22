@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 import { DataSourceInput, DataSourceType } from '../model/data-source.model';
 import { HttpService } from './http.service';
@@ -17,7 +16,8 @@ export class DatasourceService {
 
     switch (config.type) {
       case DataSourceType.BRUTE:
-        return <Observable<T>>of(config.value).pipe(delay(1000))
+        // return <Observable<T>>of(config.value).pipe(delay(1000))
+        return <Observable<T>>of(config.value)
         break;
 
       case DataSourceType.API:

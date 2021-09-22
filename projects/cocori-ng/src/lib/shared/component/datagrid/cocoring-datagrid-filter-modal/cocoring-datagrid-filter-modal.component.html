@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <button class="actions-header-modal" (click)="actionsHeaderModal()" mat-icon-button
+    <button class="actions-header-modal" (click)="toggleFiltersOrClose()" mat-icon-button
         aria-label="Afficher / cacher les colonnes">
         <mat-icon *ngIf="!currentColumn">clear</mat-icon>
         <mat-icon *ngIf="currentColumn">keyboard_arrow_left</mat-icon>
@@ -9,15 +9,13 @@
         <span *ngIf="currentColumn">{{currentColumn.caption}}</span>
     </h1>
 </div>
-<form [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+<form [formGroup]="formulaire" (ngSubmit)="validateFilters(formulaire)">
     <div mat-dialog-content class="test">
         <mat-sidenav-container class="layout-container" [hasBackdrop]="false">
             <mat-sidenav class="sidenav" #sidenav mode="over" position="end" [opened]="isSidenavOpen">
                 <ng-container *ngIf="currentColumn">
                     <div class="filters">
-                        <ng-container *ngIf="currentColumn.dataType == 'boolean'">
-                            <ng-template #BooleanFilterFormContainerRef></ng-template>
-                        </ng-container>
+                        <ng-template #BooleanFilterFormContainerRef></ng-template>
                     </div>
                     <div class="filtersButton">
                         <ng-template #ButtonFormContainerRef></ng-template>

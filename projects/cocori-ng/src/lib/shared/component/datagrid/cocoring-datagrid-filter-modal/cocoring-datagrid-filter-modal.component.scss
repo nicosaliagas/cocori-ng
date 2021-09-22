@@ -49,12 +49,26 @@ $modal-height: 100vh;
 
     .filters {
       flex: 1;
-      padding: 10px;
+      padding: 10px 24px;
+
+      .mat-checkbox-inner-container {
+        width: 22px;
+        height: 22px;
+      }
+
+      .mat-checkbox-label {
+        padding: 0 10px;
+        font-size: 17px;
+      }
+
+      .mat-checkbox {
+        padding-bottom: 10px;
+      }
     }
 
     .filtersButton {
       padding: 5px;
-    text-align: right;
+      text-align: right;
     }
   }
 }
