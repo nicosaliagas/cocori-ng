@@ -46,6 +46,7 @@ export interface OrderColumnModel {
     currentIndex: number
 }
 
+/** cool */
 export interface BooleanFilters {
     selectAll?: boolean
     nestedValues: {allSelected: boolean, noSelected: boolean}
