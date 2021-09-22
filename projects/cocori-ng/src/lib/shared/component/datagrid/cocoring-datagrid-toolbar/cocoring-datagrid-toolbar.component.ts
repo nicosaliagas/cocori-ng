@@ -82,7 +82,7 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
 
     this.subscriptions.add(
       dialogRef.afterClosed().subscribe((datas: any) => {
-        console.log("modal fermée", datas)
+        // console.log("modal fermée", datas)
       })
     )
   }

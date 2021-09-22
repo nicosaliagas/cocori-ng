@@ -211,32 +211,23 @@ export class DatagridService {
 
     let filterQuery: string = '';
 
-    const tabFilters: string[] = []
+    let tabFilters: string[] = []
     let cpt = 0
 
     this.config.columns.forEach((column: ColumnDatagridModel) => {
 
-      if (column.dataType === 'boolean' && column.filters) {
+      let tabFiltersLength: number = tabFilters.length;
+
+      if (column.filters) {
         
         if (cpt === 1) {
           tabFilters[0] = `(${tabFilters[0]})`
         }
 
-        if (!column.filters.selectAll) {
-          
-          if (column.filters.nestedValues.allSelected) {
-            tabFilters.push(`${column.dataField} eq true`)
-          } else if (column.filters.nestedValues.noSelected) {
-            tabFilters.push(`${column.dataField} eq false`)
-          }
-
-          if (cpt >= 1) {
-            tabFilters[cpt] = `(${tabFilters[cpt]})`
-          }
-        }
-
-        cpt++
+        tabFilters = this.setBooleanColumnFilters(tabFilters, column, cpt)
       }
+
+      if (tabFilters.length === tabFiltersLength + 1) cpt++
     })
 
     filterQuery = this.joinFiltersQuery(filterQuery, this.setBlocFilters(tabFilters))
@@ -276,5 +267,26 @@ export class DatagridService {
     const filtersToString: string = tabFilters.join(" and ")
 
     return `(${filtersToString})`
+  }
+
+  private setBooleanColumnFilters(tabFilters: string[], column: ColumnDatagridModel, cpt: number): string[] {
+
+    if (column.dataType === 'boolean') {
+
+      if (!column.filters.selectAll) {
+
+        if (column.filters.nestedValues.allSelected) {
+          tabFilters.push(`${column.dataField} eq true`)
+        } else if (column.filters.nestedValues.noSelected) {
+          tabFilters.push(`${column.dataField} eq false`)
+        }
+
+        if (cpt >= 1) {
+          tabFilters[cpt] = `(${tabFilters[cpt]})`
+        }
+      }
+    }
+
+    return tabFilters
   }
 }

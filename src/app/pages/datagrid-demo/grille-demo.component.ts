@@ -18,7 +18,7 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
 
     this.subscriptions.add(
       this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
-        console.log("from app, check all rows", value)
+        // console.log("from app, check all rows", value)
       })
     )
   }
@@ -39,9 +39,21 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
             { caption: "Nom", dataField: "name", dataType: "string", visible: true },
             { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
             { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
-            { caption: "EcoleBoulle", dataField: "Boulle", dataType: "boolean", visible: true },
+            {
+              caption: "EcoleBoulle",
+              dataField: "Boulle",
+              dataType: "boolean",
+              visible: true,
+              filters: { nestedValues: { allSelected: false, noSelected: true } }
+            },
             { caption: "Age", dataField: "age", dataType: "number", visible: true },
-            { caption: "Col Bool", dataField: "testBool", dataType: "boolean", visible: true },
+            {
+              caption: "Col Bool",
+              dataField: "testBool",
+              dataType: "boolean",
+              visible: true,
+              filters: { nestedValues: { allSelected: true, noSelected: false } }
+            },
             { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
             { caption: "Col Dat", dataField: "testDate", dataType: "date", visible: true },
             { caption: "Col 1", dataField: "test1", dataType: "string", visible: true },

@@ -1,17 +1,17 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { BooleanFilters, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
@@ -54,9 +54,9 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
   public validateFilters({ value, valid }: { value: any, valid: boolean }) {
     if (!valid) return;
-
+    
     this.currentColumn.filters = <BooleanFilters>value
-
+    
     this.datagridService.refreshNeeded$.next()
 
     this.toggleFiltersOrClose()
@@ -102,15 +102,17 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   }
 
   private buildFormFiltersBoolean() {
-
-    console.log(" refill >>> ", this.currentColumn.filters)
-
     let formBuilderService = this.formBuilderService
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.booleanFilterFormContainerRef)
       .addInput('selectAll', config => config
         .nameLabel('Tout sélectionner')
         .typeInput(FormInputComponents.INPUT_CHECKBOX_INDETERMINATE)
+        .dataSource({
+          type: DataSourceType.BRUTE,
+          dataSourceNameProperty: 'name',
+          value: [{ id: "noSelected", name: "non sélectionnée" }, { id: "allSelected", name: "sélectionnée" }]
+        })
       )
       ;
 
@@ -118,7 +120,10 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
     this.formulaire = formBuilderService.form
 
-    // this.formulaire.patchValue(datasMenu)
+    if (this.currentColumn.filters) {
+      this.formulaire.patchValue(this.currentColumn.filters)
+    }
+
   }
 
   private buildFormAddButtonsAction(formBuilderService: FormBuilderService, viewContainerRef: ViewContainerRef) {

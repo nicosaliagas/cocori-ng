@@ -8,16 +8,12 @@
     </mat-checkbox>
 
     <ng-container [formGroupName]="nestedNameForm">
-        <mat-checkbox
-                formControlName="noSelected"
+        <mat-checkbox *ngFor="let item of (dataSource$ | async)" 
+                [formControlName]="item.id"
                 color="primary">
-            non sélectionnée
-        </mat-checkbox>
-        <mat-checkbox
-                formControlName="allSelected"
-                color="primary"> 
-            sélectionnée
+            {{item[dataSourceNameProperty]}}
         </mat-checkbox>
     </ng-container>
+
     <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
 </ng-container>

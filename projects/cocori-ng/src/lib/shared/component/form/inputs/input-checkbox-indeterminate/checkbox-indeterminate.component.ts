@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConfigInputComponent, FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import {
@@ -21,10 +21,11 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
 
         this.addControlForm();
 
-        this.addNestedForm()
-
-
-        console.log("value >>>> ", this.formGroup.value)
+        this.subscriptions.add(
+            this.dataSource$.subscribe((datasource: any[]) => {
+                this.addNestedForm(datasource)
+            })
+        )
     }
 
     nestedNameForm: string = 'nestedValues'
@@ -38,10 +39,14 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
         super(injector);
     }
 
-    private addNestedForm() {
-        const nestedFrom: FormGroup = this.fb.group({
-            noSelected: false,
-            allSelected: false,
+    private addNestedForm(datasource: any[]) {
+
+        if (!datasource.length) return;
+
+        const nestedFrom = this.fb.group({});
+
+        datasource.forEach((datas: any) => {
+            nestedFrom.addControl(datas.id, new FormControl(false))
         })
 
         this.formGroup.addControl(this.nestedNameForm, nestedFrom)

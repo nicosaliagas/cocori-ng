@@ -47,6 +47,6 @@ export interface OrderColumnModel {
 }
 
 export interface BooleanFilters {
-    selectAll: boolean
+    selectAll?: boolean
     nestedValues: {allSelected: boolean, noSelected: boolean}
 }
