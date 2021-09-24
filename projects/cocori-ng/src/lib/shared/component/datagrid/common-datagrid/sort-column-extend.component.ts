@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, HostListener, Injector, Input } from '@an
 import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
-import { ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
+import { BooleanFilters, ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
@@ -16,6 +16,7 @@ export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent
 
     shiftKey: boolean = false;
     cdr: ChangeDetectorRef;
+    colFiltered: boolean = false;
 
     constructor(injector: Injector) {
         super()
@@ -23,7 +24,10 @@ export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent
         this.cdr = injector.get(ChangeDetectorRef);
     }
 
-    onResetColumn() {
+    onInitColumn() {
+
+        this.isFiltered()
+
         this.subscriptions.add(
             this.datagridService.resetColumnExcept$.pipe(
                 filter((datafieldException: string) => datafieldException !== this.column.dataField),
@@ -36,9 +40,23 @@ export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent
             this.datagridService.updateColumn$.pipe(
                 filter((columnUpdated: ColumnDatagridModel) => columnUpdated.dataField === this.column.dataField),
                 tap((columnUpdated: ColumnDatagridModel) => this.column = columnUpdated),
+                tap(_ => this.isFiltered()),
                 tap(_ => this.cdr.detectChanges()),
             ).subscribe()
         )
+    }
+
+    private isFiltered() {
+
+        this.colFiltered = false
+
+        if (this.column.dataType === 'boolean') {
+            let filters: BooleanFilters = this.column.filters as BooleanFilters
+
+            if (!filters.selectAll && (filters.nestedValues.allSelected || filters.nestedValues.noSelected)) {
+                this.colFiltered = true
+            }
+        }
     }
 
     @HostListener('window:keydown', ['$event']) onShiftPressed($event: KeyboardEvent) {

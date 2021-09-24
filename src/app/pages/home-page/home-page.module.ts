@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { CocoringButtonModule } from '@cocori-ng/lib';
+import { SharedComponentsPageModule } from 'src/app/shared/shared-components-page.module';
 
-import { LibDemoRoutingModule } from './lib-demo-routing.module';
-import { LibDemoComponent } from './lib-demo.component';
+import { HomePageRoutingModule } from './home-page-routing.module';
+import { HomePageComponent } from './home-page.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    LibDemoRoutingModule,
+    HomePageRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
     CocoringButtonModule,
+    SharedComponentsPageModule
   ],
-  declarations: [LibDemoComponent]
+  declarations: [HomePageComponent]
 })
-export class LibDemoModule { }
+export class HomePageModule { }

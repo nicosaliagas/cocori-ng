@@ -1,13 +1,8 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from '@cocori-ng/lib';
-import {
-  AutoUnsubscribeComponent,
-  ButtonIconPositon,
-  DataSourceType,
-  FormInputComponents,
-  HttpService,
-} from '@cocori-ng/lib/src/lib/feature-core';
+import { ButtonIconPositon, DataSourceType, FormInputComponents, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'ct-static-form',
@@ -15,7 +10,7 @@ import {
   styleUrls: ['./static-form.component.scss'],
   providers: [FormBuilderService]
 })
-export class StaticFormComponent extends AutoUnsubscribeComponent implements OnInit {
+export class StaticFormComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef1', { static: true, read: ViewContainerRef }) formContainerRef1: ViewContainerRef;
   @ViewChild('FormContainerRef2', { static: true, read: ViewContainerRef }) formContainerRef2: ViewContainerRef;
   @ViewChild('FormContainerRef3', { static: true, read: ViewContainerRef }) formContainerRef3: ViewContainerRef;
@@ -24,13 +19,16 @@ export class StaticFormComponent extends AutoUnsubscribeComponent implements OnI
   jsonParsed: any;
 
   constructor(
+    public injector: Injector,
     private formBuilderService: FormBuilderService,
     private httpService: HttpService
   ) {
-    super()
+    super(injector)
   }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Construction d'un formulaire statique` })
+
     this.buildForm()
   }
 

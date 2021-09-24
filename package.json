@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 5050",
+    "serve": "ng serve --port 5050",
+    "start": "ng serve --configuration 'local' --port 5050",
     "build": "ng build",
     "cypress": "npx cypress open",
     "lib": "ng build --project=cocori-ng --watch",

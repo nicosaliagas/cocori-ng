@@ -17,7 +17,7 @@ export class CocoringDatagridFilterColumnComponent extends SortColumnExtendCompo
   }
 
   ngOnInit(): void {
-    this.onResetColumn()
+    this.onInitColumn()
   }
 
   selectColumn() {

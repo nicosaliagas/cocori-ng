@@ -1,12 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -50,16 +50,6 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
 
   public close(value: any) {
     this.mdDialogRef.close(value);
-  }
-
-  public validateFilters({ value, valid }: { value: any, valid: boolean }) {
-    if (!valid) return;
-    
-    this.currentColumn.filters = <BooleanFilters>value
-    
-    this.datagridService.refreshNeeded$.next()
-
-    this.toggleFiltersOrClose()
   }
 
   /** Reset le form des filtres selon le mode */
@@ -111,7 +101,7 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
         .dataSource({
           type: DataSourceType.BRUTE,
           dataSourceNameProperty: 'name',
-          value: [{ id: "noSelected", name: "non sélectionnée" }, { id: "allSelected", name: "sélectionnée" }]
+          value: [{ id: "noSelected", name: "non" }, { id: "allSelected", name: "oui" }]
         })
       )
       ;
@@ -142,5 +132,17 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
           callback: () => { }
         })
       )
+  }
+
+  public validateFilters({ value, valid }: { value: any, valid: boolean }) {
+    if (!valid) return;
+    
+    this.currentColumn.filters = <BooleanFilters>value
+    
+    this.datagridService.updateColumn$.next(this.currentColumn)
+
+    this.datagridService.refreshNeeded$.next()
+
+    this.toggleFiltersOrClose()
   }
 }

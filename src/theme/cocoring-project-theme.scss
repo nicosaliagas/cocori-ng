@@ -2,6 +2,7 @@
 @import "~@angular/material/theming";
 @import "mixins";
 @import "variables";
+@import "login-theme";
 
 /**
 * Generated theme by Material Theme Generator
@@ -12,18 +13,23 @@
 // have to load a single css file for Angular Material in your app.
 
 // Fonts
-@import "https://fonts.googleapis.com/css?family=Material+Icons";
+@import "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined";
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500");
 
 $fontConfig: (
-  display-4: mat.define-typography-level(112px, 112px, 300, "Montserrat", -0.0134em),
-  display-3: mat.define-typography-level(56px, 56px, 400, "Montserrat", -0.0089em),
+  display-4:
+    mat.define-typography-level(112px, 112px, 300, "Montserrat", -0.0134em),
+  display-3:
+    mat.define-typography-level(56px, 56px, 400, "Montserrat", -0.0089em),
   display-2: mat.define-typography-level(45px, 48px, 400, "Montserrat", 0em),
-  display-1: mat.define-typography-level(34px, 40px, 400, "Montserrat", 0.0074em),
+  display-1:
+    mat.define-typography-level(34px, 40px, 400, "Montserrat", 0.0074em),
   headline: mat.define-typography-level(24px, 32px, 400, "Montserrat", 0em),
   title: mat.define-typography-level(20px, 32px, 500, "Montserrat", 0.0075em),
-  subheading-2: mat.define-typography-level(16px, 28px, 400, "Montserrat", 0.0094em),
-  subheading-1: mat.define-typography-level(15px, 24px, 500, "Montserrat", 0.0067em),
+  subheading-2:
+    mat.define-typography-level(16px, 28px, 400, "Montserrat", 0.0094em),
+  subheading-1:
+    mat.define-typography-level(15px, 24px, 500, "Montserrat", 0.0067em),
   body-2: mat.define-typography-level(14px, 24px, 500, "Montserrat", 0.0179em),
   body-1: mat.define-typography-level(14px, 20px, 400, "Montserrat", 0.0179em),
   button: mat.define-typography-level(12px, 12px, 500, "Montserrat", 0.0893em),
@@ -57,7 +63,7 @@ mat.$light-theme-foreground-palette: (
   text: $dark-primary-text,
   slider-min: $dark-primary-text,
   slider-off: rgba($dark-text, 0.26),
-  slider-off-active: $dark-disabled-text,
+  slider-off-active: $dark-disabled-text
 );
 
 // Dark Theme text
@@ -84,7 +90,7 @@ mat.$dark-theme-foreground-palette: (
   text: $light-text,
   slider-min: $light-text,
   slider-off: rgba($light-text, 0.3),
-  slider-off-active: rgba($light-text, 0.3),
+  slider-off-active: rgba($light-text, 0.3)
 );
 
 // Background config
@@ -114,7 +120,7 @@ mat.$light-theme-background-palette: (
   selected-disabled-button: $light-bg-darker-30,
   disabled-button-toggle: $light-bg-darker-10,
   unselected-chip: $light-bg-darker-10,
-  disabled-list-option: $light-bg-darker-10,
+  disabled-list-option: $light-bg-darker-10
 );
 
 // Dark bg
@@ -142,7 +148,7 @@ mat.$dark-theme-background-palette: (
   selected-disabled-button: $dark-bg-lighter-30,
   disabled-button-toggle: $dark-bg-lighter-10,
   unselected-chip: $dark-bg-lighter-20,
-  disabled-list-option: $dark-bg-lighter-10,
+  disabled-list-option: $dark-bg-lighter-10
 );
 
 // Compute font config
@@ -159,8 +165,6 @@ body {
   --text-primary-darker-color: #{$dark-primary-text};
 }
 
-$palette-primary: mat.define-palette($mat-primary, main, lighter, darker);
-
 body {
   --accent-color: #f6f2f2;
   --accent-lighter-color: #fcfbfb;
@@ -169,8 +173,6 @@ body {
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$dark-primary-text};
 }
-
-$palette-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
 body {
   --warn-color: #ff0000;
@@ -181,14 +183,17 @@ body {
   --text-warn-darker-color: #{$light-primary-text};
 }
 
-$palette-warn: mat.define-palette($mat-warn, main, lighter, darker);
+$theme: mat.define-light-theme(
+  $palette-primary,
+  $palette-accent,
+  $palette-warn
+);
 
-$theme: mat.define-light-theme($palette-primary, $palette-accent, $palette-warn);
-$altTheme: mat.define-dark-theme($palette-primary, $palette-accent, $palette-warn);
-
-$palette-green: mat.define-palette(mat.$green-palette, main, lighter, darker);
-
-$palette-blue: mat.define-palette(mat.$blue-palette, main, lighter, darker);
+$altTheme: mat.define-dark-theme(
+  $palette-primary,
+  $palette-accent,
+  $palette-warn
+);
 
 /** import lib and component themes */
 @import "cocori-ng/cocori-ng.theme.scss";
@@ -207,8 +212,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  // width: 100vw;
-  // height: 100vh;
+  height: 100%;
 }
 
 /** Virtual Scrolling (bogue Firefox */
@@ -272,34 +276,6 @@ mat-dialog-container {
   }
 }
 
-/** Style buttons */
-
-// .mat-raised-button,
-// .mat-stroked-button,
-// .mat-flat-button {
-//   padding: 0 30px !important;
-//   border-radius: 30px !important;
-//   box-shadow: none !important;
-//   line-height: 33px !important;
-//   color: white;
-//   background-color: black;
-//   border: 2px solid transparent !important;
-
-//   &.btn-bg-transparent {
-//     border: 2px solid white !important;
-//     color: white;
-//     background-color: transparent;
-//   }
-
-//   &.btn-bg-white {
-//     border: 2px solid white !important;
-//     color: black;
-//     background-color: white;
-//   }
-// }
-
-/** / style buttons */
-
 .mat-standard-chip {
   padding: 0.5em 0.85em;
   min-height: 2.5em;
@@ -332,15 +308,19 @@ mat-dialog-container {
 }
 
 //input outline color
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: mat.get-color-from-palette(mat.$light-theme-foreground-palette, "text");
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: mat.get-color-from-palette(
+    mat.$light-theme-foreground-palette,
+    "text"
+  );
 }
 
 //mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: mat.get-color-from-palette(mat.$light-theme-foreground-palette, "text");
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: mat.get-color-from-palette(
+    mat.$light-theme-foreground-palette,
+    "text"
+  );
 }
 
 // mat-input error outline color
@@ -363,18 +343,21 @@ mat-dialog-container {
 }
 
 // mat-label normal state style
-::ng-deep .mat-form-field-label {
-  // color: rgba(0,0,0,.6)!important;
+.mat-form-field-label {
+  color: rgba(0, 0, 0, 0.6) !important;
 }
 
 // mat-label focused style
-::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  // color: red!important;
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: mat.get-color-from-palette(
+    mat.$light-theme-foreground-palette,
+    "text"
+  );
 }
 
 // mat-label error style
-::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-  // color: red!important;
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: mat.get-color-from-palette($palette-warn, 200) !important;
 }
 
 /** / Thème Input */

@@ -1,45 +1,74 @@
 @use '~@angular/material' as mat;
-$mat-primary: (main: #424241,
-    lighter: #797978,
-    darker: #202020,
-    200: #cbd5b3, // For slide toggle,
-    contrast : (main: #000000,
-        lighter: #000000,
-        darker: #000000,
-    ));
+$mat-primary: (
+  main: #424241,
+  lighter: #797978,
+  darker: #202020,
+  200: #cbd5b3,
+  // For slide toggle,
+  contrast:
+    (
+      main: #000000,
+      lighter: #000000,
+      darker: #000000,
+    ),
+);
 
-$mat-accent: (main: #f6f2f2,
-    lighter: #fcfbfb,
-    darker: #f2ecec,
-    200: #f6f2f2, // For slide toggle,
-    contrast : (main: #000000,
-        lighter: #000000,
-        darker: #000000,
-    ));
+$mat-accent: (
+  main: #f6f2f2,
+  lighter: #fcfbfb,
+  darker: #f2ecec,
+  200: #f6f2f2,
+  // For slide toggle,
+  contrast:
+    (
+      main: #000000,
+      lighter: #000000,
+      darker: #000000,
+    ),
+);
 
-$mat-warn: (main: #ff0000,
-    lighter: #ffb3b3,
-    darker: #ff0000,
-    200: #ff0000, // For slide toggle,
-    contrast : (main: #000000,
-        lighter: #000000,
-        darker: #000000,
-    ));
+$mat-warn: (
+  main: #ff0000,
+  lighter: #ffb3b3,
+  darker: #ff0000,
+  200: #ff0000,
+  // For slide toggle,
+  contrast:
+    (
+      main: #000000,
+      lighter: #000000,
+      darker: #000000,
+    ),
+);
 
-mat.$blue-palette: (main: #90CAF9,
-    lighter: #BBDEFB,
-    darker: #0011FF,
-    200: #90CAF9,
-    contrast : (main: #000000,
-        lighter: #000000,
-        darker: #000000,
-    ));
+$mat-blue: (
+  main: #1E77EF,
+  lighter: #bbdefb,
+  darker: #0011ff,
+  200: #559bfc,
+  contrast: (
+    main: #000000,
+    lighter: #000000,
+    darker: #000000,
+  )
+);
 
-mat.$green-palette: (main: #85ccac,
-    lighter: #b6e0cd,
-    darker: #088548,
-    200: #18E089,
-    contrast : (main: #000000,
-        lighter: #000000,
-        darker: #000000,
-    ));
+$mat-green: (
+  main: #85ccac,
+  lighter: #b6e0cd,
+  darker: #088548,
+  200: #18e089,
+  contrast: (
+    main: #000000,
+    lighter: #000000,
+    darker: #000000,
+  )
+);
+
+/** define palettes */
+
+$palette-warn: mat.define-palette($mat-warn, main, lighter, darker);
+$palette-accent: mat.define-palette($mat-accent, main, lighter, darker);
+$palette-primary: mat.define-palette($mat-primary, main, lighter, darker);
+$palette-green: mat.define-palette($mat-green, main, lighter, darker);
+$palette-blue: mat.define-palette($mat-blue, main, lighter, darker);

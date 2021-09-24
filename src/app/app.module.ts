@@ -2,7 +2,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import localeFrExtra from '@angular/common/locales/extra/fr';
 import localeFr from '@angular/common/locales/fr';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -19,8 +19,8 @@ import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorServi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CmsLayoutComponent } from './layouts/cms-layout.component';
-import { ToolbarComponent } from './shared/component/toolbar/toolbar.component';
+import { LoadEnvironmentFactory } from './core/class/app-factory';
+import { EnvironmentLoaderService } from './core/service/environment-loader.service';
 import { SharedProjectModule } from './shared/shared-project.module';
 
 // https://angular.io/guide/i18n#i18n-pipes
@@ -29,8 +29,6 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
   declarations: [
     AppComponent,
-    CmsLayoutComponent,
-    ToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +50,12 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   ],
   providers: [
     DatagridService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: LoadEnvironmentFactory,
+      multi: true,
+      deps: [EnvironmentLoaderService],
+    },
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptorService

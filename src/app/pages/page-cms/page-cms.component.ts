@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { CocoringCmsComponent, SectionPageDatasModel } from '@cocori-ng/lib/src/lib/feature-cms';
 import { ConfigCmsModel } from '@cocori-ng/lib/src/lib/feature-cms/core/model/cms.model';
 import { StorageService } from '@cocori-ng/lib/src/lib/feature-core';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,17 +11,22 @@ import { EnvironmentService } from 'src/app/core/service/environment.service';
   templateUrl: './page-cms.component.html',
   styleUrls: ['./page-cms.component.scss']
 })
-export class PageCMSComponent implements OnInit {
+export class PageCMSComponent extends ExtendPageComponent implements OnInit {
   @ViewChild(CocoringCmsComponent, { static: false }) cocoringDatagridComponent!: CocoringCmsComponent;
 
   configCms: ConfigCmsModel;
   datasCms: SectionPageDatasModel[] = [];
 
   constructor(
+    public injector: Injector,
     private environmentService: EnvironmentService,
-    private storageService: StorageService) { }
+    private storageService: StorageService) {
+    super(injector);
+  }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Outils de CMS` })
+    
     this.initConfigCms()
 
     /** on affiche à nouveau la config cms de la apge sauvegardée en localstorage */

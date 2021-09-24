@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from '@cocori-ng/lib';
 import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 import * as faker from 'faker/locale/fr';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'uploader-demo',
   templateUrl: './uploader-demo.component.html',
   styleUrls: ['./uploader-demo.component.scss']
 })
-export class UploaderDemoComponent implements OnInit {
+export class UploaderDemoComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef1', { static: true, read: ViewContainerRef }) formContainerRef1: ViewContainerRef;
   @ViewChild('FormContainerRefInputs', { static: true, read: ViewContainerRef }) formContainerRefInputs: ViewContainerRef;
 
@@ -19,11 +20,16 @@ export class UploaderDemoComponent implements OnInit {
   formulaire: FormGroup;
 
   constructor(
+    public injector: Injector,
     private environmentService: EnvironmentService,
     private formBuilderService: FormBuilderService,
-    ) { }
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Démo du composant upload` })
+
     this.buildForm()
 
     this.initConfigUploader()
@@ -92,7 +98,7 @@ export class UploaderDemoComponent implements OnInit {
 
   validateFrom({ value, valid }: { value: any, valid: boolean }) {
     if (!valid) return;
-    
+
     console.log("values>>", value);
   }
 }

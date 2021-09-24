@@ -1,159 +1,157 @@
 .table-full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .datagrid-container {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 table {
-    position: relative;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    overflow-x: auto;
-    width: 100%;
+  position: relative;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  width: 100%;
 }
 
 table caption {
-    font-size: 1em;
-    margin: .5em 0 .75em .75em;
-    text-align: left;
-    font-weight: 500;
+  font-size: 1em;
+  margin: 0.5em 0 0.75em 0.75em;
+  text-align: left;
+  font-weight: 500;
 }
 
 table tr {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .35em;
-
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 0.35em;
 }
 
 table tbody {
-    tr {
-        &:hover {
-            background-color: rgba(44, 44, 44, 0.04);
-        }
+  tr {
+    &:hover {
+      background-color: rgba(44, 44, 44, 0.04);
     }
+  }
 }
 
 table th,
 table td {
-    font-size: 1em;
-    padding: .625em;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 100px;
-    white-space: nowrap;
-    max-width: 100px;
-    vertical-align: middle;
+  font-size: 1em;
+  padding: 0.625em;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 100px;
+  white-space: nowrap;
+  max-width: 100px;
+  vertical-align: middle;
 
-    &.column-select {
-        text-align: center;
-        width: 50px;
-        min-width: 50px;
-        max-width: 50px;
-    }
+  &.column-select {
+    text-align: center;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+  }
 }
 
 table th {
-    cursor: pointer;
-    font-size: .85em;
-    letter-spacing: .1em;
+  cursor: pointer;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
 
-    &.column-select {
-        font-size: 1em;
+  &.column-select {
+    font-size: 1em;
+  }
+
+  .column-table-header {
+    display: flex;
+
+    .mat-icon-button {
+      width: 20px;
+      height: 20px;
+      line-height: 12px;
     }
 
-    .column-table-header {
-        display: flex;
-
-        .mat-icon-button {
-            width: 20px;
-            height: 20px;
-            line-height: 12px;
-
-            .mat-icon {
-                font-size: 15px;
-            }
-        }
+    .mat-icon {
+      font-size: 15px;
     }
+  }
 }
-
 
 /** loader styles  */
 
 .table-cell-loader {
-    padding: .625em;
+  padding: 0.625em;
 }
 
 .row-loader {
-    padding: 10px;
+  padding: 10px;
 }
 
 /** / loader styles  */
 
 @media screen and (max-width: 600px) {
-    table {
-        border: 0;
+  table {
+    border: 0;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table th,
+  table td {
+    border-left: 0;
+    border-right: 0;
+
+    width: auto;
+    min-width: unset;
+    max-width: unset;
+    white-space: unset;
+
+    &.column-select {
+      width: auto;
+      max-width: unset;
+      min-width: unset;
+      text-align: right;
     }
+  }
 
-    table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
+  table td {
+    // border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
 
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    table th,
-    table td {
-        border-left: 0;
-        border-right: 0;
-
-        width: auto;
-        min-width: unset;
-        max-width: unset;
-        white-space: unset;
-
-        &.column-select {
-            width: auto;
-            max-width: unset;
-            min-width: unset;
-            text-align: right;
-        }
-    }
-
-    table td {
-        // border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-    }
-
-    table td::before {
-        /*
+  table td::before {
+    /*
       * aria-label has no advantage, it won't be read inside a table
       content: attr(aria-label);
       */
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-        padding-right: 10px;
-    }
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-right: 10px;
+  }
 
-    table cocoring-datagrid-cell:last-child td {
-        border-bottom: 0;
-    }
+  table cocoring-datagrid-cell:last-child td {
+    border-bottom: 0;
+  }
 }

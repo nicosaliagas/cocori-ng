@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormBuilderService, SubmitDatas } from '@cocori-ng/lib';
 import { ConfigInputComponent, FormInputComponents, FormSchema, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'ct-generic-form',
@@ -11,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./generic-form.component.scss'],
   providers: [FormBuilderService]
 })
-export class GenericFormComponent implements OnInit {
+export class GenericFormComponent extends ExtendPageComponent implements OnInit {
   interpretedForm: FormGroup;
   generatedForm: FormGroup;
   valuesInterpretedForm: SubmitDatas;
@@ -22,8 +23,11 @@ export class GenericFormComponent implements OnInit {
   jsonParsed$: Observable<FormSchema | string>;
 
   constructor(
+    public injector: Injector,
     private fb: FormBuilder,
-    private httpService: HttpService) {
+    private httpService: HttpService
+  ) {
+    super(injector);
 
     this.interpretedForm = this.fb.group({});
 
@@ -41,7 +45,9 @@ export class GenericFormComponent implements OnInit {
     };
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Génération d'un formulaire dynamique` })
+  }
 
   private chargementConfiguration() {
     this.jsonParsed$ = this.httpService.get<FormSchema>(`/assets/ressources/schema-generic-frm-simple.json`)

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'colorpicker-demo',
   templateUrl: './colorpicker-demo.component.html',
   styleUrls: ['./colorpicker-demo.component.scss']
 })
-export class ColorpickerDemoComponent implements OnInit {
+export class ColorpickerDemoComponent extends ExtendPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public injector: Injector,) {
+    super(injector);
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Démo du composant Color-picker` })
+  }
 
   onColorChange(color: string) {
     console.log("onColorChange>>>", color)

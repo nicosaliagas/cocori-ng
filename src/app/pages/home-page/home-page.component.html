@@ -1,8 +1,6 @@
 <div class="container-page">
-  <div class="titre-page">
-    Accès aux pages de démo
-  </div>
-  <div class="actions" fxLayout="row" fxLayout.lt-md="column">
+  <h1 class="align-center" style="margin-bottom: 50px;">Welcome ! 🤯</h1>
+  <div style="margin: 0 auto;" fxLayout="row" fxLayout.lt-md="column">
     <button id="btnGenerateDynamicForm" routerLink="/demos/generic-form" mat-raised-button>Génération d'un formulaire
       dynamique</button>
     <button id="btnGenerateStaticForm" routerLink="/demos/static-form" mat-raised-button>Génération d'un formulaire
@@ -12,3 +10,4 @@
     <button id="btnGenerateStaticForm" routerLink="/demos/modal-page" mat-raised-button>Modals</button>
   </div>
 </div>
+<app-fab-button icon="sports_bar" setFontOutline="true" (callback)="eventClickFab()"></app-fab-button>

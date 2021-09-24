@@ -87,9 +87,15 @@ si erreur :
 - projet cible : "projects.$name.architect.build.options.preserveSymlinks: true" in angular.json
 - installer les dépendances manquantes dans le projet cible et refaire un coup de : npm link @cocori-ng/lib
 
+* Démarrer le projet frontend :
+
 ## Lancer le projet pour tester les composants de la lib...
 
-lancer la commande : `ng serve`
+✨#frontend local + backend local
+
+ng serve --configuration "local" --port 5050
+
+(implémentation si htpps : ng serve --ssl --configuration "local"  --port 5050)
 
 ## Packager la lib
 
@@ -349,4 +355,28 @@ this.cdr.detectChanges()
 Object.entries(values).forEach(([key, value]) => {
     console.log(">>> ",key, value)
 })
+```
+
+`Scss : bordure not full width`
+
+```
+.border {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 50%;
+    border-bottom: 1px solid #797978;
+  }
+}
+```
+
+`Material Icon : outlined style`
+
+```
+<mat-icon fontSet="material-icons-outlined">filter_alt</mat-icon>
 ```

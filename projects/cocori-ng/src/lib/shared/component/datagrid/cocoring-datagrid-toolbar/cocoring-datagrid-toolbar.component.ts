@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import {
-  CocoringDatagridFilterModalComponent,
+    CocoringDatagridFilterModalComponent,
 } from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 
 @Component({
@@ -63,9 +63,6 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
   onRowsChecked() {
     this.subscriptions.add(
       this.datagridService.rowCheckedEvent$.subscribe((rowValues: any) => {
-
-        console.log("toolbar : onRowsChecked >>> ", rowValues, this.datagridService.config.propIsArchived)
-
         this.rowRemoved = <boolean>rowValues[this.datagridService.config.propIsArchived]
         this.nbRowsChecked = this.datagridService.rowsSelectedDatagrid.length
         this.cdr.detectChanges()

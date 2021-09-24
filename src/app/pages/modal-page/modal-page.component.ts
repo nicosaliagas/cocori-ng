@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 export interface EmailModalModel {
   email: string,
@@ -11,7 +12,7 @@ export interface EmailModalModel {
   templateUrl: './modal-page.component.html',
   styleUrls: ['./modal-page.component.scss']
 })
-export class ModalPageComponent extends AutoUnsubscribeComponent implements OnInit {
+export class ModalPageComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('ModalFormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
   optionsModalFormulaire: ModalOptionsModel = {
@@ -31,14 +32,17 @@ export class ModalPageComponent extends AutoUnsubscribeComponent implements OnIn
   };
 
   constructor(
+    public injector: Injector,
     private dialogService: ConfirmModalService,
     private formBuilderService: FormBuilderService) {
-    super()
+    super(injector)
 
     this.formBuilderService.newForm()
   }
 
   ngOnInit(): void {
+    this.setAppbarInfos({ barTitle: `Intégration de différents type de modal` })
+
     this.buildForm()
   }
 

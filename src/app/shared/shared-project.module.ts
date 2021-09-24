@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { CocoringAutoUnsubscribeModule } from '@cocori-ng/lib/src/lib/feature-core';
@@ -25,6 +26,7 @@ export const ImportsFormComponents: any[] = [
         ReactiveFormsModule,
         FlexLayoutModule,
         MatListModule,
+        MatIconModule,
         CocoringAutoUnsubscribeModule
     ],
     exports: [

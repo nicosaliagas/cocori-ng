@@ -19,6 +19,6 @@ export class CocoringDatagridHeadComponent extends SortColumnExtendComponent imp
   }
 
   ngOnInit(): void {
-    this.onResetColumn()
+    this.onInitColumn()
   }
 }

@@ -1,4 +1,6 @@
-@import './../../../../../theme/mixins';
+@use "~@angular/material" as mat;
+@import "cocori-ng/src/lib/assets/mixins";
+@import "../../../../../theme/variables";
 
 :host {
   display: block;
@@ -6,6 +8,7 @@
 
 .container-list-item {
   border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
 
   .sidenav-sublist {
     display: none;
@@ -13,23 +16,52 @@
 
   .menu-group,
   .mat-list-item {
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // flex-direction: row;
+    // padding: 5px 0 5px 10px;
+
+    height: auto;
+    padding: 15px 8px;
+
     font-size: 13px;
     border-bottom: 1px solid #edf1f7;
 
-    .list-item-node {
-      height: 100%;
-      width: 26px;
+    .mat-icon {
+      float: left;
+      margin-right: 10px;
+    }
 
-      .arrow {
-        &:before {
-          @include arrow-right();
-          opacity: 0.7;
-          width: 0.45em;
-          height: 0.45em;
-          top: 1.6em;
-          left: 0.6em;
-        }
+    .group-menu-item {
+      // display: flex;
+      // flex-direction: row;
+      // flex-wrap: nowrap;
+      // align-items: center;
+      // justify-content: space-between;
+      // flex: 0.87;
+
+      width: 90%;
+      padding-top: 3px;
+
+      > div:not(.arrow) {
+        padding: 0 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
+    }
+
+    .arrow {
+      @include arrow-right();
+      opacity: 0.7;
+      width: 0.45em;
+      height: 0.45em;
+      top: -0.075em;
+      left: 0.6em;
+
+      float: right;
+      margin-top: -13px;
     }
 
     ::ng-deep .mat-list-item-content {
@@ -51,21 +83,15 @@
   }
 
   &.list-item-expanded {
-    border-left: 4px solid #b7b7b7;
-
     .menu-group,
     .mat-list-item {
-      .list-item-node {
-        .arrow {
-          &:before {
-            @include arrow-down();
-            opacity: 0.7;
-            width: 0.45em;
-            height: 0.45em;
-            top: 1.6em;
-            left: 0.6em;
-          }
-        }
+      .arrow {
+        @include arrow-down();
+        opacity: 0.7;
+        width: 0.45em;
+        height: 0.45em;
+        top: -0.075em;
+        left: 0.6em;
       }
     }
 
@@ -78,8 +104,50 @@
       }
 
       .mat-list-item {
-        padding-left: 10px;
+        padding-left: 23px;
+      }
+
+      .mat-icon {
+        display: none;
       }
     }
   }
+
+  /** Sidenav is closed (rail mode) */
+  &:not(.isSidenavOpen) {
+    &.list-item-expanded {
+      .sidenav-sublist {
+        .mat-list-item {
+          padding-left: 0;
+        }
+      }
+    }
+    .menu-group,
+    .mat-list-item {
+      // flex-direction: column;
+      // flex-wrap: nowrap;
+      // justify-content: center;
+      padding-left: 0;
+      text-align: center;
+
+      &.with-sub-menu {
+        .group-menu-item {
+          width: 80%;
+        }
+      }
+
+      .mat-icon {
+        float: unset;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.list-item-expanded {
+  border-left: 4px solid mat.get-color-from-palette($palette-primary, lighter);
+}
+
+.list-item-selected {
+  border-left: 4px solid mat.get-color-from-palette($palette-blue, main) !important;
 }

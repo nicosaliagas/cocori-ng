@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ToastMessageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'toast-demo',
   templateUrl: './toast-demo.component.html',
   styleUrls: ['./toast-demo.component.scss']
 })
-export class ToastDemoComponent implements OnInit {
+export class ToastDemoComponent  extends ExtendPageComponent implements OnInit {
 
   private message: string = "Ceci est un message dans un toast !"
 
-  constructor(private toastMessageService: ToastMessageService) { }
+  constructor(
+    public injector: Injector,
+    private toastMessageService: ToastMessageService
+    ) {
+    super(injector);
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Démo du composant Toast` })
+  }
 
   toastSuccess() {
     this.toastMessageService.success(this.message)
