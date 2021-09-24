@@ -1,0 +1,30 @@
+<mat-sidenav-container class="layout-container" fullscreen>
+    <mat-sidenav class="matsidenav-layout" #sidenav [mode]="sidenavPosition"
+        position="start" [opened]="isSidenavOpen" (openedChange)="onOpenedChange($event)">
+        <mat-nav-list [ngClass]="{'collapsed': !sidenav.opened}">
+            <!-- Titre de l'application -->
+            <div class="sidenav-nameapp">
+                <img class="logo" src="/assets/img/Cocorisoft_logo_big.png" *ngIf="sidenav.opened">
+                <img class="logo logo-small" src="/assets/img/Cocorisoft_logo_small.png" *ngIf="!sidenav.opened">
+                <div class="titre-administration" *ngIf="sidenav.opened">Bo - Cocori-ng</div>
+            </div>
+            <!-- user profil -->
+            <div class="user-container" [matMenuTriggerFor]="userMenu">
+              <div class="user-picture" [ngStyle]="{'background-image': 'url(' + '/assets/img/ripndip.png' + ')'}"></div>
+              <div class="info-container" *ngIf="sidenav.opened">Nicos Aliagas</div>
+            </div>
+            <mat-menu #userMenu="matMenu">
+              <button mat-menu-item (click)="logout()">Se déconnecter</button>
+            </mat-menu>
+            <!-- menu items -->
+            <cocoring-sidenav-item *ngFor="let item of menuItems; trackBy: trackBy" [opened]="sidenav.opened" [item]="item">
+            </cocoring-sidenav-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content #sidenavContent [ngClass]="{'collapsed': !sidenav.opened}">
+        <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+        <div class="main">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

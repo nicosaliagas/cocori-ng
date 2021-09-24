@@ -3,7 +3,10 @@
         <button mat-icon-button type="button" aria-label="Réordonner les colonnes">
             <mat-icon>drag_indicator</mat-icon>
         </button>
-        <div class="column-caption" [ngClass]="{'column-no-visible': !column.visible}">{{column.caption}}</div>
+        <div class="column-caption" [ngClass]="{'column-no-visible': !column.visible}">
+            {{column.caption}}
+            <mat-icon *ngIf="colFiltered" class="isFiltered">filter_alt</mat-icon>
+        </div>
         <button class="action-sort-column" mat-icon-button type="button" aria-label="Inverser le tri">
             <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
             <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>

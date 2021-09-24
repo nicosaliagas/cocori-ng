@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ConfigDatagridModel, DatagridService, DataSourceType } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
+import { OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'grille-demo',
   templateUrl: './grille-demo.component.html',
   styleUrls: ['./grille-demo.component.scss']
 })
-export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnInit {
+export class GrilleDemoComponent extends ExtendPageComponent implements OnInit {
   _config: ConfigDatagridModel;
 
   constructor(
+    public injector: Injector,
     private datagridDemoService: DatagridDemoService,
     private datagridService: DatagridService) {
-    super()
+    super(injector)
 
     this.subscriptions.add(
       this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
@@ -24,6 +26,8 @@ export class GrilleDemoComponent extends AutoUnsubscribeComponent implements OnI
   }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Démo du composant datagrid` })
+
     this.initConfigDatagrid()
   }
 

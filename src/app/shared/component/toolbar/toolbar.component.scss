@@ -1,3 +1,5 @@
+@import "cocori-ng/src/lib/assets/mixins";
+
 :host {
   display: block;
 }
@@ -17,58 +19,47 @@
 }
 
 .toolbar {
-  position: fixed;
+  align-items: flex-start;
   top: 0;
   left: 0;
   right: 0;
+  height: 100% !important;
   z-index: 500;
 
   .toolbar-icon {
     display: flex;
-    align-items: center;
 
     .burger-menu {
       cursor: pointer;
+      padding-top: 5px;
       margin-right: 1.25rem;
-      font-size: 1.75rem;
       line-height: 1;
       width: 1em;
       height: 1em;
     }
 
-    .logo {
-      border-left: 1px solid #edf1f7;
-      padding: 0 1.25rem;
-      font-size: 1.75rem;
-      white-space: nowrap;
+    .barTitle {
+      font-size: 1.4rem;
+      white-space: pre-wrap;
       text-decoration: none;
+      line-height: 35px;
       color: inherit;
     }
   }
+}
 
-  .user-container {
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    align-items: center;
+.burger-menu,
+.mat-icon-options {
+  .mat-icon {
+    font-size: 28px;
 
-    .user-picture {
-      background-color: transparent;
-      border: 1px solid #151a30;
-      position: relative;
-      flex-shrink: 0;
-      height: 2.5rem;
-      width: 2.5rem;
-      border-radius: 50%;
-      background-size: cover;
-      background-repeat: no-repeat;
+    @include for-phone-only {
+      font-size: 25px;
     }
+  }
 
-    .info-container {
-      margin-left: .5rem;
-      font-size: .9375rem;
-      line-height: 1.25rem;
-      font-weight: 400;
-    }
+  svg {
+    width: 25px;
+    height: 25px;
   }
 }

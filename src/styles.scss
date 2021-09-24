@@ -1,21 +1,10 @@
+@import "cocori-ng/src/lib/assets/mixins";
+
+
 .container-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  .titre-page {
-    letter-spacing: 1px;
-    text-align: center;
-    font-size: 20px;
-    margin: 5px 0 30px 0;
-    text-transform: uppercase;
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
 
 .formulaires {
@@ -52,7 +41,26 @@
 
 /** / styles dashboard */
 
-@media screen and (max-width: 600px) {
+.tox {
+  z-index: 99999999999;
+}
+
+/** Test Sidenav Rail */
+
+mat-sidenav.matsidenav-layout:not(.mat-drawer-opened) {
+  transform: translate3d(0, 0, 0) !important;
+  visibility: visible !important;
+  width: 80px !important;
+  overflow: hidden;
+
+  @include for-phone-only {
+    width: 0 !important;
+  }
+}
+
+/** / Test Sidenav Rail */
+
+@include for-phone-only {
   .formulaires {
     width: 100%;
 

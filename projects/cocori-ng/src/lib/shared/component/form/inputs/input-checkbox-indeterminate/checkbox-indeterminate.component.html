@@ -1,5 +1,6 @@
 <ng-container [formGroup]="formGroup">
-    <mat-checkbox 
+    <mat-checkbox
+            class="optionSelectAll"
             [formControlName]="nameControl" 
             [indeterminate]="someComplete"
             color="primary"
@@ -11,7 +12,7 @@
         <mat-checkbox *ngFor="let item of (dataSource$ | async)" 
                 [formControlName]="item.id"
                 color="primary">
-            {{item[dataSourceNameProperty]}}
+                {{item[dataSourceNameProperty]}}
         </mat-checkbox>
     </ng-container>
 

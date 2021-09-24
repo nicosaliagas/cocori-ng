@@ -1,20 +1,20 @@
-<div class="container-list-item" [ngClass]="{'list-item-expanded': expanded}">
-
+<div class="container-list-item"
+    [ngClass]="{'list-item-expanded': expanded,'list-item-selected': selected, 'isSidenavOpen': isSidenavOpen}">
     <ng-template [ngIf]="item?.menuGroup" [ngIfElse]="listItemDefaultTpl">
         <div class="menu-group">{{item.label}}</div>
     </ng-template>
 
     <ng-template #listItemDefaultTpl>
-        <a *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null"
-        [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
-            <div class="list-item-node">
-                <span *ngIf="item.children?.length" class="arrow"></span>
+        <div *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null" class="mat-list-item"
+            [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
+            <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+            <div class="group-menu-item">
+                <div [title]="item.label">{{item.label}}</div>
+                <div *ngIf="item.children?.length" class="arrow"></div>
             </div>
-            <div>{{item.label}}</div>
-        </a>
+        </div>
         <div>
             <a *ngIf="item.url" mat-list-item [href]="item.url" target="_blank">
-                <div class="list-item-node"></div>
                 <div>{{item.label}}</div>
             </a>
             <div *ngIf="item.children?.length" class="sidenav-sublist"

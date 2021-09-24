@@ -1,0 +1,122 @@
+@import "cocori-ng/src/lib/assets/mixins";
+
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.layout-container {
+  min-height: 100vh;
+  // padding-top: 4.6rem; #before
+}
+
+toolbar,
+.main,
+footer-ng {
+  flex-shrink: 0;
+}
+
+.mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  &.collapsed {
+    margin-left: 80px;
+
+    @include for-phone-only {
+      margin-left: 0;
+    }
+  }
+
+  .main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 2.25rem 2.25rem 0.75rem;
+    background-color: #f7f7f7;
+
+    @include for-phone-only {
+      padding: 0.75rem;
+    }
+  }
+}
+
+.matsidenav-layout {
+  // #before
+  // top: 4.6rem;
+  position: fixed;
+  width: 240px;
+  border: 0;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+
+  .mat-list-base {
+    padding: 20px 0;
+  }
+
+  ::ng-deep .mat-drawer-inner-container {
+    overflow-x: hidden;
+  }
+}
+
+/** avatar */
+.user-container {
+  padding: 0 0 13px 15px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #edf1f7;
+
+  .user-picture {
+    background-color: transparent;
+    border: 1px solid #151a30;
+    position: relative;
+    flex-shrink: 0;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .info-container {
+    margin-left: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+  }
+}
+
+/** name of the app inside the sidenav */
+.sidenav-nameapp {
+  text-align: center;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+
+  .logo {
+    padding-bottom: 5px;
+
+    width: auto;
+    height: auto;
+    max-height: 100px;
+    max-width: 200px;
+
+    &.logo-small {
+      width: 45px;
+      height: auto;
+    }
+  }
+
+  .titre-administration {
+    letter-spacing: 1px;
+  }
+}
+
+.collapsed {
+  .user-container {
+    justify-content: center;
+    padding-left: 0;
+  }
+}

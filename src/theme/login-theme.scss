@@ -1,0 +1,37 @@
+$main-text: #fff;
+
+.theme-login {
+  // mat-label normal state style
+  .mat-form-field-label {
+    color: $main-text !important;
+    // color: mat.get-color-from-palette($palette-warn, 200) !important;
+  }
+
+  // mat-label focused style
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: $main-text !important;
+  }
+
+  .mat-form-field-appearance-fill {
+    //mat-input focused color
+    .mat-input-element {
+      color: $main-text !important;
+    }
+
+    //mat-input background color
+    .mat-form-field-flex {
+      color: $main-text;
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .mat-form-field-underline {
+      &::before {
+        background-color: rgb(150 150 150);
+      }
+    }
+
+    .mat-input-element {
+      caret-color: $main-text;
+    }
+  }
+}

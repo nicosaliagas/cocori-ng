@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from '@cocori-ng/lib';
 import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'ct-static-inputs-chained',
@@ -9,17 +10,22 @@ import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feat
   styleUrls: ['./static-inputs-chained.component.scss'],
   providers: [FormBuilderService]
 })
-export class StaticInputsChainedComponent implements OnInit {
+export class StaticInputsChainedComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
   formulaire: FormGroup;
   jsonParsed: any;
 
   constructor(
+    public injector: Injector,
     private formBuilderService: FormBuilderService
-  ) { }
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Champs inputs chaînés dans un formulaire` })
+
     this.buildForm()
   }
 

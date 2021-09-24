@@ -1,0 +1,8 @@
+<div class="fab-btn">
+    <button class="fab-color" mat-fab (click)="onCallback()">
+        <mat-icon *ngIf="icon" [fontSet]="fontset">
+            {{icon}}
+        </mat-icon>
+        <ng-content></ng-content>
+    </button>
+</div>

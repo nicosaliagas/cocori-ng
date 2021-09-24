@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
+import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
   selector: 'wysiwyg-demo',
   templateUrl: './wysiwyg-demo.component.html',
   styleUrls: ['./wysiwyg-demo.component.scss']
 })
-export class WysiwygDemoComponent implements OnInit {
+export class WysiwygDemoComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRefButton', { static: true, read: ViewContainerRef }) formContainerRefButton: ViewContainerRef;
 
   _config: ConfigWysiwygModel;
@@ -17,10 +18,15 @@ export class WysiwygDemoComponent implements OnInit {
   formulaire: FormGroup
 
   constructor(
+    public injector: Injector,
     private environmentService: EnvironmentService,
-    private formBuilderService: FormBuilderService,) { }
+    private formBuilderService: FormBuilderService,) {
+      super(injector);
+    }
 
   ngOnInit() {
+    this.setAppbarInfos({ barTitle: `Démo du composant Wysiwyg` })
+
     this.buildForm()
   }
 

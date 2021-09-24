@@ -1,0 +1,12 @@
+<div class="theme-login page-login">
+    <div class="container">
+        <div class="login">
+            <div class="login__check"></div>
+            <div class="login__form">
+                <form class="login___form" [formGroup]="formulaire" (ngSubmit)="validateFrom(formulaire)">
+                    <ng-template #FormContainerRef></ng-template>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

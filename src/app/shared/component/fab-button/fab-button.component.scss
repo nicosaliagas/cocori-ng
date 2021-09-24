@@ -1,0 +1,17 @@
+@use '~@angular/material' as mat;
+@import "../../../../theme/variables";
+
+:host {
+  display: block;
+}
+
+.fab-btn {
+  right: 50px;
+  bottom: 50px;
+  position: fixed;
+
+  .fab-color {
+    background-color: mat.get-color-from-palette($palette-blue, main);
+    color: #fff;
+  }
+}

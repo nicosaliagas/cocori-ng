@@ -1,8 +1,7 @@
 <ng-container *ngIf="_cell && _cell.visible">
     <td [attr.data-label]="_cell.caption" [title]="cellValue" [ngSwitch]="_cell.dataType">
         <div *ngSwitchCase="'boolean'" class="valTrue">
-            <mat-icon *ngIf="!cellIsArchived && cellValue">check</mat-icon>
-            <mat-icon *ngIf="cellIsArchived && cellValue">delete_outline</mat-icon>
+            <mat-icon *ngIf="cellValue">check</mat-icon>
         </div>
         <div *ngSwitchDefault>{{cellValue}}</div>
     </td>
