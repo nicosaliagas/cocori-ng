@@ -221,25 +221,6 @@ body {
   transform: initial;
 }
 
-/** classes pour les vidéos */
-
-.fitVids-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  width: 100%;
-}
-
-.fitVids-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/** / classes pour les vidéos */
-
 .link {
   color: inherit;
 }

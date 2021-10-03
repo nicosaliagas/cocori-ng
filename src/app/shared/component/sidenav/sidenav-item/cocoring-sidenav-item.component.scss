@@ -17,7 +17,6 @@
   .menu-group,
   .mat-list-item {
     height: 55px;
-    // padding: 15px 8px;
     font-size: 13px;
     border-bottom: 1px solid #edf1f7;
 
@@ -109,10 +108,7 @@
     }
     .menu-group,
     .mat-list-item {
-      // flex-direction: column;
-      // flex-wrap: nowrap;
-      // justify-content: center;
-      padding-left: 0;
+      padding: 7px 0;
       text-align: center;
 
       &.with-sub-menu {

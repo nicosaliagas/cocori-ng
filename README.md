@@ -81,11 +81,24 @@ Projet cible (ex Boulle):
 
 `npm link @cocori-ng/lib`
 
-si erreur :
+⚠️ angular.json :
+- mettre `preserveSymlinks: true` dans `projects.$name.architect.build.options`
 
-- se mettre en version node : 15.12.0
-- projet cible : "projects.$name.architect.build.options.preserveSymlinks: true" in angular.json
-- installer les dépendances manquantes dans le projet cible et refaire un coup de : npm link @cocori-ng/lib
+⚠️ package.json :
+- installer les dépendances manquantes (penser à refaire npm link @cocori-ng/lib)
+
+Librairies requises de bases :
+
+"@angular/cdk": "^12.0.3",
+"@angular/material": "^12.0.3",
+"@angular/flex-layout": "^12.0.0-beta.34",
+"@tinymce/tinymce-angular": "^4.2.4",
+"spark-md5": "^3.0.1",
+
+Librairies pour la partie CMS :
+
+"@r-tek/colr_pickr": "^2.0.0",
+
 
 * Démarrer le projet frontend :
 
@@ -379,4 +392,10 @@ Object.entries(values).forEach(([key, value]) => {
 
 ```
 <mat-icon fontSet="material-icons-outlined">filter_alt</mat-icon>
+```
+
+`Reactive form : ne pas émettre l'évènement de maj au setValue`
+
+```
+form.get('control').setValue('', {emitEvent: false})
 ```
