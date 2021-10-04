@@ -20,12 +20,12 @@ export class SidenavService {
     this.sidenav = sidenav;
   }
 
-  public getSidenavStatut(): boolean {
-    return this.sidenav.opened
+  public emitOnOpenedChange() {
+    this.onOpenedChange.next(this.sidenav.opened)
   }
 
-  public emitSidenavOpenChange(isOpened: any) {
-    this.onOpenedChange.next(isOpened)
+  public sidenavIsOpened(): boolean {
+    return this.sidenav.opened
   }
 
   /**

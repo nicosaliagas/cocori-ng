@@ -6,6 +6,7 @@ import { CurrentUrlRoutingService } from '@cocori-ng/lib';
 import { AutoUnsubscribeComponent, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
+import { LoginApiService } from '../core/api/LoginApi.service';
 import { SidenavItem } from '../core/model/Sidenav.model';
 import { SidenavService } from '../core/service/sidenav.service';
 
@@ -18,7 +19,7 @@ import { SidenavService } from '../core/service/sidenav.service';
 export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('sidenavContent', { static: true, read: ElementRef }) sidenavContent: ElementRef;
   @ViewChild('sidenav', { static: true, read: MatSidenav }) sidenav!: MatSidenav;
-  
+
   activeMediaQuery = '';
 
   menuItems: SidenavItem[] = [
@@ -26,7 +27,7 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
       label: 'Accueil', route: '/bo/home', icon: 'home'
     },
     {
-      label: 'Démos', route: '/bo/demo', icon: 'engineering' , children: [
+      label: 'Démos', route: '/bo/demo', icon: 'engineering', children: [
         { label: 'Form générique', route: '/bo/demo/generic-form' },
         { label: 'Form statique', route: '/bo/demo/static-form' },
         { label: 'Inputs chaînés', route: '/bo/demo/static-inputs-chained' },
@@ -34,13 +35,13 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
       ]
     },
     {
-      label: 'Page CMS', route: '/bo/cms', icon: 'engineering' , children: [
+      label: 'Page CMS', route: '/bo/cms', icon: 'engineering', children: [
         { label: 'Editeur', route: '/bo/cms/editor' },
         { label: 'Page test', route: '/bo/cms/preview/page-test' },
       ]
     },
     {
-      label: 'Composants', route: '/bo/component', icon: 'engineering' , children: [
+      label: 'Composants', route: '/bo/component', icon: 'engineering', children: [
         { label: 'Grille', route: '/bo/component/grille' },
         { label: 'Upload', route: '/bo/component/upload' },
         { label: 'Wysiwyg', route: '/bo/component/wysiwyg' },
@@ -49,18 +50,21 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
       ]
     },
     { label: "Liens externes", menuGroup: true },
-    { label: 'Bitbucket', route: '', icon: 'engineering' , url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/' },
-    { label: 'Readme', route: '', icon: 'engineering' , url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md' },
+    { label: 'Bitbucket', route: '', icon: 'engineering', url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/' },
+    { label: 'Readme', route: '', icon: 'engineering', url: 'https://bitbucket.org/nicosaliagas/cocori-ng/src/develop/README.md' },
   ];
 
   hidemobile: boolean = false;
   sidenavPosition: string = "side";
   isSidenavCloseDisabled = true;
   isSidenavOpen: boolean = true; /** linkedin */
+  isRootUrl: boolean = false;
+  isRootUrlArray: string[] = [];
 
   constructor(
     private storageService: StorageService,
     private navService: CurrentUrlRoutingService,
+    private loginApiService: LoginApiService,
     private sidenavService: SidenavService,
     mediaObserver: MediaObserver,
     public elementRef: ElementRef,
@@ -80,7 +84,10 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
         .pipe(
           filter((event) => event instanceof NavigationEnd),
           tap((event: any) => this.navService.currentUrl.next(event.urlAfterRedirects)),
-          tap(_ => {
+          tap((event: any) => {
+
+            this.isRootUrl = this.checkIsRootUrl(<string>event.url)
+
             setTimeout(() => {
               this.sidenavContent.nativeElement.scrollTo(0, 0);
             });
@@ -97,7 +104,11 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
   }
 
   logout() {
-    console.log("not implemented")
+    this.loginApiService.logout()
+  }
+
+  onOpenedChange(newSidenavStatut: boolean) {
+    this.storageService.setLocalStorageItem('sidenav', newSidenavStatut)
   }
 
   private eventSizeScreen(mediaObserver: MediaObserver) {
@@ -117,11 +128,41 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
     );
   }
 
-  onOpenedChange(newSidenavStatut: boolean) {
-    this.storageService.setLocalStorageItem('sidenav', newSidenavStatut)
-  }
-
   trackBy(index: number) {
     return index;
+  }
+
+  private checkIsRootUrl(url: string): boolean {
+
+    let urlFound: boolean = false;
+
+    const urlAlreadyFound: number = this.isRootUrlArray.findIndex((urlFound: string) => urlFound === url)
+
+    if (urlAlreadyFound !== -1) {
+      return true
+    }
+
+    for (let i = 0; i < this.menuItems.length; i++) {
+      const item: SidenavItem = this.menuItems[i];
+
+      if (item.route === url) {
+        urlFound = true;
+
+        this.isRootUrlArray.push(url)
+
+        break;
+      } else if (item.children) {
+        const routeFound: any = item.children.find((item: SidenavItem) => item.route === url)
+
+        if (routeFound) {
+          urlFound = true;
+
+          this.isRootUrlArray.push(url)
+          break;
+        }
+      }
+    }
+
+    return urlFound;
   }
 }

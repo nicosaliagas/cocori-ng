@@ -3,12 +3,14 @@
     <div class="column-table-header">
       <mat-icon *ngIf="colFiltered" class="isFiltered">filter_alt</mat-icon>
       <div class="column-caption">{{column.caption}}</div>
-      <div *ngIf="column.sort && column.sort !== 'NONE'">
-        <button mat-icon-button title="Inverser le tri" aria-label="Inverser le tri">
-          <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
-          <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
-        </button>
-      </div>
+      <!-- <div *ngIf="column.sort && column.sort !== 'NONE'"> -->
+        <!-- <button mat-icon-button title="Inverser le tri" aria-label="Inverser le tri"> -->
+          <ng-container *ngIf="column.sort && column.sort !== 'NONE'">
+            <mat-icon *ngIf="column.sort === 'ASC'">arrow_upward</mat-icon>
+            <mat-icon *ngIf="column.sort === 'DESC'">arrow_downward</mat-icon>
+          </ng-container>
+        <!-- </button> -->
+      <!-- </div> -->
     </div>
   </th>
 </ng-container>

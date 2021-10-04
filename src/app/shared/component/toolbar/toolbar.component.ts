@@ -1,17 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
-import { filter, tap } from 'rxjs/operators';
 import { AppbarModel, HeaderMenuItem } from 'src/app/core/model/Appbar.model';
 import { AppbarService } from 'src/app/core/service/appbar.service';
+import { SidenavService } from 'src/app/core/service/sidenav.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,36 +11,18 @@ import { AppbarService } from 'src/app/core/service/appbar.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent extends AutoUnsubscribeComponent implements OnInit, OnDestroy {
-
-  @Output() toggleSidenav = new EventEmitter<void>();
+  @Input() isRootUrl: boolean = false;
 
   barTitle: string = ''
 
   barActions: HeaderMenuItem[] = []
-  isRootUrl: boolean = true
 
   constructor(
     private appbarService: AppbarService,
+    private sidenavService: SidenavService,
     private cdr: ChangeDetectorRef,
-    public router: Router
   ) {
     super()
-
-    this.subscriptions.add(
-      this.router.events
-        .pipe(
-          filter((event) => event instanceof NavigationEnd),
-          tap((event: any) => {
-            
-            console.log("event >>> ", event)
-
-            /** 💪💪 comparer la route actuelle avec la config des routes du menu (bo-layout) pour voir si racine ou pas */
-
-            this.isRootUrl = (<string>event.url).split('/').length <= 3
-          })
-        )
-        .subscribe()
-    );
   }
 
   ngOnInit(): void {
@@ -65,6 +38,10 @@ export class ToolbarComponent extends AutoUnsubscribeComponent implements OnInit
         this.cdr.detectChanges()
       })
     )
+  }
+
+  public toggleSidenavMenus() {
+    this.sidenavService.toggle().then(() => this.sidenavService.emitOnOpenedChange())
   }
 
   trackBy(index: number) {

@@ -16,36 +16,24 @@
 
   .menu-group,
   .mat-list-item {
-    // display: flex;
-    // flex-wrap: wrap;
-    // align-items: center;
-    // flex-direction: row;
-    // padding: 5px 0 5px 10px;
-
-    height: auto;
-    padding: 15px 8px;
-
+    height: 55px;
     font-size: 13px;
     border-bottom: 1px solid #edf1f7;
 
+    ::ng-deep .mat-list-item-content {
+      padding-left: 0;
+    }
+
     .mat-icon {
       float: left;
-      margin-right: 10px;
+      margin: 0 10px;
     }
 
     .group-menu-item {
-      // display: flex;
-      // flex-direction: row;
-      // flex-wrap: nowrap;
-      // align-items: center;
-      // justify-content: space-between;
-      // flex: 0.87;
-
       width: 90%;
       padding-top: 3px;
 
       > div:not(.arrow) {
-        padding: 0 5px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -62,10 +50,6 @@
 
       float: right;
       margin-top: -13px;
-    }
-
-    ::ng-deep .mat-list-item-content {
-      padding-left: 0;
     }
   }
 
@@ -124,16 +108,20 @@
     }
     .menu-group,
     .mat-list-item {
-      // flex-direction: column;
-      // flex-wrap: nowrap;
-      // justify-content: center;
-      padding-left: 0;
+      padding: 7px 0;
       text-align: center;
 
       &.with-sub-menu {
         .group-menu-item {
           width: 80%;
         }
+      }
+
+      ::ng-deep .mat-list-item-content {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+        padding-right: 5px;
       }
 
       .mat-icon {

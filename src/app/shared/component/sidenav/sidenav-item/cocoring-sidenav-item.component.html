@@ -5,14 +5,14 @@
     </ng-template>
 
     <ng-template #listItemDefaultTpl>
-        <div *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null" class="mat-list-item"
+        <a *ngIf="!item.url" mat-list-item [routerLink]="!item.children ? item.route : null" class="mat-list-item"
             [ngClass]="{'with-sub-menu': item.children?.length}" (click)="expandItemSubList()">
             <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
             <div class="group-menu-item">
                 <div [title]="item.label">{{item.label}}</div>
                 <div *ngIf="item.children?.length" class="arrow"></div>
             </div>
-        </div>
+        </a>
         <div>
             <a *ngIf="item.url" mat-list-item [href]="item.url" target="_blank">
                 <div>{{item.label}}</div>

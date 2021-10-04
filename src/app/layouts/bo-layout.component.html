@@ -22,7 +22,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content #sidenavContent [ngClass]="{'collapsed': !sidenav.opened}">
-        <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+        <app-toolbar [isRootUrl]="isRootUrl"></app-toolbar>
         <div class="main">
             <router-outlet></router-outlet>
         </div>
