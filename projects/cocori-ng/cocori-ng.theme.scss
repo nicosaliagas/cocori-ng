@@ -2,6 +2,12 @@
 @import 'src/lib/assets/common';
 @import 'src/lib/assets/mixins';
 
+$color-text: yellow;
+
 @mixin cocori-ng-theme($theme, $palette-green, $palette-blue) {
     @include lib-theme($theme, $palette-green, $palette-blue);
+
+    $color-text: red;
+
+    @content;
 }

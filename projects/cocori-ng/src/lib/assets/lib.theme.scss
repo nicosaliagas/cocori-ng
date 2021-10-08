@@ -8,6 +8,8 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $color-text: green;
+
   .error {
     color: mat.get-color-from-palette($warn, 200) !important;
   }

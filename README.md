@@ -24,6 +24,7 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 
 `ng g service file`
 
+Generate new component :
 `ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss`
 
 ## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet :

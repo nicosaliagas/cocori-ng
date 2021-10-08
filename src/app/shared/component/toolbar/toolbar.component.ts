@@ -11,7 +11,7 @@ import { SidenavService } from 'src/app/core/service/sidenav.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent extends AutoUnsubscribeComponent implements OnInit, OnDestroy {
-  @Input() isRootUrl: boolean = false;
+  @Input() isRootUrl: boolean = true;
 
   barTitle: string = ''
 

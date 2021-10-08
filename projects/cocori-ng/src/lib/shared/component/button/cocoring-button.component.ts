@@ -17,9 +17,10 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
     @Output() click: EventEmitter<string> = new EventEmitter<string>();
 
+    @Input() disabled: boolean = false;
     @Input() text: string;
     @Input() type: string = TypeButtonEnum.SUBMIT;
-    @Input() class: string;
+    @Input() class: string = 'primary';
 
     onClickSubmit: Function;
 

@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate([this.loginApiService.redirectUrl]);
             this.loginApiService.redirectUrl = undefined;
           } else {
-            this.router.navigate(['/jpo-bo/home']);
+            this.router.navigate(['/bo/home']);
           }
         })
       ).subscribe()

@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { ConfigWysiwygModel } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { Block } from '../service/block';
@@ -9,19 +10,23 @@ export type OrientationParamsTpl = { [type in ResponsiveOrientation]: Function};
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
 export type ApisConfigCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 
-/** configuration du cms */
+/** configuration du CMS */
 export interface ConfigCmsModel {
+    component: Type<any>,
+    blocks: Block[], 
     wysiwygOptions: ApisConfigCmsModel,
 }
 
+/** identité d'un block */
 export interface BlockDatasModel {
     idBlock: string,
-    filename: string,
     label: string,
     backgroundColor: string,
+    filename: string,
     content: EditorValues
 }
 
+/** le block sélectionné depuis la collection de templates devient une section */
 export interface SectionModel {
     idSection: string,
     block: Block,

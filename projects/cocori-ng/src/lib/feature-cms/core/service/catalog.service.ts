@@ -99,7 +99,7 @@ export class CatalogService {
         content: {
           editor1: `
           <div style="text-align: center;"><strong><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></strong></div>
-          `,          
+          `,
           editor2: `
           <div><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>
           <div>&nbsp;</div>
