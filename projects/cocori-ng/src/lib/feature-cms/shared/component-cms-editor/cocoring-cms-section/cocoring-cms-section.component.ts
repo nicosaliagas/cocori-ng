@@ -7,6 +7,7 @@ import {
   Input,
   OnInit,
   Output,
+  Type,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
@@ -30,6 +31,7 @@ import { CmsService } from '../../../core/service/cms.service';
 export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
+  @Input() blockComponent: Type<any>
   @Input() section: SectionModel
   @Input() apisConfig: ApisConfigCmsModel
   @Output() afterRemoveAnimation = new EventEmitter();
@@ -53,6 +55,11 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
   }
 
   ngOnInit(): void {
+
+    console.log("blockComponent >>> ", this.blockComponent)
+
+    this.addBlockComponentTest(this.blockComponent)
+
     this.addTemplateSectionComponent()
 
     this.catalogBlocksOpenedEvent()
@@ -91,6 +98,11 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
 
   private addTemplateSectionComponent() {
     this.injectComponentService.loadAndAddComponentToContainer(TemplatesClassesComponents[this.section.block.component], this.containerRef,
+      [{ section: this.section }, { apisConfig: this.apisConfig }], null)
+  }
+
+  private addBlockComponentTest(component: any) {
+    this.injectComponentService.loadAndAddComponentToContainer(component, this.containerRef,
       [{ section: this.section }, { apisConfig: this.apisConfig }], null)
   }
 }

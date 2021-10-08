@@ -58,7 +58,7 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
   sidenavPosition: string = "side";
   isSidenavCloseDisabled = true;
   isSidenavOpen: boolean = true; /** linkedin */
-  isRootUrl: boolean = false;
+  isRootUrl: boolean = true;
   isRootUrlArray: string[] = [];
 
   constructor(
@@ -133,12 +133,11 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
   }
 
   private checkIsRootUrl(url: string): boolean {
-
     let urlFound: boolean = false;
 
     const urlAlreadyFound: number = this.isRootUrlArray.findIndex((urlFound: string) => urlFound === url)
 
-    if (urlAlreadyFound !== -1) {
+    if (urlAlreadyFound !== -1 || url === '/') {
       return true
     }
 

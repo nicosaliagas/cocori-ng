@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, Injectable, Type, ViewContainerRef } from '@angular/core';
 
 export interface InputsComponent {
     [key: string]: any;
@@ -26,13 +26,13 @@ export class InjectComponentService {
             [{ @InputName_1: Value, @InputName_2: Value }], null)
      */
     loadAndAddComponentToContainer(
-        componentClass: any,
+        componentClass: Type<any>,
         viewContainerRef: ViewContainerRef,
         inputs: InputsComponent[] = [],
         outputs?: OutputsComponent,
         index?: number
     ) {
-        const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass as any);
+        const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
         const componentRef = viewContainerRef.createComponent(factory, index ? index : null);
 
         inputs.forEach((input: InputsComponent) => {

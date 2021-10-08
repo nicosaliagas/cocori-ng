@@ -1,14 +1,14 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -39,10 +39,12 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
   @Input()
   set config(config: ConfigCmsModel) {
     if (!config) {
-      throw new Error(`La config du composant uploader n'est pas correcte... config: ${config}`);
+      throw new Error(`La config du composant CMS n'est pas correcte... config: ${config}`);
     }
 
     this.configCms = config
+
+    console.log("Liste des blocks en entrées >> ", this.configCms.component)
 
     this.cmsService.init()
   }
@@ -133,7 +135,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+            [{blockComponent: this.configCms.component}, { section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
             { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
           )
         }),
