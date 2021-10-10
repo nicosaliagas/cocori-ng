@@ -1,5 +1,20 @@
 import { Injectable } from '@angular/core';
 
+import {
+  CenterZoneTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
+import {
+  ImageFullTextTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/image-full-text-tpl/image-full-text-tpl.component';
+import {
+  TextImageFullTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
+import {
+  TitleTwoZonesTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/title-two-zones-tpl/title-two-zones-tpl.component';
+import {
+  TwoZonesHTplComponent,
+} from '../../shared/component-cms-editor/cocoring-cms-section-tpl/two-zones-h-tpl/two-zones-h-tpl.component';
 import { Block } from './block';
 
 @Injectable()
@@ -8,7 +23,8 @@ export class CatalogService {
   getBlocks() {
     return [
       new Block("CenterZoneTpl", {
-        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '1.jpg',
+        component: CenterZoneTplComponent,
+        filename: '1.jpg',
         label: 'bloc avec une zone de texte',
         backgroundColor: '#343a40',
         content: {
@@ -17,7 +33,8 @@ export class CatalogService {
       }),
 
       new Block("CenterZoneTpl", {
-        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '2.jpg',
+        component: CenterZoneTplComponent,
+        filename: '2.jpg',
         label: 'bloc avec une zone de texte',
         backgroundColor: '#ffffff',
         content: {
@@ -26,7 +43,8 @@ export class CatalogService {
       }),
 
       new Block("TwoZonesHTpl", {
-        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '3.jpg',
+        component: TwoZonesHTplComponent,
+        filename: '3.jpg',
         label: 'bloc avec une image et une zone de texte',
         backgroundColor: '#f0eaea',
         content: {
@@ -39,7 +57,8 @@ export class CatalogService {
       }),
 
       new Block("TwoZonesHTpl", {
-        idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '4.jpg',
+        component: TwoZonesHTplComponent,
+        filename: '4.jpg',
         label: 'bloc avec une zone de texte et une image',
         backgroundColor: '#f7f7f7',
         content: {
@@ -53,7 +72,8 @@ export class CatalogService {
       }),
 
       new Block("TitleTwoZonesTpl", {
-        idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '5.jpg',
+        component: TitleTwoZonesTplComponent,
+        filename: '5.jpg',
         label: 'bloc avec un titre et deux zones de texte en deuxième ligne',
         backgroundColor: '#ffffff',
         content: {
@@ -74,7 +94,8 @@ export class CatalogService {
       }),
 
       new Block("TitleTwoZonesTpl", {
-        idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '6.jpg',
+        component: TitleTwoZonesTplComponent,
+        filename: '6.jpg',
         label: 'bloc avec un titre et deux zones en deuxième ligne : une image et une zone de texte',
         backgroundColor: '#fff',
         content: {
@@ -93,7 +114,8 @@ export class CatalogService {
       }),
 
       new Block("TitleTwoZonesTpl", {
-        idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '7.jpg',
+        component: TitleTwoZonesTplComponent,
+        filename: '7.jpg',
         label: 'bloc avec un titre et deux zones en deuxième ligne : une zone de texte et une image',
         backgroundColor: '#e4ebec',
         content: {
@@ -112,7 +134,8 @@ export class CatalogService {
       }),
 
       new Block("TextImageFullTpl", {
-        idBlock: '02365399-98B7-42A0-BB9F-875261209451', filename: '8.jpg',
+        component: TextImageFullTplComponent,
+        filename: '8.jpg',
         label: 'bloc avec deux zones : une zone de texte et une image qui prends toute la moitiée de la section',
         backgroundColor: '#e4e4e2',
         content: {
@@ -126,7 +149,8 @@ export class CatalogService {
       }),
 
       new Block("ImageFullTextTpl", {
-        idBlock: '63AE9AD7-4273-4DF8-8A0D-A7B3D34FB3D2', filename: '9.jpg',
+        component: ImageFullTextTplComponent,
+        filename: '9.jpg',
         label: 'bloc avec deux zones : une zone de texte et une image qui prends toute la moitiée de la section',
         backgroundColor: '#e4e4e2',
         content: {

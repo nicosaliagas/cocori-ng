@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 
-import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
+import { SectionModel } from '../../../core/model/cms.model';
 import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.comp
 })
 
 export abstract class ExtendSectionReadonlyTplComponent extends ExtendPreviewActionsComponent {
-    @Input() section: SectionPageDatasModel
+    @Input() section: SectionModel
 
     public cdr: any;
 

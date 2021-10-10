@@ -186,13 +186,13 @@ $palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
 
 3. L'utiliser dans sa feuille de style :
 
-import du thème : `@import '../../../../theme/theme.scss';`
+import du thème : `@import '../../../../theme/variables';`
 
 puis
 
 ```
 .fab-color {
-    background-color: mat-color($palette-orange, main);
+    background-color: mat.get-color-from-palette($palette-blue, main);
 }
 ```
 

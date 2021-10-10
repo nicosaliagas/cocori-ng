@@ -15,8 +15,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
-import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
 import { ConfigCmsModel, InsertSectionAt, SectionModel, SectionMoveIndexes } from '../../../core/model/cms.model';
+import { Block } from '../../../core/service/block';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
@@ -30,8 +30,9 @@ import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cm
 export class CocoringCmsComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
+  
   configCms: ConfigCmsModel;
-
+  catalog: Block[] = []
   orientation = 'column'
   _showSaveBtn: boolean = false;
   importSections: SectionModel[] = [];
@@ -44,14 +45,16 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
 
     this.configCms = config
 
-    console.log("Liste des blocks en entrées >> ", this.configCms.component)
+    this.catalog = config.catalog
 
     this.cmsService.init()
   }
 
   @Input()
-  set datas(sectionDatas: SectionPageDatasModel[]) {
+  set datas(sectionDatas: SectionModel[]) {
     this.importSections = this.cmsService.importSections(sectionDatas)
+
+    console.log("sections saved ::: ", this.importSections)
   }
 
   @Input()
@@ -63,7 +66,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
     }
   }
 
-  @Output() onSaveBtn: EventEmitter<SectionPageDatasModel[]> = new EventEmitter<SectionPageDatasModel[]>();
+  @Output() onSaveBtn: EventEmitter<SectionModel[]> = new EventEmitter<SectionModel[]>();
 
   responsive: string = 'computer'
   activeMediaQuery = '';
@@ -97,7 +100,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
 
   private onPageSaved() {
     this.subscriptions.add(
-      this.cmsService.onSaveCmsContent$.subscribe((contentPage: SectionPageDatasModel[]) => {
+      this.cmsService.onSaveCmsContent$.subscribe((contentPage: SectionModel[]) => {
         this.onSaveBtn.emit(contentPage)
       })
     )
@@ -125,7 +128,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
     this.cmsService.catalogBlocksOpened$.next(this.isSidenavOpen)
   }
 
-  public getPageCMSDatas(): SectionPageDatasModel[] {
+  public getPageCMSDatas(): SectionModel[] {
     return this.cmsService.sectionsPageDatas()
   }
 
@@ -135,7 +138,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{blockComponent: this.configCms.component}, { section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
             { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
           )
         }),

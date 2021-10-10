@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import { SectionPageDatasModel } from '../model/adapter-cms.model';
 import { InsertSectionAt, MoveOrientationSectionActions, SectionModel, SectionMoveIndexes } from '../model/cms.model';
 import { AdapterPageCmsService } from './adapter-page-cms.service';
-import { Block } from './block';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +13,10 @@ export class CmsService {
   public catalogBlocksOpened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public backgroundColor$: Subject<string> = new Subject<string>();
   public moveSection$: Subject<SectionMoveIndexes> = new Subject<SectionMoveIndexes>();
-  public onSaveCmsContent$: Subject<SectionPageDatasModel[]> = new Subject<SectionPageDatasModel[]>();
+  public onSaveCmsContent$: Subject<SectionModel[]> = new Subject<SectionModel[]>();
   private sectionRemoved$: Subject<InsertSectionAt> = new Subject<InsertSectionAt>();
 
   public sections: SectionModel[] = []
-  public blocks: Block[]
 
   constructor(
     private helperService: HelperService,
@@ -35,12 +32,12 @@ export class CmsService {
     return this.sectionRemoved$
   }
 
-  public sectionsPageDatas(): SectionPageDatasModel[] {
-    return this.adapterPageCmsService.adapterWrite(this.sections)
+  public sectionsPageDatas(): SectionModel[] {
+    return this.adapterPageCmsService.adapterCommand(this.sections)
   }
 
-  public importSections(datas: SectionPageDatasModel[]): SectionModel[] {
-    return this.adapterPageCmsService.adapterRead(datas)
+  public importSections(datas: SectionModel[]): SectionModel[] {
+    return this.adapterPageCmsService.adapterQuery(datas)
   }
 
   public addSection(newSection: SectionModel) {
@@ -51,11 +48,11 @@ export class CmsService {
   }
 
   public getIndexCurrentSection(sectionId: string): number {
-    return this.sections.findIndex((section: SectionModel) => section.idSection === sectionId)
+    return this.sections.findIndex((section: SectionModel) => section.id === sectionId)
   }
 
   public removeSection(sectionId: string) {
-    const index: number = this.sections.findIndex((section: SectionModel) => section.idSection === sectionId)
+    const index: number = this.sections.findIndex((section: SectionModel) => section.id === sectionId)
 
     const sectionRemoved: SectionModel[] = this.sections.splice(index, 1)
 
@@ -63,7 +60,7 @@ export class CmsService {
   }
 
   public duplicateSection(section: SectionModel) {
-    const index: number = this.sections.findIndex((s: SectionModel) => s.idSection === section.idSection)
+    const index: number = this.sections.findIndex((s: SectionModel) => s.id === section.id)
 
     const newIndex: number = index + 1
 
@@ -71,8 +68,8 @@ export class CmsService {
 
     const sectionDuplicated: SectionModel = JSON.parse(JSON.stringify(sectionToDuplicate));
 
-    sectionDuplicated.block.component = sectionToDuplicate.block.component
-    sectionDuplicated.idSection = this.helperService.generateGuid()
+    sectionDuplicated.key = sectionToDuplicate.key
+    sectionDuplicated.id = this.helperService.generateGuid()
 
     this.sections.splice(newIndex, 0, sectionDuplicated)
 
@@ -80,7 +77,7 @@ export class CmsService {
   }
 
   public changeBackgroundColorSection(idSection: string, value: string) {
-    const section: SectionModel = this.sections.find((s: SectionModel) => s.idSection === idSection)
+    const section: SectionModel = this.sections.find((s: SectionModel) => s.id === idSection)
 
     section.backgroundColor = value
 
@@ -88,7 +85,7 @@ export class CmsService {
   }
 
   public moveSection(idSection: string, orientation: MoveOrientationSectionActions) {
-    const previousIndex: number = this.sections.findIndex((s: SectionModel) => s.idSection === idSection)
+    const previousIndex: number = this.sections.findIndex((s: SectionModel) => s.id === idSection)
     let currentIndex: number = previousIndex
 
     if (orientation === 'move-up' && previousIndex > 0) {

@@ -10,4 +10,4 @@ export * from './shared/shared-cms.module';
 export * from './shared/section-templates/section-tpl/section-tpl.component'
 export * from './shared/component-cms-editor/cocoring-cms-section-tpl/extend-section-tpl.component'
 
-export * from './core/model/adapter-cms.model';
+export * from './core/model/cms.model';

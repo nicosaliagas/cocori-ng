@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
-import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
+import { SectionModel } from '../../../core/model/cms.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,10 +9,10 @@ import { SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
   styleUrls: ['./cocoring-cms-readonly.component.scss']
 })
 export class CocoringCmsReadonlyComponent implements OnInit {
-  sectionPageDatas: SectionPageDatasModel[];
+  sectionPageDatas: SectionModel[];
 
   @Input()
-  set config(datas: SectionPageDatasModel[]) {
+  set config(datas: SectionModel[]) {
     if (!datas) {
       throw new Error(`La config du composant uploader n'est pas correcte... config: ${datas}`);
     }

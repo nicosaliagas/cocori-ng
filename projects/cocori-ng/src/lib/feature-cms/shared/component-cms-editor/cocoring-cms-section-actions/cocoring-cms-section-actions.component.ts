@@ -39,13 +39,13 @@ export class CocoringCmsSectionActionsComponent implements OnInit {
   }
   
   moveUpSection(event) {
-    this.cmsService.moveSection(this.section.idSection, 'move-up');
+    this.cmsService.moveSection(this.section.id, 'move-up');
 
     event.preventDefault();
   }
 
   moveDownSection(event) {
-    this.cmsService.moveSection(this.section.idSection, 'move-down');
+    this.cmsService.moveSection(this.section.id, 'move-down');
 
     event.preventDefault();
   }
@@ -63,6 +63,6 @@ export class CocoringCmsSectionActionsComponent implements OnInit {
   onColorChange(color: any) {
     this.color = color.hexa
 
-    this.cmsService.changeBackgroundColorSection(this.section.idSection, color.hexa)
+    this.cmsService.changeBackgroundColorSection(this.section.id, color.hexa)
   }
 }

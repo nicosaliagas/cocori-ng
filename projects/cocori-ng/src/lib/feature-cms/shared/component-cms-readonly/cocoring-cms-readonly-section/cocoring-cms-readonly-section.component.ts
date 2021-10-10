@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ReadonlyTemplatesClassesComponents, SectionPageDatasModel } from '../../../core/model/adapter-cms.model';
+import { ReadonlyTemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
+import { SectionModel } from '../../../core/model/cms.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,11 +21,11 @@ import { ReadonlyTemplatesClassesComponents, SectionPageDatasModel } from '../..
 })
 export class CocoringCmsReadonlySectionComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
-  private _config: SectionPageDatasModel;
+  private _config: SectionModel;
 
   // @Input() config: SectionPageDatasModel
   @Input()
-  set config(datas: SectionPageDatasModel) {
+  set config(datas: SectionModel) {
 
     this._config = datas
 
@@ -40,7 +41,7 @@ export class CocoringCmsReadonlySectionComponent implements OnInit {
   ngOnInit(): void { }
 
   private addTemplateSectionComponent() {
-    this.injectComponentService.loadAndAddComponentToContainer(ReadonlyTemplatesClassesComponents[this._config.template], this.containerRef,
+    this.injectComponentService.loadAndAddComponentToContainer(ReadonlyTemplatesClassesComponents[this._config.key], this.containerRef,
       [{section: this._config}], null)
   }
 }

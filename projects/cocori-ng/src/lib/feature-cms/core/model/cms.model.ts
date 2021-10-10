@@ -12,27 +12,26 @@ export type ApisConfigCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' |
 
 /** configuration du CMS */
 export interface ConfigCmsModel {
-    component: Type<any>,
-    blocks: Block[], 
+    catalog: Block[], 
     wysiwygOptions: ApisConfigCmsModel,
 }
 
 /** identité d'un block */
-export interface BlockDatasModel {
-    idBlock: string,
+export interface BlockModel {
+    component: Type<any>,
     label: string,
     backgroundColor: string,
     filename: string,
     content: EditorValues
 }
 
-/** le block sélectionné depuis la collection de templates devient une section */
 export interface SectionModel {
-    idSection: string,
-    block: Block,
+    id: string,
+    key: string,
+    component: Type<any>,
+    backgroundColor: string,
     values: EditorValues,
-    backgroundColor: string
-}
+  }
 
 export interface EditorValues {
     [key: string]: string;

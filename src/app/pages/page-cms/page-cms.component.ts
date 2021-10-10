@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { CocoringCmsComponent, SectionPageDatasModel } from '@cocori-ng/lib/src/lib/feature-cms';
+import { CocoringCmsComponent, SectionModel } from '@cocori-ng/lib/src/lib/feature-cms';
 import { ConfigCmsModel } from '@cocori-ng/lib/src/lib/feature-cms/core/model/cms.model';
 import { Block } from '@cocori-ng/lib/src/lib/feature-cms/core/service/block';
 import { StorageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { CmsService } from 'src/app/core/service/Cms.service';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
@@ -18,11 +19,12 @@ export class PageCMSComponent extends ExtendPageComponent implements OnInit {
   @ViewChild(CocoringCmsComponent, { static: false }) cocoringDatagridComponent!: CocoringCmsComponent;
 
   configCms: ConfigCmsModel;
-  datasCms: SectionPageDatasModel[] = [];
+  datasCms: SectionModel[] = [];
 
   constructor(
     public injector: Injector,
     private environmentService: EnvironmentService,
+    private cmsService: CmsService,
     private storageService: StorageService) {
     super(injector);
   }
@@ -32,24 +34,33 @@ export class PageCMSComponent extends ExtendPageComponent implements OnInit {
     
     this.initConfigCms()
 
-    /** on affiche à nouveau la config cms de la apge sauvegardée en localstorage */
+    /** on affiche à nouveau la config cms de la page sauvegardée en localstorage */
     this.datasCms = this.getDatasFromLocalstorage() || []
   }
 
-  public getDatasFromLocalstorage(): SectionPageDatasModel[] {
-    return this.storageService.getLocalStorageItem('cms-page-save')
+  public getDatasFromLocalstorage(): SectionModel[] {
+    return this.cmsService.adapterQuery(this.storageService.getLocalStorageItem('cms-page-save'))
   }
 
-  public onSaveBtn(datas: SectionPageDatasModel[]) {
+  public onSaveBtn(datas: SectionModel[]) {
     this.storageService.setLocalStorageItem('cms-page-save', datas)
   }
 
   private initConfigCms() {
     this.configCms = <ConfigCmsModel>{
-      component: SimpleBlockComponent,
-      blocks: [
+      catalog: [
         new Block("CenterZoneTpl", {
-          idBlock: '987CE6B5-F5F3-40BC-8760-59D52811DBD9', filename: '1.jpg',
+          component: SimpleBlockComponent,
+          filename: '1.jpg',
+          label: 'bloc avec une zone de texte',
+          backgroundColor: 'rgb(49 109 169)',
+          content: {
+            editor1: '<h1 style="text-align: center;"><span style="color: #ffffff;">Made with ❤️ by Cocorisoft</span></h1>'
+          }
+        }),
+        new Block("CenterZoneTpl", {
+          component: SimpleBlockComponent,
+          filename: '1.jpg',
           label: 'bloc avec une zone de texte',
           backgroundColor: '#343a40',
           content: {
