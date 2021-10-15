@@ -301,9 +301,13 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 ## Montée de version des libraries d'un projet
 
-- Voir les librairies à mettre à jour : `npm outdated`
+- exécuter la commande : `ng update` pour voir les package angular à mettre à jour
 
-- Update all librairies : `npm update`
+- faire `npm update [nom du package]`
+
+- si certaines lib ne se mettent pas à jour : `npm install rxjs@latest`
+
+- Voir les librairies à mettre à jour : `npm outdated`
 
 ## Angular Tips & Ressources + Aides + Help !
 
