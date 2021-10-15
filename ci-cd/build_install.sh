@@ -50,7 +50,7 @@ validateArg 2 "branch" $2 || printUsage
 buildId=$1
 branch=$2
 projectName="cocori-ng"
-projectGitUrl="git+ssh://git@bitbucket.org/nicosaliagas/cocori-ng.git"
+projectGitUrl="git+ssh://git@bitbucket.org/cocorisoft/cocori-ng.git"
 emailReceivers="anthony.moissant@gmail.com,nico.sesma@gmail.com"
 sendEmail=true
 
@@ -104,7 +104,7 @@ echod "Copy $srcPath/$projectName/* into $libArtifactPath"
 cp -R $srcPath/$projectName/* $libArtifactPath &>> $logFile
 
 echoAndRun cd $libArtifactPath/dist/$projectName &>> $logFile
-echoAndRun sudo npm link &>> $logFile
+echoAndRun npm link &>> $logFile
 
 echo "
 ##################################################################################
