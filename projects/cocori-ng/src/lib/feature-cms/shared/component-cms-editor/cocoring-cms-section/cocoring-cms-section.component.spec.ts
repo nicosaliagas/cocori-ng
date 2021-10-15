@@ -42,8 +42,8 @@ describe('CocoringCmsSectionComponent', () => {
     }
 
     const section: SectionModel = {
-      idSection: 'sectionId',
-      block: { component: CenterZoneTplComponent, data: { idBlock: 'blockid', content: { texte: 'aucun texte' }, filename: 'image.png', label: 'Template de base' } },
+      id: 'sectionId',
+      block: { key: CenterZoneTplComponent, data: { content: { texte: 'aucun texte' }, filename: 'image.png', label: 'Template de base' } },
       values: null
     }
 

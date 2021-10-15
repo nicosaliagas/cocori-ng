@@ -1,34 +1,33 @@
 import {
-  CenterZoneTplComponent,
+    CenterZoneTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/center-zone-tpl/center-zone-tpl.component';
 import {
-  ImageFullTextTplComponent,
+    ImageFullTextTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/image-full-text-tpl/image-full-text-tpl.component';
 import {
-  TextImageFullTplComponent,
+    TextImageFullTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/text-image-full-tpl/text-image-full-tpl.component';
 import {
-  TitleTwoZonesTplComponent,
+    TitleTwoZonesTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/title-two-zones-tpl/title-two-zones-tpl.component';
 import {
-  TwoZonesHTplComponent,
+    TwoZonesHTplComponent,
 } from '../../shared/component-cms-editor/cocoring-cms-section-tpl/two-zones-h-tpl/two-zones-h-tpl.component';
 import {
-  CenterZoneReadonlyTplComponent,
+    CenterZoneReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/center-zone-tpl/center-zone-readonly-tpl.component';
 import {
-  ImageFullTextReadonlyTplComponent,
+    ImageFullTextReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/image-full-text-tpl/image-full-text-readonly-tpl.component';
 import {
-  TextImageFullReadonlyTplComponent,
+    TextImageFullReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/text-image-full-tpl/text-image-full-readonly-tpl.component';
 import {
-  TitleTwoZonesReadonlyTplComponent,
+    TitleTwoZonesReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/title-two-zones-tpl/title-two-zones-readonly-tpl.component';
 import {
-  TwoZonesHReadonlyTplComponent,
+    TwoZonesHReadonlyTplComponent,
 } from '../../shared/component-cms-readonly/cocoring-cms-readonly-section-tpl/two-zones-h-tpl/two-zones-h-readonly-tpl.component';
-import { EditorValues } from './cms.model';
 
 /**
  * Adapteur lecture / écriture entre le back et le front
@@ -49,10 +48,3 @@ export const ReadonlyTemplatesClassesComponents = {
   "TextImageFullTpl": TextImageFullReadonlyTplComponent,
   "ImageFullTextTpl": ImageFullTextReadonlyTplComponent,
 };
-
-export interface SectionPageDatasModel {
-  id: string,
-  backgroundColor: string,
-  values: EditorValues,
-  template: string,
-}

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { SectionPageDatasModel } from '../model/adapter-cms.model';
 import { SectionModel } from '../model/cms.model';
 
 @Injectable({
@@ -8,14 +7,16 @@ import { SectionModel } from '../model/cms.model';
 })
 export class AdapterPageCmsService {
 
-  public adapterWrite(sections: SectionModel[]) {
-    const pageCmsExport: SectionPageDatasModel[] = []
+  /** adapteur en écriture */
+  public adapterCommand(sections: SectionModel[]) {
+    const pageCmsExport: SectionModel[] = []
 
     sections.forEach((section: SectionModel) => {
       pageCmsExport.push({
-        id: section.idSection,
+        id: section.id,
         backgroundColor: section.backgroundColor,
-        template: section.block.component,
+        key: section.key,
+        component: null,
         values: section.values
       })
     });
@@ -23,22 +24,15 @@ export class AdapterPageCmsService {
     return pageCmsExport
   }
 
-  public adapterRead(sectionDatas: SectionPageDatasModel[]): SectionModel[] {
+  /** adapteur lecture */
+  public adapterQuery(sectionDatas: SectionModel[]): SectionModel[] {
     const pageCMSImport: SectionModel[] = []
 
-    sectionDatas.forEach((section: SectionPageDatasModel) => {
+    sectionDatas.forEach((section: SectionModel) => {
       pageCMSImport.push({
-        idSection: section.id,
-        block: {
-          component: section.template,
-          data: {
-            idBlock: null,
-            filename: null,
-            label: null,
-            backgroundColor: null,
-            content: null
-          }
-        },
+        id: section.id,
+        key: section.key,
+        component: null,
         values: section.values,
         backgroundColor: section.backgroundColor
       })

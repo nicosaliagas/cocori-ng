@@ -83,9 +83,11 @@ Projet cible (ex Boulle):
 `npm link @cocori-ng/lib`
 
 ⚠️ angular.json :
+
 - mettre `preserveSymlinks: true` dans `projects.$name.architect.build.options`
 
 ⚠️ package.json :
+
 - installer les dépendances manquantes (penser à refaire npm link @cocori-ng/lib)
 
 Librairies requises de bases :
@@ -100,8 +102,7 @@ Librairies pour la partie CMS :
 
 "@r-tek/colr_pickr": "^2.0.0",
 
-
-* Démarrer le projet frontend :
+- Démarrer le projet frontend :
 
 ## Lancer le projet pour tester les composants de la lib...
 
@@ -109,7 +110,7 @@ Librairies pour la partie CMS :
 
 ng serve --configuration "local" --port 5050
 
-(implémentation si htpps : ng serve --ssl --configuration "local"  --port 5050)
+(implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 
 ## Packager la lib
 
@@ -186,18 +187,26 @@ $palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
 
 3. L'utiliser dans sa feuille de style :
 
-import du thème : `@import '../../../../theme/theme.scss';`
+import material : `@use "~@angular/material" as mat;`
+import des variables, où se trouvent les palettes de couleur : `@import 'variables';`
 
 puis
 
 ```
 .fab-color {
-    background-color: mat-color($palette-orange, main);
+    background-color: mat.get-color-from-palette($palette-blue, main);
 }
 ```
 
+4. Utiliser les mixin de cocori-ng dans un projet client :
 
+import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
 
+```
+@include for-phone-only {
+  width: 0;
+}
+```
 
 ## 🔹 Config des boutons de formulaire dynamique avec Cocori-ng
 
@@ -207,7 +216,7 @@ puis
 .addButton('Annuler', config => config
   .isTypeSubmit(false)
   .outputCallback({
-    click: () => console.log('callback sur le clique sur mon bouton') 
+    click: () => console.log('callback sur le clique sur mon bouton')
   })
 )
 ```
@@ -219,11 +228,10 @@ puis
   .isTypeSubmit()
   .icon('check')
   .outputCallback({
-    callback: () => console.log('callback sur le fait que mon bouton vient d'être ajouté à la vue') 
+    callback: () => console.log('callback sur le fait que mon bouton vient d'être ajouté à la vue')
   })
 )
 ```
-
 
 ## Librairie Utilisée
 
@@ -283,13 +291,23 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 - dans angular.json : architect.build.options.preserveSymlinks = true
 - npm link @cocori-ng/lib (après avoir créé le lien symbolique vers la lib cocoring)
 
-## Mise à jour d'Angular sur un projet
+## Montée de version majeure d'Angular et angular-cli sur un projet
 
 - s'il s'agit d'une version majeur d'Angular ex : passage du version 11 vers 12 ou 12 vers 13 ...
   - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/README.md)
 - étapes à suivre pour faire une montée de version d'Angular : https://update.angular.io/?l=3&v=11.0-12.0
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
+
+## Montée de version des libraries d'un projet
+
+- exécuter la commande : `ng update` pour voir les package angular à mettre à jour
+
+- faire `npm update [nom du package]`
+
+- si certaines lib ne se mettent pas à jour : `npm install rxjs@latest`
+
+- Voir les librairies à mettre à jour : `npm outdated`
 
 ## Angular Tips & Ressources + Aides + Help !
 
@@ -399,4 +417,37 @@ Object.entries(values).forEach(([key, value]) => {
 
 ```
 form.get('control').setValue('', {emitEvent: false})
+```
+
+`Unsubscribe`
+
+⚠️ Pensez à se désabonner de tous les subscribe !
+
+```
+@Component({
+  selector: "app-flights",
+  templateUrl: "./flights.component.html"
+})
+export class FlightsComponent implements OnDestroy, OnInit {
+  🔹private readonly destroy$ = new Subject();
+
+  public flights: FlightModel[];
+
+  constructor(private readonly flightService: FlightService) {}
+
+  ngOnInit() {
+    this.flightService
+      .getAll()
+      .pipe(
+        🔹takeUntil(this.destroy$)
+      )
+      .subscribe(flights => (this.flights = flights));
+  }
+
+  ngOnDestroy() {
+    🔹this.destroy$.next();
+    🔹this.destroy$.complete();
+  }
+}
+
 ```

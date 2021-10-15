@@ -19,9 +19,5 @@ export class CocoringToolbarCmsComponent implements OnInit {
 
   saveContentPage() {
     this.cmsService.onSaveCmsContent$.next(this.cmsService.sectionsPageDatas())
-
-    // this.storageService.setLocalStorageItem('cms-page-save', this.cmsService.sectionsPageDatas())
-
-    // console.log("pageExported", this.storageService.getLocalStorageItem('cms-page-save'))
   }
 }

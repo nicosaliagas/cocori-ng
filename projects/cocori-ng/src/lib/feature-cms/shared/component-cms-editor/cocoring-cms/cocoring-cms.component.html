@@ -4,7 +4,7 @@
     <div class="sidenav-container">
         <mat-sidenav-container class="layout-container" [hasBackdrop]="false" fullscreen>
             <mat-sidenav class="sidenav-blocks-catalog" #sidenav [mode]="sidenavMode" position="end" opened="false">
-                <cocoring-cms-blocks-catalog></cocoring-cms-blocks-catalog>
+                <cocoring-cms-blocks-catalog [catalog]="catalog"></cocoring-cms-blocks-catalog>
             </mat-sidenav>
             <mat-sidenav-content [ngClass]="{'no-margin-right': isSidenavOpen && totalSections}">
                 <div class="sidenav-content" [ngClass]="{'sidenav-openned': isSidenavOpen}">

@@ -1,29 +1,29 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Injector,
-    Input,
-    OnDestroy,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+  ViewContainerRef,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-    CocoringWysiwygComponent,
-    FileModel,
-    FormHelperService,
-    InitWysiwyg,
-    InjectComponentService,
-    WysiwygConfigSection,
+  CocoringWysiwygComponent,
+  FileModel,
+  FormHelperService,
+  InitWysiwyg,
+  InjectComponentService,
+  WysiwygConfigSection,
 } from '@cocori-ng/lib/src/lib/feature-core';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
 import {
-    ApisConfigCmsModel,
-    BottomSheetSectionReturnAction,
-    EditorValues,
-    SectionModel,
+  ApisConfigCmsModel,
+  BottomSheetSectionReturnAction,
+  EditorValues,
+  SectionModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
@@ -137,8 +137,11 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
         this.section.values = this.formulaire.value
     }
 
+    /** #TODOSECTION */
+    /** ⚠️ Initialiser le SectionPageModel avec le content: EditorValues */
     private initSectionValue(nameControl: string) {
-        const blockContent: EditorValues = this.section.block.data.content
+        // const blockContent: EditorValues = this.section.block.data?.content
+        const blockContent: EditorValues = this.section.values
 
         const blockValue: string = blockContent?.hasOwnProperty(nameControl) ? blockContent[nameControl] : null
         const sectionValue: string = this.section.values?.hasOwnProperty(nameControl) ? this.section.values[nameControl] : null
@@ -204,7 +207,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     private onBackgroundColorEvent() {
         this.subscriptions.add(
             this.cmsService.backgroundColor$.pipe(
-                filter((idSection: string) => idSection === this.section.idSection),
+                filter((idSection: string) => idSection === this.section.id),
                 tap(_ => this.cdr.detectChanges()),
             ).subscribe()
         )
@@ -226,7 +229,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
 
                 switch (datas.action) {
                     case 'remove':
-                        this.cmsService.removeSection(this.section.idSection)
+                        this.cmsService.removeSection(this.section.id)
 
                         break;
 

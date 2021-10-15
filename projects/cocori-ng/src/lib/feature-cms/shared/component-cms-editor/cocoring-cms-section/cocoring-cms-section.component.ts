@@ -31,7 +31,6 @@ import { CmsService } from '../../../core/service/cms.service';
 export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implements OnInit {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
-  @Input() blockComponent: Type<any>
   @Input() section: SectionModel
   @Input() apisConfig: ApisConfigCmsModel
   @Output() afterRemoveAnimation = new EventEmitter();
@@ -55,11 +54,6 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
   }
 
   ngOnInit(): void {
-
-    console.log("blockComponent >>> ", this.blockComponent)
-
-    this.addBlockComponentTest(this.blockComponent)
-
     this.addTemplateSectionComponent()
 
     this.catalogBlocksOpenedEvent()
@@ -78,7 +72,7 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
   private onSectionRemoved() {
     this.subscriptions.add(
       this.cmsService.onSectionRemoved().pipe(
-        filter((sectionRemoved: SectionIndex) => sectionRemoved.section.idSection === this.section.idSection),
+        filter((sectionRemoved: SectionIndex) => sectionRemoved.section.id === this.section.id),
         tap((sectionRemoved: SectionIndex) => this.indexSectionRemoved = sectionRemoved.index),
         tap(_ => this.removeSection()),
       ).subscribe()
@@ -96,13 +90,24 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
     )
   }
 
+  /** #TODOSECTION */
+  /** ancienne sélection de la classe component à insérer : TemplatesClassesComponents[this.section.block.key] */
   private addTemplateSectionComponent() {
-    this.injectComponentService.loadAndAddComponentToContainer(TemplatesClassesComponents[this.section.block.component], this.containerRef,
-      [{ section: this.section }, { apisConfig: this.apisConfig }], null)
-  }
 
-  private addBlockComponentTest(component: any) {
-    this.injectComponentService.loadAndAddComponentToContainer(component, this.containerRef,
+    let classComponent: Type<any> = null
+
+    classComponent = this.section.component ? this.section.component : TemplatesClassesComponents[this.section.key]
+
+
+    /** #TODOSECTION */
+    /** la propriété component est à null si les données de la section viennent de la base */
+    // if(this.section.block.data?.component) {
+    //   classComponent = this.section.block.data.component
+    // } else {
+    //   classComponent = TemplatesClassesComponents[this.section.block.key]
+    // }
+
+    this.injectComponentService.loadAndAddComponentToContainer(classComponent, this.containerRef,
       [{ section: this.section }, { apisConfig: this.apisConfig }], null)
   }
 }

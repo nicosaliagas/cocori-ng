@@ -4,7 +4,7 @@
 
 </div>
 <div class="blocks-container">
-    <ng-container *ngFor="let block of cmsService.blocks; let i = index; trackBy: trackBy">
+    <ng-container *ngFor="let block of catalog; let i = index; trackBy: trackBy">
         <img src="assets/images/cms/design-blocks/{{block.data.filename}}" (click)="selectBlock(block)" />
     </ng-container>
 </div>

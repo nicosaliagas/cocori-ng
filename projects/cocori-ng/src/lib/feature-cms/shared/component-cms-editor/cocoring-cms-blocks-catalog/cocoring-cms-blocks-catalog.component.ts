@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { SectionModel } from '../../../core/model/cms.model';
@@ -14,22 +14,24 @@ import { CmsService } from '../../../core/service/cms.service';
   providers: [CatalogService]
 })
 export class CocoringCmsBlocksCatalogComponent implements OnInit {
+
+  @Input() catalog: Block[] = []
+
   constructor(
     public cmsService: CmsService,
     private helperService: HelperService,
     private catalogService: CatalogService
-  ) {
-    this.cmsService.blocks = this.catalogService.getBlocks()
-  }
+  ) { }
 
   ngOnInit(): void { }
 
   selectBlock(block: Block) {
     const newSection: SectionModel = {
-      idSection: this.helperService.generateGuid(),
-      block: block,
+      id: this.helperService.generateGuid(),
+      key: block.key,
+      component: block.data.component,
       backgroundColor: block.data.backgroundColor,
-      values: null
+      values: block.data.content
     }
     
     this.cmsService.addSection(newSection)
