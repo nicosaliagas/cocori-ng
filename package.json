@@ -34,7 +34,7 @@
     "@angular/platform-browser-dynamic": "~12.2.10",
     "@angular/platform-server": "~12.2.10",
     "@angular/router": "~12.2.10",
-    "@nguniversal/express-engine": "^11.2.1",
+    "@nguniversal/express-engine": "^12.1.1",
     "@r-tek/colr_pickr": "^2.0.0",
     "@tinymce/tinymce-angular": "^4.2.2",
     "express": "^4.15.2",
