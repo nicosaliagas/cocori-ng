@@ -309,9 +309,11 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 ✔️ Le package angular/material est en général à mettre à jour en 1er (dépendance avec le cdk)
 
+✔️ Relancer la commande `ng update` pour vérifier que tout soit ok
+
 ⚠️ Faire un commit et tester entre chaque update.
 
-- si certaines lib ne se mettent pas à jour : `npm install rxjs@latest`
+- si certains package ne se mettent pas à jour (via la commande `npm update [nom du package]` ) : `npm install rxjs@latest`
 
 - Voir les librairies à mettre à jour : `npm outdated`
 
