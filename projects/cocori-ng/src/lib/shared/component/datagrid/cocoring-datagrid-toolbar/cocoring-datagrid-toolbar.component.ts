@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import {
-    CocoringDatagridFilterModalComponent,
+  CocoringDatagridFilterModalComponent,
 } from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
 
 @Component({
@@ -53,11 +53,11 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
   }
 
   deleteSelectedRows() {
-    this.datagridService.rowsDeletedEvent$.next();
+    this.datagridService.rowsDeletedEvent$.next(undefined);
   }
 
   restoreSelectedRows() {
-    this.datagridService.rowsRestoredEvent$.next();
+    this.datagridService.rowsRestoredEvent$.next(undefined);
   }
 
   onRowsChecked() {

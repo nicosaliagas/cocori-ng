@@ -6,10 +6,10 @@ import SparkMD5 from 'spark-md5';
 
 import { DefaultConfigComponent } from '../../../config/config.components';
 import {
-    AssembleFilePartsCommand,
-    ConfigAPIsFile,
-    FilePartCommand,
-    NewFileCommand,
+  AssembleFilePartsCommand,
+  ConfigAPIsFile,
+  FilePartCommand,
+  NewFileCommand,
 } from '../../model/component-uploader.model';
 import { HttpService } from '../http.service';
 
@@ -110,7 +110,7 @@ export class UploaderService {
       map(event => this.getEventMessage(event, partIndex, numberParts)),
       last(),
       catchError(error => {
-        this.fileOnError$.next()
+        this.fileOnError$.next(undefined)
         return of(null)
       })
     );
@@ -123,7 +123,7 @@ export class UploaderService {
     }
     return this.EndUploadPartsFileAPI(command).pipe(
       catchError(error => {
-        this.fileOnError$.next()
+        this.fileOnError$.next(undefined)
         return of(null)
       })
     );
