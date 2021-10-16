@@ -303,7 +303,11 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 - exécuter la commande : `ng update` pour voir les package angular à mettre à jour
 
-- faire `npm update [nom du package]`
+- faire `npm update [nom du package]` (archiver le fichier package.json entre chaque commande)
+
+✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
+
+⚠️ Faire un commit et tester entre chaque update.
 
 - si certaines lib ne se mettent pas à jour : `npm install rxjs@latest`
 
