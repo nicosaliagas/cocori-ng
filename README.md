@@ -307,11 +307,15 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 ✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
 
+⚠️ Faire un commit et tester entre chaque update.
+
 ✔️ Le package angular/material est en général à mettre à jour en 1er (dépendance avec le cdk)
 
 ✔️ Relancer la commande `ng update` pour vérifier que tout soit ok
 
-⚠️ Faire un commit et tester entre chaque update.
+    Message de confirmation :
+
+    💪 We analyzed your package.json and everything seems to be in order. Good work!
 
 - si certains package ne se mettent pas à jour (via la commande `npm update [nom du package]` ) : `npm install rxjs@latest`
 
