@@ -39,7 +39,7 @@ export class PageCMSComponent extends ExtendPageComponent implements OnInit {
   }
 
   public getDatasFromLocalstorage(): SectionModel[] {
-    return this.cmsService.adapterQuery(this.storageService.getLocalStorageItem('cms-page-save'))
+    return this.cmsService.adapterQueryEditor(this.storageService.getLocalStorageItem('cms-page-save'))
   }
 
   public onSaveBtn(datas: SectionModel[]) {

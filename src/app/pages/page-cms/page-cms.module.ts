@@ -6,6 +6,7 @@ import { CocoringCMSModule, CocoringCmsReadonlyModule, SharedCMSModule } from '@
 import { CocoringVariableHtmlModule } from '@cocori-ng/lib/src/lib/feature-core';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
+import { SimpleBlockReadonlyTplComponent } from './blocks/simple-block/simple-block-readonly.component';
 import { SimpleBlockComponent } from './blocks/simple-block/simple-block.component';
 import { PageCMSRoutingModule } from './page-cms-routing.module';
 import { PageCMSComponent } from './page-cms.component';
@@ -25,6 +26,7 @@ import { PageTestComponent } from './page-test/page-test.component';
   ],
   declarations: [
     SimpleBlockComponent,
+    SimpleBlockReadonlyTplComponent,
     PageCMSComponent,
     PageTestComponent,
   ],

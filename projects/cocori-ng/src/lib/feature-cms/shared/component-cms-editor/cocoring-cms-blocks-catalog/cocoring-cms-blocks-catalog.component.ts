@@ -30,6 +30,7 @@ export class CocoringCmsBlocksCatalogComponent implements OnInit {
       id: this.helperService.generateGuid(),
       key: block.key,
       component: block.data.component,
+      componentReadonly: null,
       backgroundColor: block.data.backgroundColor,
       values: block.data.content
     }

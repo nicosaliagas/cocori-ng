@@ -1,3 +1,4 @@
+import { SimpleBlockReadonlyTplComponent } from 'src/app/pages/page-cms/blocks/simple-block/simple-block-readonly.component';
 import { SimpleBlockComponent } from 'src/app/pages/page-cms/blocks/simple-block/simple-block.component';
 
 /**
@@ -9,7 +10,7 @@ export const TemplatesClassesComponents = {
 };
 
 export const ReadonlyTemplatesClassesComponents = {
-  "CenterZoneTpl": SimpleBlockComponent,
+  "CenterZoneTpl": SimpleBlockReadonlyTplComponent,
 };
 
 

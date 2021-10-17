@@ -18,10 +18,10 @@ export interface ConfigCmsModel {
 
 /** identité d'un block */
 export interface BlockModel {
-    component: Type<any>,
     label: string,
-    backgroundColor: string,
+    component: Type<any>,
     filename: string,
+    backgroundColor: string,
     content: EditorValues
 }
 
@@ -29,6 +29,7 @@ export interface SectionModel {
     id: string,
     key: string,
     component: Type<any>,
+    componentReadonly: Type<any>,
     backgroundColor: string,
     values: EditorValues,
   }

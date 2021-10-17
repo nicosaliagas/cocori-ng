@@ -90,22 +90,11 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
     )
   }
 
-  /** #TODOSECTION */
-  /** ancienne sélection de la classe component à insérer : TemplatesClassesComponents[this.section.block.key] */
   private addTemplateSectionComponent() {
 
     let classComponent: Type<any> = null
 
     classComponent = this.section.component ? this.section.component : TemplatesClassesComponents[this.section.key]
-
-
-    /** #TODOSECTION */
-    /** la propriété component est à null si les données de la section viennent de la base */
-    // if(this.section.block.data?.component) {
-    //   classComponent = this.section.block.data.component
-    // } else {
-    //   classComponent = TemplatesClassesComponents[this.section.block.key]
-    // }
 
     this.injectComponentService.loadAndAddComponentToContainer(classComponent, this.containerRef,
       [{ section: this.section }, { apisConfig: this.apisConfig }], null)

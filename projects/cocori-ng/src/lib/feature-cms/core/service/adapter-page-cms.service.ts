@@ -17,6 +17,7 @@ export class AdapterPageCmsService {
         backgroundColor: section.backgroundColor,
         key: section.key,
         component: null,
+        componentReadonly: null,
         values: section.values
       })
     });
@@ -33,6 +34,7 @@ export class AdapterPageCmsService {
         id: section.id,
         key: section.key,
         component: null,
+        componentReadonly: null,
         values: section.values,
         backgroundColor: section.backgroundColor
       })
