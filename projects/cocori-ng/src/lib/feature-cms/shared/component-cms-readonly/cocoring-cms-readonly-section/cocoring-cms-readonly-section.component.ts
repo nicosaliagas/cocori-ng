@@ -39,11 +39,6 @@ export class CocoringCmsReadonlySectionComponent implements OnInit {
   ngOnInit(): void { }
 
   private addTemplateSectionComponent() {
-
-    console.log("config section model >>> ", this.section)
-
-    // ReadonlyTemplatesClassesComponents[this.section.key]
-
     this.injectComponentService.loadAndAddComponentToContainer(this.section.componentReadonly, this.containerRef,
       [{section: this.section}], null)
   }

@@ -7,7 +7,6 @@ import {
   Input,
   OnInit,
   Output,
-  Type,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
@@ -16,7 +15,6 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
-import { TemplatesClassesComponents } from '../../../core/model/adapter-cms.model';
 import { ApisConfigCmsModel, InsertSectionAt as SectionIndex, SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 
@@ -91,12 +89,7 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
   }
 
   private addTemplateSectionComponent() {
-
-    let classComponent: Type<any> = null
-
-    classComponent = this.section.component ? this.section.component : TemplatesClassesComponents[this.section.key]
-
-    this.injectComponentService.loadAndAddComponentToContainer(classComponent, this.containerRef,
+    this.injectComponentService.loadAndAddComponentToContainer(this.section.component, this.containerRef,
       [{ section: this.section }, { apisConfig: this.apisConfig }], null)
   }
 }

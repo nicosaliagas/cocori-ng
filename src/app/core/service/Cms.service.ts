@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SectionModel } from '@cocori-ng/lib/src/lib/feature-cms';
 
-import { ReadonlyTemplatesClassesComponents, TemplatesClassesComponents } from '../model/Cms.model';
+import { EditorAdapterCmsBlocks, ReadonlyAdapterCmsBlocks } from '../model/Adapter-cms-blocks.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class CmsService {
     if (!sections) return []
 
     sections.forEach((section: SectionModel) => {
-      section.component = TemplatesClassesComponents[section.key]
+      section.component = EditorAdapterCmsBlocks[section.key]
     })
 
     return sections
@@ -24,7 +24,7 @@ export class CmsService {
     if (!sections) return []
 
     sections.forEach((section: SectionModel) => {
-      section.componentReadonly = ReadonlyTemplatesClassesComponents[section.key]
+      section.componentReadonly = ReadonlyAdapterCmsBlocks[section.key]
     })
 
     return sections

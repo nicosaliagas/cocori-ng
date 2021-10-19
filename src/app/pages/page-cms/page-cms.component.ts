@@ -7,7 +7,8 @@ import { CmsService } from 'src/app/core/service/Cms.service';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
-import { SimpleBlockComponent } from './blocks/simple-block/simple-block.component';
+import { CenterZoneTplComponent } from './blocks/center-zone/center-zone.component';
+import { TwoZonesHComponent } from './blocks/two-zones-h/two-zones-h.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,21 +51,48 @@ export class PageCMSComponent extends ExtendPageComponent implements OnInit {
     this.configCms = <ConfigCmsModel>{
       catalog: [
         new Block("CenterZoneTpl", {
-          component: SimpleBlockComponent,
-          filename: '1.jpg',
-          label: 'bloc avec une zone de texte',
-          backgroundColor: 'rgb(49 109 169)',
-          content: {
-            editor1: '<h1 style="text-align: center;"><span style="color: #ffffff;">Made with ❤️ by Cocorisoft</span></h1>'
-          }
-        }),
-        new Block("CenterZoneTpl", {
-          component: SimpleBlockComponent,
+          component: CenterZoneTplComponent,
           filename: '1.jpg',
           label: 'bloc avec une zone de texte',
           backgroundColor: '#343a40',
           content: {
             editor1: '<h1 style="text-align: center;"><span style="color: #ffffff;">Made with ❤️ by Cocorisoft</span></h1>'
+          }
+        }),
+        new Block("CenterZoneTpl", {
+          component: CenterZoneTplComponent,
+          filename: '2.jpg',
+          label: 'bloc avec une zone de texte',
+          backgroundColor: '#ffffff',
+          content: {
+            editor1: '<h1 style="text-align: center;"><span style="color: #000000;">Cocorisoft Design Blocks</span></h1>'
+          }
+        }),
+        new Block("TwoZonesHTpl", {
+          component: TwoZonesHComponent,
+          filename: '3.jpg',
+          label: 'bloc avec une image et une zone de texte',
+          backgroundColor: '#f0eaea',
+          content: {
+            editor1: `<p><img style="float: right;" title="phone.jpg" src="https://localhost:8080/api/upload/image/phone.jpg" alt="" width="378" height="251" /></p>`,
+            editor2: `
+            <div><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>
+            <div>&nbsp;</div>
+            <div style="text-align: left; line-height: 2;"><span style="font-size: 12pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet porta tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></div>`,
+          }
+        }),
+        new Block("TwoZonesHTpl", {
+          component: TwoZonesHComponent,
+          filename: '4.jpg',
+          label: 'bloc avec une zone de texte et une image',
+          backgroundColor: '#f7f7f7',
+          content: {
+            editor1: `
+            <div><span style="font-size: 18pt;">Cocorisoft Design Blocks</span></div>
+            <div>&nbsp;</div>
+            <div style="text-align: left; line-height: 2;"><span style="font-size: 12pt;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet porta tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></div>
+            `,
+            editor2: `<p><img style="display: block; margin-left: auto; margin-right: auto;" title="phone.jpg" src="https://localhost:8080/api/upload/image/desk.jpg" alt="" width="378" height="251" /></p>`,
           }
         }),
       ],

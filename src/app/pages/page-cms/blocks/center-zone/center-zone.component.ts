@@ -3,11 +3,11 @@ import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'simple-block',
-  templateUrl: './simple-block.component.html',
-  styleUrls: ['./simple-block.component.scss']
+  selector: 'center-zone',
+  templateUrl: './center-zone.component.html',
+  styleUrls: []
 })
-export class SimpleBlockComponent extends ExtendSectionTplComponent implements OnInit {
+export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   
   constructor(

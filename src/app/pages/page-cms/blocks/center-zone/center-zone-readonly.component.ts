@@ -4,10 +4,10 @@ import { ExtendSectionReadonlyTplComponent } from '@cocori-ng/lib/src/lib/featur
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'simple-block-readonly-tpl',
-  templateUrl: './simple-block.component.html',
+  selector: 'center-zone-readonly',
+  templateUrl: './center-zone.component.html',
 })
-export class SimpleBlockReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {
+export class CenterZoneReadonlyTplComponent extends ExtendSectionReadonlyTplComponent implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);

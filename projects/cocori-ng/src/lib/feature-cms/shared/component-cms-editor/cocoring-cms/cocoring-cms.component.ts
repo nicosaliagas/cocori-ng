@@ -15,7 +15,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { AutoUnsubscribeComponent, InjectComponentService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
-import { ConfigCmsModel, InsertSectionAt, SectionModel, SectionMoveIndexes } from '../../../core/model/cms.model';
+import {
+  ConfigCmsModel,
+  InsertSectionAt,
+  SectionModel,
+  SectionModelCommand,
+  SectionMoveIndexes,
+} from '../../../core/model/cms.model';
 import { Block } from '../../../core/service/block';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
@@ -52,9 +58,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
 
   @Input()
   set datas(sectionDatas: SectionModel[]) {
-    this.importSections = this.cmsService.importSections(sectionDatas)
-
-    console.log("sections saved ::: ", this.importSections)
+    this.importSections = sectionDatas
   }
 
   @Input()
@@ -128,7 +132,7 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
     this.cmsService.catalogBlocksOpened$.next(this.isSidenavOpen)
   }
 
-  public getPageCMSDatas(): SectionModel[] {
+  public getPageCMSDatas(): SectionModelCommand[] {
     return this.cmsService.sectionsPageDatas()
   }
 
@@ -137,6 +141,9 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
       this.cmsService.sectionAdded$.pipe(
         tap(_ => this.refreshNumberSection()),
         tap((datas: InsertSectionAt) => {
+
+          console.log("#4 - datas.section", datas.section)
+
           this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
             [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
             { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index

@@ -5,14 +5,14 @@ import { Block } from '../service/block';
 
 export type ResponsiveOrientation = 'computer' | 'tablet-land' | 'tablet-port' | 'mobile'
 
-export type OrientationParamsTpl = { [type in ResponsiveOrientation]: Function};
+export type OrientationParamsTpl = { [type in ResponsiveOrientation]: Function };
 
 /** configuration par défaut du wysiwyg pour être utilisé dans les sections */
 export type ApisConfigCmsModel = Pick<ConfigWysiwygModel, 'apiKey' | 'apiFile' | 'apiFileDownload'>;
 
 /** configuration du CMS */
 export interface ConfigCmsModel {
-    catalog: Block[], 
+    catalog: Block[],
     wysiwygOptions: ApisConfigCmsModel,
 }
 
@@ -32,7 +32,9 @@ export interface SectionModel {
     componentReadonly: Type<any>,
     backgroundColor: string,
     values: EditorValues,
-  }
+}
+
+export type SectionModelCommand = Omit<SectionModel, 'component' | 'componentReadonly'>;
 
 export interface EditorValues {
     [key: string]: string;
