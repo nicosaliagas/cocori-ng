@@ -44,6 +44,7 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
 
         this.text = config.text;
         this.icon = config.icon;
+        this.class = config.className || this.class;
         this.iconPosition = config.iconPosition;
         this.type = config.type;
         this.onClickSubmit = config.onClickSubmit;

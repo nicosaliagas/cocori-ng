@@ -43,6 +43,7 @@ export interface ButtonComponentInputs {
     type: TypeButtonEnum,
     onClickSubmit: Function,
     icon?: string,
+    className?: string,
     iconPosition?: ButtonIconPositon
 }
 

@@ -85,13 +85,6 @@
   transform: rotate(45deg);
 }
 
-@mixin md-icon-size($size: 24px) {
-  font-size: $size !important;
-  height: $size !important;
-  width: $size !important;
-  line-height: $size !important;
-}
-
 @mixin material-icon-btn-size($size: 24px) {
   width: $size !important;
   height: $size !important;
@@ -106,4 +99,8 @@
   height: $size !important;
   width: $size !important;
   line-height: $size !important;
+}
+
+@mixin border($direction, $width, $color) {
+  border-#{$direction}: $width solid $color;
 }
