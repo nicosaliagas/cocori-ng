@@ -4,8 +4,13 @@
     @content;
   }
 }
-@mixin for-phone-only {
-  @media (max-width: 599px) {
+@mixin for-phone-landscape {
+  @media (max-height: 700px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin for-phone-portrait {
+  @media (max-width: 599px) and (orientation: portrait) {
     @content;
   }
 }
@@ -30,24 +35,22 @@
   }
 }
 
-/// Slightly lighten a color
-/// @access public
-/// @param {Color} $color - color to tint
-/// @param {Number} $percentage - percentage of `$color` in returned color
-/// @return {Color}
-
+/** Slightly lighten a color
+@param $color - color to tint
+@param $percentage - percentage of `$color` in returned color
+@return {Color}
+*/
 @function tint($color, $percentage) {
   @return mix(white, $color, $percentage);
 }
 
-/// Slightly darken a color
-/// @access public
-/// @param {Color} $color - color to shade
-/// @param {Number} $percentage - percentage of `$color` in returned color
-/// @return {Color}
-
+/** Slightly darken a color
+@param $color - color to shade
+@param $percentage - percentage of `$color` in returned color
+@return {Color}
+*/
 @function shade($color, $percentage) {
-    @return mix(black, $color, $percentage);
+  @return mix(black, $color, $percentage);
 }
 
 @mixin arrow() {
@@ -87,13 +90,6 @@
   transform: rotate(45deg);
 }
 
-@mixin md-icon-size($size: 24px) {
-  font-size: $size !important;
-  height: $size !important;
-  width: $size !important;
-  line-height: $size !important;
-}
-
 @mixin material-icon-btn-size($size: 24px) {
   width: $size !important;
   height: $size !important;
@@ -108,4 +104,8 @@
   height: $size !important;
   width: $size !important;
   line-height: $size !important;
+}
+
+@mixin border($direction, $width, $color) {
+  border-#{$direction}: $width solid $color;
 }

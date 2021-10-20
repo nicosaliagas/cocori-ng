@@ -53,7 +53,7 @@
   .mat-icon {
     font-size: 28px;
 
-    @include for-phone-only {
+    @include for-phone-portrait {
       font-size: 25px;
     }
   }

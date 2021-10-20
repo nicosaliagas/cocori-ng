@@ -1,0 +1,12 @@
+<section-tpl [backgroundColor]="section.backgroundColor" (openBottomSheet)="openBottomSheet()">
+    <div class="row-zones" fxFlex="100%" [fxLayout]="orientation">
+        <div fxFlex="50%" fxFlex.lt-md="100%" class="zone-editor zone-left" [ngClass.lt-md]="'zone-left-mobile'">
+            <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
+            <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
+        </div>
+        <div fxFlex="41%" fxFlex.lt-md="100%" class="zone-editor zone-right">
+            <ng-template *ngIf="!readOnly" #ContainerEditor2Ref></ng-template>
+            <div *ngIf="readOnly" [innerHtml]="value['editor2'] | variableHtml"></div>
+        </div>
+    </div>
+</section-tpl>

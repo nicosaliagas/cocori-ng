@@ -24,7 +24,7 @@ footer-ng {
   &.collapsed {
     margin-left: 80px;
 
-    @include for-phone-only {
+    @include for-phone-portrait {
       margin-left: 0;
     }
   }
@@ -35,7 +35,7 @@ footer-ng {
     padding: 2.25rem 2.25rem 0.75rem;
     background-color: #f7f7f7;
 
-    @include for-phone-only {
+    @include for-phone-portrait {
       padding: 0.75rem;
     }
   }

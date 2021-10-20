@@ -119,6 +119,7 @@ class ButtonConfigBuilder<Builder> {
 
     _isTypeSubmit: boolean;
     _icon: string;
+    _className: string;
     _iconPosition: ButtonIconPositon;
     _callbackComponent: OutputCallback;
 
@@ -131,6 +132,12 @@ class ButtonConfigBuilder<Builder> {
     icon(materialIconName: string, buttonIconPosition: ButtonIconPositon = ButtonIconPositon.START) {
         this._icon = materialIconName
         this._iconPosition = buttonIconPosition
+
+        return this
+    }
+
+    class(className: string) {
+        this._className = className
 
         return this
     }
@@ -271,6 +278,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
             text: buttonName,
             type: builder._isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
             icon: builder._icon,
+            className: builder._className,
             iconPosition: builder._iconPosition,
             onClickSubmit: this.onClickSubmit.bind(this)
         };
