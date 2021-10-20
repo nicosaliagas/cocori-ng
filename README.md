@@ -431,7 +431,7 @@ Object.entries(values).forEach(([key, value]) => {
 form.get('control').setValue('', {emitEvent: false})
 ```
 
-`Unsubscribe`
+`Unsubscribe vs Subscribe`
 
 ⚠️ Pensez à se désabonner de tous les subscribe !
 

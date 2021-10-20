@@ -53,14 +53,14 @@ mat-sidenav.matsidenav-layout:not(.mat-drawer-opened) {
   width: 80px !important;
   overflow: hidden;
 
-  @include for-phone-only {
+  @include for-phone-portrait {
     width: 0 !important;
   }
 }
 
 /** / Test Sidenav Rail */
 
-@include for-phone-only {
+@include for-phone-portrait {
   .formulaires {
     width: 100%;
 

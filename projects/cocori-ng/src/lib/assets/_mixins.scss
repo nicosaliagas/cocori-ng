@@ -4,8 +4,13 @@
     @content;
   }
 }
-@mixin for-phone-only {
-  @media (max-width: 599px) {
+@mixin for-phone-landscape {
+  @media (max-height: 700px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin for-phone-portrait {
+  @media (max-width: 599px) and (orientation: portrait) {
     @content;
   }
 }
