@@ -104,7 +104,7 @@ echod "Copy $srcPath/$projectName/* into $libArtifactPath"
 cp -R $srcPath/$projectName/* $libArtifactPath &>> $logFile
 
 echoAndRun cd $libArtifactPath/dist/$projectName &>> $logFile
-echoAndRun npm link &>> $logFile
+echoAndRun sudo npm link &>> $logFile
 
 echo "
 ##################################################################################
