@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CocoringPrettyPrintModule } from '@cocori-ng/lib';
@@ -18,6 +20,8 @@ import { StaticFormComponent } from './static-form.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     StaticFormRoutingModule,
     CocoringPrettyPrintModule,

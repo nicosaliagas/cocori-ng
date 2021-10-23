@@ -74,6 +74,9 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .nameLabel('Prénom')
         .appearance('outline')
         .typeInput(FormInputComponents.INPUT_TEXT))
+      .addInput('date', config => config
+        .nameLabel('Date de naissance')
+        .typeInput(FormInputComponents.INPUT_DATE))
       .addInput('age', config => config
         .nameLabel('Age')
         .appearance('fill')
