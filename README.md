@@ -299,7 +299,7 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
 
-## Montée de version des libraries d'un projet
+## ✨ Monter la version des libraries d'un projet #upgrade
 
 - exécuter la commande : `ng update` pour voir les package angular à mettre à jour
 
