@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +19,6 @@ import { CocoringDateComponent } from './cocoring-date.component';
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,
-        MatNativeDateModule,
         CocoringInputErrorModule,
         InputIconModule,
     ],

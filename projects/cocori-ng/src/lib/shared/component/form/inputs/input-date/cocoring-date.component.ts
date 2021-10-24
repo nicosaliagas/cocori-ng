@@ -1,5 +1,3 @@
-import 'moment/locale/fr';
-
 import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
 
