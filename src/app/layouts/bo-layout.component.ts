@@ -47,6 +47,7 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
         { label: 'Wysiwyg', route: '/bo/component/wysiwyg' },
         { label: 'Color picker', route: '/bo/component/colorpicker' },
         { label: 'Toast / Snackbar', route: '/bo/component/toast' },
+        { label: 'Date', route: '/bo/component/date' },
       ]
     },
     { label: "Liens externes", menuGroup: true },

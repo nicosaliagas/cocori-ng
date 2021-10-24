@@ -4,7 +4,10 @@ import localeFrExtra from '@angular/common/locales/extra/fr';
 import localeFr from '@angular/common/locales/fr';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LuxonDateAdapter, MAT_LUXON_DATE_ADAPTER_OPTIONS, MAT_LUXON_DATE_FORMATS } from '@angular/material-luxon-adapter';
 import { MatButtonModule } from '@angular/material/button';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -47,9 +50,22 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatSelectModule,
     AppRoutingModule,
     SharedProjectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     DatagridService,
+    {
+      provide: MAT_DATE_LOCALE, useValue: 'fr'
+    },
+    {
+      provide: DateAdapter,
+      useClass: LuxonDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_LUXON_DATE_ADAPTER_OPTIONS]
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: MAT_LUXON_DATE_FORMATS
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: LoadEnvironmentFactory,

@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'component/wysiwyg', loadChildren: () => import('../pages/wysiwyg-demo/wysiwyg-demo.module').then(mod => mod.WysiwygDemoModule)},
       { path: 'component/colorpicker', loadChildren: () => import('../pages/colorpicker-demo/colorpicker-demo.module').then(mod => mod.ColorpickerDemoModule)},
       { path: 'component/toast', loadChildren: () => import('../pages/toast-demo/toast-demo.module').then(mod => mod.ToastDemoModule)},
+      { path: 'component/date', loadChildren: () => import('../pages/demo-component/date-demo/date-demo.module').then(mod => mod.DateDemoModule)},
     ]
   },
 ];

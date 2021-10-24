@@ -41,7 +41,6 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
-        .isRequired()
         .appearance('standard')
         .nameLabel('Datasource - Données en dur')
         .icon('search')
@@ -52,7 +51,6 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
           value: [{ id: "hamburger", name: "Hamburger Vegi" }, { id: "pizza", name: "Pizza" }, { id: "quiche", name: "Quiche" }]
         }))
       .addInput('api', config => config
-        .isRequired()
         .appearance('standard')
         .icon('cloud_queue')
         .nameLabel('Datasource - API')
@@ -74,12 +72,15 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .nameLabel('Prénom')
         .appearance('outline')
         .typeInput(FormInputComponents.INPUT_TEXT))
+      .addInput('date', config => config
+        .nameLabel('Date de naissance')
+        .isRequired()
+        .typeInput(FormInputComponents.INPUT_DATE))
       .addInput('age', config => config
         .nameLabel('Age')
         .appearance('fill')
         .maxlength(2)
         .typeInput(FormInputComponents.INPUT_NUMBER))
-
       .setViewContainerRef(this.formContainerRef2)
       .addInput('email', config => config
         .nameLabel('Email')
@@ -92,7 +93,6 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .nameLabel('Mot de passe')
         .typeInput(FormInputComponents.INPUT_PASSWORD))
       .addInput('zone', config => config
-        .isRequired()
         .nameLabel('Zone')
         .typeInput(FormInputComponents.INPUT_TEXTAREA)
         .outputCallback({ callback: this.onComponentReady }))

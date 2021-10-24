@@ -39,6 +39,9 @@ export * from './lib/shared/component/form/inputs/input-number/cocoring-number.m
 export * from './lib/shared/component/form/inputs/input-email/cocoring-email.component';
 export * from './lib/shared/component/form/inputs/input-email/cocoring-email.module';
 
+export * from './lib/shared/component/form/inputs/input-date/cocoring-date.component';
+export * from './lib/shared/component/form/inputs/input-date/cocoring-date.module';
+
 export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.component';
 export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.module';
 
