@@ -258,6 +258,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         return this as FormBuilderService as ReturnType;
     }
 
+    /** Déclenche manuellement la création des champs dans la vue */
     generateFormInView() {
         if (this.generateComponentViewService.getViewContainerRef()) {
             this._configInputsForm.forEach((conf: ConfigInputComponent) => {

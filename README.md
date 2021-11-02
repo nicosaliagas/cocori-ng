@@ -276,7 +276,7 @@ npm install cypress --save-dev
 `connecteurs`
 https://example.cypress.io/commands/connectors
 
-`lire un fichier json` 
+`lire un fichier json`
 https://example.cypress.io/commands/files
 
 `Conserver le localstorage entre les tests CypressJs`
@@ -332,19 +332,32 @@ https://github.com/angular/flex-layout/wiki/MediaObserver
 
 exemple :
 
-private eventSizeScreen(mediaObserver: MediaObserver) {
-this.subscription.add(
-mediaObserver.media$.subscribe((change: MediaChange) => {
-        this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+constructor(private mediaObserver: MediaObserver,) { }
 
-        if (change.mqAlias === 'xs') {
-            /** si taille d'écran mobile */
-        } else {
-            /** sinon */
+private getAlias = (MediaChange: MediaChange[]) => {
+  return MediaChange[0].mqAlias;
+};
+
+private eventMediaChange() {
+  this.mediaObserver
+    .asObservable()
+    .pipe(
+      distinctUntilChanged(
+        (x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
+      )
+    )
+    .subscribe((change) => {
+      change.forEach((item) => {
+
+        this.activeMediaQuery = item
+          ? `'${item.mqAlias}' = (${item.mediaQuery})`
+          : '';
+
+        if (item.mqAlias === 'lt-md') {
+          this.loadMobileContent();
         }
-        })
-    );
-
+      });
+    });
 }
 
 `Référence un composant enfant et accès à ces propriétés depuis un composant parent`
@@ -388,9 +401,20 @@ this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
 `Change detection : déclencher les changements de variables dans la vue manuellement`
 
 ```
-changeDetection: ChangeDetectionStrategy.OnPush,
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush
+  ...
 
-this.cdr.detectChanges()
+constructor(private cdr: ChangeDetectorRef)
+
+🔹this.cdr.detectChanges()
+
+dans les appels Http :
+🔹catchError((err: any) => {
+  this.cdr.detectChanges()
+  return throwError(err);
+})
+
 ```
 
 `Loop object properties | Iterate through object properties`
@@ -425,6 +449,17 @@ Object.entries(values).forEach(([key, value]) => {
 <mat-icon fontSet="material-icons-outlined">filter_alt</mat-icon>
 ```
 
+`Material Icon : use in css `
+
+```
+li {
+    &::before {
+      🔹font-family: "Material Icons";
+      🔹content: "\e5cc";
+    }
+  }
+```
+
 `Reactive form : ne pas émettre l'évènement de maj au setValue`
 
 ```
@@ -457,7 +492,7 @@ export class FlightsComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    🔹this.destroy$.next();
+    🔹this.destroy$.next(undefined);
     🔹this.destroy$.complete();
   }
 }
