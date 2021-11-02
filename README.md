@@ -48,7 +48,6 @@ Commande qui build la lib et rends la main : `npm run lib:build`
 npm i
 npm run lib:build
 cd dist/cocori-ng ; npm link ; cd ../..
-npm link
 ```
 
 ⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
@@ -276,7 +275,7 @@ npm install cypress --save-dev
 `connecteurs`
 https://example.cypress.io/commands/connectors
 
-`lire un fichier json`
+`lire un fichier json` 
 https://example.cypress.io/commands/files
 
 `Conserver le localstorage entre les tests CypressJs`
