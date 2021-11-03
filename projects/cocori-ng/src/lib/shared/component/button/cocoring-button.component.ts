@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
     AutoUnsubscribeComponent,
     ButtonComponentInputs,
@@ -28,14 +28,12 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
     icon: string;
     iconPosition: ButtonIconPositon;
 
-    constructor(private loadingService: LoadingService) {
+    constructor(
+        private loadingService: LoadingService,
+        private cdr: ChangeDetectorRef,) {
         super()
 
-        this.subscriptions.add(
-            this.loadingService.subject.subscribe((isLoading: boolean) => {
-                this.isLoading = isLoading
-            })
-        )
+
     }
 
     @Input()
@@ -51,6 +49,13 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
     }
 
     ngOnInit() {
+        this.subscriptions.add(
+            this.loadingService.subject.subscribe((isLoading: boolean) => {
+                this.isLoading = isLoading
+                this.cdr.detectChanges()
+            })
+        )
+
         this.callback.emit(this.text);
     }
 
