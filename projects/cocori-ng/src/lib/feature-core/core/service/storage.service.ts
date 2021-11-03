@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StorageService {
     constructor() { }
@@ -11,7 +11,15 @@ export class StorageService {
     }
 
     public getSessionStorageItem(key: string): any {
-        return JSON.parse(sessionStorage.getItem(key));
+        let a = null
+
+        try {
+            a = JSON.parse(sessionStorage.getItem(key));
+        } catch (e) {
+            console.error(`Session storage, erreur in parsing JSON : `, e)
+        } finally {
+            return a
+        }
     }
 
     public deleteSessionStorageItem(key: string) {
@@ -23,7 +31,15 @@ export class StorageService {
     }
 
     public getLocalStorageItem(key: string): any {
-        return JSON.parse(localStorage.getItem(key));
+        let a = null
+
+        try {
+            a = JSON.parse(localStorage.getItem(key));
+        } catch (e) {
+            console.error(`Local storage, erreur in parsing JSON : `, e)
+        } finally {
+            return a
+        }
     }
 
     public deleteLocalStorageItem(key: string) {
