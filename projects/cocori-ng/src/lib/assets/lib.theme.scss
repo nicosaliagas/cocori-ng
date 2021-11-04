@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use "~@angular/material" as mat;
 @import "~@angular/material/theming";
 
 @mixin lib-theme($config-or-theme, $palette-green, $palette-blue) {
@@ -63,6 +63,12 @@
     &.errorToast {
       background-color: mat.get-color-from-palette($warn, 200);
       color: #ffffff;
+      .mat-simple-snackbar {
+        > span {
+          width: 70%;
+          word-wrap: break-word;
+        }
+      }
     }
 
     &.infoToast {
