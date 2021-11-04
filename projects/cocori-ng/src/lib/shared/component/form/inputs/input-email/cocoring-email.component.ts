@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@an
 import { ConfigInputComponent, ValidatorsService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import {
-  ExtendInputsComponent,
+    ExtendInputsComponent,
 } from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({

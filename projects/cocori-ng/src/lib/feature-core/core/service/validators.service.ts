@@ -20,7 +20,7 @@ export class ValidatorsService {
             'required': (!error.message ? 'Veuillez saisir ce champ' : error.message),
             'invalidEmailAddress': 'L\'e-mail n\'est pas valide.',
             'invalidCodePostal': 'Le code postal n\'est pas valide.',
-            'invalidDate': "La date n'est pas valide.",
+            'invalidDate': "Veuillez saisir une date valide.",
             'invalidHeure': "L'heure n'est pas au bon format.",
             'invalideDateHeure': "La date/heure n'est pas valide.",
             'regexInvalide': (!error.value.formatRegexEnClair ? 'Le format attendu est incorrect.' : `Fomat attendu : ${error.value.formatRegexEnClair}.`),
@@ -61,6 +61,14 @@ export class ValidatorsService {
         }
     }
 
+    public static dateValidator(control: FormControl): ValidationErrors {
+        const date: any = control.value;
+
+        if (date === null || date === '') return { invalidDate: true };
+
+        return null
+    }
+
     public static telephoneValidator(control: FormControl): any {
         if (!control.value) return null;
 
@@ -82,19 +90,6 @@ export class ValidatorsService {
     }
 
     /** VALIDATEURS DATES */
-
-    /**
-     * La date à valider est au format string : jj/mm/aaaa
-     */
-    // public static dateValidateur(control: FormControl): any {
-    //     if (!control.value) return null;
-
-    //     const str = control.value;
-
-    //     const dateValide: boolean = DateFunctions.validerDateJJMMAAAA(str);
-
-    //     return dateValide ? null : { 'invalidDate': true };
-    // }
 
     /**
      * La date à valider est au format UTC : 1982-11-06T00:00:00Z

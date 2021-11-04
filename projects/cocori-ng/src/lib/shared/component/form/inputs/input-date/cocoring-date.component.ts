@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
-import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { ConfigInputComponent, ValidatorsService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import {
     ExtendInputsComponent,
@@ -15,7 +15,7 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
     @Input()
     set config(config: ConfigInputComponent) {
 
-        // config.validators.push(ValidatorsService.emailValidator)
+        config.validators.push(ValidatorsService.dateValidator)
 
         this.configInput(config)
 

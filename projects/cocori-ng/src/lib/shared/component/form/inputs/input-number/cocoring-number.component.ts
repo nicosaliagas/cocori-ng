@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { ConfigInputComponent } from '@cocori-ng/lib/src/lib/feature-core';
-import { filter, tap } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import {
-  ExtendInputsComponent,
+    ExtendInputsComponent,
 } from '../../../../../feature-core/shared/component/form/inputs/extend-inputs/extend-inputs.component';
 
 @Component({
@@ -25,13 +25,11 @@ export class CocoringNumberComponent extends ExtendInputsComponent implements On
     }
 
     ngOnInit() {
-        this.subscriptions.add(
-            this.formGroup.get(this.nameControl).valueChanges.pipe(
-                filter(value => this.maxlength && String(value).length > this.maxlength && value > 0),
-                tap(value => {
-                    this.formGroup.get(this.nameControl).setValue(String(value).slice(0, this.maxlength), { emitEvent: false })
-                })
-            ).subscribe()
-        )
+        this.formGroup.get(this.nameControl).valueChanges.pipe(
+            takeUntil(this.destroy$),
+            filter(value => this.maxlength && String(value).length > this.maxlength && value > 0),
+        ).subscribe((value) => {
+            this.formGroup.get(this.nameControl).setValue(String(value).slice(0, this.maxlength), { emitEvent: false })
+        })
     }
 }

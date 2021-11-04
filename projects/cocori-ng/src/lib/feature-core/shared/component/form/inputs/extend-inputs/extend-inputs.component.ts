@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
 
 import {
     ConfigInputComponent,
@@ -26,7 +26,8 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     /** méthode appelée lorsque que le contrôle a été ajouté au formulaire avec en paramètre le nom du contrôle créé */
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
-    subscriptions: Subscription = new Subscription();
+    public subscriptions: Subscription = new Subscription();
+    public readonly destroy$ = new Subject();
 
     dataSource$: Observable<any>;
     dataSourceNameProperty: string
@@ -47,6 +48,9 @@ export abstract class ExtendInputsComponent implements OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.unsubscribe()
+
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
     }
 
     configInput(config: ConfigInputComponent) {
@@ -119,18 +123,18 @@ export abstract class ExtendInputsComponent implements OnDestroy {
 
             console.log("inRelationWith>>", this.inRelationWith, this.formGroup)
 
-            this.subscriptions.add(
-                this.formGroup.get(this.inRelationWith).valueChanges.subscribe((parentValue) => {
-                    console.log("Parent Value ", parentValue);
-                })
-            )
+            this.formGroup.get(this.inRelationWith).valueChanges.pipe(
+                takeUntil(this.destroy$),
+            ).subscribe((parentValue) => {
+                console.log("Parent Value ", parentValue);
+            })
         }
     }
 
     private isControlRequired(): boolean {
         if (!this.validators) return;
 
-        const d = this.validators.find((validatorFn) => validatorFn === ValidatorsService.require)
+        const d = this.validators.find((validatorFn: Function) => validatorFn.name === ValidatorsService.require.name)
 
         return typeof d === 'undefined' ? false : true
     }

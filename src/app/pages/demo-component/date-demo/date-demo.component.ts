@@ -36,6 +36,9 @@ export class DateDemoComponent extends ExtendPageComponent implements OnInit {
         .nameLabel('Date de naissance')
         .isRequired()
         .typeInput(FormInputComponents.INPUT_DATE))
+      .addInput('date2', config => config
+        .nameLabel('Date de décés')
+        .typeInput(FormInputComponents.INPUT_DATE))
       .addButton('Valider', config => config
         .isTypeSubmit()
         .icon('check')
