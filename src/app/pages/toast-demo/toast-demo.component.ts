@@ -35,14 +35,14 @@ export class ToastDemoComponent  extends ExtendPageComponent implements OnInit {
   }
 
   toastSuccessCb() {
-    this.toastMessageService.success(this.message, this.toastMessageService.defaultDuration, () => alert("🔔 Toast callback après fermeture !"))
+    this.toastMessageService.success(this.message, () => alert("🔔 Toast callback après fermeture !"))
   }
 
   toastErrorCb() {
-    this.toastMessageService.error(this.message, null, () => alert("🔔 Toast callback après fermeture !"))
+    this.toastMessageService.error(this.message, () => alert("🔔 Toast callback après fermeture !"))
   }
 
   toastInfoCb() {
-    this.toastMessageService.info(this.message, this.toastMessageService.defaultDuration, () => alert("🔔 Toast callback après fermeture !"))
+    this.toastMessageService.info(this.message, () => alert("🔔 Toast callback après fermeture !"))
   }
 }
