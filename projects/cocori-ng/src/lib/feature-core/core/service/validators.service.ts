@@ -47,7 +47,13 @@ export class ValidatorsService {
     }
 
     public static require(control: FormControl): ValidationErrors {
-        return HelperService.retourneNullSiNonDéfini(control.value) === null ? { "required": true } : null;
+        const value = HelperService.retourneNullSiNonDéfini(control.value)
+
+        if (control.hasValidator(ValidatorsService.dateValidator)) {
+            return value === null ? { invalidDate: true } : null;
+        } else {
+            return value === null ? { "required": true } : null;
+        }
     }
 
     public static emailValidator(control: FormControl): ValidationErrors {
@@ -62,10 +68,6 @@ export class ValidatorsService {
     }
 
     public static dateValidator(control: FormControl): ValidationErrors {
-        const date: any = control.value;
-
-        if (date === null || date === '') return { invalidDate: true };
-
         return null
     }
 

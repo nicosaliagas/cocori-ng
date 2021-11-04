@@ -2,7 +2,6 @@ import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angul
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from '@cocori-ng/lib';
 import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
-import { DateTime } from 'luxon';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -36,6 +35,10 @@ export class DateDemoComponent extends ExtendPageComponent implements OnInit {
         .nameLabel('Date de naissance')
         .isRequired()
         .typeInput(FormInputComponents.INPUT_DATE))
+      .addInput('date3', config => config
+        .nameLabel('Date de naissance')
+        .isRequired()
+        .typeInput(FormInputComponents.INPUT_DATE))
       .addInput('date2', config => config
         .nameLabel('Date de décés')
         .typeInput(FormInputComponents.INPUT_DATE))
@@ -51,10 +54,6 @@ export class DateDemoComponent extends ExtendPageComponent implements OnInit {
   validateFrom({ value, valid }: { value: any, valid: boolean }) {
     if (!valid) return;
 
-    const date: DateTime = <DateTime>value.date
-
-    const dateUtc: string = date.toUTC().toString()
-  
-    console.log("date >> ", date.toUTC().toString());
+    console.log("value >>> ", value)
   }
 }
