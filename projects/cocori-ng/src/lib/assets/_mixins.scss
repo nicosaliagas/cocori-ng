@@ -1,6 +1,11 @@
+@mixin small-width-screen {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
 /** ex iphone 5/SE 320*568 */
 @mixin for-small-phone-portrait-up {
-  @media (max-width: 599px) and (max-height: 700px) {
+  @media (max-width: 600px) and (max-height: 700px) {
     @content;
   }
 }
