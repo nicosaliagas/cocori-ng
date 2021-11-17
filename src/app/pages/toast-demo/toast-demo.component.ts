@@ -1,5 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ToastMessageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { DateTime } from 'luxon';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -28,6 +29,9 @@ export class ToastDemoComponent  extends ExtendPageComponent implements OnInit {
 
   toastError() {
     this.toastMessageService.error(this.message)
+  }
+  toastErrorStacktrace() {
+    this.toastMessageService.errorStacktrace(this.message, {dateError: DateTime.now().toISO(), httpError: null })
   }
 
   toastInfo() {

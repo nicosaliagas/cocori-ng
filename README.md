@@ -275,7 +275,7 @@ npm install cypress --save-dev
 `connecteurs`
 https://example.cypress.io/commands/connectors
 
-`lire un fichier json` 
+`lire un fichier json`
 https://example.cypress.io/commands/files
 
 `Conserver le localstorage entre les tests CypressJs`
@@ -325,6 +325,15 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 // dynamically-create-nested-objects
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
+`FlexLayout : affecter une classe css en fonction de la taille de l'écran ? `
+
+exemple :
+https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
+
+```
+[ngClass.lt-md]="'zone-left-mobile'"
+```
+
 `Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? `
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
@@ -334,19 +343,19 @@ exemple :
 constructor(private mediaObserver: MediaObserver,) { }
 
 private getAlias = (MediaChange: MediaChange[]) => {
-  return MediaChange[0].mqAlias;
+return MediaChange[0].mqAlias;
 };
 
 private eventMediaChange() {
-  this.mediaObserver
-    .asObservable()
-    .pipe(
-      distinctUntilChanged(
-        (x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
-      )
-    )
-    .subscribe((change) => {
-      change.forEach((item) => {
+this.mediaObserver
+.asObservable()
+.pipe(
+distinctUntilChanged(
+(x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
+)
+)
+.subscribe((change) => {
+change.forEach((item) => {
 
         this.activeMediaQuery = item
           ? `'${item.mqAlias}' = (${item.mediaQuery})`
@@ -357,6 +366,7 @@ private eventMediaChange() {
         }
       });
     });
+
 }
 
 `Référence un composant enfant et accès à ces propriétés depuis un composant parent`

@@ -20,6 +20,7 @@ export * from './core/model/schema-datas.model';
 export * from './core/model/component-inputs.model';
 export * from './core/model/component-wysiwyg.model';
 export * from './core/model/component-uploader.model';
+export * from './core/model/error.model';
 
 export * from './shared/directive/color-picker/cocoring-colorpicker.module';
 export * from './shared/directive/color-picker/cocoring-colorpicker.directive';
@@ -33,5 +34,9 @@ export * from './shared/component/error-handler/input-error-handler/cocoring-inp
 export * from './shared/component/wysiwyg/cocoring-wysiwyg.module';
 export * from './shared/component/wysiwyg/cocoring-wysiwyg.component';
 
+export * from './shared/component/toast-error-stacktrace/toast-error-stacktrace.module';
+export * from './shared/component/toast-error-stacktrace/toast-error-stacktrace.component';
+
+// @TODO supprimer cocoring-auto-unsubscribe.module et le remplacer par takeUntil(detroy) ...
 export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.module';
 export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.component';

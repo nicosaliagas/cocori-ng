@@ -3,6 +3,11 @@ import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snac
 import { NavigationStart, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 
+import {
+  ToastErrorStacktraceComponent,
+} from '../../shared/component/toast-error-stacktrace/toast-error-stacktrace.component';
+import { ErrorStacktraceModel, StacktraceModel } from '../model/error.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +19,7 @@ export class ToastMessageService {
   private buttonAction: string = 'Fermer'
 
   defaultDuration: number = 5000;
-  defaultErrorDuration: number = 6500;
+  defaultErrorDuration: number = 0;
 
   subscription: Subscription;
 
@@ -42,10 +47,19 @@ export class ToastMessageService {
   }
 
   // https://stackblitz.com/edit/snackbar-with-html-so?file=app%2Fhome-page%2Fhome-page.component.ts
-  // erreurTechnique(details: string, detailsTechnique: string, temps: number = null, callback?: () => void) {
-  //   const erreur: ErreurTechnique = { "details": details, "detailsTechnique": detailsTechnique };
-  //   this.snackBarRef = this.snackBar.openFromComponent(ToastErreurTechniqueComponent, { data: erreur, 'panelClass': this.type[1] });
-  // }
+  errorStacktrace(message: string, stacktrace?: StacktraceModel, callback?: () => void, duration: number = this.defaultErrorDuration) {
+    const errorStacktrace: ErrorStacktraceModel = { message: message, stacktrace: stacktrace };
+
+    // const options = {
+    //   'panelClass': this.classCss[messageStyle],
+    //   'duration': !duration ? 0 : duration,
+    //   'verticalPosition': position
+    // }
+
+    this.toastRef = this.toast.openFromComponent(ToastErrorStacktraceComponent, { data: errorStacktrace, 'panelClass': this.classCss[1] });
+
+    this.onDismiss();
+  }
 
   info(message: string, callback?: () => void, duration: number = this.defaultDuration) {
     this.messageHandler(callback, message, 2, duration, null);

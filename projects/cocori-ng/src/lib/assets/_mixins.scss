@@ -114,3 +114,9 @@
 @mixin border($direction, $width, $color) {
   border-#{$direction}: $width solid $color;
 }
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

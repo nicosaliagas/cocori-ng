@@ -1,0 +1,33 @@
+<div class="notification-containeur">
+    <div class="container-messages">
+        <div>{{data.message}}</div>
+        <div *ngIf="data.stacktrace" class="link-plus" (click)="afficheCache()" title="Afficher / masquer les détails techniques de l'erreur">
+
+            <div class="__link-plus" *ngIf="toggleVisibility; else templateMoins">
+                <div>afficher plus de détails</div>
+                <mat-icon>expand_more</mat-icon>
+            </div>
+            <ng-template #templateMoins>
+                <div class="__link-plus">
+                    <div>masquer les détails</div>
+                    <mat-icon>expand_less</mat-icon>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="!toggleVisibility" class="stacktrace">
+            <div>Date : {{data.stacktrace.dateError}}</div>
+            <div>Status : {{data.stacktrace.httpError?.status}} - Id : {{data.stacktrace.httpError?.error.id}}</div>
+            <div *ngIf="errorDebugMessages.length">
+                <div *ngFor="let message of errorDebugMessages; let i = index; trackBy: trackBy">{{message}}</div>
+            </div>
+            <div>
+                {{data.stacktrace.httpError?.message}}
+            </div>
+        </div>
+    </div>
+    <button mat-button type="button" class="mat-button" (click)="close($event)">
+        <span class="mat-button-wrapper">Fermer</span>
+        <div class="mat-button-ripple mat-ripple"></div>
+        <div class="mat-button-focus-overlay"></div>
+    </button>
+</div>
