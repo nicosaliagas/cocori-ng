@@ -63,21 +63,19 @@ _Puis lancer la commande de build du project cible (npm build, npm run...)_
 
 ⚠️ La commande `npm link @cocori-ng/lib` doit être relancée après chaque `npm i` car ce denier détruit les liens symboliques créés pour ier cocori-ng au projet client.
 
+
 ## Développer sur la lib Cocori-ng et sur le projet client en même temps (avec watch) :
 
-Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : `npm run lib`
+Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : 
+```npm run lib``` (commande à exécuter si vous souhaitez dev sur la lib)
 
-- à lancer si vous souhaitez développer la lib
-
-Créer un lien symbolique vers la lib
-
+Créer un lien symbolique vers la lib :
 ```
 cd dist\cocori-ng
-#sudo avant si linux
-npm link
+npm link (#sudo avant si linux)
 ```
 
-Projet cible (ex Boulle):
+Projet cible :
 
 `npm link @cocori-ng/lib`
 
