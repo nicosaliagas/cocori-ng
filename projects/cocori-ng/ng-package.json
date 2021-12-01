@@ -6,9 +6,7 @@
     "**/images/**"
   ],
   "lib": {
-    "entryFile": "src/public-api.ts",
-    "umdModuleIds": {
-    }
+    "entryFile": "src/public-api.ts"
   },
   "whitelistedNonPeerDependencies": [
   ]
