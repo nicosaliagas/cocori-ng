@@ -32,8 +32,8 @@ export class InjectComponentService {
         outputs?: OutputsComponent,
         index?: number
     ) {
-        const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-        const componentRef = viewContainerRef.createComponent(factory, index ? index : null);
+        // const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
+        const componentRef = viewContainerRef.createComponent(componentClass, {index: index ? index : null});
 
         inputs.forEach((input: InputsComponent) => {
             for (const [key, value] of Object.entries(input)) {

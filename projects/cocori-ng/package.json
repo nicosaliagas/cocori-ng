@@ -5,10 +5,10 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "~12.2.10",
-    "@angular/core": "~12.2.10",
-    "@angular/material": "^12.2.10",
-    "@angular/flex-layout": "^12.0.0-beta.35",
+    "@angular/common": "~13.0.3",
+    "@angular/core": "~13.0.3",
+    "@angular/material": "^13.0.3",
+    "@angular/flex-layout": "^13.0.0-beta.36",
     "@r-tek/colr_pickr": "^2.0.0"
   }
 }

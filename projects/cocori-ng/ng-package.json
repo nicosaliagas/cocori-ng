@@ -7,7 +7,5 @@
   ],
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-  ]
+  }
 }
