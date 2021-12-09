@@ -1,5 +1,17 @@
 import { CenterZoneReadonlyTplComponent } from 'src/app/pages/page-cms/blocks/center-zone/center-zone-readonly.component';
 import { CenterZoneTplComponent } from 'src/app/pages/page-cms/blocks/center-zone/center-zone.component';
+import {
+  ImageFullTextReadonlyComponent,
+} from 'src/app/pages/page-cms/blocks/image-full-text/image-full-text-readonly.component';
+import { ImageFullTextComponent } from 'src/app/pages/page-cms/blocks/image-full-text/image-full-text.component';
+import {
+  TextImageFullReadonlyComponent,
+} from 'src/app/pages/page-cms/blocks/text-image-full/text-image-full-readonly.component';
+import { TextImageFullComponent } from 'src/app/pages/page-cms/blocks/text-image-full/text-image-full.component';
+import {
+  TitleTwoZonesReadonlyComponent,
+} from 'src/app/pages/page-cms/blocks/title-two-zones/title-two-zones-readonly.component';
+import { TitleTwoZonesComponent } from 'src/app/pages/page-cms/blocks/title-two-zones/title-two-zones.component';
 import { TwoZonesHReadonlyComponent } from 'src/app/pages/page-cms/blocks/two-zones-h/two-zones-h-readonly.component';
 import { TwoZonesHComponent } from 'src/app/pages/page-cms/blocks/two-zones-h/two-zones-h.component';
 
@@ -10,11 +22,18 @@ import { TwoZonesHComponent } from 'src/app/pages/page-cms/blocks/two-zones-h/tw
  */
 
 export const EditorAdapterCmsBlocks = {
-  "CenterZoneTpl": CenterZoneTplComponent,
-  "TwoZonesHTpl": TwoZonesHComponent,
+  "CenterZone": CenterZoneTplComponent,
+  "TwoZonesH": TwoZonesHComponent,
+  "TitleTwoZones": TitleTwoZonesComponent,
+  "TextImageFull": TextImageFullComponent,
+  "ImageFullText": ImageFullTextComponent,
 };
 
 export const ReadonlyAdapterCmsBlocks = {
-  "CenterZoneTpl": CenterZoneReadonlyTplComponent,
-  "TwoZonesHTpl": TwoZonesHReadonlyComponent,
+  "CenterZone": CenterZoneReadonlyTplComponent,
+  "TwoZonesH": TwoZonesHReadonlyComponent,
+  "TitleTwoZones": TitleTwoZonesReadonlyComponent,
+  "TextImageFull": TextImageFullReadonlyComponent,
+  "ImageFullText": ImageFullTextReadonlyComponent,
+
 };

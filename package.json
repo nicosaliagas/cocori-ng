@@ -10,6 +10,7 @@
     "lib": "ng build --project=cocori-ng --watch",
     "test": "ng test --project=cocori-ng --watch",
     "lib:build": "ng build --project=cocori-ng",
+    "lib:build:prod": "ng build --project=cocori-ng --configuration production",
     "analyze": "ng build --configuration production --stats-json && webpack-bundle-analyzer ./dist/cocori-library/stats.json",
     "link": "cd dist\\cocori-ng && npm link",
     "testproj": "ng test",

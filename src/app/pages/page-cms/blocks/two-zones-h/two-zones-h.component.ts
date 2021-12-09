@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
   templateUrl: './two-zones-h.component.html',
   styleUrls: [
     './two-zones-h.component.scss',
-    './editor-section-styles.component.scss'
+    '../../assets/editor-section-styles.component.scss'
   ],
   providers: [FormHelperService]
 })

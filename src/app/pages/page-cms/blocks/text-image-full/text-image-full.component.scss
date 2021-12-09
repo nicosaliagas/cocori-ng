@@ -1,0 +1,34 @@
+:host {
+  display: block;
+
+  ::ng-deep section.cms-block {
+    padding: 0;
+
+    .container {
+      max-width: 100% !important;
+      padding-right: 0;
+      padding-left: 0;
+
+      .row {
+        .zone-editor {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.row-zones {
+  flex-wrap: wrap;
+}
+
+.zone-left {
+  margin-top: 7.5rem;
+  margin-bottom: 7.5rem;
+
+  .container-wysiwyg {
+    width: 70%;
+    margin: 0 auto;
+  }
+}

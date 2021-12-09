@@ -111,6 +111,14 @@ ng serve --configuration "local" --port 5050
 
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 
+## ✨ Build la lib prod
+
+ng build --project=cocori-ng --configuration production
+
+## ✨publish on npm
+
+npm publish --access public
+
 ## Packager la lib
 
 After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.

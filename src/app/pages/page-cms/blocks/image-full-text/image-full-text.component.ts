@@ -1,19 +1,16 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
 import { FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
-import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'text-image-full-tpl',
-  templateUrl: '../../../section-templates/text-image-full-tpl.component.html',
-  styleUrls: [
-    '../../../section-styles/text-image-full-tpl.component.scss',
-  ],
+  selector: 'image-full-text-tpl',
+  templateUrl: './image-full-text.component.html',
+  styleUrls: ['./text-image-full.component.scss'],
   providers: [FormHelperService, UploaderService]
 })
-export class TextImageFullTplComponent extends ExtendSectionTplComponent implements OnInit {
+export class ImageFullTextComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerImageUpload', { static: false, read: ViewContainerRef }) containerImageUpload: ViewContainerRef;
 

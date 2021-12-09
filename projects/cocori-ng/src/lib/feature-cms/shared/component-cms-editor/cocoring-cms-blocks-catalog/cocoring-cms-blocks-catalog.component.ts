@@ -3,7 +3,6 @@ import { HelperService } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { SectionModel } from '../../../core/model/cms.model';
 import { Block } from '../../../core/service/block';
-import { CatalogService } from '../../../core/service/catalog.service';
 import { CmsService } from '../../../core/service/cms.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { CmsService } from '../../../core/service/cms.service';
   selector: 'cocoring-cms-blocks-catalog',
   templateUrl: './cocoring-cms-blocks-catalog.component.html',
   styleUrls: ['./cocoring-cms-blocks-catalog.component.scss'],
-  providers: [CatalogService]
 })
 export class CocoringCmsBlocksCatalogComponent implements OnInit {
 
@@ -19,8 +17,7 @@ export class CocoringCmsBlocksCatalogComponent implements OnInit {
 
   constructor(
     public cmsService: CmsService,
-    private helperService: HelperService,
-    private catalogService: CatalogService
+    private helperService: HelperService
   ) { }
 
   ngOnInit(): void { }
@@ -34,7 +31,7 @@ export class CocoringCmsBlocksCatalogComponent implements OnInit {
       backgroundColor: block.data.backgroundColor,
       values: block.data.content
     }
-    
+
     this.cmsService.addSection(newSection)
   }
 

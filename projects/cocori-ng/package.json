@@ -1,6 +1,15 @@
 {
   "name": "@cocori-ng/lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "Cocori-ng is an Angular full of great components & utilites based on Material",
+  "author": "Nicolas Sesma",
+  "keywords": [
+    "angular",
+    "material-ui",
+    "typescript",
+    "table",
+    "fluent reactive forms"
+  ],
   "dependencies": {
     "tslib": "^2.0.0"
   },

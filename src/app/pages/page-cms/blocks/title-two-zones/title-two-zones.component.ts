@@ -1,20 +1,19 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
 import { FormHelperService } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { ExtendSectionTplComponent } from '../extend-section-tpl.component';
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'title-two-zones-tpl',
-  templateUrl: '../../../section-templates/title-two-zones-tpl.component.html',
+  templateUrl: './title-two-zones.component.html',
   styleUrls: [
-    '../../../section-styles/title-two-zones-tpl.component.scss',
-    '../../../section-styles/editor-section-styles.component.scss'],
+    './title-two-zones.component.scss',
+    '../../assets/editor-section-styles.component.scss'],
   providers: [FormHelperService]
 })
-export class TitleTwoZonesTplComponent extends ExtendSectionTplComponent implements OnInit {
+export class TitleTwoZonesComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
   @ViewChild('ContainerEditor2Ref', { static: false, read: ViewContainerRef }) containerEditor2Ref: ViewContainerRef;
   @ViewChild('ContainerEditor3Ref', { static: false, read: ViewContainerRef }) containerEditor3Ref: ViewContainerRef;
