@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 
-import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
+import { ExtendPreviewActionsComponent } from '../extend-preview-actions.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

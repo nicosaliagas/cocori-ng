@@ -1,6 +1,0 @@
-<section-tpl [backgroundColor]="section.backgroundColor" (openBottomSheet)="openBottomSheet()">
-    <div fxFlex="100%" class="zone-editor">
-        <ng-template *ngIf="!readOnly" #ContainerEditor1Ref></ng-template>
-        <div *ngIf="readOnly" [innerHtml]="value['editor1'] | variableHtml"></div>
-    </div>
-</section-tpl>

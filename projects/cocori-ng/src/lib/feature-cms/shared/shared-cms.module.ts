@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { SectionTplComponent } from './section-templates/section-tpl/section-tpl.component';
+import { SectionTplComponent } from './section-tpl/section-tpl.component';
 
 @NgModule({
   declarations: [
