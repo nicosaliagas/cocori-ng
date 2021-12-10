@@ -1,4 +1,4 @@
-import { DataSourceInput } from '@cocori-ng/lib/src/lib/feature-core';
+import { DataSourceInput } from './data-source.model';
 
 export interface PaginationDatagridModel {
     itemsPerPage: number,

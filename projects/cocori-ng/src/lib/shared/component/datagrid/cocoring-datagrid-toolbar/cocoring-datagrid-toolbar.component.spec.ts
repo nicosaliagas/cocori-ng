@@ -5,9 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { ConfigDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { ConfigDatagridModel } from '../../../../feature-core/core/model/component-datagrid.model';
 import { DataSourceType } from '../../../../feature-core/core/model/data-source.model';
+import { DatagridService } from '../../../../feature-core/core/service/datagrid/datagrid.service';
 import { CocoringDatagridToolbarComponent } from './cocoring-datagrid-toolbar.component';
 
 describe('CocoringDatagridToolbarComponent', () => {

@@ -2,7 +2,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { CellValueDatagridModel } from '../../../../core/model/component-datagrid.model';
+import { CellValueDatagridModel } from '../../../../feature-core/core/model/component-datagrid.model';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell.component';
 
 describe('CocoringDatagridCellComponent', () => {

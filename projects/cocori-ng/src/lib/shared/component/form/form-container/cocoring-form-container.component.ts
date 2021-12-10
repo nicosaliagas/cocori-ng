@@ -7,10 +7,10 @@ import {
     FieldSchema,
     FormContainerInputs,
     FormSchema,
+    SubmitDatas,
 } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subject } from 'rxjs';
 
-import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 import { MappingBuilderService } from '../../../../core/service/mapping.service';
 

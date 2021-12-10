@@ -9,12 +9,15 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutoUnsubscribeComponent, Odata, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
+import {
+    AutoUnsubscribeComponent,
+    ConfigDatagridModel,
+    DatagridService,
+    Odata,
+    OdataModel,
+} from '@cocori-ng/lib/src/lib/feature-core';
 import { merge } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
-
-import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

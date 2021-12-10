@@ -13,6 +13,8 @@ export * from './core/service/uploader/uploader.service';
 export * from './core/service/broadcast-event.service';
 export * from './core/service/toast-message.service';
 export * from './core/service/storage.service';
+export * from './core/service/datagrid/datagrid.service';
+export * from './core/service/odata-query-builder/queryBuilder';
 
 export * from './core/model/data-source.model';
 export * from './core/model/form-input-components.model';
@@ -21,6 +23,9 @@ export * from './core/model/component-inputs.model';
 export * from './core/model/component-wysiwyg.model';
 export * from './core/model/component-uploader.model';
 export * from './core/model/error.model';
+export * from './core/model/component-datagrid.model';
+export * from './core/model/form-datas.model';
+export * from './core/model/modal.model';
 
 export * from './shared/directive/color-picker/cocoring-colorpicker.module';
 export * from './shared/directive/color-picker/cocoring-colorpicker.directive';

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DatasourceService, HelperService, OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -10,6 +9,9 @@ import {
   IndicatorPage,
   OrderColumnModel,
 } from '../../model/component-datagrid.model';
+import { OdataModel } from '../../model/data-source.model';
+import { DatasourceService } from '../datasource.service';
+import { HelperService } from '../helper/helper.service';
 import { QueryBuilder } from '../odata-query-builder/queryBuilder';
 
 @Injectable({

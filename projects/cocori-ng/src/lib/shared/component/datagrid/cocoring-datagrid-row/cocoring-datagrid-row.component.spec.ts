@@ -4,11 +4,11 @@ import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angul
 import { By } from '@angular/platform-browser';
 
 import {
-  CellValueDatagridModel,
-  ColumnDatagridModel,
-  ConfigDatagridModel,
-} from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+    CellValueDatagridModel,
+    ColumnDatagridModel,
+    ConfigDatagridModel,
+} from '../../../../feature-core/core/model/component-datagrid.model';
+import { DatagridService } from '../../../../feature-core/core/service/datagrid/datagrid.service';
 import { CocoringDatagridCellComponent } from '../cocoring-datagrid-cell/cocoring-datagrid-cell.component';
 import { CocoringDatagridRowComponent } from './cocoring-datagrid-row.component';
 

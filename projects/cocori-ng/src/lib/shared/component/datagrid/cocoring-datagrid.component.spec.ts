@@ -4,9 +4,9 @@ import { ComponentFixture, discardPeriodicTasks, fakeAsync, inject, TestBed, tic
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
+import { ConfigDatagridModel } from '../../../feature-core/core/model/component-datagrid.model';
 import { DataSourceType } from '../../../feature-core/core/model/data-source.model';
+import { DatagridService } from '../../../feature-core/core/service/datagrid/datagrid.service';
 import { CocoringDatagridComponent } from './cocoring-datagrid.component';
 
 describe('CocoringDatagridComponent', () => {

@@ -1,8 +1,8 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ColumnDatagridModel } from 'projects/cocori-ng/src/lib/core/model/component-datagrid.model';
-import { DatagridService } from 'projects/cocori-ng/src/lib/core/service/datagrid/datagrid.service';
+import { ColumnDatagridModel } from '@cocori-ng/lib/src/lib/feature-core/core/model/component-datagrid.model';
+import { DatagridService } from '@cocori-ng/lib/src/lib/feature-core/core/service/datagrid/datagrid.service';
 import { tap } from 'rxjs/operators';
 
 import { CocoringDatagridFilterColumnComponent } from './cocoring-datagrid-filter-column.component';

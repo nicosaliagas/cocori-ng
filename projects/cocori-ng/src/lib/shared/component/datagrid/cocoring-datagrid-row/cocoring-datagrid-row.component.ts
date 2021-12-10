@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
-import { tap } from 'rxjs/operators';
-
 import {
+  AutoUnsubscribeComponent,
   CellValueDatagridModel,
   ColumnDatagridModel,
+  DatagridService,
   OrderColumnModel,
-} from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+} from '@cocori-ng/lib/src/lib/feature-core';
+import { tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

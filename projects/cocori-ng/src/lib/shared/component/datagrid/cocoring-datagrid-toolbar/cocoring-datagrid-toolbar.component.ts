@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { AutoUnsubscribeComponent, DatagridService } from '@cocori-ng/lib/src/lib/feature-core';
 import { tap } from 'rxjs/operators';
 
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import {
   CocoringDatagridFilterModalComponent,
 } from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';

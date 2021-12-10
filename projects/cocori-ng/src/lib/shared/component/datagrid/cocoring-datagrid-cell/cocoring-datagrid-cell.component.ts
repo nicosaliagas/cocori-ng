@@ -1,8 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
-
-import { CellValueDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { CellValueDatagridModel, DatagridService } from '@cocori-ng/lib/src/lib/feature-core';
 
 @Component({
   selector: 'cocoring-datagrid-cell',

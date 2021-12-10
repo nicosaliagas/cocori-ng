@@ -4,8 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 
-import { ColumnDatagridModel, ConfigDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { ColumnDatagridModel, ConfigDatagridModel } from '../../../../feature-core/core/model/component-datagrid.model';
+import { DatagridService } from '../../../../feature-core/core/service/datagrid/datagrid.service';
 import { CocoringDatagridFilterModalComponent } from './cocoring-datagrid-filter-modal.component';
 
 describe('CocoringDatagridFilterModalComponent', () => {

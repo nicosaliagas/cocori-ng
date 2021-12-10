@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
+import { DatagridService } from '@cocori-ng/lib/src/lib/feature-core';
 
 @Directive({
     selector: '[cocoring-datagrid-group]',

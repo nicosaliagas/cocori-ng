@@ -11,10 +11,14 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import {
+  BooleanFilters,
+  ColumnDatagridModel,
+  DatagridService,
+  DataSourceType,
+  FormInputComponents,
+} from '@cocori-ng/lib/src/lib/feature-core';
 
-import { BooleanFilters, ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 
 @Component({

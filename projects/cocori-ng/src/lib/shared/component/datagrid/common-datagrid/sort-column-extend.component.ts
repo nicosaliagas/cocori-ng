@@ -1,9 +1,12 @@
 import { ChangeDetectorRef, Component, HostListener, Injector, Input } from '@angular/core';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import {
+    AutoUnsubscribeComponent,
+    BooleanFilters,
+    ColumnDatagridModel,
+    DatagridService,
+    SortType,
+} from '@cocori-ng/lib/src/lib/feature-core';
 import { filter, tap } from 'rxjs/operators';
-
-import { BooleanFilters, ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
 
 @Component({
     selector: '',

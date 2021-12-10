@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Injector, OnDestroy, OnInit, Output } from '@angular/core';
+import { ColumnDatagridModel } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ColumnDatagridModel } from '../../../../../core/model/component-datagrid.model';
 import { SortColumnExtendComponent } from '../../common-datagrid/sort-column-extend.component';
 
 @Component({

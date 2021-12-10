@@ -79,10 +79,7 @@ export * from './lib/shared/directive/default-image/cocoring-default-image.modul
 
 export * from './lib/shared/component/form/index';
 
-export * from './lib/core/model/component-datagrid.model';
-export * from './lib/core/model/form-datas.model';
-
-export * from './lib/core/model/modal.model';
+export * from './lib/feature-core/core/model/component-datagrid.model';
 
 export * from './lib/core/service/interceptors/loading-interceptor.service';
 export * from './lib/core/service/interceptors/request-interceptor.service';
@@ -93,7 +90,4 @@ export * from './lib/core/service/form-builder/form-builder.service';
 
 export * from './lib/core/service/confirm-modal.service';
 export * from './lib/core/service/current-url-routing.service';
-export * from './lib/core/service/datagrid/datagrid.service';
 export * from './lib/core/service/file/file.service';
-
-export * from './lib/core/service/odata-query-builder/queryBuilder';

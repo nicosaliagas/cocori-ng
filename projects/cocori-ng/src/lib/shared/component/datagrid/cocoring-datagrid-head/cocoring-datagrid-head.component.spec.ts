@@ -2,8 +2,8 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ColumnDatagridModel } from '../../../../core/model/component-datagrid.model';
-import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
+import { ColumnDatagridModel } from '../../../../feature-core/core/model/component-datagrid.model';
+import { DatagridService } from '../../../../feature-core/core/service/datagrid/datagrid.service';
 import { CocoringDatagridHeadComponent } from './cocoring-datagrid-head.component';
 
 // const DatagridServiceStub = {
