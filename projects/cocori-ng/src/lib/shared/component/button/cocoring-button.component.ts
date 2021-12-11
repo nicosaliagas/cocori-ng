@@ -6,7 +6,7 @@ import {
     TypeButtonEnum,
 } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { LoadingService } from '../../../core/service/loading.service';
+import { LoadingService } from '../../../feature-core/core/service/loading.service';
 
 @Component({
     selector: 'cocoring-button',
@@ -32,8 +32,6 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
         private loadingService: LoadingService,
         private cdr: ChangeDetectorRef,) {
         super()
-
-
     }
 
     @Input()

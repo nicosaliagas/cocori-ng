@@ -15,6 +15,10 @@ export * from './core/service/toast-message.service';
 export * from './core/service/storage.service';
 export * from './core/service/datagrid/datagrid.service';
 export * from './core/service/odata-query-builder/queryBuilder';
+export * from './core/service/token.service';
+export * from './core/service/confirm-modal.service';
+export * from './core/service/current-url-routing.service';
+export * from './core/service/form-builder/form-builder.service';
 
 export * from './core/model/data-source.model';
 export * from './core/model/form-input-components.model';
@@ -45,3 +49,6 @@ export * from './shared/component/toast-error-stacktrace/toast-error-stacktrace.
 // @TODO supprimer cocoring-auto-unsubscribe.module et le remplacer par takeUntil(detroy) ...
 export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.module';
 export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.component';
+
+export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
+export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.module';

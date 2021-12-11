@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ModalOptionsModel } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { ModalOptionsModel } from '../../../../core/model/modal.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 
 @Component({

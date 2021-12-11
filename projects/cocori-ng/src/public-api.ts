@@ -51,9 +51,6 @@ export * from './lib/shared/component/form/inputs/input-checkbox-indeterminate/c
 export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.component';
 export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.module';
 
-export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
-export * from './lib/shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
-
 export * from './lib/shared/directive/datagrid/cocoring-datagrid-group.directive';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';
@@ -85,9 +82,4 @@ export * from './lib/core/service/interceptors/loading-interceptor.service';
 export * from './lib/core/service/interceptors/request-interceptor.service';
 export * from './lib/core/service/interceptors/global-error-interceptor.service';
 
-export * from './lib/core/service/token.service';
-export * from './lib/core/service/form-builder/form-builder.service';
-
-export * from './lib/core/service/confirm-modal.service';
-export * from './lib/core/service/current-url-routing.service';
 export * from './lib/core/service/file/file.service';

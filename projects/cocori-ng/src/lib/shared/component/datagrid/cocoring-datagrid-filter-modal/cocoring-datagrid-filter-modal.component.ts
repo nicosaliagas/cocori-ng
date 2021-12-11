@@ -1,25 +1,25 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import {
-  BooleanFilters,
-  ColumnDatagridModel,
-  DatagridService,
-  DataSourceType,
-  FormInputComponents,
+    BooleanFilters,
+    ColumnDatagridModel,
+    DatagridService,
+    DataSourceType,
+    FormInputComponents,
 } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
+import { FormBuilderService } from '../../../../feature-core/core/service/form-builder/form-builder.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

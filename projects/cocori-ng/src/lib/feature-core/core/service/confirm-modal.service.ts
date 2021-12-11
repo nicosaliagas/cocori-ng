@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
-import { ModalOptionsModel } from '@cocori-ng/lib/src/lib/feature-core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { CocoringConfirmModalComponent } from '../../shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
+import { ModalOptionsModel } from '../model/modal.model';
 
 @Injectable({
     providedIn: 'root',

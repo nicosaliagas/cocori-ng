@@ -11,8 +11,8 @@ import {
 } from '@cocori-ng/lib/src/lib/feature-core';
 import { Subject } from 'rxjs';
 
-import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
-import { MappingBuilderService } from '../../../../core/service/mapping.service';
+import { MappingBuilderService } from '../../../../core/service/form-map-value/mapping.service';
+import { FormBuilderService } from '../../../../feature-core/core/service/form-builder/form-builder.service';
 
 @Component({
     selector: 'cocoring-form-container',

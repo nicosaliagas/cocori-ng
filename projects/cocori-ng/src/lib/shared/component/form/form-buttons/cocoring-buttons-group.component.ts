@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ButtonSchema } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
+import { FormBuilderService } from '../../../../feature-core/core/service/form-builder/form-builder.service';
 
 @Component({
     selector: 'cocoring-buttons-group',

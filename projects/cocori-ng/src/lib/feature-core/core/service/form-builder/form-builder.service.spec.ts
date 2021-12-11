@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DefaultConfigComponent, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
 
-import { ConfigInputComponent } from '../../../feature-core/core/model/component-inputs.model';
+import { ConfigInputComponent } from '../../model/component-inputs.model';
 import { FormBuilderService } from './form-builder.service';
 
 describe('FormBuilderService', () => {
