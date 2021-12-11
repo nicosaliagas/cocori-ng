@@ -15,42 +15,6 @@ export * from './lib/shared/component/button/cocoring-button.component';
 export * from './lib/shared/directive/previous-page/cocoring-previous-page.module';
 export * from './lib/shared/directive/previous-page/cocoring-previous-page.directive';
 
-export * from './lib/shared/component/form/inputs/input-textarea/cocoring-textarea.component';
-export * from './lib/shared/component/form/inputs/input-textarea/cocoring-textarea.module';
-
-export * from './lib/shared/component/form/form-container/cocoring-form-container.component';
-export * from './lib/shared/component/form/form-container/cocoring-form-container.module';
-
-export * from './lib/shared/component/form/form-buttons/cocoring-buttons-group.component';
-export * from './lib/shared/component/form/form-buttons/cocoring-buttons-group.module';
-
-export * from './lib/shared/component/form/inputs/input-text/cocoring-text.component';
-export * from './lib/shared/component/form/inputs/input-text/cocoring-text.module';
-
-export * from './lib/shared/component/form/inputs/input-select/cocoring-select.component';
-export * from './lib/shared/component/form/inputs/input-select/cocoring-select.module';
-
-export * from './lib/shared/component/form/inputs/input-password/cocoring-password.component';
-export * from './lib/shared/component/form/inputs/input-password/cocoring-password.module';
-
-export * from './lib/shared/component/form/inputs/input-number/cocoring-number.component';
-export * from './lib/shared/component/form/inputs/input-number/cocoring-number.module';
-
-export * from './lib/shared/component/form/inputs/input-email/cocoring-email.component';
-export * from './lib/shared/component/form/inputs/input-email/cocoring-email.module';
-
-export * from './lib/shared/component/form/inputs/input-date/cocoring-date.component';
-export * from './lib/shared/component/form/inputs/input-date/cocoring-date.module';
-
-export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.component';
-export * from './lib/shared/component/form/inputs/input-checkbox/cocoring-checkbox.module';
-
-export * from './lib/shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.component';
-export * from './lib/shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.module';
-
-export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.component';
-export * from './lib/shared/component/form/inputs/input-viewer/cocoring-viewer.module';
-
 export * from './lib/shared/directive/datagrid/cocoring-datagrid-group.directive';
 export * from './lib/shared/component/datagrid/cocoring-datagrid.component';
 export * from './lib/shared/component/datagrid/cocoring-datagrid-toolbar/cocoring-datagrid-toolbar.component';

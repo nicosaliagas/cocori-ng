@@ -37,6 +37,8 @@ export * from './shared/directive/color-picker/cocoring-colorpicker.directive';
 export * from './shared/pipe/variable-html/cocoring-variable-html.module';
 export * from './shared/pipe/variable-html/cocoring-variable-html.pipe';
 
+/** components */
+
 export * from './shared/component/error-handler/input-error-handler/cocoring-input-error.component';
 export * from './shared/component/error-handler/input-error-handler/cocoring-input-error.module';
 
@@ -52,3 +54,42 @@ export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.com
 
 export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
+
+export * from './shared/component/form/form-buttons/cocoring-buttons-group.component';
+export * from './shared/component/form/form-buttons/cocoring-buttons-group.module';
+
+export * from './shared/component/form/inputs/input-icon/input-icon.component';
+export * from './shared/component/form/inputs/input-icon/input-icon.module';
+
+export * from './shared/component/form/inputs/input-checkbox/cocoring-checkbox.component';
+export * from './shared/component/form/inputs/input-checkbox/cocoring-checkbox.module';
+
+export * from './shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.component';
+export * from './shared/component/form/inputs/input-checkbox-indeterminate/checkbox-indeterminate.module';
+
+export * from './shared/component/form/inputs/input-date/cocoring-date.component';
+export * from './shared/component/form/inputs/input-date/cocoring-date.module';
+
+export * from './shared/component/form/inputs/input-email/cocoring-email.component';
+export * from './shared/component/form/inputs/input-email/cocoring-email.module';
+
+export * from './shared/component/form/inputs/input-number/cocoring-number.component';
+export * from './shared/component/form/inputs/input-number/cocoring-number.module';
+
+export * from './shared/component/form/inputs/input-password/cocoring-password.component';
+export * from './shared/component/form/inputs/input-password/cocoring-password.module';
+
+export * from './shared/component/form/inputs/input-select/cocoring-select.component';
+export * from './shared/component/form/inputs/input-select/cocoring-select.module';
+
+export * from './shared/component/form/inputs/input-text/cocoring-text.component';
+export * from './shared/component/form/inputs/input-text/cocoring-text.module';
+
+export * from './shared/component/form/inputs/input-textarea/cocoring-textarea.component';
+export * from './shared/component/form/inputs/input-textarea/cocoring-textarea.module';
+
+export * from './shared/component/form/inputs/input-viewer/cocoring-viewer.component';
+export * from './shared/component/form/inputs/input-viewer/cocoring-viewer.module';
+
+export * from './shared/component/form/form-container/cocoring-form-container.component';
+export * from './shared/component/form/form-container/cocoring-form-container.module';

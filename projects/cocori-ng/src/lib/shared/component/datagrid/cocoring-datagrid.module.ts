@@ -9,10 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CocoringCheckboxModule } from '@cocori-ng/lib/src/lib/feature-core';
 
 import { CocoringDatagridGroupDirective } from '../../directive/datagrid/cocoring-datagrid-group.directive';
 import { CocoringButtonModule } from '../button/cocoring-button.module';
-import { CocoringCheckboxModule } from '../form/inputs/input-checkbox/cocoring-checkbox.module';
 import { CocoringDatagridCellComponent } from './cocoring-datagrid-cell/cocoring-datagrid-cell.component';
 import {
     CocoringDatagridFilterColumnComponent,
