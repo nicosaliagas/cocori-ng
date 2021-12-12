@@ -13,13 +13,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CocoringInputErrorModule } from '@cocori-ng/lib/src/lib/feature-core';
 
+import { CocoringButtonModule } from '../../../feature-core/shared/component/button/cocoring-button.module';
 import { CocoringFileSizeModule } from '../../pipe/file-size/cocoring-file-size.module';
-import { CocoringButtonModule } from '../button/cocoring-button.module';
 import {
-  CocoringUploaderBottomSheetComponent,
+    CocoringUploaderBottomSheetComponent,
 } from './cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
 import {
-  CocoringUploaderFileActionsComponent,
+    CocoringUploaderFileActionsComponent,
 } from './cocoring-uploader-file-actions/cocoring-uploader-file-actions.component';
 import { CocoringUploaderListFileComponent } from './cocoring-uploader-list-file/cocoring-uploader-list-file.component';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';

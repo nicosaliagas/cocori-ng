@@ -9,9 +9,6 @@ export * from './lib/feature-cms';
 
 /** Others classes */
 
-export * from './lib/shared/component/button/cocoring-button.module';
-export * from './lib/shared/component/button/cocoring-button.component';
-
 export * from './lib/shared/directive/previous-page/cocoring-previous-page.module';
 export * from './lib/shared/directive/previous-page/cocoring-previous-page.directive';
 
@@ -37,8 +34,6 @@ export * from './lib/shared/pipe/truncate/cocoring-truncate.module';
 
 export * from './lib/shared/directive/default-image/cocoring-default-image.directive';
 export * from './lib/shared/directive/default-image/cocoring-default-image.module';
-
-export * from './lib/shared/component/form/index';
 
 export * from './lib/feature-core/core/model/component-datagrid.model';
 

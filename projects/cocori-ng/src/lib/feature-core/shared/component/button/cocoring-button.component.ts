@@ -1,12 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {
-    AutoUnsubscribeComponent,
-    ButtonComponentInputs,
-    ButtonIconPositon,
-    TypeButtonEnum,
-} from '@cocori-ng/lib/src/lib/feature-core';
 
-import { LoadingService } from '../../../feature-core/core/service/loading.service';
+import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '../../../core/model/component-inputs.model';
+import { LoadingService } from '../../../core/service/loading.service';
+import { AutoUnsubscribeComponent } from '../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
     selector: 'cocoring-button',

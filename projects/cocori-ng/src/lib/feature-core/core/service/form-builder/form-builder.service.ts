@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
+import { ClasseComponents } from '../../../shared/component/form';
 import {
     ButtonComponentInputs,
     ButtonIconPositon,
@@ -19,7 +20,6 @@ import { HelperService } from '../helper/helper.service';
 import { InjectComponentService } from '../inject-component.service';
 import { ValidatorsService } from '../validators.service';
 
-// import { ClasseComponents } from '../../../../shared/component/form';
 /**
  * https://www.typescriptlang.org/play?#code/C4TwDgpgBAggTgcwK4FsIDtgBVwQM4A8WAfFALxRZQQAewGAJnlABQB0HUAhongFxQAlugBmEOFACqASnKlhYiQCUoAfikD0EAG7iA3AChQkKEohgANlwDGEM8CRx0OSAQDyAGigA5UhXYcXALwyGiYLvjuxLJkpN6GRrhQAEJIghYM4gQA0tR0jMwA1hAgAPYiUADCpejWcBD0qemZcH5QAN4GUFAA2pJC6FDZALoC-bT06ExQAOQARmkZM2pVNXUNEE0Z4n3DUAJmljZ2DY7OuARd3au19Y2LLbseV91bLQQAojTWFkiZOV5JKQJgUoFpdBJ1PMHssBF8fn8IACpMRiFc0QBfBIiJC1YCCGpQBbNcQsaQCN5ZeG-f7FMoVaq3DaUuBeaHNGaojpXO5nMEQADuN3W9xJcDJ3GYXHQIEMGIMBh+XDwzEZIs2D3E3O6XDJAmAAAtBMxOtcoLynFBDcbDN15Vc5nqrUaTS9zadLda8LaoPbusSMk68MA4MIENrrhbBjMRKVSjMffL7QGWmS2LrpGxHZmU2S9FAAPQFqClQoGFOknNpjNZh55wvF0vlzXinN16T5ovUOBwUpwZti6tp3Mdhvd3v9iutrPD9ud4viCcD7bTms1kfz8d95epqt72vNetdxfbqdD-fZg+B0fHnunlvn9PD2eHm8Lu9wIA
  * https://medium.com/@bensammons/building-a-fluent-interface-with-typescript-using-generics-in-typescript-3-4d206f00dba5
@@ -326,12 +326,11 @@ export class GenerateComponentViewService {
     }
 
     private returnComponentClassFromType(typeOfComponent: FormInputComponents) {
-        // if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
-        //     const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
-        //     throw new Error(error);
-        // } else {
-        //     return ClasseComponents[typeOfComponent];
-        // }
-        return null
+        if (!ClasseComponents.hasOwnProperty(typeOfComponent)) {
+            const error: string = `This type of component : '${typeOfComponent}' doesn't exist`;
+            throw new Error(error);
+        } else {
+            return ClasseComponents[typeOfComponent];
+        }
     }
 }

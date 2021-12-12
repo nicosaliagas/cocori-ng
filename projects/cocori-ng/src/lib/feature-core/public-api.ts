@@ -93,3 +93,8 @@ export * from './shared/component/form/inputs/input-viewer/cocoring-viewer.modul
 
 export * from './shared/component/form/form-container/cocoring-form-container.component';
 export * from './shared/component/form/form-container/cocoring-form-container.module';
+
+export * from './shared/component/form/index';
+
+export * from './shared/component/button/cocoring-button.module';
+export * from './shared/component/button/cocoring-button.component';
