@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ExtendSectionReadonlyTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
+import { ExtendSectionReadonlyTplComponent } from 'cocori-ng/src/feature-cms';
 
 
 @Component({

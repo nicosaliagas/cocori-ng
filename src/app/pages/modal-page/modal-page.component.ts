@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from '@cocori-ng/lib';
-import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from 'cocori-ng';
+import { FormInputComponents } from 'cocori-ng/src/feature-core';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 export interface EmailModalModel {

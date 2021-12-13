@@ -111,12 +111,11 @@ ng serve --configuration "local" --port 5050
 
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 
-## ✨ Build la lib prod
-
+## ✨publish on npm
+``Build la lib prod``
 ng build --project=cocori-ng --configuration production
 
-## ✨publish on npm
-
+``Publish on NPM``
 npm publish --access public
 
 ## Packager la lib

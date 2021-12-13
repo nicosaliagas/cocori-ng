@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SectionModel } from '@cocori-ng/lib/src/lib/feature-cms';
+import { SectionModel } from 'cocori-ng/src/feature-cms';
 
 import { EditorAdapterCmsBlocks, ReadonlyAdapterCmsBlocks } from '../model/Adapter-cms-blocks.model';
 

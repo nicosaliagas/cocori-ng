@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { AutoUnsubscribeComponent } from 'cocori-ng/src/feature-core';
 import { AppbarModel, HeaderMenuItem } from 'src/app/core/model/Appbar.model';
 import { AppbarService } from 'src/app/core/service/appbar.service';
 import { SidenavService } from 'src/app/core/service/sidenav.service';

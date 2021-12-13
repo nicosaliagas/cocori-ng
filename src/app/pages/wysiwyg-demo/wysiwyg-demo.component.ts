@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
+import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from 'cocori-ng';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 

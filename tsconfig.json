@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "@cocori-ng/lib/*": [
+      "cocori-ng/*": [
         "projects/cocori-ng/*",
         "projects/cocori-ng"
       ],
-      "@cocori-ng/lib": [
+      "cocori-ng/lib": [
         "dist/cocori-ng/*",
         "dist/cocori-ng"
       ]

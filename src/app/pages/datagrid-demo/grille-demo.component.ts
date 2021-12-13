@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DataSourceType } from '@cocori-ng/lib';
-import { OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
+import { ConfigDatagridModel, DatagridService, DataSourceType } from 'cocori-ng';
+import { OdataModel } from 'cocori-ng/src/feature-core';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 

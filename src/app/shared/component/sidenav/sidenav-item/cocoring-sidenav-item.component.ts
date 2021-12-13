@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { CurrentUrlRoutingService } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { CurrentUrlRoutingService } from 'cocori-ng';
+import { AutoUnsubscribeComponent } from 'cocori-ng/src/feature-core';
 import { SidenavItem } from 'src/app/core/model/Sidenav.model';
 import { SidenavService } from 'src/app/core/service/sidenav.service';
 

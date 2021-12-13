@@ -1,12 +1,12 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  ButtonIconPositon,
-  DataSourceType,
-  FormBuilderService,
-  FormInputComponents,
-  HttpService,
-} from '@cocori-ng/lib/src/lib/feature-core';
+    ButtonIconPositon,
+    DataSourceType,
+    FormBuilderService,
+    FormInputComponents,
+    HttpService,
+} from 'cocori-ng/src/feature-core';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({

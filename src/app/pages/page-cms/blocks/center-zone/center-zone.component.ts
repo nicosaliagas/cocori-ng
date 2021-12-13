@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
+import { ExtendSectionTplComponent } from 'cocori-ng/src/feature-cms';
 import { tap } from 'rxjs/operators';
 
 @Component({

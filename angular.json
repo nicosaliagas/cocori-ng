@@ -33,7 +33,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "./node_modules/@cocori-ng/lib/src/lib/assets",
+                "input": "./node_modules/cocori-ng/src/assets",
                 "output": "/assets/"
               },
               "src/favicon.ico",

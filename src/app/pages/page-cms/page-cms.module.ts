@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
-import { CocoringButtonModule } from '@cocori-ng/lib';
-import { CocoringCMSModule, CocoringCmsReadonlyModule, SharedCMSModule } from '@cocori-ng/lib/src/lib/feature-cms';
-import { CocoringVariableHtmlModule } from '@cocori-ng/lib/src/lib/feature-core';
+import { CocoringButtonModule } from 'cocori-ng';
+import { CocoringCMSModule, CocoringCmsReadonlyModule, SharedCMSModule } from 'cocori-ng/src/feature-cms';
+import { CocoringVariableHtmlModule } from 'cocori-ng/src/feature-core';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { CenterZoneReadonlyTplComponent } from './blocks/center-zone/center-zone-readonly.component';

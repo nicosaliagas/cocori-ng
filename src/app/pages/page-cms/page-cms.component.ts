@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { CocoringCmsComponent, SectionModel } from '@cocori-ng/lib/src/lib/feature-cms';
-import { ConfigCmsModel } from '@cocori-ng/lib/src/lib/feature-cms/core/model/cms.model';
-import { Block } from '@cocori-ng/lib/src/lib/feature-cms/core/service/block';
-import { StorageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { CocoringCmsComponent, SectionModel } from 'cocori-ng/src/feature-cms';
+import { ConfigCmsModel } from 'cocori-ng/src/feature-cms/core/model/cms.model';
+import { Block } from 'cocori-ng/src/feature-cms/core/service/block';
+import { StorageService } from 'cocori-ng/src/feature-core';
 import { CmsService } from 'src/app/core/service/Cms.service';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';

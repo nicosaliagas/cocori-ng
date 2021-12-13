@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
-import { FormHelperService, UploaderService } from '@cocori-ng/lib/src/lib/feature-core';
+import { ExtendSectionTplComponent } from 'cocori-ng/src/feature-cms';
+import { FormHelperService, UploaderService } from 'cocori-ng/src/feature-core';
 import { tap } from 'rxjs/operators';
 
 @Component({

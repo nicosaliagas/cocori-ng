@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { CurrentUrlRoutingService } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent, StorageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { CurrentUrlRoutingService } from 'cocori-ng';
+import { AutoUnsubscribeComponent, StorageService } from 'cocori-ng/src/feature-core';
 import { filter, tap } from 'rxjs/operators';
 
 import { LoginApiService } from '../core/api/LoginApi.service';

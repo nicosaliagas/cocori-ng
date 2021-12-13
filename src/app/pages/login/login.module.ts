@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CocoringPreviousPageModule } from '@cocori-ng/lib';
+import { CocoringPreviousPageModule } from 'cocori-ng';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';

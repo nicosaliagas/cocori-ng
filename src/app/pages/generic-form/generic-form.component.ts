@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormBuilderService, SubmitDatas } from '@cocori-ng/lib';
-import { ConfigInputComponent, FormInputComponents, FormSchema, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
+import { FormBuilderService, SubmitDatas } from 'cocori-ng';
+import { ConfigInputComponent, FormInputComponents, FormSchema, HttpService } from 'cocori-ng/src/feature-core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';

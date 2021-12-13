@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OdataModel } from '@cocori-ng/lib';
+import { OdataModel } from 'cocori-ng';
 import * as faker from 'faker/locale/fr';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';

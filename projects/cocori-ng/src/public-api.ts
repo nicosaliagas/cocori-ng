@@ -1,4 +1,3 @@
-/** Sub entries */
-export * from './lib/feature-core';
-
-export * from './lib/feature-cms';
+/** entries points */
+export * from './feature-core';
+export * from './feature-cms';
