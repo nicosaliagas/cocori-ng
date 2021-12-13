@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import {
   CellValueDatagridModel,
@@ -8,7 +9,6 @@ import {
   OrderColumnModel,
 } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
-import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +16,7 @@ import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-u
   templateUrl: './cocoring-datagrid-row.component.html',
   styleUrls: ['./cocoring-datagrid-row.component.scss']
 })
-export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
   @Input() columns: ColumnDatagridModel[] = []
   @Input()
   set datas(datas: any) {
@@ -32,12 +32,12 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
   cellValues: CellValueDatagridModel[] = []
   checkboxRowFormGroup: FormGroup;
 
+  private readonly destroy$ = new Subject();
+
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-  ) {
-    super()
-  }
+  ) { }
 
   ngOnInit(): void {
     this.eventAllCheckboxesChecked()
@@ -45,6 +45,11 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
     this.onUpdateColumn()
 
     this.onReOrderColumns()
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   /** ajouter le contrôle checkbox de la ligne dans le formulaire */
@@ -57,11 +62,11 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
 
     checkboxesFormControlArray.push(this.checkboxRowFormGroup);
 
-    this.subscriptions.add(
-      this.checkboxRowFormGroup.get(this._datas.id).valueChanges.subscribe((checkValue: boolean) => {
-        this.datagridService.storeIdsRowsSelected(this._datas, checkValue)
-      })
-    )
+    this.checkboxRowFormGroup.get(this._datas.id).valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((checkValue: boolean) => {
+      this.datagridService.storeIdsRowsSelected(this._datas, checkValue)
+    })
   }
 
   private initCellsValues() {
@@ -77,35 +82,33 @@ export class CocoringDatagridRowComponent extends AutoUnsubscribeComponent imple
   }
 
   private onUpdateColumn() {
-    this.subscriptions.add(
-      this.datagridService.updateColumn$.pipe(
-        tap((columnUpdated: ColumnDatagridModel) => {
-          this.cellValues
-            .find((cell: CellValueDatagridModel) => cell.dataField === columnUpdated.dataField)
-            .visible = columnUpdated.visible
-        }),
-        tap(_ => this.cdr.detectChanges()),
-      ).subscribe()
-    )
+    this.datagridService.updateColumn$.pipe(
+      takeUntil(this.destroy$),
+      tap((columnUpdated: ColumnDatagridModel) => {
+        this.cellValues
+          .find((cell: CellValueDatagridModel) => cell.dataField === columnUpdated.dataField)
+          .visible = columnUpdated.visible
+      }),
+      tap(_ => this.cdr.detectChanges()),
+    ).subscribe()
   }
 
   private onReOrderColumns() {
-    this.subscriptions.add(
-      this.datagridService.reOrderColumns$.pipe(
-        tap((columnUpdated: OrderColumnModel) => {
-          this.cellValues.splice(columnUpdated.currentIndex, 0, this.cellValues.splice(columnUpdated.previousIndex, 1)[0]);
-        }),
-        tap(_ => this.cdr.detectChanges()),
-      ).subscribe()
-    )
+    this.datagridService.reOrderColumns$.pipe(
+      takeUntil(this.destroy$),
+      tap((columnUpdated: OrderColumnModel) => {
+        this.cellValues.splice(columnUpdated.currentIndex, 0, this.cellValues.splice(columnUpdated.previousIndex, 1)[0]);
+      }),
+      tap(_ => this.cdr.detectChanges()),
+    ).subscribe()
   }
 
   private eventAllCheckboxesChecked() {
-    this.subscriptions.add(
-      this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
-        this.checkboxRowFormGroup.get(this._datas.id).setValue(value);
-      })
-    );
+    this.datagridService.allRowsChecked$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((value: boolean) => {
+      this.checkboxRowFormGroup.get(this._datas.id).setValue(value);
+    })
   }
 
   private getDatasourceValue(column: string) {

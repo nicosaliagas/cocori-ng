@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy } from '@angular/core';
-import { AutoUnsubscribeComponent, BroadcastEventService, ConfigEvents } from 'cocori-ng/src/feature-core';
+import { BroadcastEventService, ConfigEvents } from 'cocori-ng/src/feature-core';
+import { Subject, takeUntil } from 'rxjs';
 
 import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.model';
 
@@ -10,32 +11,36 @@ import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.m
     template: ''
 })
 
-export abstract class ExtendPreviewActionsComponent extends AutoUnsubscribeComponent implements OnDestroy {
+export abstract class ExtendPreviewActionsComponent implements OnDestroy {
     public cdr: any;
 
     broadcastEventService: BroadcastEventService;
-
     orientation: string = 'row'
     orientationWidth: string = '100%';
     flexWidth: string;
 
-    constructor(injector: Injector) {
-        super()
+    private readonly destroy$ = new Subject();
 
+    constructor(injector: Injector) {
         this.cdr = injector.get(ChangeDetectorRef);
         this.broadcastEventService = injector.get(BroadcastEventService);
 
         this.onOrientationChanged()
     }
 
-    private onOrientationChanged() {
-        this.subscriptions.add(
-            this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).subscribe((orientation: ResponsiveOrientation) => {
-                this.getOrientationParams(orientation)
+    ngOnDestroy(): void {
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
+    }
 
-                this.cdr.detectChanges()
-            })
-        )
+    private onOrientationChanged() {
+        this.broadcastEventService.listen([ConfigEvents.CMS_RESPONSIVE_ORIENTATION_CHANGED]).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((orientation: ResponsiveOrientation) => {
+            this.getOrientationParams(orientation)
+
+            this.cdr.detectChanges()
+        })
     }
 
     getOrientationParams(type: ResponsiveOrientation) {

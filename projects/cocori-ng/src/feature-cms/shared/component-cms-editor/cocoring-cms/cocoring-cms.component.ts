@@ -1,26 +1,28 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AutoUnsubscribeComponent, InjectComponentService } from 'cocori-ng/src/feature-core';
-import { tap } from 'rxjs/operators';
+import { InjectComponentService } from 'cocori-ng/src/feature-core';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import {
-    ConfigCmsModel,
-    InsertSectionAt,
-    SectionModel,
-    SectionModelCommand,
-    SectionMoveIndexes,
+  ConfigCmsModel,
+  InsertSectionAt,
+  SectionModel,
+  SectionModelCommand,
+  SectionMoveIndexes,
 } from '../../../core/model/cms.model';
 import { Block } from '../../../core/service/block';
 import { CmsService } from '../../../core/service/cms.service';
@@ -33,15 +35,17 @@ import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cm
   styleUrls: ['./cocoring-cms.component.scss'],
   providers: [InjectComponentService]
 })
-export class CocoringCmsComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringCmsComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('ContainerRef', { static: false, read: ViewContainerRef }) containerRef: ViewContainerRef;
-  
+
   configCms: ConfigCmsModel;
   catalog: Block[] = []
   orientation = 'column'
   _showSaveBtn: boolean = false;
   importSections: SectionModel[] = [];
+
+  private readonly destroy$ = new Subject();
 
   @Input()
   set config(config: ConfigCmsModel) {
@@ -84,8 +88,6 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
   ) {
-    super()
-
     this.eventSizeScreen();
   }
 
@@ -102,26 +104,31 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
+
   private onPageSaved() {
-    this.subscriptions.add(
-      this.cmsService.onSaveCmsContent$.subscribe((contentPage: SectionModel[]) => {
-        this.onSaveBtn.emit(contentPage)
-      })
-    )
+    this.cmsService.onSaveCmsContent$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((contentPage: SectionModel[]) => {
+      this.onSaveBtn.emit(contentPage)
+    })
   }
 
   private eventSizeScreen() {
-    this.subscriptions.add(
-      this.mediaObserver.media$.subscribe((change: MediaChange) => {
-        this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+    this.mediaObserver.media$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((change: MediaChange) => {
+      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
 
-        if (change.mqAlias === 'xs') {
-          this.sidenavMode = 'over';
-        } else {
-          this.sidenavMode = 'side';
-        }
-      })
-    );
+      if (change.mqAlias === 'xs') {
+        this.sidenavMode = 'over';
+      } else {
+        this.sidenavMode = 'side';
+      }
+    })
   }
 
   toggleSidenavBlocks() {
@@ -137,17 +144,16 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
   }
 
   private addSectionEvent() {
-    this.subscriptions.add(
-      this.cmsService.sectionAdded$.pipe(
-        tap(_ => this.refreshNumberSection()),
-        tap((datas: InsertSectionAt) => {
-          this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-            [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
-            { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
-          )
-        }),
-      ).subscribe()
-    )
+    this.cmsService.sectionAdded$.pipe(
+      takeUntil(this.destroy$),
+      tap(_ => this.refreshNumberSection()),
+      tap((datas: InsertSectionAt) => {
+        this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
+          [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+          { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
+        )
+      }),
+    ).subscribe()
   }
 
   private onSectionRemovedAfterAnimation(indexSectionRemoved: number) {
@@ -157,13 +163,12 @@ export class CocoringCmsComponent extends AutoUnsubscribeComponent implements On
   }
 
   private onSectionMoved() {
-    this.subscriptions.add(
-      this.cmsService.moveSection$.pipe(
-        tap((values: any) => {
-          this.moveSectionContainer({ previousIndex: values.previousIndex, currentIndex: values.currentIndex })
-        }),
-      ).subscribe()
-    )
+    this.cmsService.moveSection$.pipe(
+      takeUntil(this.destroy$),
+      tap((values: any) => {
+        this.moveSectionContainer({ previousIndex: values.previousIndex, currentIndex: values.currentIndex })
+      }),
+    ).subscribe()
   }
 
   private refreshNumberSection() {

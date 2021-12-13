@@ -1,15 +1,15 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 import { ButtonComponentInputs, ButtonIconPositon, TypeButtonEnum } from '../../../core/model/component-inputs.model';
 import { LoadingService } from '../../../core/service/loading.service';
-import { AutoUnsubscribeComponent } from '../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
     selector: 'cocoring-button',
     templateUrl: 'cocoring-button.component.html',
     styleUrls: ['./cocoring-button.component.scss']
 })
-export class CocoringButtonComponent extends AutoUnsubscribeComponent implements OnInit, OnDestroy {
+export class CocoringButtonComponent implements OnInit, OnDestroy {
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
     @Output() click: EventEmitter<string> = new EventEmitter<string>();
 
@@ -19,15 +19,15 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
     @Input() class: string = 'primary';
 
     onClickSubmit: Function;
-
     isLoading: boolean = false;
     icon: string;
     iconPosition: ButtonIconPositon;
 
+    private readonly destroy$ = new Subject();
+
     constructor(
         private loadingService: LoadingService,
         private cdr: ChangeDetectorRef,) {
-        super()
     }
 
     @Input()
@@ -43,14 +43,19 @@ export class CocoringButtonComponent extends AutoUnsubscribeComponent implements
     }
 
     ngOnInit() {
-        this.subscriptions.add(
-            this.loadingService.subject.subscribe((isLoading: boolean) => {
-                this.isLoading = isLoading
-                this.cdr.detectChanges()
-            })
-        )
+        this.loadingService.subject.pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((isLoading: boolean) => {
+            this.isLoading = isLoading
+            this.cdr.detectChanges()
+        })
 
         this.callback.emit(this.text);
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
     }
 
     onClick() {

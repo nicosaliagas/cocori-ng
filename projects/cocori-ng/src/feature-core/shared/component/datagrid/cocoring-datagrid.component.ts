@@ -5,17 +5,17 @@ import {
     EventEmitter,
     HostBinding,
     Input,
+    OnDestroy,
     Output,
     ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { merge } from 'rxjs';
-import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
+import { merge, Subject } from 'rxjs';
+import { debounceTime, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
 import { Odata, OdataModel } from '../../../core/model/data-source.model';
 import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
-import { AutoUnsubscribeComponent } from '../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,7 +25,7 @@ import { AutoUnsubscribeComponent } from '../auto-unsubscribe/cocoring-auto-unsu
     styleUrls: ['./cocoring-datagrid.component.scss'],
     providers: [Odata]
 })
-export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
+export class CocoringDatagridComponent implements OnDestroy {
     checkboxesGroup: FormGroup;
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
@@ -33,13 +33,18 @@ export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
     datagridDataSource: Odata;
     totalRowsSaved: number = 5;
 
+    private readonly destroy$ = new Subject();
+
     constructor(
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
         private odata: Odata,
         public datagridService: DatagridService
-    ) {
-        super()
+    ) { }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
     }
 
     @Input()
@@ -80,51 +85,46 @@ export class CocoringDatagridComponent extends AutoUnsubscribeComponent {
             switchMap(() => this.datagridService.getAllDatas())
         )
 
-        this.subscriptions.add(
-            merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
-                map((results: OdataModel) => {
-                    this.odata.setDatasource(results)
+        merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
+            takeUntil(this.destroy$),
+            map((results: OdataModel) => {
+                this.odata.setDatasource(results)
 
-                    this.datagridDataSource = this.odata
+                this.datagridDataSource = this.odata
 
-                    this.cdr.detectChanges();
-                }),
-                // tap(_ => this.totalRowsSaved = this.datagridDataSource.getResults().length),
-                tap(_ => this.totalRowsSaved = this.datagridDataSource.getCount()),
-                tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
-            ).subscribe()
-        )
+                this.cdr.detectChanges();
+            }),
+            // tap(_ => this.totalRowsSaved = this.datagridDataSource.getResults().length),
+            tap(_ => this.totalRowsSaved = this.datagridDataSource.getCount()),
+            tap(_ => this.datagridService.lengthDataSource(this.totalRowsSaved))
+        ).subscribe()
     }
 
     /** re order cellValues array */
     private onReOrderColumns() {
-        this.subscriptions.add(
-            this.datagridService.reOrderColumns$.pipe(
-                tap(_ => this.cdr.detectChanges()),
-            ).subscribe()
-        )
+        this.datagridService.reOrderColumns$.pipe(
+            takeUntil(this.destroy$),
+            tap(_ => this.cdr.detectChanges()),
+        ).subscribe()
     }
 
     private onRowSelected() {
-        this.subscriptions.add(
-            this.datagridService.rowSelectedByClickEvent$.pipe(
-                tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
-            ).subscribe()
-        )
+        this.datagridService.rowSelectedByClickEvent$.pipe(
+            takeUntil(this.destroy$),
+            tap((rowDatas: any) => this.eventClickRow.emit(rowDatas)),
+        ).subscribe()
     }
 
     private onRowsDeletedRestored() {
-        this.subscriptions.add(
-            this.datagridService.rowsDeletedEvent$.pipe(
-                tap(_ => this.eventRowsDeleted.emit(this.datagridService.rowsSelectedDatagrid)),
-            ).subscribe()
-        )
+        this.datagridService.rowsDeletedEvent$.pipe(
+            takeUntil(this.destroy$),
+            tap(_ => this.eventRowsDeleted.emit(this.datagridService.rowsSelectedDatagrid)),
+        ).subscribe()
 
-        this.subscriptions.add(
-            this.datagridService.rowsRestoredEvent$.pipe(
-                tap(_ => this.eventRowsRestored.emit(this.datagridService.rowsSelectedDatagrid)),
-            ).subscribe()
-        )
+        this.datagridService.rowsRestoredEvent$.pipe(
+            takeUntil(this.destroy$),
+            tap(_ => this.eventRowsRestored.emit(this.datagridService.rowsSelectedDatagrid)),
+        ).subscribe()
     }
 
     trackBy(item: any, index: number) {

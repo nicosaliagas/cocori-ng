@@ -1,16 +1,18 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
-import { AutoUnsubscribeComponent, FileModel, UploaderService } from 'cocori-ng/src/feature-core';
-import { filter, tap } from 'rxjs/operators';
+import { FileModel, UploaderService } from 'cocori-ng/src/feature-core';
+import { Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
 
@@ -20,7 +22,7 @@ import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model'
   styleUrls: ['./cocoring-cms-image-upload.component.scss'],
   providers: [UploaderService]
 })
-export class CocoringCmsImageUploadComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringCmsImageUploadComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
   @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
@@ -35,20 +37,24 @@ export class CocoringCmsImageUploadComponent extends AutoUnsubscribeComponent im
   uploadProgress: number;
   backgroundImageUpload: FileModel
   fileUploaded: File;
-
   onError: boolean = false;
+
+  private readonly destroy$ = new Subject();
 
   constructor(
     private cdr: ChangeDetectorRef,
     public uploaderService: UploaderService,
-  ) {
-    super()
-  }
+  ) { }
 
   ngOnInit(): void {
     this.uploaderService.apisFile = this.apisConfig
 
     this.eventsFileUpload()
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
@@ -74,35 +80,32 @@ export class CocoringCmsImageUploadComponent extends AutoUnsubscribeComponent im
   }
 
   private eventsFileUpload() {
-    this.subscriptions.add(
-      this.uploaderService.fileUploaded$.pipe(
-        tap((id: string) => this.getFileId(id)),
-        tap(_ => this.isUploading = false),
-        tap(_ => this.setFileApi()),
-        tap(_ => this.cdr.detectChanges())
-      ).subscribe()
-    )
+    this.uploaderService.fileUploaded$.pipe(
+      takeUntil(this.destroy$),
+      tap((id: string) => this.getFileId(id)),
+      tap(_ => this.isUploading = false),
+      tap(_ => this.setFileApi()),
+      tap(_ => this.cdr.detectChanges())
+    ).subscribe()
 
-    this.subscriptions.add(
-      this.uploaderService.fileOnError$.pipe(
-        tap(_ => this.errorFile()),
-      ).subscribe()
-    )
+    this.uploaderService.fileOnError$.pipe(
+      takeUntil(this.destroy$),
+      tap(_ => this.errorFile()),
+    ).subscribe()
 
-    this.subscriptions.add(
-      this.uploaderService.progressSource.pipe(
-        filter(_ => !!this.fileUploaded),
-        tap((progress: number) => {
-          this.uploadProgress = progress
+    this.uploaderService.progressSource.pipe(
+      takeUntil(this.destroy$),
+      filter(_ => !!this.fileUploaded),
+      tap((progress: number) => {
+        this.uploadProgress = progress
 
-          const circumference = this.progressCircleRef.nativeElement.getTotalLength()
+        const circumference = this.progressCircleRef.nativeElement.getTotalLength()
 
-          this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
+        this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
 
-          this.cdr.detectChanges()
-        })
-      ).subscribe()
-    )
+        this.cdr.detectChanges()
+      })
+    ).subscribe()
   }
 
   private getFileId(id: string) {
@@ -115,10 +118,10 @@ export class CocoringCmsImageUploadComponent extends AutoUnsubscribeComponent im
 
     this.apiFileUploaded.emit(apiFile)
   }
-  
+
   onBackgroundImageRemoved(event) {
     event.stopPropagation()
-    
+
     this.removeBackgroundImage.emit()
   }
 

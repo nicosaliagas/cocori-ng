@@ -1,19 +1,21 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { AutoUnsubscribeComponent, InjectComponentService } from 'cocori-ng/src/feature-core';
-import { filter, tap } from 'rxjs/operators';
+import { InjectComponentService } from 'cocori-ng/src/feature-core';
+import { Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { ApisConfigCmsModel, InsertSectionAt as SectionIndex, SectionModel } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
@@ -26,7 +28,7 @@ import { CmsService } from '../../../core/service/cms.service';
   styleUrls: ['../../section-styles/section-styles.component.scss', './cocoring-cms-section.component.scss'],
   providers: [MatBottomSheet]
 })
-export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
   @ViewChild('ContainerRef', { static: true, read: ViewContainerRef }) containerRef: ViewContainerRef;
 
   @Input() section: SectionModel
@@ -35,6 +37,8 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
 
   readOnly: boolean = true;
   indexSectionRemoved: number;
+
+  private readonly destroy$ = new Subject();
 
   animationDone(event: AnimationEvent) {
     if (event.animationName === 'sectionOut') {
@@ -47,9 +51,7 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
     private cdr: ChangeDetectorRef,
     private cmsService: CmsService,
     private injectComponentService: InjectComponentService,
-  ) {
-    super()
-  }
+  ) { }
 
   ngOnInit(): void {
     this.addTemplateSectionComponent()
@@ -57,6 +59,11 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
     this.catalogBlocksOpenedEvent()
 
     this.onSectionRemoved()
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   get container(): HTMLElement {
@@ -68,24 +75,22 @@ export class CocoringCmsSectionComponent extends AutoUnsubscribeComponent implem
   }
 
   private onSectionRemoved() {
-    this.subscriptions.add(
-      this.cmsService.onSectionRemoved().pipe(
-        filter((sectionRemoved: SectionIndex) => sectionRemoved.section.id === this.section.id),
-        tap((sectionRemoved: SectionIndex) => this.indexSectionRemoved = sectionRemoved.index),
-        tap(_ => this.removeSection()),
-      ).subscribe()
-    )
+    this.cmsService.onSectionRemoved().pipe(
+      takeUntil(this.destroy$),
+      filter((sectionRemoved: SectionIndex) => sectionRemoved.section.id === this.section.id),
+      tap((sectionRemoved: SectionIndex) => this.indexSectionRemoved = sectionRemoved.index),
+      tap(_ => this.removeSection()),
+    ).subscribe()
   }
 
   private catalogBlocksOpenedEvent() {
-    this.subscriptions.add(
-      this.cmsService.catalogBlocksOpened$.pipe(
-        tap((isOpened: boolean) => {
-          this.readOnly = isOpened
-        }),
-        tap(_ => this.cdr.detectChanges())
-      ).subscribe()
-    )
+    this.cmsService.catalogBlocksOpened$.pipe(
+      takeUntil(this.destroy$),
+      tap((isOpened: boolean) => {
+        this.readOnly = isOpened
+      }),
+      tap(_ => this.cdr.detectChanges())
+    ).subscribe()
   }
 
   private addTemplateSectionComponent() {
