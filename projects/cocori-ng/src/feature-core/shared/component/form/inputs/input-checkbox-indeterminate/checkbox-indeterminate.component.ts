@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { takeUntil } from 'rxjs';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { FormHelperService } from '../../../../../core/service/helper/helper-form.service';
@@ -20,11 +21,11 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
 
         this.addControlForm();
 
-        this.subscriptions.add(
-            this.dataSource$.subscribe((datasource: any[]) => {
-                this.addNestedForm(datasource)
-            })
-        )
+        this.dataSource$.pipe(
+            takeUntil(this.destroy$),
+        ).subscribe((datasource: any[]) => {
+            this.addNestedForm(datasource)
+        })
     }
 
     nestedNameForm: string = 'nestedValues'
@@ -56,11 +57,11 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
     }
 
     private formChangeEvent() {
-        this.subscriptions.add(
-            this.formGroup.get(this.nameControl).valueChanges.subscribe((value: boolean) => {
-                this.setValueControls(value)
-            })
-        )
+        this.formGroup.get(this.nameControl).valueChanges.pipe(
+            takeUntil(this.destroy$),
+        ).subscribe((value: boolean) => {
+            this.setValueControls(value)
+        })
     }
 
     private setValueControls(value: boolean) {
@@ -72,30 +73,30 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
     private nestedFormChangeEvent() {
         const nestedFormPropertiesLength: number = this.formHelperService.countControlsForm(this.nestedForm)
 
-        this.subscriptions.add(
-            this.nestedForm.valueChanges.subscribe((values) => {
-                const completed: any[] = Object.entries(values).filter(([key, value]) => <boolean>value === true)
+        this.nestedForm.valueChanges.pipe(
+            takeUntil(this.destroy$),
+        ).subscribe((values) => {
+            const completed: any[] = Object.entries(values).filter(([key, value]) => <boolean>value === true)
 
-                if (completed.length === nestedFormPropertiesLength) {
-                    this.formGroup.get(this.nameControl).setValue(true, { emitEvent: false })
+            if (completed.length === nestedFormPropertiesLength) {
+                this.formGroup.get(this.nameControl).setValue(true, { emitEvent: false })
 
-                    setTimeout(() => {
-                        this.someComplete = false
-                        this.cdr.detectChanges()
-                    });
-                } else if (completed.length > 0 && completed.length < nestedFormPropertiesLength) {
-                    this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
-
-                    setTimeout(() => {
-                        this.someComplete = true
-                        this.cdr.detectChanges()
-                    });
-                } else {
+                setTimeout(() => {
                     this.someComplete = false
-                    this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
-                }
-            })
-        )
+                    this.cdr.detectChanges()
+                });
+            } else if (completed.length > 0 && completed.length < nestedFormPropertiesLength) {
+                this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
+
+                setTimeout(() => {
+                    this.someComplete = true
+                    this.cdr.detectChanges()
+                });
+            } else {
+                this.someComplete = false
+                this.formGroup.get(this.nameControl).setValue(false, { emitEvent: false })
+            }
+        })
     }
 
     private get nestedForm(): FormGroup {

@@ -20,6 +20,11 @@ export class CocoringDatagridFilterColumnComponent extends SortColumnExtendCompo
     this.onInitColumn()
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
+
   selectColumn() {
     this.columnSelected.emit(this.column)
   }

@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from 'cocori-ng';
 import { FormInputComponents } from 'cocori-ng/src/feature-core';
+import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 export interface EmailModalModel {
@@ -49,21 +50,21 @@ export class ModalPageComponent extends ExtendPageComponent implements OnInit {
   openModalConfirmation() {
     this.dialogService.open(this.optionsModalConfirmation);
 
-    this.subscriptions.add(
-      this.dialogService.confirmed<boolean>().subscribe(retourModal => {
-        console.log("Fermeture de la modal avec en retour : ", retourModal)
-      })
-    )
+    this.dialogService.confirmed<boolean>().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(retourModal => {
+      console.log("Fermeture de la modal avec en retour : ", retourModal)
+    })
   }
 
   openModalForm() {
     this.dialogService.open(this.optionsModalFormulaire);
 
-    this.subscriptions.add(
-      this.dialogService.confirmed<EmailModalModel>().subscribe(retourModal => {
-        console.log("Fermeture de la modal avec en retour : ", retourModal)
-      })
-    )
+    this.dialogService.confirmed<EmailModalModel>().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(retourModal => {
+      console.log("Fermeture de la modal avec en retour : ", retourModal)
+    })
   }
 
   private buildForm() {

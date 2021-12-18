@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { AutoUnsubscribeComponent } from 'cocori-ng/src/feature-core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { AppbarModel } from 'src/app/core/model/Appbar.model';
 import { AppbarService } from 'src/app/core/service/appbar.service';
 
@@ -8,16 +8,21 @@ import { AppbarService } from 'src/app/core/service/appbar.service';
   selector: 'app-extend-page',
   template: '',
 })
-export class ExtendPageComponent extends AutoUnsubscribeComponent implements OnInit {
+export class ExtendPageComponent implements OnInit, OnDestroy {
   appbarService: AppbarService;
 
-  constructor(injector: Injector) {
-    super()
+  readonly destroy$ = new Subject();
 
+  constructor(injector: Injector) {
     this.appbarService = injector.get(AppbarService);
   }
 
   ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
 
   setAppbarInfos(datas: AppbarModel) {
     this.appbarService.emitAppbarInfos(datas)

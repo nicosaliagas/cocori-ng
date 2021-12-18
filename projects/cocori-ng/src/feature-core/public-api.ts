@@ -77,10 +77,6 @@ export * from './shared/component/wysiwyg/cocoring-wysiwyg.component';
 export * from './shared/component/toast-error-stacktrace/toast-error-stacktrace.module';
 export * from './shared/component/toast-error-stacktrace/toast-error-stacktrace.component';
 
-// @TODO supprimer cocoring-auto-unsubscribe.module et le remplacer par takeUntil(detroy) ...
-export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.module';
-export * from './shared/component/auto-unsubscribe/cocoring-auto-unsubscribe.component';
-
 export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.component';
 export * from './shared/component/modal/confirm-modal/cocoring-confirm-modal.module';
 

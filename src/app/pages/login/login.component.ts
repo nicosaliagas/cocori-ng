@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilderService, TokenService } from 'cocori-ng';
 import { FormInputComponents } from 'cocori-ng/src/feature-core';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { LoginApiService } from 'src/app/core/api/LoginApi.service';
 import { LoginModel, TokensLoginModel } from 'src/app/core/model/Login.model';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   formulaire: FormGroup;
 
-  private subscriptions = new Subscription();
+  private readonly destroy$ = new Subject();
 
   constructor(
     private router: Router,
@@ -38,8 +38,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.buildForm()
   }
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe()
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   private buildForm() {
@@ -63,22 +64,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   validateFrom({ value, valid }: { value: LoginModel, valid: boolean }) {
     if (!valid) return;
 
-    this.subscriptions.add(
-      this.loginApiService.UserAccessToken(value).pipe(
-        map((datas: TokensLoginModel) => {
-          this.tokenService.accessToken = datas.accessToken || "";
-          this.tokenService.refreshToken = datas.refreshToken || "";
+    this.loginApiService.UserAccessToken(value).pipe(
+      takeUntil(this.destroy$),
+      map((datas: TokensLoginModel) => {
+        this.tokenService.accessToken = datas.accessToken || "";
+        this.tokenService.refreshToken = datas.refreshToken || "";
 
-          this.loginApiService.refreshToken();
+        this.loginApiService.refreshToken();
 
-          if (this.loginApiService.redirectUrl) {
-            this.router.navigate([this.loginApiService.redirectUrl]);
-            this.loginApiService.redirectUrl = undefined;
-          } else {
-            this.router.navigate(['/bo/home']);
-          }
-        })
-      ).subscribe()
-    )
+        if (this.loginApiService.redirectUrl) {
+          this.router.navigate([this.loginApiService.redirectUrl]);
+          this.loginApiService.redirectUrl = undefined;
+        } else {
+          this.router.navigate(['/bo/home']);
+        }
+      })
+    ).subscribe()
   }
 }

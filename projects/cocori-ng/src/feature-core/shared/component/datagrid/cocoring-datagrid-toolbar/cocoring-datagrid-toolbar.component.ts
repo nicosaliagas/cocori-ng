@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
-import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 import {
   CocoringDatagridFilterModalComponent,
 } from '../cocoring-datagrid-filter-modal/cocoring-datagrid-filter-modal.component';
@@ -14,10 +14,12 @@ import {
   templateUrl: './cocoring-datagrid-toolbar.component.html',
   styleUrls: ['./cocoring-datagrid-toolbar.component.scss']
 })
-export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringDatagridToolbarComponent implements OnInit, OnDestroy {
   totalRows: number
   nbRowsChecked: number = 0;
   rowRemoved: boolean = false;
+
+  private readonly destroy$ = new Subject();
 
   // list: { id: number; name: string; }[];
   // checkboxesFormControlArray: FormArray;
@@ -25,9 +27,7 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
   constructor(
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    public datagridService: DatagridService) {
-    super()
-  }
+    public datagridService: DatagridService) { }
 
   ngOnInit(): void {
     this.setCheckboxHeaderColumn()
@@ -37,15 +37,19 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
     this.onRowsChecked()
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
+
   private onLengthDataSourceChange() {
-    this.subscriptions.add(
-      this.datagridService.lengthDataSource$.pipe(
-        tap((nombre: number) => {
-          this.totalRows = nombre;
-          this.cdr.detectChanges();
-        })
-      ).subscribe()
-    )
+    this.datagridService.lengthDataSource$.pipe(
+      takeUntil(this.destroy$),
+      tap((nombre: number) => {
+        this.totalRows = nombre;
+        this.cdr.detectChanges();
+      })
+    ).subscribe()
   }
 
   refreshList() {
@@ -61,13 +65,13 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
   }
 
   onRowsChecked() {
-    this.subscriptions.add(
-      this.datagridService.rowCheckedEvent$.subscribe((rowValues: any) => {
-        this.rowRemoved = <boolean>rowValues[this.datagridService.config.propIsArchived]
-        this.nbRowsChecked = this.datagridService.rowsSelectedDatagrid.length
-        this.cdr.detectChanges()
-      })
-    )
+    this.datagridService.rowCheckedEvent$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((rowValues: any) => {
+      this.rowRemoved = <boolean>rowValues[this.datagridService.config.propIsArchived]
+      this.nbRowsChecked = this.datagridService.rowsSelectedDatagrid.length
+      this.cdr.detectChanges()
+    })
   }
 
   filterModal() {
@@ -77,21 +81,21 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
       width: '400px'
     });
 
-    this.subscriptions.add(
-      dialogRef.afterClosed().subscribe((datas: any) => {
-        // console.log("modal fermée", datas)
-      })
-    )
+    dialogRef.afterClosed().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((datas: any) => {
+      // console.log("modal fermée", datas)
+    })
   }
 
   private setCheckboxHeaderColumn() {
     this.datagridService.initCheckboxesDatagridForm()
 
-    this.subscriptions.add(
-      this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").valueChanges.subscribe((value: boolean) => {
-        this.datagridService.checkUncheckAllRows(value)
-      })
-    )
+    this.datagridService.checkboxesDatagridForm.get("selectAllRowsCheckbox").valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((value: boolean) => {
+      this.datagridService.checkUncheckAllRows(value)
+    })
   }
 
   nextPage() {
@@ -107,7 +111,6 @@ export class CocoringDatagridToolbarComponent extends AutoUnsubscribeComponent i
 
     this.datagridService.refreshNeeded$.next()
   }
-
 
   // private buildCheckboxesArray() {
   //   this.list = [{ id: 1, name: "golf" }, { id: 2, name: "tennis" }, { id: 3, name: "foot" }];

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
-import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import {
     ConfigInputComponent,
@@ -26,7 +26,6 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     /** méthode appelée lorsque que le contrôle a été ajouté au formulaire avec en paramètre le nom du contrôle créé */
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
-    public subscriptions: Subscription = new Subscription();
     public readonly destroy$ = new Subject();
 
     dataSource$: Observable<any>;
@@ -47,8 +46,6 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptions.unsubscribe()
-
         this.destroy$.next(undefined);
         this.destroy$.complete();
     }

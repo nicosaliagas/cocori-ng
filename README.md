@@ -107,7 +107,7 @@ Librairies pour la partie CMS :
 
 ✨#frontend local + backend local
 
-ng serve --configuration "local" --port 5050
+ng serve --configuration "local" --port 5050 -o
 
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 

@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CocoringPrettyPrintModule } from 'cocori-ng';
-import { CocoringAutoUnsubscribeModule } from 'cocori-ng/src/feature-core';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { StaticFormRoutingModule } from './static-form-routing.module';
@@ -26,7 +25,6 @@ import { StaticFormComponent } from './static-form.component';
     StaticFormRoutingModule,
     CocoringPrettyPrintModule,
     SharedProjectModule,
-    CocoringAutoUnsubscribeModule
   ],
   declarations: [StaticFormComponent]
 })

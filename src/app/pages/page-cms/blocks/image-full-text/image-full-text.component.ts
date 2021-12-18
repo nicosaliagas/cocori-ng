@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ExtendSectionTplComponent } from 'cocori-ng/src/feature-cms';
 import { FormHelperService, UploaderService } from 'cocori-ng/src/feature-core';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,16 +26,15 @@ export class ImageFullTextComponent extends ExtendSectionTplComponent implements
   }
 
   private addComponentsToView() {
-    this.subscriptions.add(
-      this.cmsService.catalogBlocksOpened$.pipe(
-        tap((isOpened: boolean) => {
-          if (isOpened) return
+    this.cmsService.catalogBlocksOpened$.pipe(
+      takeUntil(this.destroy$),
+      tap((isOpened: boolean) => {
+        if (isOpened) return
 
-          this.addWysiwygComponentToViewEvent([this.containerEditor1Ref])
+        this.addWysiwygComponentToViewEvent([this.containerEditor1Ref])
 
-          this.addImageUploadComponentToViewEvent([this.containerImageUpload])
-        }),
-      ).subscribe()
-    )
+        this.addImageUploadComponentToViewEvent([this.containerImageUpload])
+      }),
+    ).subscribe()
   }
 }

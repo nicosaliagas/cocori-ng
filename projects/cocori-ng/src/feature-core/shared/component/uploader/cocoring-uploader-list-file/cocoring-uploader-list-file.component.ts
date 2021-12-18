@@ -5,13 +5,15 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-import { debounceTime, filter, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
   ConfigAPIsFile,
@@ -21,7 +23,6 @@ import {
 } from '../../../../core/model/component-uploader.model';
 import { HelperUploaderService } from '../../../../core/service/helper/helper-uploader.service';
 import { UploaderService } from '../../../../core/service/uploader/uploader.service';
-import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 import {
   CocoringUploaderBottomSheetComponent,
 } from '../cocoring-uploader-bottom-sheet/cocoring-uploader-bottom-sheet.component';
@@ -36,7 +37,7 @@ import {
   styleUrls: ['./cocoring-uploader-list-file.component.scss'],
   providers: [UploaderService]
 })
-export class CocoringUploaderListFileComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
   @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
@@ -55,48 +56,50 @@ export class CocoringUploaderListFileComponent extends AutoUnsubscribeComponent 
   upoaderFormArray: FormArray;
   fileType: string;
 
+  private readonly destroy$ = new Subject();
+
   constructor(
     public dialog: MatDialog,
     public uploaderService: UploaderService,
     private _bottomSheet: MatBottomSheet,
-    private cdr: ChangeDetectorRef,) {
-    super()
-  }
+    private cdr: ChangeDetectorRef,) { }
 
   ngOnInit(): void {
     this.addFileControl()
 
-    this.subscriptions.add(
-      this.uploaderService.fileUploaded$.pipe(
-        tap((id: string) => this.validateFileValue(id)),
-        tap(_ => this.cdr.detectChanges()),
-        debounceTime(500),
-        tap(_ => this.isUploading = false),
-        tap(_ => this.setFileApi()),
-        tap(_ => this.cdr.detectChanges())
-      ).subscribe()
-    )
+    this.uploaderService.fileUploaded$.pipe(
+      takeUntil(this.destroy$),
+      tap((id: string) => this.validateFileValue(id)),
+      tap(_ => this.cdr.detectChanges()),
+      debounceTime(500),
+      tap(_ => this.isUploading = false),
+      tap(_ => this.setFileApi()),
+      tap(_ => this.cdr.detectChanges())
+    ).subscribe()
 
-    this.subscriptions.add(
-      this.uploaderService.fileOnError$.pipe(
-        tap(_ => this.errorFile()),
-      ).subscribe()
-    )
+    this.uploaderService.fileOnError$.pipe(
+      takeUntil(this.destroy$),
+      tap(_ => this.errorFile()),
+    ).subscribe()
 
-    this.subscriptions.add(
-      this.uploaderService.progressSource.pipe(
-        filter(_ => !!this.fileUploaded),
-        tap((progress: number) => {
-          this.progress = progress
+    this.uploaderService.progressSource.pipe(
+      takeUntil(this.destroy$),
+      filter(_ => !!this.fileUploaded),
+      tap((progress: number) => {
+        this.progress = progress
 
-          const circumference = this.progressCircleRef.nativeElement.getTotalLength()
+        const circumference = this.progressCircleRef.nativeElement.getTotalLength()
 
-          this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
+        this.progressCircleRef.nativeElement.style.strokeDashoffset = circumference - (progress / 100) * circumference;
 
-          this.cdr.detectChanges()
-        })
-      ).subscribe()
-    )
+        this.cdr.detectChanges()
+      })
+    ).subscribe()
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   private setFileApi() {
@@ -152,22 +155,22 @@ export class CocoringUploaderListFileComponent extends AutoUnsubscribeComponent 
       }
     });
 
-    this.subscriptions.add(
-      bottomSheet.afterDismissed().subscribe((action: FileActions) => {
-        switch (action) {
-          case 'browse':
-            this.browseFile()
-            break;
+    bottomSheet.afterDismissed().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((action: FileActions) => {
+      switch (action) {
+        case 'browse':
+          this.browseFile()
+          break;
 
-          case 'remove':
-            this.removeFile()
-            break;
+        case 'remove':
+          this.removeFile()
+          break;
 
-          default:
-            break;
-        }
-      })
-    )
+        default:
+          break;
+      }
+    })
   }
 
   browseFile() {

@@ -1,12 +1,13 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-    ButtonIconPositon,
-    DataSourceType,
-    FormBuilderService,
-    FormInputComponents,
-    HttpService,
+  ButtonIconPositon,
+  DataSourceType,
+  FormBuilderService,
+  FormInputComponents,
+  HttpService,
 } from 'cocori-ng/src/feature-core';
+import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -126,10 +127,10 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
   }
 
   onClick() {
-    this.subscriptions.add(
-      this.httpService.get("https://localhost:5000/select-items/LastDegree/options").subscribe((values) => {
-        console.log("call ", values)
-      })
-    )
+    this.httpService.get("https://localhost:5000/select-items/LastDegree/options").pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((values) => {
+      console.log("call ", values)
+    })
   }
 }

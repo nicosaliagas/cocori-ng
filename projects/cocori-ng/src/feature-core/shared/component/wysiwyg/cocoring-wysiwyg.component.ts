@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit } from '@angular/core';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
 import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigAPIsFile, FileModel } from '../../../core/model/component-uploader.model';
@@ -143,35 +143,32 @@ export class CocoringWysiwygComponent extends ExtendInputsComponent implements O
   }
 
   private onFileUploaded() {
-    this.subscriptions.add(
-      this.uploaderService.fileUploaded$.pipe(
-        tap((id: string) => this.validateFileValue(id)),
-        tap(_ => this.uploadImageDialogInstance.unblock()),
-      ).subscribe()
-    )
+    this.uploaderService.fileUploaded$.pipe(
+      takeUntil(this.destroy$),
+      tap((id: string) => this.validateFileValue(id)),
+      tap(_ => this.uploadImageDialogInstance.unblock()),
+    ).subscribe()
   }
   private onError() {
-    this.subscriptions.add(
-      this.uploaderService.fileOnError$.pipe(
-        tap(_ => this.uploadImageDialogInstance.unblock()),
-        tap(_ => this.uploadImageDialogInstance.close()),
-        tap(_ => {
-          this.editor.notificationManager.open({
-            text: 'Une erreur est survenue, veuillez réessayer',
-            type: 'error'
-          });
-        }),
-      ).subscribe()
-    )
+    this.uploaderService.fileOnError$.pipe(
+      takeUntil(this.destroy$),
+      tap(_ => this.uploadImageDialogInstance.unblock()),
+      tap(_ => this.uploadImageDialogInstance.close()),
+      tap(_ => {
+        this.editor.notificationManager.open({
+          text: 'Une erreur est survenue, veuillez réessayer',
+          type: 'error'
+        });
+      }),
+    ).subscribe()
   }
 
   private onValueEditorChanged() {
-    this.subscriptions.add(
-      this.formGroup.get(this.nameControl).valueChanges.pipe(
-        debounceTime(400),
-        tap(_ => this.cdr.detectChanges()),
-      ).subscribe()
-    )
+    this.formGroup.get(this.nameControl).valueChanges.pipe(
+      takeUntil(this.destroy$),
+      debounceTime(400),
+      tap(_ => this.cdr.detectChanges()),
+    ).subscribe()
   }
 
   private validateFileValue(id: string) {

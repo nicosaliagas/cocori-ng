@@ -17,7 +17,7 @@ import {
     InjectComponentService,
     WysiwygConfigSection,
 } from 'cocori-ng/src/feature-core';
-import { debounceTime, filter, tap } from 'rxjs/operators';
+import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
     ApisConfigCmsModel,
@@ -121,16 +121,15 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
 
     /** ex valeur du formulaire : {editor1: "<h1>coucou</h1>", editor2: "<h1>hello</h1>"} */
     private onSectionValuesChanged() {
-        this.subscriptions.add(
-            this.formulaire.valueChanges.pipe(
-                debounceTime(500),
-                tap((values: any) => {
-                    this.section.values = values
+        this.formulaire.valueChanges.pipe(
+            takeUntil(this.destroy$),
+            debounceTime(500),
+            tap((values: any) => {
+                this.section.values = values
 
-                    this.cdr.detectChanges()
-                })
-            ).subscribe()
-        )
+                this.cdr.detectChanges()
+            })
+        ).subscribe()
     }
 
     private saveSectionValues() {
@@ -164,18 +163,17 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     }
 
     private catalogBlocksOpenedEvent() {
-        this.subscriptions.add(
-            this.cmsService.catalogBlocksOpened$.pipe(
-                tap((isOpened: boolean) => {
-                    this.readOnly = isOpened
+        this.cmsService.catalogBlocksOpened$.pipe(
+            takeUntil(this.destroy$),
+            tap((isOpened: boolean) => {
+                this.readOnly = isOpened
 
-                    if (isOpened && this.formHelper.countControlsForm(this.formulaire) > 0) {
-                        this.value = this.formulaire.value
-                    }
-                }),
-                tap(_ => this.cdr.detectChanges())
-            ).subscribe()
-        )
+                if (isOpened && this.formHelper.countControlsForm(this.formulaire) > 0) {
+                    this.value = this.formulaire.value
+                }
+            }),
+            tap(_ => this.cdr.detectChanges())
+        ).subscribe()
     }
 
     /** @param : tableau des références où seront ajouter le composant Wysiwyg */
@@ -202,12 +200,11 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     }
 
     private onBackgroundColorEvent() {
-        this.subscriptions.add(
-            this.cmsService.backgroundColor$.pipe(
-                filter((idSection: string) => idSection === this.section.id),
-                tap(_ => this.cdr.detectChanges()),
-            ).subscribe()
-        )
+        this.cmsService.backgroundColor$.pipe(
+            takeUntil(this.destroy$),
+            filter((idSection: string) => idSection === this.section.id),
+            tap(_ => this.cdr.detectChanges()),
+        ).subscribe()
     }
 
     openBottomSheet() {
@@ -220,31 +217,31 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
             }
         });
 
-        this.subscriptions.add(
-            bottomSheet.afterDismissed().subscribe((datas: BottomSheetSectionReturnAction) => {
-                if (!datas) return;
+        bottomSheet.afterDismissed().pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((datas: BottomSheetSectionReturnAction) => {
+            if (!datas) return;
 
-                switch (datas.action) {
-                    case 'remove':
-                        this.cmsService.removeSection(this.section.id)
+            switch (datas.action) {
+                case 'remove':
+                    this.cmsService.removeSection(this.section.id)
 
-                        break;
+                    break;
 
-                    case 'duplicate':
-                        this.cmsService.duplicateSection(this.section)
+                case 'duplicate':
+                    this.cmsService.duplicateSection(this.section)
 
-                        break;
+                    break;
 
-                    case 'backgroundColor':
-                        this.saveSectionBackgroundColor(datas.value)
+                case 'backgroundColor':
+                    this.saveSectionBackgroundColor(datas.value)
 
-                        break;
+                    break;
 
-                    default:
-                        break;
-                }
-            })
-        )
+                default:
+                    break;
+            }
+        })
     }
 
     private saveSectionBackgroundColor(color: string) {

@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { CurrentUrlRoutingService } from 'cocori-ng';
-import { AutoUnsubscribeComponent, StorageService } from 'cocori-ng/src/feature-core';
-import { filter, tap } from 'rxjs/operators';
+import { StorageService } from 'cocori-ng/src/feature-core';
+import { Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { LoginApiService } from '../core/api/LoginApi.service';
 import { SidenavItem } from '../core/model/Sidenav.model';
@@ -16,7 +17,7 @@ import { SidenavService } from '../core/service/sidenav.service';
   styleUrls: ['./bo-layout.component.scss'],
   providers: [CurrentUrlRoutingService]
 })
-export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnInit {
+export class BoLayoutComponent implements OnInit, OnDestroy {
   @ViewChild('sidenavContent', { static: true, read: ElementRef }) sidenavContent: ElementRef;
   @ViewChild('sidenav', { static: true, read: MatSidenav }) sidenav!: MatSidenav;
 
@@ -62,6 +63,8 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
   isRootUrl: boolean = true;
   isRootUrlArray: string[] = [];
 
+  private readonly destroy$ = new Subject();
+
   constructor(
     private storageService: StorageService,
     private navService: CurrentUrlRoutingService,
@@ -71,8 +74,6 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
     public elementRef: ElementRef,
     public router: Router,
   ) {
-    super()
-
     this.sidenavContent = elementRef;
 
     this.isSidenavOpen = <boolean>this.storageService.getLocalStorageItem('sidenav')
@@ -80,28 +81,32 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
     if (this.isSidenavOpen === null) this.isSidenavOpen = true
 
     /** au changement de route */
-    this.subscriptions.add(
-      this.router.events
-        .pipe(
-          filter((event) => event instanceof NavigationEnd),
-          tap((event: any) => this.navService.currentUrl.next(event.urlAfterRedirects)),
-          tap((event: any) => {
+    this.router.events
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((event) => event instanceof NavigationEnd),
+        tap((event: any) => this.navService.currentUrl.next(event.urlAfterRedirects)),
+        tap((event: any) => {
 
-            this.isRootUrl = this.checkIsRootUrl(<string>event.url)
+          this.isRootUrl = this.checkIsRootUrl(<string>event.url)
 
-            setTimeout(() => {
-              this.sidenavContent.nativeElement.scrollTo(0, 0);
-            });
-          })
-        )
-        .subscribe()
-    );
+          setTimeout(() => {
+            this.sidenavContent.nativeElement.scrollTo(0, 0);
+          });
+        })
+      )
+      .subscribe()
 
     this.eventSizeScreen(mediaObserver);
   }
 
   ngOnInit() {
     this.sidenavService.setSidenav(this.sidenav);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 
   logout() {
@@ -113,20 +118,20 @@ export class BoLayoutComponent extends AutoUnsubscribeComponent implements OnIni
   }
 
   private eventSizeScreen(mediaObserver: MediaObserver) {
-    this.subscriptions.add(
-      mediaObserver.media$.subscribe((change: MediaChange) => {
-        this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+    mediaObserver.media$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((change: MediaChange) => {
+      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
 
-        if (change.mqAlias === 'xs') {
-          this.sidenavPosition = 'over';
-          this.isSidenavOpen = false;
-        } else {
-          this.sidenavPosition = 'side';
-        }
+      if (change.mqAlias === 'xs') {
+        this.sidenavPosition = 'over';
+        this.isSidenavOpen = false;
+      } else {
+        this.sidenavPosition = 'side';
+      }
 
-        this.hidemobile = change.mqAlias === 'xs';
-      })
-    );
+      this.hidemobile = change.mqAlias === 'xs';
+    })
   }
 
   trackBy(index: number) {

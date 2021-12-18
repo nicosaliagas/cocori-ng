@@ -1,16 +1,16 @@
-import { ChangeDetectorRef, Component, HostListener, Injector, Input } from '@angular/core';
-import { filter, tap } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, HostListener, Injector, Input, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import { BooleanFilters, ColumnDatagridModel, SortType } from '../../../../core/model/component-datagrid.model';
 import { DatagridService } from '../../../../core/service/datagrid/datagrid.service';
-import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
     selector: '',
     template: ''
 })
 
-export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent {
+export abstract class SortColumnExtendComponent implements OnDestroy {
     @Input() datagridService: DatagridService
     @Input() column: ColumnDatagridModel
 
@@ -18,32 +18,35 @@ export abstract class SortColumnExtendComponent extends AutoUnsubscribeComponent
     cdr: ChangeDetectorRef;
     colFiltered: boolean = false;
 
-    constructor(injector: Injector) {
-        super()
+    readonly destroy$ = new Subject();
 
+    constructor(injector: Injector) {
         this.cdr = injector.get(ChangeDetectorRef);
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
     }
 
     onInitColumn() {
 
         this.isFiltered()
 
-        this.subscriptions.add(
-            this.datagridService.resetColumnExcept$.pipe(
-                filter((datafieldException: string) => datafieldException !== this.column.dataField),
-                tap(_ => this.column.sort = 'NONE'),
-                tap(_ => this.cdr.detectChanges()),
-            ).subscribe()
-        )
+        this.datagridService.resetColumnExcept$.pipe(
+            takeUntil(this.destroy$),
+            filter((datafieldException: string) => datafieldException !== this.column.dataField),
+            tap(_ => this.column.sort = 'NONE'),
+            tap(_ => this.cdr.detectChanges()),
+        ).subscribe()
 
-        this.subscriptions.add(
-            this.datagridService.updateColumn$.pipe(
-                filter((columnUpdated: ColumnDatagridModel) => columnUpdated.dataField === this.column.dataField),
-                tap((columnUpdated: ColumnDatagridModel) => this.column = columnUpdated),
-                tap(_ => this.isFiltered()),
-                tap(_ => this.cdr.detectChanges()),
-            ).subscribe()
-        )
+        this.datagridService.updateColumn$.pipe(
+            takeUntil(this.destroy$),
+            filter((columnUpdated: ColumnDatagridModel) => columnUpdated.dataField === this.column.dataField),
+            tap((columnUpdated: ColumnDatagridModel) => this.column = columnUpdated),
+            tap(_ => this.isFiltered()),
+            tap(_ => this.cdr.detectChanges()),
+        ).subscribe()
     }
 
     private isFiltered() {

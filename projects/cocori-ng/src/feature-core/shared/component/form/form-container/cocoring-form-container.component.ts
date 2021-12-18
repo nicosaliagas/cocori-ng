@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
 import { SubmitDatas } from '../../../../core/model/form-datas.model';
 import { ButtonSchema, CommandMappings, FieldSchema, FormSchema } from '../../../../core/model/schema-datas.model';
 import { FormBuilderService } from '../../../../core/service/form-builder/form-builder.service';
 import { MappingBuilderService } from '../../../../core/service/form-map-value/mapping.service';
-import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-unsubscribe.component';
 
 @Component({
     selector: 'cocoring-form-container',
@@ -15,15 +14,16 @@ import { AutoUnsubscribeComponent } from '../../auto-unsubscribe/cocoring-auto-u
     providers: [FormBuilderService, MappingBuilderService]
 })
 
-export class CocoringFormContainerComponent extends AutoUnsubscribeComponent {
+export class CocoringFormContainerComponent implements OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
     currentForm: FormGroup;
     schemaDatasForm: FormSchema;
     formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
     schemaDatasButtons: ButtonSchema[];
-
     objectCommand: Object = {};
+
+    private readonly destroy$ = new Subject();
 
     @Input()
     set config(formSchema: FormContainerInputs) {
@@ -51,9 +51,12 @@ export class CocoringFormContainerComponent extends AutoUnsubscribeComponent {
         public formBuilderService: FormBuilderService,
         public mappingBuilderService: MappingBuilderService
     ) {
-        super()
-
         this.formBuilderService.newForm();
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(undefined);
+        this.destroy$.complete();
     }
 
     private buildCurrentForm() {
@@ -80,14 +83,15 @@ export class CocoringFormContainerComponent extends AutoUnsubscribeComponent {
         this.formBuildedSubject = new Subject<boolean>();
         let formFieldsAdded: number = 0;
 
-        this.subscriptions.add(
-            this.formBuildedSubject.subscribe((isBuilded: boolean) => {
-                formFieldsAdded++;
+        this.formBuildedSubject.pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((isBuilded: boolean) => {
+            formFieldsAdded++;
 
-                if (formFieldsAdded === this.schemaDatasForm.fields.length) {
-                    this.onComponentReady.emit(true);
-                }
-            }))
+            if (formFieldsAdded === this.schemaDatasForm.fields.length) {
+                this.onComponentReady.emit(true);
+            }
+        })
     }
 
     /** composant aijouté au formulaire angular */

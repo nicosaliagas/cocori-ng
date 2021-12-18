@@ -12,14 +12,13 @@ import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.m
 })
 
 export abstract class ExtendPreviewActionsComponent implements OnDestroy {
-    public cdr: any;
 
     broadcastEventService: BroadcastEventService;
     orientation: string = 'row'
     orientationWidth: string = '100%';
     flexWidth: string;
-
-    private readonly destroy$ = new Subject();
+    cdr: any;
+    readonly destroy$ = new Subject();
 
     constructor(injector: Injector) {
         this.cdr = injector.get(ChangeDetectorRef);
