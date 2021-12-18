@@ -106,7 +106,6 @@ Librairies pour la partie CMS :
 ## Lancer le projet pour tester les composants de la lib...
 
 ✨#frontend local + backend local
-
 ng serve --configuration "local" --port 5050 -o
 
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
@@ -116,6 +115,8 @@ ng serve --configuration "local" --port 5050 -o
 ng build --project=cocori-ng --configuration production
 
 ``Publish on NPM``
+(npm whoami : check if connected as nicosaliagas)
+cd dist/cocori-ng
 npm publish --access public
 
 ## Packager la lib

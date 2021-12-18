@@ -95,6 +95,9 @@ export * from './shared/component/form/inputs/input-checkbox-indeterminate/check
 export * from './shared/component/form/inputs/input-date/cocoring-date.component';
 export * from './shared/component/form/inputs/input-date/cocoring-date.module';
 
+export * from './shared/component/form/inputs/input-slide-toggle/cocoring-slide-toggle.component';
+export * from './shared/component/form/inputs/input-slide-toggle/cocoring-slide-toggle.module';
+
 export * from './shared/component/form/inputs/input-email/cocoring-email.component';
 export * from './shared/component/form/inputs/input-email/cocoring-email.module';
 

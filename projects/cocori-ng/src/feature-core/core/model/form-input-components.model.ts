@@ -6,6 +6,7 @@ export enum FormInputComponents {
     INPUT_CHECKBOX_INDETERMINATE = 'input-checkbox-indeterminate',
     INPUT_NUMBER = 'input-number',
     INPUT_DATE = 'input-date',
+    INPUT_SLIDE_TOGGLE = 'input-slide-toggle',
     INPUT_PASSWORD = 'input-password',
     INPUT_TEXTAREA = 'input-textarea',
     INPUT_VIEWER = 'input-viewer',

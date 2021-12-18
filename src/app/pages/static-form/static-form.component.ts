@@ -98,6 +98,9 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .appearance('standard')
         .nameLabel('Mot de passe')
         .typeInput(FormInputComponents.INPUT_PASSWORD))
+      .addInput('slidetoggle', config => config
+        .nameLabel('Slide toggle')
+        .typeInput(FormInputComponents.INPUT_SLIDE_TOGGLE))
       .addInput('zone', config => config
         .nameLabel('Zone')
         .typeInput(FormInputComponents.INPUT_TEXTAREA)
