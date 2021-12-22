@@ -53,7 +53,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     SharedProjectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ToastErrorStacktraceModule,
+    ToastErrorStacktraceModule
   ],
   providers: [
     DatagridService,

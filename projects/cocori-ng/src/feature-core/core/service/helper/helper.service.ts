@@ -177,11 +177,11 @@ export class HelperService {
 
     /** efface les paramètres entre accolades d'une chaîne */
     static effacerParamètresAccolades(chaine: string): string {
-        return this.éviterDoubleSlash(this.remplacerToutesOccurences(chaine, /\{(.*?)\}/g, ""));
+        return this.éviterDoubleSlash(this.replaceAll(chaine, /\{(.*?)\}/g, ""));
     }
 
     static remplacerParamètresAccolades(chercherDans: string, motif: string, valeur: string): string {
-        return HelperService.remplacerToutesOccurences(chercherDans, `{${motif}}`, valeur);
+        return HelperService.replaceAll(chercherDans, `{${motif}}`, valeur);
     }
 
     static estceObjetVide(objet: any) {
@@ -196,7 +196,7 @@ export class HelperService {
     }
 
     static éviterDoubleSlash(chaine: string): string {
-        return HelperService.remplacerToutesOccurences(chaine, /(https?:\/\/)|(\/){2,}/g, "$1$2");
+        return HelperService.replaceAll(chaine, /(https?:\/\/)|(\/){2,}/g, "$1$2");
     }
 
     /**
@@ -237,8 +237,8 @@ export class HelperService {
         return !valeur ? null : valeur;
     }
 
-    static remplacerToutesOccurences(chaine, motif, remplacerPar): string {
-        return chaine.replace(new RegExp(motif, 'g'), remplacerPar);
+    static replaceAll(text, pattern, newText): string {
+        return text.replace(new RegExp(pattern, 'g'), newText);
     }
 
     static valeurTexteBooléen(valeur: boolean): string {

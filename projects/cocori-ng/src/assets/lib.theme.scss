@@ -243,4 +243,16 @@
     overflow: hidden;
     white-space: nowrap;
   }
+
+  /** Slide Toggle */
+
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: mat.get-color-from-palette($palette-green, 200);
+  }
+
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: white;
+  }
+
+  /** / Slide Toggle */
 }

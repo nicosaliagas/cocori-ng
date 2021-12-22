@@ -80,11 +80,11 @@ export abstract class ExtendInputsComponent implements OnDestroy {
         }
     }
 
-    clearValue(event: any) {
+    clearValue(event?: any) {
         this.formGroup.get(this.nameControl).reset()
         this.formGroup.get(this.nameControl).markAsUntouched()
 
-        event.stopPropagation();
+        if(event) event.stopPropagation();
     }
 
     addControlForm() {
