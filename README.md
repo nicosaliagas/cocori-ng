@@ -1,4 +1,4 @@
-# CocoriLibrary : projet library
+# ✨CocoriLibrary : projet library
 
 2 projets : un projet de type library et un projet web angular classique permettant de dév et tester les composants de la lib
 
