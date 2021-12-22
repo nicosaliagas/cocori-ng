@@ -55,8 +55,8 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
 
             if (!val) return;
 
-            if (val.constructor.name === 'Date') {
-                d = DateTime.fromJSDate(val).toLocaleString() // sous la forme de 21/12/2021
+            if (val.constructor.name === 'Date' || val.constructor.name === 'String') {
+                d = DateTime.fromJSDate(new Date(val)).toLocaleString() // sous la forme de 21/12/2021
             } else if (val.constructor.name === 'DateTime') {
                 d = DateTime.fromISO(val).toLocaleString() // sous la forme de 21/12/2021
             }
