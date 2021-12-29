@@ -4,7 +4,7 @@
         <div matPrefix>
             <input-icon [icon]="icon"></input-icon>
         </div>
-        <input type="number" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
+        <input [attr.data-cy]="nameControl" type="number" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
         <div matSuffix style="display:flex">
             <input-icon icon="close" *ngIf="formGroup.get(nameControl).value" (click)="clearValue($event)"></input-icon>
         </div>

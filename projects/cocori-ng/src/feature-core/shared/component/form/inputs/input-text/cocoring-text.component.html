@@ -27,7 +27,7 @@
         <div matPrefix>
             <input-icon [icon]="icon"></input-icon>
         </div>
-        <input type="text" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
+        <input type="text" [attr.data-cy]="nameControl" matInput [formControlName]="nameControl" [maxlength]="maxlength" />
         <div matSuffix style="display:flex">
             <input-icon icon="close" *ngIf="formGroup.get(nameControl).value" (click)="clearValue($event)">
             </input-icon>

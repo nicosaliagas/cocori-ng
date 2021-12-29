@@ -4,8 +4,7 @@
             <input-icon [icon]="icon"></input-icon>
         </div>
         <mat-label>{{nameLabel}}</mat-label>
-        <mat-select [formControlName]="nameControl">
-            <!-- <mat-option value="" class="noValueOption">Aucune valeur</mat-option> -->
+        <mat-select [attr.data-cy]="nameControl" [formControlName]="nameControl">
             <mat-option *ngFor="let item of (dataSource$ | async)" [value]="item.id">
                 {{item[dataSourceNameProperty]}}
             </mat-option>
