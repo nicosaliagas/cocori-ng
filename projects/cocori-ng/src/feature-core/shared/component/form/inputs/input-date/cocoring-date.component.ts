@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateTime } from 'luxon';
 import { takeUntil } from 'rxjs';
 
@@ -38,6 +39,7 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
     maskInputControlName: string = null
 
     constructor(
+        @Inject(MAT_DATE_LOCALE) public locale: string,
         private cdr: ChangeDetectorRef,
         injector: Injector) {
         super(injector);
@@ -56,9 +58,9 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
             if (!val) return;
 
             if (val.constructor.name === 'Date' || val.constructor.name === 'String') {
-                d = DateTime.fromJSDate(new Date(val)).toLocaleString() // sous la forme de 21/12/2021
+                d = DateTime.fromJSDate(new Date(val)).setLocale(this.locale).toLocaleString() // sous la forme de 21/12/2021
             } else if (val.constructor.name === 'DateTime') {
-                d = DateTime.fromISO(val).toLocaleString() // sous la forme de 21/12/2021
+                d = DateTime.fromISO(val).setLocale(this.locale).toLocaleString() // sous la forme de 21/12/2021
             }
 
             if (d) {

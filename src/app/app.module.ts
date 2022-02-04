@@ -28,8 +28,10 @@ import { LoadEnvironmentFactory } from './core/class/app-factory';
 import { EnvironmentLoaderService } from './core/service/environment-loader.service';
 import { SharedProjectModule } from './shared/shared-project.module';
 
+const DEFAULT_LOCALE = 'fr-FR'
+
 // https://angular.io/guide/i18n#i18n-pipes
-registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
+registerLocaleData(localeFr, DEFAULT_LOCALE, localeFrExtra);
 
 @NgModule({
   declarations: [
@@ -60,7 +62,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   providers: [
     DatagridService,
     {
-      provide: MAT_DATE_LOCALE, useValue: 'fr'
+      provide: MAT_DATE_LOCALE, useValue: DEFAULT_LOCALE
     },
     {
       provide: DateAdapter,

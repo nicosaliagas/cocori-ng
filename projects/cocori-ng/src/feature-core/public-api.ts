@@ -24,6 +24,7 @@ export * from './core/service/interceptors/loading-interceptor.service';
 export * from './core/service/interceptors/request-interceptor.service';
 export * from './core/service/interceptors/global-error-interceptor.service';
 
+export * from './core/model/odata.model';
 export * from './core/model/data-source.model';
 export * from './core/model/form-input-components.model';
 export * from './core/model/schema-datas.model';

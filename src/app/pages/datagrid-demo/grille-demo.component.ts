@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DataSourceType } from 'cocori-ng';
-import { OdataModel } from 'cocori-ng/src/feature-core';
+import { ConfigDatagridModel, DatagridService, DataSourceType } from 'cocori-ng/';
+import { Odata } from 'cocori-ng/src/feature-core';
 import { takeUntil } from 'rxjs';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
@@ -39,7 +39,7 @@ export class GrilleDemoComponent extends ExtendPageComponent implements OnInit {
   private initConfigDatagrid() {
     this.datagridDemoService.mockDatagridDatas().pipe(
       takeUntil(this.destroy$)
-    ).subscribe((values: OdataModel) => {
+    ).subscribe((values: Odata<any>) => {
       this._config = {
         columns: [
           { caption: "Nom", dataField: "name", dataType: "string", visible: true },

@@ -23,6 +23,8 @@ const routes: Routes = [
       { path: 'component/colorpicker', loadChildren: () => import('../pages/colorpicker-demo/colorpicker-demo.module').then(mod => mod.ColorpickerDemoModule)},
       { path: 'component/toast', loadChildren: () => import('../pages/toast-demo/toast-demo.module').then(mod => mod.ToastDemoModule)},
       { path: 'component/date', loadChildren: () => import('../pages/demo-component/date-demo/date-demo.module').then(mod => mod.DateDemoModule)},
+      { path: 'gallery/gallery', loadChildren: () => import('../pages/page-gallery/page-gallery.module').then(mod => mod.PageGalleryModule)},
+      { path: 'gallery/fullscreen-viewer', loadChildren: () => import('../pages/page-fullscreen-viewer/page-fullscreen-viewer.module').then(mod => mod.PageFullscreenViewerModule)},
     ]
   },
 ];

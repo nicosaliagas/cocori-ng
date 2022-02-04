@@ -1,0 +1,24 @@
+.container-page {
+  height: 100%;
+  position: relative;
+}
+
+.formulaires {
+  display: flex;
+  height: 100%;
+
+  .part {
+    width: 100%;
+  }
+}
+
+.item-type {
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000080;
+}

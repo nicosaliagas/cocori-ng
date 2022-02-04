@@ -42,6 +42,12 @@ export class BoLayoutComponent implements OnInit, OnDestroy {
       ]
     },
     {
+      label: 'Galerie', route: '/bo/gallery', icon: 'collections', children: [
+        { label: 'Démo galerie', route: '/bo/gallery/gallery' },
+        { label: 'Démo galerie fullscreen', route: '/bo/gallery/fullscreen-viewer' },
+      ]
+    },
+    {
       label: 'Composants', route: '/bo/component', icon: 'engineering', children: [
         { label: 'Grille', route: '/bo/component/grille' },
         { label: 'Upload', route: '/bo/component/upload' },

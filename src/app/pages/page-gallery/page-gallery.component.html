@@ -1,0 +1,17 @@
+<div class="container-page">
+  <div class="formulaires">
+    <div class="content-frm part">
+      <gallery [id]="galleryId" [items]="items" [thumbTemplate]="thumbTemplate"></gallery>
+
+      <ng-template #thumbTemplate let-type="type">
+        <span *ngIf="type === 'youtube'" class="item-type">
+          <mat-icon>smart_display</mat-icon>
+        </span>
+        <span *ngIf="type === 'video'" class="item-type">
+          <mat-icon>videocam</mat-icon>
+        </span>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

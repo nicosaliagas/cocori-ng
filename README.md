@@ -111,10 +111,11 @@ ng serve --configuration "local" --port 5050 -o
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 
 ## ✨publish on npm
-``Build la lib prod``
+
+`Build la lib prod`
 ng build --project=cocori-ng --configuration production
 
-``Publish on NPM``
+`Publish on NPM`
 (npm whoami : check if connected as nicosaliagas)
 cd dist/cocori-ng
 npm publish --access public
@@ -215,6 +216,22 @@ import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
 }
 ```
 
+## 🔹 Styles : classes margin et padding générées via mixins
+
+source : https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f
+
+le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les margin et padding
+
+ex de classes css :
+
+.m-b-15 ==> pour margin-bottom: 15px;
+.m-x-30 ==> pour margin: 30px;
+
+ou
+
+.p-l-10 ==> pour padding-left: 10px;
+.p-x-25 ==> pour padding: 25px;
+
 ## 🔹 Config des boutons de formulaire dynamique avec Cocori-ng
 
 `Bouton classique - non submit - avec callback sur le clique du bouton `
@@ -247,6 +264,7 @@ import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
 - FakerJs : fake datas
   npm install faker --save-dev
   npm install @types/faker --save-dev
+- Gallery : https://github.com/MurhafSousli/ngx-gallery
 
 `Utiliser le color picker dans un projet`
 

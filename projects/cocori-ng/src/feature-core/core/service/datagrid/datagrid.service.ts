@@ -4,12 +4,12 @@ import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import {
-  ColumnDatagridModel,
-  ConfigDatagridModel,
-  IndicatorPage,
-  OrderColumnModel,
+    ColumnDatagridModel,
+    ConfigDatagridModel,
+    IndicatorPage,
+    OrderColumnModel,
 } from '../../model/component-datagrid.model';
-import { OdataModel } from '../../model/data-source.model';
+import { Odata } from '../../model/odata.model';
 import { DatasourceService } from '../datasource.service';
 import { HelperService } from '../helper/helper.service';
 import { QueryBuilder } from '../odata-query-builder/queryBuilder';
@@ -111,8 +111,8 @@ export class DatagridService {
     this.allRowsChecked$.next(value)
   }
 
-  getAllDatas(): Observable<OdataModel> {
-    if (!this.config.dataSource) return <Observable<OdataModel>>of(null);
+  getAllDatas(): Observable<Odata<any>> {
+    if (!this.config.dataSource) return <Observable<Odata<any>>>of(null);
 
     const queryString: string = this.buildQueryStringOData();
 

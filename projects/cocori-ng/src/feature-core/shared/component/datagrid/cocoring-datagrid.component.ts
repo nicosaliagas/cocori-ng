@@ -14,7 +14,7 @@ import { merge, Subject } from 'rxjs';
 import { debounceTime, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { ConfigDatagridModel } from '../../../core/model/component-datagrid.model';
-import { Odata, OdataModel } from '../../../core/model/data-source.model';
+import { Odata, OdataClass } from '../../../core/model/odata.model';
 import { DatagridService } from '../../../core/service/datagrid/datagrid.service';
 
 @Component({
@@ -23,14 +23,14 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     selector: 'cocoring-datagrid',
     templateUrl: 'cocoring-datagrid.component.html',
     styleUrls: ['./cocoring-datagrid.component.scss'],
-    providers: [Odata]
+    providers: [OdataClass]
 })
 export class CocoringDatagridComponent implements OnDestroy {
     checkboxesGroup: FormGroup;
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
-    datagridDataSource: Odata;
+    datagridDataSource: OdataClass;
     totalRowsSaved: number = 5;
 
     private readonly destroy$ = new Subject();
@@ -38,7 +38,7 @@ export class CocoringDatagridComponent implements OnDestroy {
     constructor(
         private fb: FormBuilder,
         private cdr: ChangeDetectorRef,
-        private odata: Odata,
+        private odata: OdataClass,
         public datagridService: DatagridService
     ) { }
 
@@ -87,7 +87,7 @@ export class CocoringDatagridComponent implements OnDestroy {
 
         merge(this.datagridService.getAllDatas(), emptySearch$).pipe(
             takeUntil(this.destroy$),
-            map((results: OdataModel) => {
+            map((results: Odata<any>) => {
                 this.odata.setDatasource(results)
 
                 this.datagridDataSource = this.odata
