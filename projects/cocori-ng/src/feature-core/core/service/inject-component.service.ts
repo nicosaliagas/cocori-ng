@@ -28,7 +28,7 @@ export class InjectComponentService {
     loadAndAddComponentToContainer(
         componentClass: Type<any>,
         viewContainerRef: ViewContainerRef,
-        inputs: InputsComponent[] = [],
+        inputs: InputsComponent[] = [], //// #TODO passer d'un array à direct un objet 
         outputs?: OutputsComponent,
         index?: number
     ) {

@@ -23,6 +23,7 @@ export * from './core/service/file/file.service';
 export * from './core/service/interceptors/loading-interceptor.service';
 export * from './core/service/interceptors/request-interceptor.service';
 export * from './core/service/interceptors/global-error-interceptor.service';
+export * from './core/service/scroll.service';
 
 export * from './core/model/odata.model';
 export * from './core/model/data-source.model';

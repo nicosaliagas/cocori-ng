@@ -533,3 +533,20 @@ export class FlightsComponent implements OnDestroy, OnInit {
 }
 
 ```
+
+`DateTime : date functions helper :`
+
+>> https://github.com/moment/luxon/blob/master/docs/formatting.md
+
+Date to DateTime : ``` DateTime.fromJSDate(startDate) ```
+
+DateTime to Date : ``` myDateVar.toJSDate() ```
+
+DateTime to Iso : ``` dt.toISO(); //=> '2017-04-20T11:32:00.000-04:00' ```
+
+Set Date to midnight : ``` new Date(varDate.setHours(0,0,0,0)) ```
+
+
+`Replace all :`
+
+```myStringVar.replace(new RegExp(`${searchVar}`), replaceVar) ```
