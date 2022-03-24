@@ -9,6 +9,8 @@ export class CocoringVariableHtmlPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {
     }
     transform(texteHtml: string): SafeHtml {
+        if (!texteHtml) return ''
+
         return this.sanitizer.bypassSecurityTrustHtml(texteHtml);
     }
 }

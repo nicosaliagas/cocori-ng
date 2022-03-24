@@ -1,14 +1,9 @@
 import { DataSourceInput } from './data-source.model';
 
-export interface PaginationDatagridModel {
-    itemsPerPage: number,
-    currentPage: number,
+export interface PageIndicators {
     from: number,
     to: number,
-    totalRows: number,
 }
-
-export type IndicatorPage = Pick<PaginationDatagridModel, 'from' | 'to'>;
 
 export interface ConfigDatagridModel {
     columns: ColumnDatagridModel[],

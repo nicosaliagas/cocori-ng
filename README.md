@@ -4,7 +4,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
+Version actuelle d'Angular : 13.0.3 (Nov 2021)
 Version actuelle d'Angular : 12.0.3 (Août 2021)
+
+Version Node : 16.10.0
+Version NPM : 7.24.0 
 
 # [Installation du poste de travail]
 
@@ -111,6 +115,12 @@ ng serve --configuration "local" --port 5050 -o
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
 
 ## ✨publish on npm
+
+`URL vers NPM`
+https://www.npmjs.com/package/cocori-ng
+
+`Incrémenter la version`
+Fichier : `projects\cocori-ng\package.json` (propriété `version`)
 
 `Build la lib prod`
 ng build --project=cocori-ng --configuration production
@@ -536,17 +546,27 @@ export class FlightsComponent implements OnDestroy, OnInit {
 
 `DateTime : date functions helper :`
 
->> https://github.com/moment/luxon/blob/master/docs/formatting.md
+> > https://github.com/moment/luxon/blob/master/docs/formatting.md
 
-Date to DateTime : ``` DateTime.fromJSDate(startDate) ```
+Date to DateTime : `DateTime.fromJSDate(startDate)`
 
-DateTime to Date : ``` myDateVar.toJSDate() ```
+DateTime to Date : `myDateVar.toJSDate()`
 
-DateTime to Iso : ``` dt.toISO(); //=> '2017-04-20T11:32:00.000-04:00' ```
+DateTime to Iso : `dt.toISO(); //=> '2017-04-20T11:32:00.000-04:00'`
 
-Set Date to midnight : ``` new Date(varDate.setHours(0,0,0,0)) ```
+Set Date to midnight : `new Date(varDate.setHours(0,0,0,0))`
 
+Diff dates :
+
+```
+  const date1 = luxon.DateTime.fromISO(api.meeting.startsAt)
+  const date2 = luxon.DateTime.fromISO(api.meeting.endsAt)
+  
+  const diff: any = date2.diff(date1, "minutes").toObject()
+
+  console.log(diff['minutes'])
+```
 
 `Replace all :`
 
-```myStringVar.replace(new RegExp(`${searchVar}`), replaceVar) ```
+`` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``

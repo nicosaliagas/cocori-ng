@@ -21,7 +21,7 @@ export class DatasourceService {
         break;
 
       case DataSourceType.API:
-        return this.httpService.get(`${config.value}${queryString}`)
+        return this.httpService.get(`${config.value}?${queryString}`)
         break;
 
       default:

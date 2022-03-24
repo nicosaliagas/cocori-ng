@@ -6,8 +6,8 @@ import { tap } from 'rxjs/operators';
 import {
     ColumnDatagridModel,
     ConfigDatagridModel,
-    IndicatorPage,
     OrderColumnModel,
+    PageIndicators,
 } from '../../model/component-datagrid.model';
 import { Odata } from '../../model/odata.model';
 import { DatasourceService } from '../datasource.service';
@@ -38,7 +38,7 @@ export class DatagridService {
   public itemsPerPage: number = 10
   public currentPage: number = 1
   public totalRows: number = 0;
-  public indicatorPage: IndicatorPage;
+  public indicatorPage: PageIndicators;
   public searchGlobal: string;
 
   constructor(

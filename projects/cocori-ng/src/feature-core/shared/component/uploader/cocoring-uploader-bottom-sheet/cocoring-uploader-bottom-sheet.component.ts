@@ -25,7 +25,7 @@ export class CocoringUploaderBottomSheetComponent implements OnInit {
     if (!this.data.component) return;
 
     this.injectComponentService.loadAndAddComponentToContainer(this.data.component, this.containerRef,
-      [{ file: this.data.file }, { apisFile: this.data.apisFile }],
+      { file: this.data.file, apisFile: this.data.apisFile },
       { callback: (action: FileActions) => this.callback(action) }
     );
   }

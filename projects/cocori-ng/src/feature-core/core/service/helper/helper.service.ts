@@ -21,6 +21,12 @@ export class HelperService {
         return [...arrayValues.slice(0, index), ...arrayValues.slice(index + 1)];
     }
 
+    /** arrondir un nombre */
+    roundUp(num: number, precision: number) {
+        precision = Math.pow(10, precision)
+        return Math.ceil(num * precision) / precision
+    }
+
     /**  */
 
     static retourneNomDeDomaine(): string {

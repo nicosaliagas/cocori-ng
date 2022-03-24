@@ -1,29 +1,29 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Injector,
-    Input,
-    OnDestroy,
-    ViewContainerRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+  ViewContainerRef,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-    CocoringWysiwygComponent,
-    FileModel,
-    FormHelperService,
-    InitWysiwyg,
-    InjectComponentService,
-    WysiwygConfigSection,
+  CocoringWysiwygComponent,
+  FileModel,
+  FormHelperService,
+  InitWysiwyg,
+  InjectComponentService,
+  WysiwygConfigSection,
 } from 'cocori-ng/src/feature-core';
 import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
-    ApisConfigCmsModel,
-    BottomSheetSectionReturnAction,
-    EditorValues,
-    SectionModel,
+  ApisConfigCmsModel,
+  BottomSheetSectionReturnAction,
+  EditorValues,
+  SectionModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';
@@ -60,7 +60,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     readOnly: boolean = false;
     value: any;
     formHelper: FormHelperService;
-    injectComponentService: any;
+    injectComponentService: InjectComponentService;
 
     constructor(injector: Injector) {
         super(injector);
@@ -182,7 +182,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
             const nameControl: string = `${this.nameControl}${i}`
 
             this.injectComponentService.loadAndAddComponentToContainer(CocoringWysiwygComponent, refs[i - 1],
-                [{ config: this.configsWysiwyg[nameControl] }], null)
+                { config: this.configsWysiwyg[nameControl] }, null)
         }
     }
 
@@ -191,7 +191,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
             const nameControl: string = `${this.backgroundImageControl}${i}`
 
             this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsImageUploadComponent, refs[i - 1],
-                [{ section: this.section, apisConfig: this.apisConfig, nameBackgroundImage: nameControl }],
+                { section: this.section, apisConfig: this.apisConfig, nameBackgroundImage: nameControl },
                 {
                     apiFileUploaded: (apiFile: string) => this.onBackgroundFileUploadedCallback(nameControl, apiFile),
                     removeBackgroundImage: () => this.removeBackgroundFileCallback(nameControl)

@@ -149,7 +149,7 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
       tap(_ => this.refreshNumberSection()),
       tap((datas: InsertSectionAt) => {
         this.injectComponentService.loadAndAddComponentToContainer(CocoringCmsSectionComponent, this.containerRef,
-          [{ section: datas.section }, { apisConfig: this.configCms.wysiwygOptions }],
+          { section: datas.section, apisConfig: this.configCms.wysiwygOptions },
           { afterRemoveAnimation: (sectionIndexRemoved: number) => this.onSectionRemovedAfterAnimation(sectionIndexRemoved) }, datas.index
         )
       }),

@@ -96,13 +96,14 @@ export class QueryBuilder {
     if (this.fragments.length < 1) return '';
 
     // const sortedFragments = orderBy(this.fragments, (sf: QueryFragment) => sf.type);
-    
+
     const sortedFragments = this.fragments.concat().sort(this.sortBy("type"));
     const nonFilterFragments = sortedFragments.filter((sf: QueryFragment) => sf.type !== FragmentType.Filter);
     const filterFragments = sortedFragments.filter((sf: QueryFragment) => sf.type === FragmentType.Filter);
 
     let query =
-      '?' +
+      // '?' +
+      '' +
       sortedFragments
         .filter((sf: QueryFragment) => sf.type !== FragmentType.Filter)
         .map((sf: QueryFragment) => sf.value)

@@ -5,13 +5,13 @@ import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
 import { ClasseComponents } from '../../../shared/component/form';
 import {
-    ButtonComponentInputs,
-    ButtonIconPositon,
-    ConfigComponentInputs,
-    ConfigInputComponent,
-    InputFieldAppearance,
-    OutputCallback,
-    TypeButtonEnum,
+  ButtonComponentInputs,
+  ButtonIconPositon,
+  ConfigComponentInputs,
+  ConfigInputComponent,
+  InputFieldAppearance,
+  OutputCallback,
+  TypeButtonEnum,
 } from '../../model/component-inputs.model';
 import { DataSourceInput } from '../../model/data-source.model';
 import { FormInputComponents } from '../../model/form-input-components.model';
@@ -320,8 +320,7 @@ export class GenerateComponentViewService {
         const componentToAdd = this.returnComponentClassFromType(componentType);
 
         this.injectComponentService.loadAndAddComponentToContainer(componentToAdd, this.formContainerRef,
-            [{ config: configComponent }],
-            callback
+            { config: configComponent }, callback
         );
     }
 

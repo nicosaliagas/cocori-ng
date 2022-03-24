@@ -95,6 +95,6 @@ export class CocoringCmsSectionComponent implements OnInit, OnDestroy {
 
   private addTemplateSectionComponent() {
     this.injectComponentService.loadAndAddComponentToContainer(this.section.component, this.containerRef,
-      [{ section: this.section }, { apisConfig: this.apisConfig }], null)
+      { section: this.section, apisConfig: this.apisConfig }, null)
   }
 }

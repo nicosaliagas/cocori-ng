@@ -20,27 +20,27 @@ export class InjectComponentService {
      * Exemple d'utilisation:
      
      * this.injectComponentService.loadAndAddComponentToContainer(MyClasseComponent, #DomReference,
-            [{ @InputName_1: Value, @InputName_2: Value }], { @OutputName_1: (valueEmited: any) => this.callback(valueEmited)})
+            { @InputName_1: Value, @InputName_2: Value }, { @OutputName_1: (valueEmited: any) => this.callback(valueEmited)})
      * Ou si le composant n'a pas de @Output
      * this.injectComponentService.loadAndAddComponentToContainer(MyClasseComponent, #DomReference,
-            [{ @InputName_1: Value, @InputName_2: Value }], null)
+            { @InputName_1: Value, @InputName_2: Value }, null)
      */
     loadAndAddComponentToContainer(
         componentClass: Type<any>,
         viewContainerRef: ViewContainerRef,
-        inputs: InputsComponent[] = [], //// #TODO passer d'un array à direct un objet 
+        inputs: InputsComponent,
         outputs?: OutputsComponent,
         index?: number
     ) {
         // const factory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-        const componentRef = viewContainerRef.createComponent(componentClass, {index: index ? index : null});
+        const componentRef = viewContainerRef.createComponent(componentClass, { index: index ? index : null });
 
-        inputs.forEach((input: InputsComponent) => {
-            for (const [key, value] of Object.entries(input)) {
-                (componentRef.instance)[key] = value;
-            }
-        });
+        /** inputs */
+        for (const [key, value] of Object.entries(inputs)) {
+            (componentRef.instance)[key] = value;
+        }
 
+        /** outputs */
         if (outputs) {
             for (const [key, value] of Object.entries(outputs)) {
                 if (key && value && (componentRef.instance)[key]) (componentRef.instance)[key].subscribe(data => value(data));
