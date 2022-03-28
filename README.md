@@ -109,6 +109,9 @@ Librairies pour la partie CMS :
 
 ## Lancer le projet pour tester les composants de la lib...
 
+✨#frontend démarrer le build en mode watch
+ng build --project=cocori-ng --watch (ou npm run lib)
+
 ✨#frontend local + backend local
 ng serve --configuration "local" --port 5050 -o
 
