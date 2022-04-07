@@ -573,3 +573,23 @@ Diff dates :
 `Replace all :`
 
 `` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
+
+
+`Observable : call rest api and return new Observable :`
+
+getEventInfos(): Observable<EventInfosModel> {
+    if (this.eventInfos) {
+        return of(this.eventInfos)
+    } else {
+        var subject = new Subject<EventInfosModel>();
+
+        this.httpService.get(`${this.environmentService.appServerPath}/event-infos`).subscribe(
+            (datas: any) => {
+                this.eventInfos = datas
+
+                subject.next(datas);
+            })
+
+        return subject.asObservable();
+    }
+}

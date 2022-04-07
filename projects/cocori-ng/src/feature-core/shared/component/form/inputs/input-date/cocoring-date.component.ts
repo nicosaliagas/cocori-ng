@@ -82,7 +82,11 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
             const month = dateInput.substring(2, 4)
             const year = dateInput.substring(4)
 
-            this.formGroup.get(this.nameControl).setValue(DateTime.fromISO(year + month + day), { emitEvent: false })
+            const dateFormated: DateTime = DateTime.fromISO(year + month + day)
+
+            if (dateFormated.isValid) {
+                this.formGroup.get(this.nameControl).setValue(DateTime.fromISO(year + month + day), { emitEvent: false })
+            } else this.clearDateMaskValue()
         } else {
             this.clearValue()
         }
