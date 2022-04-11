@@ -3,12 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+export enum SkipHeaders {
+    TRUE = 'true',
+    FALSE = 'false',
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class HttpService {
     protected withCredentialsOption: boolean = false;
     httpWithoutInterceptor: HttpClient;
+
+    private skip: SkipHeaders = SkipHeaders.FALSE;
 
     constructor(
         private http: HttpClient,
@@ -21,8 +28,8 @@ export class HttpService {
         this.withCredentialsOption = value;
     }
 
-    get<T>(path: string, params?: Object): Observable<T> {
-        return this.http.get(`${path}`, { params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
+    get<T>(path: string, params?: Object, skip: string = SkipHeaders.FALSE): Observable<T> {
+        return this.http.get(`${path}`, { headers: { skip: skip }, params: this.buildUrlParams(params), withCredentials: this.withCredentialsOption })
             .pipe(
                 map(this.extractData.bind(this))
             ) as Observable<T>;
@@ -42,10 +49,16 @@ export class HttpService {
             ) as Observable<T>;
     }
 
-    put<T>(path: string, body: Object = { withCredentials: this.withCredentialsOption }): Observable<any> {
+    put<T>(path: string, body: Object = {}, skip: string = SkipHeaders.FALSE): Observable<any> {
+        let options = {
+            headers: new HttpHeaders().set('skip', skip),
+            withCredentials: this.withCredentialsOption,
+        }
+
         return this.http.put(
             `${path}`,
-            JSON.stringify(body)
+            JSON.stringify(body),
+            options
         ).pipe(
             map(this.extractData.bind(this))
         ) as Observable<T>;
@@ -58,8 +71,11 @@ export class HttpService {
             ) as Observable<T>;
     }
 
-    post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
-        options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    post<T>(path: string, body: Object = {}, skip: string = SkipHeaders.FALSE): Observable<T> {
+        let options = {
+            headers: new HttpHeaders().set('skip', skip),
+            withCredentials: this.withCredentialsOption,
+        }
 
         return this.http.post(
             `${path}`,
@@ -70,8 +86,11 @@ export class HttpService {
         ) as Observable<T>;
     }
 
-    patch<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
-        options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    patch<T>(path: string, body: Object = {}, skip: string = SkipHeaders.FALSE): Observable<T> {
+        let options = {
+            headers: new HttpHeaders().set('skip', skip),
+            withCredentials: this.withCredentialsOption,
+        }
 
         return this.http.patch(
             `${path}`,
@@ -94,7 +113,7 @@ export class HttpService {
         ) as Observable<HttpEvent<T>>;
     }
 
-    _post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }): Observable<T> {
+    _post<T>(path: string, body: Object = {}, options: Object = { withCredentials: this.withCredentialsOption }, skip: string = SkipHeaders.FALSE): Observable<T> {
         options['headers'] = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
         return this.httpWithoutInterceptor.post(
