@@ -14,9 +14,9 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "~13.0.3",
-    "@angular/core": "~13.0.3",
-    "@angular/material": "^13.0.3",
+    "@angular/common": "~13.3.4",
+    "@angular/core": "~13.3.4",
+    "@angular/material": "^13.3.4",
     "@angular/flex-layout": "^13.0.0-beta.36",
     "@r-tek/colr_pickr": "^2.0.0"
   }
