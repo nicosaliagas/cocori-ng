@@ -4,6 +4,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
+Version actuelle d'Angular : 13.3.4 (Avril 2022)
 Version actuelle d'Angular : 13.0.3 (Nov 2021)
 Version actuelle d'Angular : 12.0.3 (Août 2021)
 
@@ -547,7 +548,7 @@ export class FlightsComponent implements OnDestroy, OnInit {
 
 ```
 
-`DateTime : date functions helper :`
+`DateTime/luxon : date functions helper :`
 
 > > https://github.com/moment/luxon/blob/master/docs/formatting.md
 
