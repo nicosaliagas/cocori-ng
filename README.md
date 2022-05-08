@@ -576,6 +576,18 @@ Diff dates :
 `` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
 
 
+`Groupby rxjs`
+
+from(this.confPage.widgets).pipe(
+    groupBy((widget: CustomType) => {
+        return <number>widget.zone
+    }),
+    mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+).subscribe((group: [number | null, CustomType[]]) => {
+    console.log("new group >>> ", group)
+})
+
+
 `Observable : call rest api and return new Observable :`
 
 getEventInfos(): Observable<EventInfosModel> {

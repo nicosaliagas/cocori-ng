@@ -16,6 +16,7 @@ export * from './core/service/storage.service';
 export * from './core/service/datagrid/datagrid.service';
 export * from './core/service/odata-query-builder/queryBuilder';
 export * from './core/service/token.service';
+export * from './core/service/sort/sort.service';
 export * from './core/service/confirm-modal.service';
 export * from './core/service/current-url-routing.service';
 export * from './core/service/form-builder/form-builder.service';
