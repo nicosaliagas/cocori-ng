@@ -6,6 +6,7 @@ import {
   FormBuilderService,
   FormInputComponents,
   HttpService,
+  TypeButtonEnum,
 } from 'cocori-ng/src/feature-core';
 import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
@@ -113,8 +114,11 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .isTypeSubmit()
         .icon('check')
         .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
-      .addButton('Annuler', config => config
-        .isTypeSubmit(false))
+      .addButton('Annuler(link)', config => config
+        .type(TypeButtonEnum.LINK)
+        .url('/bo/home')
+        .openNewTab(true)
+        .outputCallback({ click: () => console.log("Bouton annuler : click") }))
       .addButton('Je sors', config => config
         .icon('keyboard_arrow_right', ButtonIconPositon.END)
         .isTypeSubmit(false))

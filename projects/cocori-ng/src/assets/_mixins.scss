@@ -140,3 +140,29 @@
 .stickyPosition {
   @include stickyPosition;
 }
+
+@mixin hide-scroll {
+  scrollbar-color: white white;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 13px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &:hover {
+    scrollbar-color: #d9d9d9 white;
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: #d9d9d9;
+    }
+  }
+}
+
+.hide-scroll {
+  @include for-tablet-portrait-up {
+    @include hide-scroll;
+  }
+}

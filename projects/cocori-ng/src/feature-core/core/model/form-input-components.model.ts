@@ -12,4 +12,5 @@ export enum FormInputComponents {
     INPUT_VIEWER = 'input-viewer',
     INPUT_SELECT = 'input-select',
     BUTTON = 'button',
+    LINK = 'link',
 }

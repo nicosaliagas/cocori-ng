@@ -5,13 +5,13 @@ import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
 import { ClasseComponents } from '../../../shared/component/form';
 import {
-  ButtonComponentInputs,
-  ButtonIconPositon,
-  ConfigComponentInputs,
-  ConfigInputComponent,
-  InputFieldAppearance,
-  OutputCallback,
-  TypeButtonEnum,
+    ButtonComponentInputs,
+    ButtonIconPositon,
+    ConfigComponentInputs,
+    ConfigInputComponent,
+    InputFieldAppearance,
+    OutputCallback,
+    TypeButtonEnum,
 } from '../../model/component-inputs.model';
 import { DataSourceInput } from '../../model/data-source.model';
 import { FormInputComponents } from '../../model/form-input-components.model';
@@ -117,14 +117,22 @@ class InputConfigBuilder<Builder> {
 
 class ButtonConfigBuilder<Builder> {
 
-    _isTypeSubmit: boolean;
+    _type: TypeButtonEnum;
     _icon: string;
     _className: string;
     _iconPosition: ButtonIconPositon;
     _callbackComponent: OutputCallback;
+    _url: string;
+    _openNewTab: boolean;
 
     isTypeSubmit(is: boolean = true) {
-        this._isTypeSubmit = is
+        this._type = is ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON
+
+        return this
+    }
+
+    type(typeOfTheBtn: TypeButtonEnum = TypeButtonEnum.BUTTON) {
+        this._type = typeOfTheBtn
 
         return this
     }
@@ -132,6 +140,18 @@ class ButtonConfigBuilder<Builder> {
     icon(materialIconName: string, buttonIconPosition: ButtonIconPositon = ButtonIconPositon.START) {
         this._icon = materialIconName
         this._iconPosition = buttonIconPosition
+
+        return this
+    }
+
+    url(url: string) {
+        this._url = url
+
+        return this
+    }
+
+    openNewTab(openNewTab: boolean) {
+        this._openNewTab = openNewTab
 
         return this
     }
@@ -277,14 +297,20 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         const configInputComponent: ButtonComponentInputs = {
             text: buttonName,
-            type: builder._isTypeSubmit ? TypeButtonEnum.SUBMIT : TypeButtonEnum.BUTTON,
+            type: builder._type,
             icon: builder._icon,
+            url: builder._url,
+            openNewTab: builder._openNewTab,
             className: builder._className,
             iconPosition: builder._iconPosition,
             onClickSubmit: this.onClickSubmit.bind(this)
         };
 
-        this.generateComponentViewService.addComponentToView(FormInputComponents.BUTTON, configInputComponent, builder._callbackComponent);
+        if(builder._type === TypeButtonEnum.LINK) {
+            this.generateComponentViewService.addComponentToView(FormInputComponents.LINK, configInputComponent, builder._callbackComponent);
+        } else {
+            this.generateComponentViewService.addComponentToView(FormInputComponents.BUTTON, configInputComponent, builder._callbackComponent);
+        }
 
         return this as FormBuilderService;
     }

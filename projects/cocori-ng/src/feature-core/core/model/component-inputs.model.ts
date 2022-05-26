@@ -36,9 +36,15 @@ export interface FormContainerInputs {
 export enum TypeButtonEnum {
     SUBMIT = 'submit',
     BUTTON = 'button',
+    LINK = 'link',
 }
 
-export interface ButtonComponentInputs {
+export interface ButtonLinkComponentInputs {
+    url: string,
+    openNewTab: boolean,
+}
+
+export interface ButtonComponentInputs extends ButtonLinkComponentInputs {
     text: string,
     type: TypeButtonEnum,
     onClickSubmit: Function,

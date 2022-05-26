@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class ScrollService {
+    public scrollingNativeElement: HTMLElement
     public onScroll: Subject<boolean> = new Subject<boolean>();
 
     constructor() { }

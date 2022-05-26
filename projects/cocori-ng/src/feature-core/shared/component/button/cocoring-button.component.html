@@ -1,5 +1,5 @@
-<button class="btn" mat-raised-button [ngClass]="class" [class.spinner]="isLoading" type="{{type}}" [disabled]="isLoading || disabled"
-    (click)="onClick()">
+<button class="btn" mat-raised-button [ngClass]="class" [class.spinner]="isLoading" type="{{type}}"
+    [disabled]="isLoading || disabled" (click)="onClick()">
     <mat-icon *ngIf="icon && iconPosition === 'start' ">{{icon}}</mat-icon>
     {{text}}
     <ng-content></ng-content>

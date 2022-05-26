@@ -1,4 +1,5 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+
 $mat-primary: (
   main: #424241,
   lighter: #797978,
@@ -42,7 +43,7 @@ $mat-warn: (
 );
 
 $mat-blue: (
-  main: #1E77EF,
+  main: #1e77ef,
   lighter: #bbdefb,
   darker: #0011ff,
   200: #559bfc,
@@ -50,7 +51,7 @@ $mat-blue: (
     main: #000000,
     lighter: #000000,
     darker: #000000,
-  )
+  ),
 );
 
 $mat-green: (
@@ -62,7 +63,7 @@ $mat-green: (
     main: #000000,
     lighter: #000000,
     darker: #000000,
-  )
+  ),
 );
 
 /** define palettes */

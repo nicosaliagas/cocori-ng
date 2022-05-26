@@ -127,6 +127,9 @@ export * from './shared/component/form/form-container/cocoring-form-container.mo
 
 export * from './shared/component/form/index';
 
+export * from './shared/component/button-link/cocoring-button-link.module';
+export * from './shared/component/button-link/cocoring-button-link.component';
+
 export * from './shared/component/button/cocoring-button.module';
 export * from './shared/component/button/cocoring-button.component';
 

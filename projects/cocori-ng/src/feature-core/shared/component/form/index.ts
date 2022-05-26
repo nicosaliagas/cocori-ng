@@ -1,4 +1,5 @@
 import { FormInputComponents } from '../../../core/model/form-input-components.model';
+import { CocoringButtonLinkComponent } from '../button-link/cocoring-button-link.component';
 import { CocoringButtonComponent } from '../button/cocoring-button.component';
 import {
     CocoringCheckboxIndeterminateComponent,
@@ -27,4 +28,5 @@ export const ClasseComponents = {
     [FormInputComponents.INPUT_VIEWER]: CocoringViewerComponent,
     [FormInputComponents.INPUT_SELECT]: CocoringSelectComponent,
     [FormInputComponents.BUTTON]: CocoringButtonComponent,
+    [FormInputComponents.LINK]: CocoringButtonLinkComponent,
 };
