@@ -2,7 +2,7 @@
     <mat-form-field [appearance]="appearance" [ngClass]="{'mat-form-compact': styleCompact}">
         <mat-label>{{nameLabel}}</mat-label>
         <!-- <input matInput [matDatepicker]="picker" [formControlName]="nameControl"> -->
-        <input [attr.data-cy]="nameControl" matInput type="text" mask="d0/M0/0000" [leadZeroDateTime]="true" [formControlName]="maskInputControlName" (blur)="onBlur()" (keyup)="onKeyup()"/>
+        <input [attr.data-cy]="nameControl" matInput type="text" mask="d0/M0/0000" [leadZeroDateTime]="true" [formControlName]="maskInputControlName" (blur)="onBlur()"/>
         <input [matDatepicker]="picker" [formControlName]="nameControl">
         <div matSuffix style="display:flex">
             <mat-datepicker-toggle tabindex="-1" matSuffix [for]="picker"></mat-datepicker-toggle>

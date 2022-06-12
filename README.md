@@ -576,6 +576,12 @@ Diff dates :
 `` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
 
 
+`Unselect material button (enlever le focus)`
+
+Mettre "cdkFocusRegionstart" sur un autre élément
+
+ou mettre onclick="this.blur()"
+
 `Groupby rxjs`
 
 from(this.confPage.widgets).pipe(

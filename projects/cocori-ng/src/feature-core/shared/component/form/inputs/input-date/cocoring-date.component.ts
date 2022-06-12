@@ -32,6 +32,7 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
         this.addDateMaskControl()
 
         this.valueChangeEvent()
+
     }
 
     // dateMask: any = { guide: false, showMask : false, mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/], placeholderChar: '\u2000' };
@@ -52,7 +53,6 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
         this.formGroup.get(this.nameControl).valueChanges.pipe(
             takeUntil(this.destroy$)
         ).subscribe((val) => {
-
             let d = null;
 
             if (!val) return;
@@ -73,11 +73,16 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
         })
     }
 
-    onKeyup() {
-        const dateInput: string = this.formGroup.get(this.maskInputControlName).value
+    private maskInputChangeEvent() {
+        this.formGroup.get(this.maskInputControlName).valueChanges.pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((dateInput: string) => {
+            this.dispatchValueInput(dateInput)
+        })
+    }
 
+    private dispatchValueInput(dateInput: string) {
         if (dateInput && dateInput.length === 8) {
-
             const day = dateInput.substring(0, 2)
             const month = dateInput.substring(2, 4)
             const year = dateInput.substring(4)
@@ -102,6 +107,8 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
 
     private addDateMaskControl() {
         this.formGroup.addControl(this.maskInputControlName, new FormControl(null, this.validators))
+
+        this.maskInputChangeEvent()
 
         this.emitEvent()
     }
