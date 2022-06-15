@@ -31,7 +31,7 @@ export class CocoringDatagridCellComponent implements OnInit {
   ngOnInit(): void { }
 
   private formatCellValue() {
-    this.cellValue = this._cell.dataType === 'date' ? formatDate(this._cell.value, 'dd/MM/YYYY', this.locale) : this._cell.value;
+    this.cellValue = this._cell.dataType === 'date' ? formatDate(this._cell.value, 'dd/MM/yyyy', this.locale) : this._cell.value;
   }
 
   private checkIfCellIsArchived() {
