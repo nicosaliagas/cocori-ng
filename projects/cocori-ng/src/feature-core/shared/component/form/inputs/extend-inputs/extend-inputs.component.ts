@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import {
@@ -19,7 +19,7 @@ import { ValidatorsService } from '../../../../../core/service/validators.servic
 })
 
 export abstract class ExtendInputsComponent implements OnDestroy {
-    @Input() formGroup: FormGroup
+    @Input() formGroup: UntypedFormGroup
     @Input() nameControl: string
     @Input() nameLabel: string
     @Input() color: string = 'primary' /** à factoriser dans le helper pour la construction de form */
@@ -91,7 +91,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     addControlForm() {
         if (this.controlAlreadyAdded()) return;
 
-        this.formGroup.addControl(this.nameControl, new FormControl(null, this.validators))
+        this.formGroup.addControl(this.nameControl, new UntypedFormControl(null, this.validators))
 
         this.emitEvent()
     }
@@ -99,7 +99,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     addArrayForm() {
         if (this.controlAlreadyAdded()) return;
 
-        this.formGroup.addControl(this.nameControl, new FormArray([], this.validators))
+        this.formGroup.addControl(this.nameControl, new UntypedFormArray([], this.validators))
 
         this.emitEvent()
     }

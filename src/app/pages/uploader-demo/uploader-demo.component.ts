@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from 'cocori-ng';
 import { DataSourceType, FormInputComponents } from 'cocori-ng/src/feature-core';
 import * as faker from 'faker/locale/fr';
@@ -17,7 +17,7 @@ export class UploaderDemoComponent extends ExtendPageComponent implements OnInit
 
   _config: ConfigUploaderModel;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   constructor(
     public injector: Injector,

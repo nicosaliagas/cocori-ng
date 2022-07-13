@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { FormBuilderService, SubmitDatas } from 'cocori-ng';
 import { ConfigInputComponent, FormInputComponents, FormSchema, HttpService } from 'cocori-ng/src/feature-core';
 import { Observable } from 'rxjs';
@@ -13,8 +13,8 @@ import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend
   providers: [FormBuilderService]
 })
 export class GenericFormComponent extends ExtendPageComponent implements OnInit {
-  interpretedForm: FormGroup;
-  generatedForm: FormGroup;
+  interpretedForm: UntypedFormGroup;
+  generatedForm: UntypedFormGroup;
   valuesInterpretedForm: SubmitDatas;
   jsonParsed: FormSchema | string;
   ready: boolean = false;
@@ -24,7 +24,7 @@ export class GenericFormComponent extends ExtendPageComponent implements OnInit 
 
   constructor(
     public injector: Injector,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private httpService: HttpService
   ) {
     super(injector);

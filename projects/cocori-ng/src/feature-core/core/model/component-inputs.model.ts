@@ -1,4 +1,4 @@
-import { FormGroup, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, ValidatorFn } from '@angular/forms';
 
 import { DataSourceInput } from './data-source.model';
 import { FormInputComponents } from './form-input-components.model';
@@ -15,7 +15,7 @@ export type InputFieldAppearance = 'standard' | 'fill' | 'outline';
 
 export interface ConfigInputComponent {
     nameLabel: string,
-    formGroup: FormGroup,
+    formGroup: UntypedFormGroup,
     nameControl: string,
     type?: FormInputComponents,
     validators?: ValidatorFn[];

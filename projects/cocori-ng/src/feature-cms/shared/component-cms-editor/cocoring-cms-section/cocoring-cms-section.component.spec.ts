@@ -1,6 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 
 import { ApisConfigCmsModel, SectionModel } from '../../../core/model/cms.model';
 import { CenterZoneTplComponent } from '../cocoring-cms-section-templates/center-zone-tpl/center-zone-tpl.component';
@@ -9,13 +9,13 @@ import { CocoringCmsSectionComponent } from './cocoring-cms-section.component';
 describe('CocoringCmsSectionComponent', () => {
   let component: CocoringCmsSectionComponent;
   let fixture: ComponentFixture<CocoringCmsSectionComponent>;
-  const formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: UntypedFormBuilder = new UntypedFormBuilder();
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CocoringCmsSectionComponent],
       providers: [
-        { provide: FormBuilder, useValue: formBuilder },
+        { provide: UntypedFormBuilder, useValue: formBuilder },
         Overlay
       ]
     })

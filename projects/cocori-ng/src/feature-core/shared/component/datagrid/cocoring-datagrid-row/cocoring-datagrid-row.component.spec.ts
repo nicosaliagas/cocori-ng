@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -24,7 +24,7 @@ describe('CocoringDatagridRowComponent', () => {
   let expectedColums: ColumnDatagridModel[]
   let expectedDatas: object
 
-  let formBuilder: FormBuilder;
+  let formBuilder: UntypedFormBuilder;
   let httpClientSpy: { get: jasmine.Spy };
   let formBuilderSpy: { group: jasmine.Spy };
   let datagridService: DatagridService
@@ -36,7 +36,7 @@ describe('CocoringDatagridRowComponent', () => {
         {
           provide: DatagridService
         },
-        FormBuilder
+        UntypedFormBuilder
       ],
       imports: [ReactiveFormsModule],
     })
@@ -50,7 +50,7 @@ describe('CocoringDatagridRowComponent', () => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     formBuilderSpy = jasmine.createSpyObj('FormBuilder', ['group']);
 
-    formBuilder = TestBed.inject(FormBuilder);
+    formBuilder = TestBed.inject(UntypedFormBuilder);
 
     datagridService = new DatagridService(httpClientSpy as any, formBuilderSpy as any)
 
@@ -62,8 +62,8 @@ describe('CocoringDatagridRowComponent', () => {
 
     datagridService.config = config
     datagridService.checkboxesDatagridForm = formBuilder.group({
-      selectAllRowsCheckbox: new FormControl(false),
-      rowsCheckbox: new FormArray([]),
+      selectAllRowsCheckbox: new UntypedFormControl(false),
+      rowsCheckbox: new UntypedFormArray([]),
     });
 
     expectedColums = [
@@ -142,7 +142,7 @@ describe('CocoringDatagridRowComponent', () => {
   it('should have a checkbox control in the form array rowsCheckbox with the value false', () => {
     fixture.detectChanges();
 
-    const checkboxesFormControlArray: FormArray = <FormArray>datagridService.checkboxesDatagridForm.get("rowsCheckbox");
+    const checkboxesFormControlArray: UntypedFormArray = <UntypedFormArray>datagridService.checkboxesDatagridForm.get("rowsCheckbox");
 
     expect(checkboxesFormControlArray.length).toEqual(1);
 

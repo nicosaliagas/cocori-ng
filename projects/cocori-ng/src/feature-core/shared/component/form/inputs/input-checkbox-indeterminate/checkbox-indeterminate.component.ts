@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
@@ -32,7 +32,7 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
     someComplete: boolean = false;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private cdr: ChangeDetectorRef,
         private formHelperService: FormHelperService,
         injector: Injector) {
@@ -46,7 +46,7 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
         const nestedFrom = this.fb.group({});
 
         datasource.forEach((datas: any) => {
-            nestedFrom.addControl(datas.id, new FormControl(false))
+            nestedFrom.addControl(datas.id, new UntypedFormControl(false))
         })
 
         this.formGroup.addControl(this.nestedNameForm, nestedFrom)
@@ -99,7 +99,7 @@ export class CocoringCheckboxIndeterminateComponent extends ExtendInputsComponen
         })
     }
 
-    private get nestedForm(): FormGroup {
-        return <FormGroup>this.formGroup.get(this.nestedNameForm)
+    private get nestedForm(): UntypedFormGroup {
+        return <UntypedFormGroup>this.formGroup.get(this.nestedNameForm)
     }
 }

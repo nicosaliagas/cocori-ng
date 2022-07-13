@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   ButtonIconPositon,
   DataSourceType,
@@ -22,7 +22,7 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef2', { static: true, read: ViewContainerRef }) formContainerRef2: ViewContainerRef;
   @ViewChild('FormContainerRef3', { static: true, read: ViewContainerRef }) formContainerRef3: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
   jsonParsed: any;
 
   constructor(

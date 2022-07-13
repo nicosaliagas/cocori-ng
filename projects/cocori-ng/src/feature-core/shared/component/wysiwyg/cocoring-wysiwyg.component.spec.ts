@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 
 import { WysiwygService } from '../../../core/service/wysiwyg/wysiwyg.service';
 import { CocoringWysiwygComponent } from './cocoring-wysiwyg.component';
@@ -9,7 +9,7 @@ describe('CocoringWysiwygComponent', () => {
   let component: CocoringWysiwygComponent;
   let fixture: ComponentFixture<CocoringWysiwygComponent>;
   let wysiwygService: WysiwygService
-  const formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: UntypedFormBuilder = new UntypedFormBuilder();
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('CocoringWysiwygComponent', () => {
         {
           provide: WysiwygService
         },
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: UntypedFormBuilder, useValue: formBuilder }
       ],
       imports: [HttpClientTestingModule],
     })

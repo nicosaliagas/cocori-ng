@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -41,19 +41,19 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   @ViewChild('uploader') uploaderInputRef: ElementRef;
   @ViewChild('progressCircle') progressCircleRef: ElementRef;
 
-  @Input() formGroup: FormGroup
+  @Input() formGroup: UntypedFormGroup
   @Input() nameControl: string
   @Input() fileModel: FileModel
   @Input() apisFile: ConfigAPIsFile
 
   private fileUploaded: File;
 
-  fileFormControl: FormControl;
+  fileFormControl: UntypedFormControl;
   isUploading: boolean = false;
   progress: number;
   onError: boolean = false;
   apiFile: string;
-  upoaderFormArray: FormArray;
+  upoaderFormArray: UntypedFormArray;
   fileType: string;
 
   private readonly destroy$ = new Subject();
@@ -201,9 +201,9 @@ export class CocoringUploaderListFileComponent implements OnInit, OnDestroy {
   private addFileControl() {
     this.uploaderService.apisFile = this.apisFile
 
-    this.upoaderFormArray = <FormArray>this.formGroup.get(this.nameControl);
+    this.upoaderFormArray = <UntypedFormArray>this.formGroup.get(this.nameControl);
 
-    this.fileFormControl = new FormControl(null);
+    this.fileFormControl = new UntypedFormControl(null);
 
     if (this.fileModel.id) {
       this.fileType = HelperUploaderService.checkTypeImage(this.fileModel.mimeType) ? 'image' : 'doc'

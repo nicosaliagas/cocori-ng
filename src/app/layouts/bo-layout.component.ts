@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { CurrentUrlRoutingService } from 'cocori-ng';
@@ -124,19 +124,23 @@ export class BoLayoutComponent implements OnInit, OnDestroy {
   }
 
   private eventSizeScreen(mediaObserver: MediaObserver) {
-    mediaObserver.media$.pipe(
+    mediaObserver
+    .asObservable()
+    .pipe(
       takeUntil(this.destroy$)
-    ).subscribe((change: MediaChange) => {
-      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
-
-      if (change.mqAlias === 'xs') {
-        this.sidenavPosition = 'over';
-        this.isSidenavOpen = false;
-      } else {
-        this.sidenavPosition = 'side';
-      }
-
-      this.hidemobile = change.mqAlias === 'xs';
+    ).subscribe((change) => {
+      change.forEach((item) => {
+        this.activeMediaQuery = item ? `'${item.mqAlias}' = (${item.mediaQuery})` : '';
+  
+        if (item.mqAlias === 'xs') {
+          this.sidenavPosition = 'over';
+          this.isSidenavOpen = false;
+        } else {
+          this.sidenavPosition = 'side';
+        }
+  
+        this.hidemobile = item.mqAlias === 'xs';
+      })
     })
   }
 

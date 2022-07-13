@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
 import { FormContainerInputs } from '../../../../core/model/component-inputs.model';
@@ -17,7 +17,7 @@ import { MappingBuilderService } from '../../../../core/service/form-map-value/m
 export class CocoringFormContainerComponent implements OnDestroy {
     @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-    currentForm: FormGroup;
+    currentForm: UntypedFormGroup;
     schemaDatasForm: FormSchema;
     formBuildedSubject: Subject<boolean>; /** tous les composants fields ont été ajoutés à la vue */
     schemaDatasButtons: ButtonSchema[];
@@ -47,7 +47,7 @@ export class CocoringFormContainerComponent implements OnDestroy {
     @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
-        public fb: FormBuilder,
+        public fb: UntypedFormBuilder,
         public formBuilderService: FormBuilderService,
         public mappingBuilderService: MappingBuilderService
     ) {

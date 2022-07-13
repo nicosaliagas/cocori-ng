@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -31,7 +31,7 @@ export class DatagridService {
   public allRowsChecked$: Subject<boolean> = new Subject<boolean>();
   public refreshNeeded$: Subject<void> = new Subject<void>();
 
-  public checkboxesDatagridForm: FormGroup;
+  public checkboxesDatagridForm: UntypedFormGroup;
   public rowsSelectedDatagrid: string[] = [] /** array avec tous les ids des lignes sélectionnées dans la grille */
   public config: ConfigDatagridModel;
 
@@ -44,7 +44,7 @@ export class DatagridService {
   constructor(
     private datasourceService: DatasourceService,
     private helperService: HelperService,
-    private fb: FormBuilder,) {
+    private fb: UntypedFormBuilder,) {
     this.onPaginatePage()
   }
 
@@ -103,8 +103,8 @@ export class DatagridService {
   initCheckboxesDatagridForm() {
     this.checkboxesDatagridForm = this.fb.group({});
 
-    this.checkboxesDatagridForm.addControl("selectAllRowsCheckbox", new FormControl(false))
-    this.checkboxesDatagridForm.addControl("rowsCheckbox", new FormArray([]))
+    this.checkboxesDatagridForm.addControl("selectAllRowsCheckbox", new UntypedFormControl(false))
+    this.checkboxesDatagridForm.addControl("rowsCheckbox", new UntypedFormArray([]))
   }
 
   checkUncheckAllRows(value: boolean) {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
@@ -11,11 +11,11 @@ import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 export class CocoringDatagridSearchbarComponent implements OnInit, OnDestroy {
   @Output() searchValue = new EventEmitter<string>();
 
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
 
   private readonly destroy$ = new Subject();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.buildSearchForm()
@@ -27,7 +27,7 @@ export class CocoringDatagridSearchbarComponent implements OnInit, OnDestroy {
   }
 
   private buildSearchForm() {
-    this.searchForm = <FormGroup>this.fb.group({
+    this.searchForm = <UntypedFormGroup>this.fb.group({
       'inputSearch': null
     });
 

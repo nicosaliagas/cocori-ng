@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilderService, TokenService } from 'cocori-ng';
 import { FormInputComponents } from 'cocori-ng/src/feature-core';
@@ -17,7 +17,7 @@ import { LoginModel, TokensLoginModel } from 'src/app/core/model/Login.model';
 export class LoginComponent implements OnInit, OnDestroy {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   private readonly destroy$ = new Subject();
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private loginApiService: LoginApiService
   ) {
 
-    this.formulaire = new FormGroup({})
+    this.formulaire = new UntypedFormGroup({})
 
     this.formContainerRef = viewContainerRef
   }
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private buildForm() {
-    this.formulaire = <FormGroup><unknown>this.formBuilderService
+    this.formulaire = <UntypedFormGroup><unknown>this.formBuilderService
       .newForm()
       .appearance('fill')
       .setViewContainerRef(this.formContainerRef)

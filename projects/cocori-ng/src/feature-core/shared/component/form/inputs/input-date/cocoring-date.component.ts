@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateTime } from 'luxon';
 import { takeUntil } from 'rxjs';
@@ -106,7 +106,7 @@ export class CocoringDateComponent extends ExtendInputsComponent implements OnIn
     }
 
     private addDateMaskControl() {
-        this.formGroup.addControl(this.maskInputControlName, new FormControl(null, this.validators))
+        this.formGroup.addControl(this.maskInputControlName, new UntypedFormControl(null, this.validators))
 
         this.maskInputChangeEvent()
 

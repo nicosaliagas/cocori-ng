@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,7 +18,7 @@ describe('CocoringUploaderListFileComponent', () => {
   let uploaderService: UploaderService
   let testbedService: UploaderService
   let httpServiceSpy: { upload: jasmine.Spy };
-  const formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: UntypedFormBuilder = new UntypedFormBuilder();
   let apisFile: ConfigAPIsFile;
   let file: FileModel
 
@@ -27,7 +27,7 @@ describe('CocoringUploaderListFileComponent', () => {
       declarations: [CocoringUploaderListFileComponent],
       imports: [MatMenuModule, HttpClientTestingModule, CocoringFileSizeModule, MatDialogModule, MatBottomSheetModule],
       providers: [
-        { provide: FormBuilder, useValue: formBuilder },
+        { provide: UntypedFormBuilder, useValue: formBuilder },
         { provide: UploaderService }
       ]
     })
@@ -60,7 +60,7 @@ describe('CocoringUploaderListFileComponent', () => {
     component.nameControl = "testControl"
 
     component.formGroup = formBuilder.group({
-      testControl: new FormArray([])
+      testControl: new UntypedFormArray([])
     });
 
     component.uploaderService = uploaderService

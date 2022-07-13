@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { UploaderService } from '../../../feature-core/core/service/uploader/uploader.service';
 import { CocoringUploaderComponent } from './cocoring-uploader.component';
@@ -8,7 +8,7 @@ import { CocoringUploaderComponent } from './cocoring-uploader.component';
 describe('CocoringUploadComponent', () => {
   let component: CocoringUploaderComponent;
   let fixture: ComponentFixture<CocoringUploaderComponent>;
-  const formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: UntypedFormBuilder = new UntypedFormBuilder();
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,7 +17,7 @@ describe('CocoringUploadComponent', () => {
         {
           provide: UploaderService
         },
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: UntypedFormBuilder, useValue: formBuilder }
       ],
       imports: [HttpClientTestingModule, ReactiveFormsModule],
     })

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { UntypedFormGroup, ValidationErrors } from '@angular/forms';
 import { merge, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -19,7 +19,7 @@ import { ValidatorsService, ValidtionError } from '../../../../core/service/vali
 })
 
 export class CocoringInputErrorComponent implements OnInit, OnDestroy {
-    @Input() form: FormGroup;
+    @Input() form: UntypedFormGroup;
     @Input() controlName: string;
 
     private formId: string;

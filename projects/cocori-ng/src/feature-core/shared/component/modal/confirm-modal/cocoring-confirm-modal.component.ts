@@ -7,7 +7,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { ModalOptionsModel } from '../../../../core/model/modal.model';
@@ -22,11 +22,11 @@ import { FormBuilderService } from '../../../../core/service/form-builder/form-b
 export class CocoringConfirmModalComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ModalOptionsModel,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private mdDialogRef: MatDialogRef<CocoringConfirmModalComponent>,
     private formBuilderService: FormBuilderService) {
     this.formulaire = this.fb.group({})

@@ -4,6 +4,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
+Version actuelle d'Angular : 14.0.5 (Juillet 2022)
 Version actuelle d'Angular : 13.3.4 (Avril 2022)
 Version actuelle d'Angular : 13.0.3 (Nov 2021)
 Version actuelle d'Angular : 12.0.3 (Août 2021)
@@ -351,6 +352,12 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 - faire `ng update [nom du package]` (archiver le fichier package.json entre chaque commande)
 
+✔️ Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin 
+(ex : `ng update @angular/cdk --force`)
+
+ex : problème de version avec Typescript
+ `Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").`
+
 ✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
 
 ⚠️ Faire un commit et tester entre chaque update.
@@ -363,9 +370,19 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
     💪 We analyzed your package.json and everything seems to be in order. Good work!
 
+✔️ Mettre à jours, en plus les autres librairies de "package.json > dependencies" telles que :
+    (pour savoir si le package doit être mis à jour, laisser la souris sur le nom du package pour que sa version actuelle apparaîsse et la comparer avec celle du projet)
+
+  - @angular/flex-layout
+  - @r-tek/colr_pickr
+  - @tinymce/tinymce-angular
+  - ng-gallery
+  - ngx-mask
+  - etc...
+
 - si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
 
-- Voir les librairies à mettre à jour : `npm outdated`
+⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
 
 ## Angular Tips & Ressources + Aides + Help !
 

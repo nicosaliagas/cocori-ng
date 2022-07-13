@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { FormBuilderService } from 'cocori-ng';
 import { FormInputComponents } from 'cocori-ng/src/feature-core';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
@@ -12,7 +12,7 @@ import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend
 export class DateDemoComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   constructor(
     public injector: Injector,

@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 
@@ -29,7 +29,7 @@ export class CocoringDatagridFilterModalComponent implements OnInit {
   @ViewChild('ButtonFormContainerRef', { static: false, read: ViewContainerRef }) buttonFormContainerRef: ViewContainerRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
   disabled = true
   isSidenavOpen: boolean = false;
 

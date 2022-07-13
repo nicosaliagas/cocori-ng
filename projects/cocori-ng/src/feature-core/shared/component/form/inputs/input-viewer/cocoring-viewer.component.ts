@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { ConfigInputComponent } from '../../../../../core/model/component-inputs.model';
 import { ExtendInputsComponent } from '../extend-inputs/extend-inputs.component';
@@ -14,7 +14,7 @@ export class CocoringViewerComponent extends ExtendInputsComponent implements On
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
 
     nameLabel: string;
-    formGroup: FormGroup;
+    formGroup: UntypedFormGroup;
     nameControl: string;
 
     @Input()
@@ -24,7 +24,7 @@ export class CocoringViewerComponent extends ExtendInputsComponent implements On
         this.addForm()
     }
 
-    constructor(private fb: FormBuilder, injector: Injector) {
+    constructor(private fb: UntypedFormBuilder, injector: Injector) {
         super(injector);
     }
 
@@ -32,7 +32,7 @@ export class CocoringViewerComponent extends ExtendInputsComponent implements On
     }
 
     private addForm() {
-        const nestedFrom: FormGroup = this.fb.group({
+        const nestedFrom: UntypedFormGroup = this.fb.group({
             windowingMin: null,
             windowingMax: null,
             rangeMin: null,

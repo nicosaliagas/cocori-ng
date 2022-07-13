@@ -9,7 +9,7 @@ import {
     Output,
     ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { merge, Subject } from 'rxjs';
 import { debounceTime, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 
@@ -26,7 +26,7 @@ import { DatagridService } from '../../../core/service/datagrid/datagrid.service
     providers: [OdataClass]
 })
 export class CocoringDatagridComponent implements OnDestroy {
-    checkboxesGroup: FormGroup;
+    checkboxesGroup: UntypedFormGroup;
 
     @HostBinding('class.table-full-width') forceFullWidth: boolean = true;
 
@@ -36,7 +36,7 @@ export class CocoringDatagridComponent implements OnDestroy {
     private readonly destroy$ = new Subject();
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private cdr: ChangeDetectorRef,
         private odata: OdataClass,
         public datagridService: DatagridService

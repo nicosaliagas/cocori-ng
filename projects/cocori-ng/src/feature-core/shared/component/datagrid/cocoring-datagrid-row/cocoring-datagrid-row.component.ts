@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
@@ -30,12 +30,12 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   _datas: any;
   cellValues: CellValueDatagridModel[] = []
-  checkboxRowFormGroup: FormGroup;
+  checkboxRowFormGroup: UntypedFormGroup;
 
   private readonly destroy$ = new Subject();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private cdr: ChangeDetectorRef,
   ) { }
 
@@ -54,7 +54,7 @@ export class CocoringDatagridRowComponent implements OnInit, OnDestroy {
 
   /** ajouter le contrôle checkbox de la ligne dans le formulaire */
   private addCheckboxRow() {
-    const checkboxesFormControlArray: FormArray = <FormArray>this.datagridService.checkboxesDatagridForm.get("rowsCheckbox");
+    const checkboxesFormControlArray: UntypedFormArray = <UntypedFormArray>this.datagridService.checkboxesDatagridForm.get("rowsCheckbox");
 
     this.checkboxRowFormGroup = this.fb.group({});
 

@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { CocoringDatagridSearchbarComponent } from './cocoring-datagrid-searchbar.component';
@@ -13,7 +13,7 @@ describe('CocoringDatagridSearchbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [CocoringDatagridSearchbarComponent],
       providers: [
-        FormBuilder
+        UntypedFormBuilder
       ]
     })
       .compileComponents();

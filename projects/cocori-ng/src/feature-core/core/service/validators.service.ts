@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 import { HelperService } from './helper/helper.service';
 
@@ -46,7 +46,7 @@ export class ValidatorsService {
         return configClésErreurs[error.key];
     }
 
-    public static require(control: FormControl): ValidationErrors {
+    public static require(control: UntypedFormControl): ValidationErrors {
         const value = HelperService.retourneNullSiNonDéfini(control.value)
 
         if (control.hasValidator(ValidatorsService.dateValidator)) {
@@ -56,7 +56,7 @@ export class ValidatorsService {
         }
     }
 
-    public static emailValidator(control: FormControl): ValidationErrors {
+    public static emailValidator(control: UntypedFormControl): ValidationErrors {
         if (!control.value) return null;
 
         // RFC 2822 compliant regex
@@ -67,11 +67,11 @@ export class ValidatorsService {
         }
     }
 
-    public static dateValidator(control: FormControl): ValidationErrors {
+    public static dateValidator(control: UntypedFormControl): ValidationErrors {
         return null
     }
 
-    public static telephoneValidator(control: FormControl): any {
+    public static telephoneValidator(control: UntypedFormControl): any {
         if (!control.value) return null;
 
         if (control.value.match(/^0[1-9](\s[0-9][0-9]){4}$/)) {
@@ -81,7 +81,7 @@ export class ValidatorsService {
         }
     }
 
-    public static codepostalValidator(control: FormControl): any {
+    public static codepostalValidator(control: UntypedFormControl): any {
         if (!control.value) return null;
 
         if (control.value.match(/^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/)) {
@@ -223,7 +223,7 @@ export class ValidatorsService {
         };
     }
 
-    public static numeroSinistreValidator(control: FormControl): any {
+    public static numeroSinistreValidator(control: UntypedFormControl): any {
         if (!control.value) return null;
 
         if (control.value.match(/^([A-z0-9]{2})?(L|l)[A-z0-9](T|t)[A-z0-9]{5}$/)) {
@@ -233,7 +233,7 @@ export class ValidatorsService {
         }
     }
 
-    public static caseACocherRequireValidator(control: FormControl): any {
+    public static caseACocherRequireValidator(control: UntypedFormControl): any {
         if (control.value === true) {
             return null;
         } else {
@@ -242,7 +242,7 @@ export class ValidatorsService {
     }
 
     public static dateAvantUneAutre(champDateAvant: string, champDateAprès: string): any {
-        return (group: FormGroup): { [key: string]: any } => {
+        return (group: UntypedFormGroup): { [key: string]: any } => {
 
             if (!group.get(champDateAvant) || !group.get(champDateAprès)) return null;
 
@@ -260,7 +260,7 @@ export class ValidatorsService {
     }
 
     // https://gist.github.com/DiegoSalazar/4075533
-    public static luhnValidator(control: FormControl): any {
+    public static luhnValidator(control: UntypedFormControl): any {
         let valeur: string = control.value;
 
         // accept only digits, dashes or spaces
@@ -293,7 +293,7 @@ export class ValidatorsService {
     }
 
     public static identiqueValidator(controle: string, controleConfirme: string): any {
-        return (group: FormGroup): { [key: string]: any } => {
+        return (group: UntypedFormGroup): { [key: string]: any } => {
             const password = group.controls[controle];
             const confirmPassword = group.controls[controleConfirme];
 
@@ -305,7 +305,7 @@ export class ValidatorsService {
         };
     }
 
-    public static êtreMajeurValidateur(control: FormControl): any {
+    public static êtreMajeurValidateur(control: UntypedFormControl): any {
         if (parseInt(control.value) >= 18) {
             return null;
         } else {
@@ -313,7 +313,7 @@ export class ValidatorsService {
         }
     }
 
-    public static entierValidateur(control: FormControl): any {
+    public static entierValidateur(control: UntypedFormControl): any {
         if (control.value.match(/^\d+$/)) {
             return null;
         } else {
@@ -322,7 +322,7 @@ export class ValidatorsService {
     }
 
     public static auMoinsUnChampDoitEtreRequisValidateur(): any {
-        return (group: FormGroup): { [key: string]: any } => {
+        return (group: UntypedFormGroup): { [key: string]: any } => {
             let isAtLeastOne = false;
 
             if (group && group.controls) {

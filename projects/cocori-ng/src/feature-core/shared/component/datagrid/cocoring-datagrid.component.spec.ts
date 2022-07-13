@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, discardPeriodicTasks, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ConfigDatagridModel } from '../../../feature-core/core/model/component-datagrid.model';
@@ -21,7 +21,7 @@ describe('CocoringDatagridComponent', () => {
         {
           provide: DatagridService
         },
-        FormBuilder
+        UntypedFormBuilder
       ],
       imports: [HttpClientTestingModule, ReactiveFormsModule],
     })

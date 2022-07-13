@@ -7,7 +7,7 @@ import {
   OnDestroy,
   ViewContainerRef,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
   CocoringWysiwygComponent,
@@ -41,12 +41,12 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
     @Input() section: SectionModel
     @Input() apisConfig: ApisConfigCmsModel
 
-    private fb: FormBuilder;
+    private fb: UntypedFormBuilder;
     private _bottomSheet: MatBottomSheet;
     public cdr: any;
     public cmsService: CmsService;
 
-    formulaire: FormGroup
+    formulaire: UntypedFormGroup
     nbEditorView: number
     nbBackgroundImage: number;
 
@@ -66,7 +66,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
         super(injector);
 
         this.injectComponentService = injector.get(InjectComponentService);
-        this.fb = injector.get(FormBuilder);
+        this.fb = injector.get(UntypedFormBuilder);
         this._bottomSheet = injector.get(MatBottomSheet);
         this.cdr = injector.get(ChangeDetectorRef);
         this.cmsService = injector.get(CmsService);
@@ -91,7 +91,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
         for (let i = 1; i <= this.nbEditorView; i++) {
             const nameControl: string = `${this.nameControl}${i}`
 
-            this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
+            this.formulaire.addControl(nameControl, new UntypedFormControl(this.initSectionValue(nameControl)))
 
             this.configsWysiwyg[nameControl] = this.configComponent(nameControl)
         }
@@ -99,7 +99,7 @@ export abstract class ExtendSectionTplComponent extends ExtendPreviewActionsComp
         for (let i = 1; i <= this.nbBackgroundImage; i++) {
             const nameControl: string = `${this.backgroundImageControl}${i}`
 
-            this.formulaire.addControl(nameControl, new FormControl(this.initSectionValue(nameControl)))
+            this.formulaire.addControl(nameControl, new UntypedFormControl(this.initSectionValue(nameControl)))
         }
 
         this.saveSectionValues()

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormHelperService {
 
-    countControlsForm(form: FormGroup): number {
+    countControlsForm(form: UntypedFormGroup): number {
         return Object.keys(form.controls).length
     }
 
-    keysControlsForm(form: FormGroup): string[] {
+    keysControlsForm(form: UntypedFormGroup): string[] {
         return Object.keys(form.controls)
     }
 }

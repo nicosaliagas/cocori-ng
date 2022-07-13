@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { InjectComponentService } from 'cocori-ng/src/feature-core';
 import { Subject } from 'rxjs';
@@ -28,6 +28,8 @@ import { Block } from '../../../core/service/block';
 import { CmsService } from '../../../core/service/cms.service';
 import { CocoringCmsSectionComponent } from '../cocoring-cms-section/cocoring-cms-section.component';
 
+// import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { MediaChange, MediaObserver } from '@angular/flex-layout';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'cocoring-cms',
@@ -118,17 +120,21 @@ export class CocoringCmsComponent implements OnInit, OnDestroy {
   }
 
   private eventSizeScreen() {
-    this.mediaObserver.media$.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((change: MediaChange) => {
-      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+    this.mediaObserver
+      .asObservable()
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((change) => {
+        change.forEach((item) => {
+          this.activeMediaQuery = item ? `'${item.mqAlias}' = (${item.mediaQuery})` : '';
 
-      if (change.mqAlias === 'xs') {
-        this.sidenavMode = 'over';
-      } else {
-        this.sidenavMode = 'side';
-      }
-    })
+          if (item.mqAlias === 'xs') {
+            this.sidenavMode = 'over';
+          } else {
+            this.sidenavMode = 'side';
+          }
+        })
+      })
   }
 
   toggleSidenavBlocks() {

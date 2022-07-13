@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { DefaultConfigComponent } from '../../../config/config.components';
 import { ConfigEvents } from '../../../config/config.events';
@@ -176,13 +176,13 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
     public formId: string; /** error handler */
     public formName: string; /** mapping details */
 
-    private currentForm: FormGroup;
+    private currentForm: UntypedFormGroup;
     private _configInputsForm: ConfigInputComponent[] = [];
     private _appearance: InputFieldAppearance = <InputFieldAppearance>DefaultConfigComponent.form.appearance
     private _styleCompact: boolean = DefaultConfigComponent.form.styleCompact;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private helperService: HelperService,
         private broadcastEventService: BroadcastEventService,
         public generateComponentViewService: GenerateComponentViewService
@@ -190,11 +190,11 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
         this.newForm()
     }
 
-    set form(form: FormGroup) {
+    set form(form: UntypedFormGroup) {
         this.currentForm = form;
     }
 
-    get form(): FormGroup {
+    get form(): UntypedFormGroup {
         return this.currentForm
     }
 
@@ -231,7 +231,7 @@ export class FormBuilderService<InputNames extends string = never, ButtonNames e
 
         this.formName = name;
 
-        this.currentForm.addControl(DefaultConfigComponent.form.keyId, new FormControl(id))
+        this.currentForm.addControl(DefaultConfigComponent.form.keyId, new UntypedFormControl(id))
 
         return this;
     }
