@@ -1,4 +1,6 @@
 <ng-container [formGroup]="formGroup">
-    <mat-checkbox (click)="$event.stopPropagation()" [formControlName]="nameControl" color="primary">{{nameLabel}}</mat-checkbox>
+    <mat-checkbox (click)="$event.stopPropagation()" [formControlName]="nameControl" [color]="color">
+        <div [innerHtml]="nameLabel | variableHtml"></div>
+    </mat-checkbox>
     <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
 </ng-container>

@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class SortService {
-
-    sortObjectByKeys(objectData: any): string {
+    sortObjectByKeys(objectData: any): any {
         return Object.keys(objectData).sort().reduce(
             (obj: any, key: string) => {
                 obj[key] = objectData[key];

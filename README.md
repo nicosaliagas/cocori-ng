@@ -32,7 +32,7 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 Generate new component :
 `ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss`
 
-## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet :
+## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet (sans passer par le dépôt npm, tout en local):
 
 Commandes pour builder la lib :
 
@@ -45,19 +45,26 @@ Lancer les commandes à la racine du projet :
 
 **Depuis le projet Cocori-ng** :
 
-Commande qui build la lib et rends la main : `npm run lib:build`
+Faire un `npm i` si pas fait depuis longtemps
 
-- à lancer si la lib est utilisée dans un autre projet
+Commande qui build la lib et rends la main : `ng build --project=cocori-ng` ou `npm run lib:build`
+
+Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/cocori-ng;`
+
+Générer un lien symbolique vers les sources de la lib : `npm link ;`
+
+
+✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par NPM) :**
 
 ```
 npm i
-npm run lib:build
+ng build --project=cocori-ng ou npm run lib:build /** Commande qui build la lib et rends la main */
 cd dist/cocori-ng ; npm link ; cd ../..
 ```
 
 ⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-**Depuis le projet client qui utilise Cocori-ng** :
+✨ **Depuis le projet client qui utilise Cocori-ng** :
 
 ```
 npm i

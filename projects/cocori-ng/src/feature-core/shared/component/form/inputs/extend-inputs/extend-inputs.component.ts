@@ -22,6 +22,7 @@ export abstract class ExtendInputsComponent implements OnDestroy {
     @Input() formGroup: FormGroup
     @Input() nameControl: string
     @Input() nameLabel: string
+    @Input() color: string = 'primary' /** à factoriser dans le helper pour la construction de form */
 
     /** méthode appelée lorsque que le contrôle a été ajouté au formulaire avec en paramètre le nom du contrôle créé */
     @Output() callback: EventEmitter<string> = new EventEmitter<string>();
