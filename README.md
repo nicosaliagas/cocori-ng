@@ -341,7 +341,7 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 ## Montée de version majeure d'Angular et angular-cli sur un projet
 
 - s'il s'agit d'une version majeur d'Angular ex : passage du version 11 vers 12 ou 12 vers 13 ...
-  - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/README.md)
+  - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/Configuration%20CI-CD.md)
 - étapes à suivre pour faire une montée de version d'Angular : https://update.angular.io/?l=3&v=11.0-12.0
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
@@ -379,6 +379,8 @@ ex : problème de version avec Typescript
   - ng-gallery
   - ngx-mask
   - etc...
+
+  Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
 
 - si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
 
