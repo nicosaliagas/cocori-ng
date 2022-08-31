@@ -21,6 +21,7 @@ export * from './core/service/confirm-modal.service';
 export * from './core/service/current-url-routing.service';
 export * from './core/service/form-builder/form-builder.service';
 export * from './core/service/file/file.service';
+export * from './core/service/flex-layout/flex-layout.service';
 export * from './core/service/interceptors/loading-interceptor.service';
 export * from './core/service/interceptors/request-interceptor.service';
 export * from './core/service/interceptors/global-error-interceptor.service';

@@ -400,7 +400,15 @@ https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
 [ngClass.lt-md]="'zone-left-mobile'"
 ```
 
-`Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? `
+`Détecter si on est en taille mobile avec la lib FlexLayout ? `
+
+ngOninit() {
+  if (this.mediaObserver.isActive('lt-md')) {
+    /// vue mobile par exemple
+  }
+}
+
+`Détecter la taille de l'écran côté component avec la lib FlexLayout ? `
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
 
@@ -413,16 +421,15 @@ return MediaChange[0].mqAlias;
 };
 
 private eventMediaChange() {
-this.mediaObserver
-.asObservable()
-.pipe(
-distinctUntilChanged(
-(x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
-)
-)
-.subscribe((change) => {
-change.forEach((item) => {
-
+  this.mediaObserver
+  .asObservable()
+  .pipe(
+    distinctUntilChanged(
+      (x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
+    )
+  )
+  .subscribe((change) => {
+    change.forEach((item) => {
         this.activeMediaQuery = item
           ? `'${item.mqAlias}' = (${item.mediaQuery})`
           : '';
@@ -432,7 +439,6 @@ change.forEach((item) => {
         }
       });
     });
-
 }
 
 `Référence un composant enfant et accès à ces propriétés depuis un composant parent`
@@ -638,3 +644,38 @@ getEventInfos(): Observable<EventInfosModel> {
         return subject.asObservable();
     }
 }
+
+`Exemple subscribe next / error`
+
+this.getMappedDatasApi<WHeader>().pipe(
+    takeUntil(this.destroy$),
+    filter((datas: any[]) => datas.length > 0),
+  ).subscribe({
+    next: this.handleUpdateResponse.bind(this),
+    error: this.handleError.bind(this)
+  }
+)
+
+`Scroll event avec material`
+
+const content: any = document.querySelector('.mat-sidenav-content');
+const scroll$ = fromEvent(content, 'scroll').pipe(
+  throttleTime(10), // only emit every 10 ms
+  map(() => content.scrollTop), // get vertical scroll position
+  pairwise(), // look at this and the last emitted element
+  map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), // compare this and the last element to figure out scrolling direction
+  distinctUntilChanged(), // only emit when scrolling direction changed
+  share(), // share a single subscription to the underlying sequence in case of multiple subscribers
+);
+
+const goingUp$ = scroll$.pipe(
+  filter(direction => direction === Direction.Up)
+);
+
+const goingDown$ = scroll$.pipe(
+  filter(direction => direction === Direction.Down)
+);
+
+goingUp$.subscribe(() => console.log('scrolling up'))
+goingDown$.subscribe(() => console.log('scrolling down'))
+

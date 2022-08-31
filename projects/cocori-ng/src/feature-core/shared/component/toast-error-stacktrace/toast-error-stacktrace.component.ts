@@ -21,8 +21,6 @@ export class ToastErrorStacktraceComponent implements OnInit {
 
   ngOnInit() {
     this.errorDebugMessages = <string[]>this.data.stacktrace?.httpError?.error?.debug?.messages
-    
-    console.log("stacktrace >>> ", this.data.stacktrace, this.errorDebugMessages)
   }
 
   afficheCache(){
