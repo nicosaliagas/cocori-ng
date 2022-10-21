@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BroadcastEventService, ConfigEvents } from 'cocori-ng/src/feature-core';
+import { BroadcastEventService } from 'cocori-ng/src/feature-core';
+import { ConfigEvents } from 'cocori-ng/src/feature-form';
 
 import { ResponsiveOrientation } from '../../../core/model/cms.model';
 

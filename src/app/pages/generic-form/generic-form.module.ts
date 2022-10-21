@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { CocoringFormContainerModule, CocoringPrettyPrintModule, CocoringTextareaModule } from 'cocori-ng';
+import { CocoringFormContainerModule, CocoringPrettyPrintModule, CocoringTextareaModule } from 'cocori-ng/src/feature-form';
 
 import { GenericFormRoutingModule } from './generic-form-routing.module';
 import { GenericFormComponent } from './generic-form.component';

@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from 'cocori-ng';
-import { HttpService } from 'cocori-ng/src/feature-core';
+import { HttpService, TokenService } from 'cocori-ng/src/feature-core';
 import { interval, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import {
-  CheckAccessTokensModel,
-  ForgotPasswordModel,
-  LoginModel,
-  PasswordModel,
-  TokensLoginModel,
-  UserProfiles,
-  VerifyEmailModel,
+    CheckAccessTokensModel,
+    ForgotPasswordModel,
+    LoginModel,
+    PasswordModel,
+    TokensLoginModel,
+    UserProfiles,
+    VerifyEmailModel,
 } from '../model/Login.model';
 import { TokenModel } from '../model/Token.model';
 import { EnvironmentService } from '../service/environment.service';

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { CocoringVariableHtmlModule } from 'cocori-ng/src/feature-core';
+import { CocoringVariableHtmlModule } from 'cocori-ng/src/feature-form';
 
 import { SharedCMSModule } from '../shared-cms.module';
 import {

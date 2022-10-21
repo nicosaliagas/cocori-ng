@@ -3,11 +3,11 @@ import { UntypedFormGroup } from '@angular/forms';
 import {
   ButtonIconPositon,
   DataSourceType,
-  FormBuilderService,
   FormInputComponents,
   HttpService,
   TypeButtonEnum,
 } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
@@ -45,6 +45,7 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
+      .newForm()
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
@@ -123,6 +124,8 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .icon('keyboard_arrow_right', ButtonIconPositon.END)
         .isTypeSubmit(false))
       .form
+
+    console.log("formulaire >> ", this.formulaire)
   }
 
   validateFrom({ value, valid }: { value: any, valid: boolean }) {

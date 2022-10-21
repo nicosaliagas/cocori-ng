@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { FormBuilderService } from 'cocori-ng';
 import { DataSourceType, FormInputComponents } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({

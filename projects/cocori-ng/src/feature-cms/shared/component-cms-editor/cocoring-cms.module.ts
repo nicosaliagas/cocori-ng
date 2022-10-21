@@ -9,7 +9,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CocoringColorpickerModule, CocoringVariableHtmlModule, CocoringWysiwygModule } from 'cocori-ng/src/feature-core';
+import { CocoringColorpickerModule, CocoringVariableHtmlModule, CocoringWysiwygModule } from 'cocori-ng/src/feature-form';
 
 import { SharedCMSModule } from '../shared-cms.module';
 import { CocoringCmsBlocksCatalogComponent } from './cocoring-cms-blocks-catalog/cocoring-cms-blocks-catalog.component';

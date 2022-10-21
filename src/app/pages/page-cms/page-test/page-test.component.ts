@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionModel } from 'cocori-ng/src/feature-cms';
-import { StorageService } from 'cocori-ng/src/feature-core/core/service/storage.service';
+import { StorageService } from 'cocori-ng/src/feature-core';
 import { CmsService } from 'src/app/core/service/Cms.service';
 
 @Component({

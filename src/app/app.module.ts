@@ -18,8 +18,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng';
-import { ToastErrorStacktraceModule } from 'cocori-ng/src/feature-core';
+import { GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng/src/feature-core';
+import { DatagridService, ToastErrorStacktraceModule } from 'cocori-ng/src/feature-form';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { AppRoutingModule } from './app-routing.module';

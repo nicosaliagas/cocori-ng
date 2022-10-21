@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from 'cocori-ng';
-import { DataSourceType, FormInputComponents } from 'cocori-ng/src/feature-core';
+import { ConfigUploaderModel, DataSourceType, FormInputComponents, ValidatorsService } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import * as faker from 'faker/locale/fr';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';

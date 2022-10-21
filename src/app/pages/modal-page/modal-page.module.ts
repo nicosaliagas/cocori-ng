@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CocoringButtonModule, CocoringConfirmModalModule } from 'cocori-ng';
+import { CocoringButtonModule, CocoringConfirmModalModule } from 'cocori-ng/src/feature-form';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { ModalPageRoutingModule } from './modal-page-routing.module';

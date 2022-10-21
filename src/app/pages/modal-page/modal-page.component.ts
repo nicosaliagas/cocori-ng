@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ConfirmModalService, FormBuilderService, ModalOptionsModel } from 'cocori-ng';
-import { FormInputComponents } from 'cocori-ng/src/feature-core';
+import { FormInputComponents, ModalOptionsModel } from 'cocori-ng/src/feature-core';
+import { ConfirmModalService, FormBuilderService } from 'cocori-ng/src/feature-form';
 import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 

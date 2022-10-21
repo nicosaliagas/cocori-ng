@@ -1,29 +1,29 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Injector,
-  Input,
-  OnDestroy,
-  ViewContainerRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Injector,
+    Input,
+    OnDestroy,
+    ViewContainerRef,
 } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
-  CocoringWysiwygComponent,
-  FileModel,
-  FormHelperService,
-  InitWysiwyg,
-  InjectComponentService,
-  WysiwygConfigSection,
+    FileModel,
+    FormHelperService,
+    InitWysiwyg,
+    InjectComponentService,
+    WysiwygConfigSection,
 } from 'cocori-ng/src/feature-core';
+import { CocoringWysiwygComponent } from 'cocori-ng/src/feature-form';
 import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
-  ApisConfigCmsModel,
-  BottomSheetSectionReturnAction,
-  EditorValues,
-  SectionModel,
+    ApisConfigCmsModel,
+    BottomSheetSectionReturnAction,
+    EditorValues,
+    SectionModel,
 } from '../../../core/model/cms.model';
 import { CmsService } from '../../../core/service/cms.service';
 import { ExtendPreviewActionsComponent } from '../../extend-preview-actions.component';

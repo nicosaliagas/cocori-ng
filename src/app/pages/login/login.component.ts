@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormBuilderService, TokenService } from 'cocori-ng';
-import { FormInputComponents } from 'cocori-ng/src/feature-core';
+import { FormInputComponents, TokenService } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { LoginApiService } from 'src/app/core/api/LoginApi.service';

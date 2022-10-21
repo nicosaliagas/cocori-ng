@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CocoringPrettyPrintModule } from 'cocori-ng';
+import { CocoringPrettyPrintModule } from 'cocori-ng/src/feature-form';
 import { SharedProjectModule } from 'src/app/shared/shared-project.module';
 
 import { StaticFormRoutingModule } from './static-form-routing.module';

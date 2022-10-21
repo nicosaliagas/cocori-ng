@@ -10,7 +10,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FileModel, UploaderService } from 'cocori-ng/src/feature-core';
+import { FileModel } from 'cocori-ng/src/feature-core';
+import { UploaderService } from 'cocori-ng/src/feature-form';
 import { Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 

@@ -26,6 +26,14 @@ Odd numbered Node.js versions will not enter LTS status and should not be used f
 
 Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
 
+## Update Angular CLI version Globally
+
+npm uninstall -g angular-cli
+npm cache verify (if npm > 5)
+npm install -g @angular/cli@latest
+
+https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command.
+
 ## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
 
 `ng g service file`
@@ -60,7 +68,9 @@ Générer un lien symbolique vers les sources de la lib : `npm link ;`
 ```
 npm i
 ng build --project=cocori-ng ou npm run lib:build /** Commande qui build la lib et rends la main */
-cd dist/cocori-ng ; npm link ; cd ../..
+cd dist/cocori-ng ;
+puis
+npm link ;
 ```
 
 ⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
@@ -679,3 +689,10 @@ const goingDown$ = scroll$.pipe(
 goingUp$.subscribe(() => console.log('scrolling up'))
 goingDown$.subscribe(() => console.log('scrolling down'))
 
+
+`Component input avec set`
+
+@Input()
+set refresh(test: string) {
+
+}

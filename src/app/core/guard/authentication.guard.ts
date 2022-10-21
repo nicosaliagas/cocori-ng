@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { TokenService } from 'cocori-ng';
+import { TokenService } from 'cocori-ng/src/feature-form';
 import { Observable } from 'rxjs';
 
 import { LoginApiService } from '../api/LoginApi.service';

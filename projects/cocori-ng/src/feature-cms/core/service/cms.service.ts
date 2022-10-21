@@ -3,11 +3,11 @@ import { HelperService } from 'cocori-ng/src/feature-core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import {
-    InsertSectionAt,
-    MoveOrientationSectionActions,
-    SectionModel,
-    SectionModelCommand,
-    SectionMoveIndexes,
+  InsertSectionAt,
+  MoveOrientationSectionActions,
+  SectionModel,
+  SectionModelCommand,
+  SectionMoveIndexes,
 } from '../model/cms.model';
 import { AdapterPageCmsService } from './adapter-page-cms.service';
 

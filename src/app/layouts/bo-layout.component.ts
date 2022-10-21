@@ -2,8 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { CurrentUrlRoutingService } from 'cocori-ng';
-import { StorageService } from 'cocori-ng/src/feature-core';
+import { CurrentUrlRoutingService, StorageService } from 'cocori-ng/src/feature-core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 

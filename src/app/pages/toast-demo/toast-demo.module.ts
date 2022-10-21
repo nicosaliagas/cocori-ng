@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { CocoringColorpickerModule } from 'cocori-ng/src/feature-core';
+import { CocoringColorpickerModule } from 'cocori-ng/src/feature-form';
 
 import { ToastDemoRoutingModule } from './toast-demo-routing.module';
 import { ToastDemoComponent } from './toast-demo.component';

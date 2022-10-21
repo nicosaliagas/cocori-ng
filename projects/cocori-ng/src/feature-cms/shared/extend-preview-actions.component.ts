@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy } from '@angular/core';
-import { BroadcastEventService, ConfigEvents } from 'cocori-ng/src/feature-core';
+import { BroadcastEventService } from 'cocori-ng/src/feature-core';
+import { ConfigEvents } from 'cocori-ng/src/feature-form';
 import { Subject, takeUntil } from 'rxjs';
 
 import { OrientationParamsTpl, ResponsiveOrientation } from '../core/model/cms.model';

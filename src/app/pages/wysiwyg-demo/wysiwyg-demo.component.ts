@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from 'cocori-ng';
+import { ConfigWysiwygModel, InitWysiwyg, ValidatorsService } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 

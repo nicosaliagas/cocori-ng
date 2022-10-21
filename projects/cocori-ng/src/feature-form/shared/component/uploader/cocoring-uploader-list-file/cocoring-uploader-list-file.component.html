@@ -1,0 +1,54 @@
+<mat-list-option id="optionList" [value]="fileModel.id" (click)="openMenuOrBrowse()">
+    <ng-container *ngIf="!isUploading">
+        <div *ngIf="!fileModel.id">
+            <button class="file-doc" mat-fab disableRipple="true" aria-label="Joindre un fichier">
+                <mat-icon [ngClass]="{'fileOnError error': onError}">upload_file</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="fileType === 'doc'">
+            <button class="file-doc" mat-fab disableRipple="true" aria-label="">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="fileType === 'image'" class="file-image"
+            [ngStyle]="{'background-image': 'url(' + apiFile}">
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isUploading">
+        <div class="loading-container">
+            <svg class="progress" width="65" height="60">
+                <circle #progressCircle class="progress-circle" cx="26" cy="33" r="25" fill="transparent" />
+                <text class="loading" fill="blue" x="50" y="50" alignment-baseline="middle" text-anchor="middle"></text>
+            </svg>
+        </div>
+    </ng-container>
+
+    <div class="mat-list-text">
+        <div mat-line [ngClass]="{'fileOnError error': onError}">
+            <span *ngIf="fileModel.id" title="{{fileModel.fileName}}">{{fileModel.fileName}}</span>
+            <span *ngIf="!fileModel.id" title="{{fileModel.description}}">{{fileModel.description}}</span>
+        </div>
+
+        <ng-template [ngIf]="!isUploading" [ngIfElse]="uploadTpl">
+            <div class="subtext" mat-line>
+                <span *ngIf="fileModel?.id">{{fileModel.size | fileSize:2}}</span>
+                <span *ngIf="!fileModel?.id && !onError" title="Cliquez pour déposer votre fichier ici"> Cliquez pour déposer votre fichier ici</span>
+                <span *ngIf="!fileModel?.id && onError" class="fileOnError error" title="Une erreur est survenue, veuillez
+                réessayer">Une erreur est survenue, veuillez
+                    réessayer</span>
+            </div>
+        </ng-template>
+
+        <ng-template #uploadTpl>
+            <div mat-line class="progress-bar">
+                <mat-progress-bar [value]="progress"></mat-progress-bar>
+            </div>
+        </ng-template>
+    </div>
+
+</mat-list-option>
+
+<input #uploader hidden class="browse-file" type="file" name="fileUpload" accept="*" />
