@@ -1,3 +1,3 @@
-# CocoriNg
+# Cocori-Ng
 
-Angular version 13.0.3
+Angular version 14.1.1
