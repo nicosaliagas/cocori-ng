@@ -28,7 +28,8 @@ npm install -g @angular/cli@latest
 
 exemple generate new component :
 ```
-ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss```
+ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
+```
 
 🔗https://angular.io/cli/generate
 
