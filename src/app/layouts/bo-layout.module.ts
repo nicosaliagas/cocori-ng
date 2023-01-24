@@ -8,7 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CocoringPreviousPageModule } from '@cocori-ng/lib';
+import { CocoringPreviousPageModule } from 'cocori-ng/src/feature-form';
 
 import { ToolbarComponent } from '../shared/component/toolbar/toolbar.component';
 import { SharedProjectModule } from '../shared/shared-project.module';

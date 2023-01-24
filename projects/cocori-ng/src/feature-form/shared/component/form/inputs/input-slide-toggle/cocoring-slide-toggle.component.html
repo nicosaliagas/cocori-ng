@@ -1,0 +1,7 @@
+<ng-container [formGroup]="formGroup">
+    <div class="slide-toggle-frm">
+        <mat-label>{{nameLabel}}</mat-label>
+        <mat-slide-toggle [attr.data-cy]="nameControl" [formControlName]="nameControl"></mat-slide-toggle>
+    </div>
+    <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
+</ng-container>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '@cocori-ng/lib';
-import { HttpService } from '@cocori-ng/lib/src/lib/feature-core';
+import { HttpService, TokenService } from 'cocori-ng/src/feature-core';
 import { interval, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 

@@ -1,5 +1,4 @@
-@import "cocori-ng/src/lib/assets/mixins";
-
+@import "cocori-ng/src/assets/mixins";
 
 .container-page {
   display: flex;
@@ -59,6 +58,45 @@ mat-sidenav.matsidenav-layout:not(.mat-drawer-opened) {
 }
 
 /** / Test Sidenav Rail */
+
+/** Fullscreen viewer */
+
+.basic-container {
+  padding: 5px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    width: 200px;
+    object-fit: cover;
+    margin: 5px;
+  }
+}
+
+.g-overlay {
+  min-width: 320px;
+}
+
+gallery {
+  font-size: 16px;
+}
+
+img {
+  width: 150px;
+}
+
+.lightbox-example,
+.gallerize-example {
+  margin: 2em;
+}
+/** /Fullscreen viewer */
 
 @include for-phone-portrait {
   .formulaires {

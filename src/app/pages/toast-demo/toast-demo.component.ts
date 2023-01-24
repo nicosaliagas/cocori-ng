@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ToastMessageService } from '@cocori-ng/lib/src/lib/feature-core';
+import { ToastMessageService } from 'cocori-ng/src/feature-form';
 import { DateTime } from 'luxon';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 

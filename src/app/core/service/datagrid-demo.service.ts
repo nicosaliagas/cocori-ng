@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OdataModel } from '@cocori-ng/lib';
+import { Odata } from 'cocori-ng/src/feature-core';
 import * as faker from 'faker/locale/fr';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class DatagridDemoService {
     }
   }
 
-  manyRows = (count = faker.random.number(100)): OdataModel => {
+  manyRows = (count = faker.random.number(100)): Odata => {
     const res = [];
     for (let i = 0; i < count; i++) {
       res.push(this.mockRow());
@@ -45,7 +45,7 @@ export class DatagridDemoService {
     return { d: { __count: count, results: res } };
   }
 
-  mockDatagridDatas(): Observable<OdataModel> {
+  mockDatagridDatas(): Observable<Odata> {
     return of(this.manyRows(30)).pipe(delay(500));
   }
 }

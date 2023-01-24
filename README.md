@@ -1,10 +1,16 @@
-# CocoriLibrary : projet library
+# ✨CocoriLibrary : projet library
 
 2 projets : un projet de type library et un projet web angular classique permettant de dév et tester les composants de la lib
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
+Version actuelle d'Angular : 14.0.5 (Juillet 2022)
+Version actuelle d'Angular : 13.3.4 (Avril 2022)
+Version actuelle d'Angular : 13.0.3 (Nov 2021)
 Version actuelle d'Angular : 12.0.3 (Août 2021)
+
+Version Node : 16.10.0
+Version NPM : 7.24.0
 
 # [Installation du poste de travail]
 
@@ -20,6 +26,14 @@ Odd numbered Node.js versions will not enter LTS status and should not be used f
 
 Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
 
+## Update Angular CLI version Globally
+
+npm uninstall -g angular-cli
+npm cache verify (if npm > 5)
+npm install -g @angular/cli@latest
+
+https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command.
+
 ## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
 
 `ng g service file`
@@ -27,7 +41,7 @@ Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouv
 Generate new component :
 `ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss`
 
-## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet :
+## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet (sans passer par le dépôt npm, tout en local):
 
 Commandes pour builder la lib :
 
@@ -40,23 +54,31 @@ Lancer les commandes à la racine du projet :
 
 **Depuis le projet Cocori-ng** :
 
-Commande qui build la lib et rends la main : `npm run lib:build`
+Faire un `npm i` si pas fait depuis longtemps
 
-- à lancer si la lib est utilisée dans un autre projet
+Commande qui build la lib et rends la main : `ng build --project=cocori-ng` ou `npm run lib:build`
+
+Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/cocori-ng;`
+
+Générer un lien symbolique vers les sources de la lib : `npm link ;`
+
+✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par NPM) :**
 
 ```
 npm i
-npm run lib:build
-cd dist/cocori-ng ; npm link ; cd ../..
+ng build --project=cocori-ng ou npm run lib:build /** Commande qui build la lib et rends la main */
+cd dist/cocori-ng ;
+puis
+npm link ;
 ```
 
 ⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-**Depuis le projet client qui utilise Cocori-ng** :
+✨ **Depuis le projet client qui utilise Cocori-ng** :
 
 ```
 npm i
-npm link @cocori-ng/lib
+npm link cocori-ng
 ```
 
 _Puis lancer la commande de build du project cible (npm build, npm run...)_
@@ -100,11 +122,29 @@ Librairies requises  :
 
 ## Lancer le projet pour tester les composants de la lib...
 
-✨#frontend local + backend local
+✨#frontend démarrer le build en mode watch
+ng build --project=cocori-ng --watch (ou npm run lib)
 
-ng serve --configuration "local" --port 5050
+✨#frontend local + backend local
+ng serve --configuration "local" --port 5050 -o
 
 (implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
+
+## ✨publish on npm
+
+`URL vers NPM`
+https://www.npmjs.com/package/cocori-ng
+
+`Incrémenter la version`
+Fichier : `projects\cocori-ng\package.json` (propriété `version`)
+
+`Build la lib prod`
+ng build --project=cocori-ng --configuration production
+
+`Publish on NPM`
+(npm whoami : check if connected as nicosaliagas)
+cd dist/cocori-ng
+npm publish --access public
 
 ## Packager la lib
 
@@ -202,6 +242,22 @@ import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
 }
 ```
 
+## 🔹 Styles : classes margin et padding générées via mixins
+
+source : https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f
+
+le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les margin et padding
+
+ex de classes css :
+
+.m-b-15 ==> pour margin-bottom: 15px;
+.m-x-30 ==> pour margin: 30px;
+
+ou
+
+.p-l-10 ==> pour padding-left: 10px;
+.p-x-25 ==> pour padding: 25px;
+
 ## 🔹 Config des boutons de formulaire dynamique avec Cocori-ng
 
 `Bouton classique - non submit - avec callback sur le clique du bouton `
@@ -234,6 +290,7 @@ import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
 - FakerJs : fake datas
   npm install faker --save-dev
   npm install @types/faker --save-dev
+- Gallery : https://github.com/MurhafSousli/ngx-gallery
 
 `Utiliser le color picker dans un projet`
 
@@ -288,7 +345,7 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 ## Montée de version majeure d'Angular et angular-cli sur un projet
 
 - s'il s'agit d'une version majeur d'Angular ex : passage du version 11 vers 12 ou 12 vers 13 ...
-  - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/README.md)
+  - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/Configuration%20CI-CD.md)
 - étapes à suivre pour faire une montée de version d'Angular : https://update.angular.io/?l=3&v=11.0-12.0
 - ng update pour voir les packages à mettre à jour
 - ex : ng update @angular/cdk @angular/flex-layout @angular/material
@@ -298,6 +355,12 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 - exécuter la commande : `ng update` pour voir les package angular à mettre à jour
 
 - faire `ng update [nom du package]` (archiver le fichier package.json entre chaque commande)
+
+✔️ Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin
+(ex : `ng update @angular/cdk --force`)
+
+ex : problème de version avec Typescript
+`Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").`
 
 ✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
 
@@ -311,9 +374,21 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
     💪 We analyzed your package.json and everything seems to be in order. Good work!
 
+✔️ Mettre à jours, en plus les autres librairies de "package.json > dependencies" telles que :
+(pour savoir si le package doit être mis à jour, laisser la souris sur le nom du package pour que sa version actuelle apparaîsse et la comparer avec celle du projet)
+
+- @angular/flex-layout
+- @r-tek/colr_pickr
+- @tinymce/tinymce-angular
+- ng-gallery
+- ngx-mask
+- etc...
+
+Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
+
 - si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
 
-- Voir les librairies à mettre à jour : `npm outdated`
+⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
 
 ## Angular Tips & Ressources + Aides + Help !
 
@@ -329,7 +404,15 @@ https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
 [ngClass.lt-md]="'zone-left-mobile'"
 ```
 
-`Comment détecter la taille de l'écran côté component avec la lib FlexLayout ? `
+`Détecter si on est en taille mobile avec la lib FlexLayout ? `
+
+ngOninit() {
+if (this.mediaObserver.isActive('lt-md')) {
+/// vue mobile par exemple
+}
+}
+
+`Détecter la taille de l'écran côté component avec la lib FlexLayout ? `
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
 
@@ -351,10 +434,9 @@ distinctUntilChanged(
 )
 .subscribe((change) => {
 change.forEach((item) => {
-
-        this.activeMediaQuery = item
-          ? `'${item.mqAlias}' = (${item.mediaQuery})`
-          : '';
+this.activeMediaQuery = item
+? `'${item.mqAlias}' = (${item.mediaQuery})`
+: '';
 
         if (item.mqAlias === 'lt-md') {
           this.loadMobileContent();
@@ -502,3 +584,142 @@ export class FlightsComponent implements OnDestroy, OnInit {
 }
 
 ```
+
+`DateTime/luxon : date functions helper :`
+
+> > https://github.com/moment/luxon/blob/master/docs/formatting.md
+
+Date to DateTime : `DateTime.fromJSDate(startDate)`
+
+DateTime to Date : `myDateVar.toJSDate()`
+
+DateTime to Iso : `dt.toISO(); //=> '2017-04-20T11:32:00.000-04:00'`
+
+Set Date to midnight : `new Date(varDate.setHours(0,0,0,0))`
+
+Diff dates :
+
+```
+  const date1 = luxon.DateTime.fromISO(api.meeting.startsAt)
+  const date2 = luxon.DateTime.fromISO(api.meeting.endsAt)
+
+  const diff: any = date2.diff(date1, "minutes").toObject()
+
+  console.log(diff['minutes'])
+```
+
+`Replace all :`
+
+`` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
+
+`Unselect material button (enlever le focus)`
+
+Mettre "cdkFocusRegionstart" sur un autre élément
+
+ou mettre onclick="this.blur()"
+
+`Groupby rxjs`
+
+from(this.confPage.widgets).pipe(
+groupBy((widget: CustomType) => {
+return <number>widget.zone
+}),
+mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+).subscribe((group: [number | null, CustomType[]]) => {
+console.log("new group >>> ", group)
+})
+
+`Observable : call rest api and return new Observable :`
+
+getEventInfos(): Observable<EventInfosModel> {
+if (this.eventInfos) {
+return of(this.eventInfos)
+} else {
+var subject = new Subject<EventInfosModel>();
+
+        this.httpService.get(`${this.environmentService.appServerPath}/event-infos`).subscribe(
+            (datas: any) => {
+                this.eventInfos = datas
+
+                subject.next(datas);
+            })
+
+        return subject.asObservable();
+    }
+
+}
+
+`Exemple subscribe next / error`
+
+this.getMappedDatasApi<WHeader>().pipe(
+takeUntil(this.destroy$),
+filter((datas: any[]) => datas.length > 0),
+).subscribe({
+next: this.handleUpdateResponse.bind(this),
+error: this.handleError.bind(this)
+}
+)
+
+`Scroll event avec material`
+
+const content: any = document.querySelector('.mat-sidenav-content');
+const scroll$ = fromEvent(content, 'scroll').pipe(
+throttleTime(10), // only emit every 10 ms
+map(() => content.scrollTop), // get vertical scroll position
+pairwise(), // look at this and the last emitted element
+map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), // compare this and the last element to figure out scrolling direction
+distinctUntilChanged(), // only emit when scrolling direction changed
+share(), // share a single subscription to the underlying sequence in case of multiple subscribers
+);
+
+const goingUp$ = scroll$.pipe(
+filter(direction => direction === Direction.Up)
+);
+
+const goingDown$ = scroll$.pipe(
+filter(direction => direction === Direction.Down)
+);
+
+goingUp$.subscribe(() => console.log('scrolling up'))
+goingDown$.subscribe(() => console.log('scrolling down'))
+
+`Component input avec set`
+
+@Input()
+set refresh(test: string) { }
+
+`Javascript array empty or remove all`
+
+a.splice(0,a.length)
+
+`Catch erreurs dans les appels api Observable/rxjs`
+
+(<any>this.httpService.post(`apiUrl`, datas, SkipHeaders.TRUE)).pipe(
+catchError(err => {
+return throwError(() => err.error)
+// return of(true)
+}),
+).subscribe((datas: any) => {})
+
+`Group by property of an object`
+
+itemsToAdd : array of TodoItem
+
+const groupByListId: Object = itemsToAdd.reduce((r: any, a: TodoItem) => {
+    r[a.todoListId] = r[a.todoListId] || [];
+    r[a.todoListId].push(a);
+
+    return r;
+}, Object.create(null));
+
+
+`Extract certain properties from all objects in array`
+
+(<TodoItem[]>items).map(({id, name}) => ({id, name}))
+
+
+`IndexedDb : boucler sur des promesses`
+
+await Promise.all(flagsToSync.map(async (flag: Flag) => {
+
+}))

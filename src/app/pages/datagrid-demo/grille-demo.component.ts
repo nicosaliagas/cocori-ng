@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ConfigDatagridModel, DatagridService, DataSourceType } from '@cocori-ng/lib';
-import { OdataModel } from '@cocori-ng/lib/src/lib/feature-core';
+import { ConfigDatagridModel, DataSourceType, Odata } from 'cocori-ng/src/feature-core';
+import { DatagridService } from 'cocori-ng/src/feature-form';
+import { takeUntil } from 'rxjs';
 import { DatagridDemoService } from 'src/app/core/service/datagrid-demo.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
@@ -18,11 +19,11 @@ export class GrilleDemoComponent extends ExtendPageComponent implements OnInit {
     private datagridService: DatagridService) {
     super(injector)
 
-    this.subscriptions.add(
-      this.datagridService.allRowsChecked$.subscribe((value: boolean) => {
-        // console.log("from app, check all rows", value)
-      })
-    )
+    this.datagridService.allRowsChecked$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((value: boolean) => {
+      // console.log("from app, check all rows", value)
+    })
   }
 
   ngOnInit() {
@@ -36,40 +37,40 @@ export class GrilleDemoComponent extends ExtendPageComponent implements OnInit {
   }
 
   private initConfigDatagrid() {
-    this.subscriptions.add(
-      this.datagridDemoService.mockDatagridDatas().subscribe((values: OdataModel) => {
-        this._config = {
-          columns: [
-            { caption: "Nom", dataField: "name", dataType: "string", visible: true },
-            { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
-            { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
-            {
-              caption: "EcoleBoulle",
-              dataField: "Boulle",
-              dataType: "boolean",
-              visible: true,
-              filters: { nestedValues: { allSelected: false, noSelected: true } }
-            },
-            { caption: "Age", dataField: "age", dataType: "number", visible: true },
-            {
-              caption: "Col Bool",
-              dataField: "testBool",
-              dataType: "boolean",
-              visible: true,
-              filters: { nestedValues: { allSelected: true, noSelected: false } }
-            },
-            { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
-            { caption: "Col Dat", dataField: "testDate", dataType: "date", visible: true },
-            { caption: "Col 1", dataField: "test1", dataType: "string", visible: true },
-            { caption: "Col 2", dataField: "test2", dataType: "number", visible: true },
-            { caption: "Col 3", dataField: "test3", dataType: "string", visible: true },
-          ],
-          dataSource: { type: DataSourceType.BRUTE, value: values },
-          withBatchProcessing: true,
-          propIsArchived: 'testBool'
-        }
-      })
-    )
+    this.datagridDemoService.mockDatagridDatas().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((values: Odata<any>) => {
+      this._config = {
+        columns: [
+          { caption: "Nom", dataField: "name", dataType: "string", visible: true },
+          { caption: "Prénom", dataField: "surname", dataType: "string", visible: true },
+          { caption: "Civilité", dataField: "civility", dataType: "string", visible: true },
+          {
+            caption: "EcoleBoulle",
+            dataField: "Boulle",
+            dataType: "boolean",
+            visible: true,
+            filters: { nestedValues: { allSelected: false, noSelected: true } }
+          },
+          { caption: "Age", dataField: "age", dataType: "number", visible: true },
+          {
+            caption: "Col Bool",
+            dataField: "testBool",
+            dataType: "boolean",
+            visible: true,
+            filters: { nestedValues: { allSelected: true, noSelected: false } }
+          },
+          { caption: "Col Num", dataField: "testNum", dataType: "number", visible: true },
+          { caption: "Col Dat", dataField: "testDate", dataType: "date", visible: true },
+          { caption: "Col 1", dataField: "test1", dataType: "string", visible: true },
+          { caption: "Col 2", dataField: "test2", dataType: "number", visible: true },
+          { caption: "Col 3", dataField: "test3", dataType: "string", visible: true },
+        ],
+        dataSource: { type: DataSourceType.BRUTE, value: values },
+        withBatchProcessing: true,
+        propIsArchived: 'testBool'
+      }
+    })
   }
 
   eventClickRow($event) {

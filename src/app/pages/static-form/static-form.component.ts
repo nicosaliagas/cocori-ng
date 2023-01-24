@@ -1,7 +1,14 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormBuilderService } from '@cocori-ng/lib';
-import { ButtonIconPositon, DataSourceType, FormInputComponents, HttpService } from '@cocori-ng/lib/src/lib/feature-core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  ButtonIconPositon,
+  DataSourceType,
+  FormInputComponents,
+  HttpService,
+  TypeButtonEnum,
+} from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
+import { takeUntil } from 'rxjs';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -15,7 +22,7 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef2', { static: true, read: ViewContainerRef }) formContainerRef2: ViewContainerRef;
   @ViewChild('FormContainerRef3', { static: true, read: ViewContainerRef }) formContainerRef3: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
   jsonParsed: any;
 
   constructor(
@@ -38,6 +45,7 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
 
   private buildForm() {
     this.formulaire = this.formBuilderService
+      .newForm()
       .appearance('fill') // par défaut c'est outline
       .setViewContainerRef(this.formContainerRef1)
       .addInput('brute', config => config
@@ -92,6 +100,9 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .appearance('standard')
         .nameLabel('Mot de passe')
         .typeInput(FormInputComponents.INPUT_PASSWORD))
+      .addInput('slidetoggle', config => config
+        .nameLabel('Slide toggle')
+        .typeInput(FormInputComponents.INPUT_SLIDE_TOGGLE))
       .addInput('zone', config => config
         .nameLabel('Zone')
         .typeInput(FormInputComponents.INPUT_TEXTAREA)
@@ -104,12 +115,17 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
         .isTypeSubmit()
         .icon('check')
         .outputCallback({ callback: () => console.log("Bouton ajouté avec succès") }))
-      .addButton('Annuler', config => config
-        .isTypeSubmit(false))
+      .addButton('Annuler(link)', config => config
+        .type(TypeButtonEnum.LINK)
+        .url('/bo/home')
+        .openNewTab(true)
+        .outputCallback({ click: () => console.log("Bouton annuler : click") }))
       .addButton('Je sors', config => config
         .icon('keyboard_arrow_right', ButtonIconPositon.END)
         .isTypeSubmit(false))
       .form
+
+    console.log("formulaire >> ", this.formulaire)
   }
 
   validateFrom({ value, valid }: { value: any, valid: boolean }) {
@@ -121,10 +137,10 @@ export class StaticFormComponent extends ExtendPageComponent implements OnInit {
   }
 
   onClick() {
-    this.subscriptions.add(
-      this.httpService.get("https://localhost:5000/select-items/LastDegree/options").subscribe((values) => {
-        console.log("call ", values)
-      })
-    )
+    this.httpService.get("https://localhost:5000/select-items/LastDegree/options").pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((values) => {
+      console.log("call ", values)
+    })
   }
 }

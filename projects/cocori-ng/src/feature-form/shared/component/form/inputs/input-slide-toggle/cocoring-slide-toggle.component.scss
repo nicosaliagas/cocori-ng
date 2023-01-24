@@ -1,0 +1,11 @@
+.slide-toggle-frm {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0;
+  border-top: 1.125em solid transparent;
+  padding-bottom: 1.625em;
+
+  mat-label {
+    font-weight: 500;
+  }
+}

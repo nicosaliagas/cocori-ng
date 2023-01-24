@@ -1,0 +1,21 @@
+<!-- <div class="button-container">
+    <button mat-fab color="accent" aria-label="Ouvrir le fichier" (click)="close()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+</div> -->
+<div class="bottom-sheet-header">
+    <button class="actions-header-modal" mat-icon-button aria-label="Fermer le menu" (click)="close()">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <div class="header-part-right">
+        <div class="description-file">{{data.file.description}}</div>
+        <div class="date-upload" *ngIf="data.file.dateUpload">
+            <span>{{data.file.dateUpload | date: 'dd/MM/yyyy, HH:mm':'':'fr-FR'}}</span>
+        </div>
+        <div class="description">            
+            <div class="filename">{{data.file.fileName}}</div>
+            <div class="description-size">{{data.file.size | fileSize:2}}</div>
+        </div>
+    </div>
+</div>
+<ng-template #ContainerRef></ng-template>

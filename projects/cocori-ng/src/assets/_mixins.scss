@@ -1,0 +1,181 @@
+@mixin very-small-width-screen {
+  @media (max-width: 400px) {
+    @content;
+  }
+}
+
+@mixin small-width-screen {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin medium-width-screen {
+  @media (max-width: 960px) {
+    @content;
+  }
+}
+
+@mixin up-than-small-screen {
+  @media (min-width: 601px) {
+    @content;
+  }
+}
+
+/** ex iphone 5/SE 320*568 */
+@mixin for-small-phone-portrait-up {
+  @media (max-width: 600px) and (max-height: 700px) {
+    @content;
+  }
+}
+@mixin for-phone-landscape {
+  @media (max-height: 700px) and (orientation: landscape) {
+    @content;
+  }
+}
+@mixin for-phone-portrait {
+  @media (max-width: 600px) and (orientation: portrait) {
+    @content;
+  }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 601px) {
+    @content;
+  }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) {
+    @content;
+  }
+}
+
+/** Slightly lighten a color
+@param $color - color to tint
+@param $percentage - percentage of `$color` in returned color
+@return {Color}
+*/
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/** Slightly darken a color
+@param $color - color to shade
+@param $percentage - percentage of `$color` in returned color
+@return {Color}
+*/
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+@mixin arrow() {
+  border-style: solid;
+  border-width: 0.07em 0.07em 0 0;
+  content: "";
+  display: inline-block;
+  height: 0.65em;
+  left: 0.15em;
+  position: relative;
+  top: 0.15em;
+  transform: rotate(-45deg);
+  vertical-align: top;
+  width: 0.65em;
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+@mixin arrow-down() {
+  @include arrow();
+  transform: rotate(135deg);
+}
+
+@mixin arrow-up() {
+  @include arrow();
+}
+
+@mixin arrow-left() {
+  @include arrow();
+  transform: rotate(-135deg);
+}
+
+@mixin arrow-right() {
+  @include arrow();
+  transform: rotate(45deg);
+}
+
+@mixin material-icon-btn-size($size: 24px) {
+  width: $size !important;
+  height: $size !important;
+
+  .mat-icon {
+    @include material-icon-size($size);
+  }
+}
+
+@mixin material-icon-size($size: 24px) {
+  font-size: $size !important;
+  height: $size !important;
+  width: $size !important;
+  line-height: $size !important;
+}
+
+@mixin border($direction, $width, $color) {
+  border-#{$direction}: $width solid $color;
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin stickyPosition($top: 0) {
+  -webkit-position: sticky;
+  -moz-position: sticky;
+  -ms-position: sticky;
+  -o-position: sticky;
+  position: sticky;
+  z-index: 1001;
+  top: #{$top}px;
+}
+
+.stickyPosition {
+  @include stickyPosition;
+}
+
+@mixin hide-scroll {
+  scrollbar-color: white white;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 13px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &:hover {
+    scrollbar-color: #d9d9d9 white;
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: #d9d9d9;
+    }
+  }
+}
+
+.hide-scroll {
+  @include for-tablet-portrait-up {
+    @include hide-scroll;
+  }
+}

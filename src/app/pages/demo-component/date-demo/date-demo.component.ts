@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormBuilderService } from '@cocori-ng/lib';
-import { FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FormInputComponents } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend
 export class DateDemoComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   constructor(
     public injector: Injector,
@@ -49,6 +49,7 @@ export class DateDemoComponent extends ExtendPageComponent implements OnInit {
       .form
 
       this.formulaire.get('date').setValue(new Date())
+      // this.formulaire.get('date').setValue("1982-11-06T00:00:00+01:00")
   }
 
   validateFrom({ value, valid }: { value: any, valid: boolean }) {

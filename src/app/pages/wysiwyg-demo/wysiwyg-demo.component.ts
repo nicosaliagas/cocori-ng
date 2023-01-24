@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ConfigWysiwygModel, FormBuilderService, InitWysiwyg, ValidatorsService } from '@cocori-ng/lib';
+import { UntypedFormGroup } from '@angular/forms';
+import { ConfigWysiwygModel, InitWysiwyg, ValidatorsService } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
@@ -15,7 +16,7 @@ export class WysiwygDemoComponent extends ExtendPageComponent implements OnInit 
   _config: ConfigWysiwygModel;
   _configInline: ConfigWysiwygModel;
 
-  formulaire: FormGroup
+  formulaire: UntypedFormGroup
 
   constructor(
     public injector: Injector,

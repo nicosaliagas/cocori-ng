@@ -18,8 +18,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatagridService, GlobalErrorInterceptorService, LoadingInterceptorService } from '@cocori-ng/lib';
-import { ToastErrorStacktraceModule } from '@cocori-ng/lib/src/lib/feature-core';
+import { GlobalErrorInterceptorService, LoadingInterceptorService } from 'cocori-ng/src/feature-core';
+import { DatagridService, ToastErrorStacktraceModule } from 'cocori-ng/src/feature-form';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,8 +28,10 @@ import { LoadEnvironmentFactory } from './core/class/app-factory';
 import { EnvironmentLoaderService } from './core/service/environment-loader.service';
 import { SharedProjectModule } from './shared/shared-project.module';
 
+const DEFAULT_LOCALE = 'fr-FR'
+
 // https://angular.io/guide/i18n#i18n-pipes
-registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
+registerLocaleData(localeFr, DEFAULT_LOCALE, localeFrExtra);
 
 @NgModule({
   declarations: [
@@ -54,11 +57,12 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatDatepickerModule,
     MatNativeDateModule,
     ToastErrorStacktraceModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     DatagridService,
     {
-      provide: MAT_DATE_LOCALE, useValue: 'fr'
+      provide: MAT_DATE_LOCALE, useValue: DEFAULT_LOCALE
     },
     {
       provide: DateAdapter,

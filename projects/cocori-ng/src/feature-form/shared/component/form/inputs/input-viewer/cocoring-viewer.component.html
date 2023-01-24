@@ -1,0 +1,9 @@
+<ng-container [formGroup]="formGroup">
+    <mat-form-field>
+        <mat-label>{{nameLabel}}</mat-label>
+        <ng-container [formGroupName]="nameControl">
+            <input type="text" matInput formControlName="windowingMin" />
+        </ng-container>
+        <!-- <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error> -->
+    </mat-form-field>
+</ng-container>

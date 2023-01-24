@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormBuilderService } from '@cocori-ng/lib';
-import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { UntypedFormGroup } from '@angular/forms';
+import { DataSourceType, FormInputComponents } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend
 export class StaticInputsChainedComponent extends ExtendPageComponent implements OnInit {
   @ViewChild('FormContainerRef', { static: true, read: ViewContainerRef }) formContainerRef: ViewContainerRef;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
   jsonParsed: any;
 
   constructor(

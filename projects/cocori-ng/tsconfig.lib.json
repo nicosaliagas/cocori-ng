@@ -1,9 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    // "paths": {
+    //   "@cocori-ng/*": [
+    //     "projects/cocori-ng/*",
+    //   ],
+    //   "@cocori-ng/": [
+    //     "projects/cocori-ng/",
+    //   ]
+    // },
     "outDir": "../../out-tsc/lib",
     "declarationMap": true,
-    "target": "es2015",
+    "target": "es2020",
     "declaration": true,
     "inlineSources": true,
     "types": [],

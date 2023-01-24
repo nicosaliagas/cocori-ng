@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ConfigUploaderModel, FormBuilderService, ValidatorsService } from '@cocori-ng/lib';
-import { DataSourceType, FormInputComponents } from '@cocori-ng/lib/src/lib/feature-core';
+import { UntypedFormGroup } from '@angular/forms';
+import { ConfigUploaderModel, DataSourceType, FormInputComponents, ValidatorsService } from 'cocori-ng/src/feature-core';
+import { FormBuilderService } from 'cocori-ng/src/feature-form';
 import * as faker from 'faker/locale/fr';
 import { EnvironmentService } from 'src/app/core/service/environment.service';
 import { ExtendPageComponent } from 'src/app/shared/component/extend-page/extend-page.component';
@@ -17,7 +17,7 @@ export class UploaderDemoComponent extends ExtendPageComponent implements OnInit
 
   _config: ConfigUploaderModel;
 
-  formulaire: FormGroup;
+  formulaire: UntypedFormGroup;
 
   constructor(
     public injector: Injector,

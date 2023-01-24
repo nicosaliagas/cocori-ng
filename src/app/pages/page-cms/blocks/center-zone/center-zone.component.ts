@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ExtendSectionTplComponent } from '@cocori-ng/lib/src/lib/feature-cms';
-import { tap } from 'rxjs/operators';
+import { ExtendSectionTplComponent } from 'cocori-ng/src/feature-cms';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'center-zone',
@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class CenterZoneTplComponent extends ExtendSectionTplComponent implements OnInit {
   @ViewChild('ContainerEditor1Ref', { static: false, read: ViewContainerRef }) containerEditor1Ref: ViewContainerRef;
-  
+
   constructor(
     public injector: Injector) {
     super(injector);
@@ -22,15 +22,14 @@ export class CenterZoneTplComponent extends ExtendSectionTplComponent implements
   }
 
   private addWysiwygToView() {
-    this.subscriptions.add(
-      this.cmsService.catalogBlocksOpened$.pipe(
-        tap((isOpened: boolean) => {
-          if (isOpened) return
+    this.cmsService.catalogBlocksOpened$.pipe(
+      takeUntil(this.destroy$),
+      tap((isOpened: boolean) => {
+        if (isOpened) return
 
-          this.addWysiwygComponentToViewEvent([this.containerEditor1Ref])
-        }),
-      ).subscribe()
-    )
+        this.addWysiwygComponentToViewEvent([this.containerEditor1Ref])
+      }),
+    ).subscribe()
   }
 
 }

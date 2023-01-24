@@ -1,0 +1,17 @@
+<ng-container [formGroup]="formGroup">
+    <mat-form-field [appearance]="appearance" [ngClass]="{'mat-form-compact': styleCompact}">
+        <div matPrefix>
+            <input-icon [icon]="icon"></input-icon>
+        </div>
+        <mat-label>{{nameLabel}}</mat-label>
+        <mat-select [attr.data-cy]="nameControl" [formControlName]="nameControl">
+            <mat-option *ngFor="let item of (dataSource$ | async)" [value]="item.id">
+                {{item[dataSourceNameProperty]}}
+            </mat-option>
+        </mat-select>
+        <div matSuffix style="display:flex">
+            <input-icon icon="close" *ngIf="formGroup.get(nameControl).value" (click)="clearValue($event)"></input-icon>
+        </div>
+        <mat-error error-handler [form]="formGroup" [controlName]="nameControl"></mat-error>
+    </mat-form-field>
+</ng-container>

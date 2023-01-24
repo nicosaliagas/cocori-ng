@@ -1,0 +1,19 @@
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-calendar-body-selected {
+  color: white !important;
+}
+
+/** select */
+.mat-form-field-appearance-standard.mat-form-field-has-label
+  .mat-select:not(.mat-select-empty)
+  .mat-select-arrow-wrapper {
+  transform: translateY(-17%) !important;
+}
+
+/** Checkbox */
+.mat-checkbox-label {
+  margin-left: 5px;
+}

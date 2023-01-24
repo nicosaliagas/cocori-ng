@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { CurrentUrlRoutingService } from '@cocori-ng/lib';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CurrentUrlRoutingService } from 'cocori-ng/src/feature-core';
+import { Subject, takeUntil } from 'rxjs';
 import { SidenavItem } from 'src/app/core/model/Sidenav.model';
 import { SidenavService } from 'src/app/core/service/sidenav.service';
 
@@ -20,7 +20,7 @@ export const animateExpandListItem =
   templateUrl: './cocoring-sidenav-item.component.html',
   styleUrls: ['./cocoring-sidenav-item.component.scss'],
 })
-export class CocoringSidenavItemComponent extends AutoUnsubscribeComponent implements OnInit {
+export class CocoringSidenavItemComponent implements OnInit, OnDestroy {
   expanded: boolean = false;
   selected: boolean = false;
 
@@ -32,13 +32,13 @@ export class CocoringSidenavItemComponent extends AutoUnsubscribeComponent imple
 
   isSidenavOpen: boolean = true;
 
+  private readonly destroy$ = new Subject();
+
   constructor(
     private sidenavService: SidenavService,
     private cdr: ChangeDetectorRef,
     private navService: CurrentUrlRoutingService,
-  ) {
-    super()
-  }
+  ) { }
 
   ngOnInit() {
     this.urlChangedEvent()
@@ -51,27 +51,32 @@ export class CocoringSidenavItemComponent extends AutoUnsubscribeComponent imple
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
+
   private urlChangedEvent() {
-    this.subscriptions.add(
-      this.navService.currentUrl.subscribe((url: string) => {
-        if (this.item.route && url) {
-          this.expanded = this.selected = url.indexOf(`${this.item.route}`) === 0;
-          this.cdr.detectChanges()
-        }
-      })
-    )
+    this.navService.currentUrl.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((url: string) => {
+      if (this.item.route && url) {
+        this.expanded = this.selected = url.indexOf(`${this.item.route}`) === 0;
+        this.cdr.detectChanges()
+      }
+    })
   }
 
   private toggleSidenavEvent() {
     if (this.item.children && this.item.children.length) {
-      this.subscriptions.add(
-        this.sidenavService.onOpenedChange.subscribe((isOpened: boolean) => {
-          if (!isOpened) {
-            this.expanded = false
-            this.cdr.detectChanges()
-          }
-        })
-      )
+      this.sidenavService.onOpenedChange.pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((isOpened: boolean) => {
+        if (!isOpened) {
+          this.expanded = false
+          this.cdr.detectChanges()
+        }
+      })
     }
   }
 
@@ -86,5 +91,4 @@ export class CocoringSidenavItemComponent extends AutoUnsubscribeComponent imple
   trackBy(index: number) {
     return index;
   }
-
 }

@@ -1,4 +1,4 @@
-@import "cocori-ng/src/lib/assets/mixins";
+@import "cocori-ng/src/assets/mixins";
 
 :host {
   display: block;
@@ -17,6 +17,7 @@ footer-ng {
 }
 
 .mat-drawer-content {
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: stretch;

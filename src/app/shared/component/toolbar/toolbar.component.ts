@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AutoUnsubscribeComponent } from '@cocori-ng/lib/src/lib/feature-core';
+import { Subject, takeUntil } from 'rxjs';
 import { AppbarModel, HeaderMenuItem } from 'src/app/core/model/Appbar.model';
 import { AppbarService } from 'src/app/core/service/appbar.service';
 import { SidenavService } from 'src/app/core/service/sidenav.service';
@@ -10,34 +10,39 @@ import { SidenavService } from 'src/app/core/service/sidenav.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent extends AutoUnsubscribeComponent implements OnInit, OnDestroy {
+export class ToolbarComponent implements OnInit, OnDestroy {
   @Input() isRootUrl: boolean = true;
 
   barTitle: string = ''
 
   barActions: HeaderMenuItem[] = []
 
+  private readonly destroy$ = new Subject();
+
   constructor(
     private appbarService: AppbarService,
     private sidenavService: SidenavService,
     private cdr: ChangeDetectorRef,
-  ) {
-    super()
-  }
+  ) { }
 
   ngOnInit(): void {
     this.getInfos()
   }
 
-  private getInfos() {
-    this.subscriptions.add(
-      this.appbarService.onDatasChange.subscribe((datas: AppbarModel) => {
-        this.barTitle = datas.barTitle || this.barTitle
-        this.barActions = datas.barActions || this.barActions
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
+  }
 
-        this.cdr.detectChanges()
-      })
-    )
+  private getInfos() {
+    this.appbarService.onDatasChange.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((datas: AppbarModel) => {
+      this.barTitle = datas.barTitle || this.barTitle
+      this.barActions = datas.barActions || this.barActions
+
+      this.cdr.detectChanges()
+    })
   }
 
   public toggleSidenavMenus() {
