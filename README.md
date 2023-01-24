@@ -1,6 +1,6 @@
 # ✨Cocori-ng 
 
-**Cocori-ng is an Angular full of great components & utilites based on Material **
+**Cocori-ng is an Angular full of great components & utilites based on Material**
 
 
 2 projets :
