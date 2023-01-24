@@ -16,88 +16,57 @@ Montée de version d'Angular :
 Version Node : 16.10.0
 Version NPM : 7.24.0
 
-
-### Installation du poste de travail
-
-- installer NVM pour gérer différentes version de nodejs sur le poste
-  tuto : https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
-
-
 ### Update Angular CLI version Globally
 
 npm uninstall -g angular-cli
 npm cache verify (if npm > 5)
 npm install -g @angular/cli@latest
 
-https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command.
+🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
 
-## Commandes de génération de classes (service, component, il y en a d'autres encore...) :
+### CLI generate d`Angular schematics :
 
-`ng g service file`
+exemple generate new component :
+```
+ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss```
 
-Generate new component :
-`ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss`
+🔗https://angular.io/cli/generate
 
-## Compiler la lib Cocori-ng pour ensuite l'utiliser dans un autre projet (sans passer par le dépôt npm, tout en local):
 
-Commandes pour builder la lib :
+### Utilisation de la lib cocori-ng :
 
-- pour développer sur le projet cocori-ng
-- pour utiliser la lib dans un autre projet avec la méthode `link`
-
-Lancer les commandes à la racine du projet :
-
-- se mettre à la racine du projet, là où se trouve le fichier `package.json`
-
-**Depuis le projet Cocori-ng** :
+*Lancer les commandes depuis la racine du projet web, là où se trouve le fichier `package.json` (pas dans le dossier `projects`)*
 
 Faire un `npm i` si pas fait depuis longtemps
 
-Commande qui build la lib et rends la main : `ng build --project=cocori-ng` ou `npm run lib:build`
+Builder la lib et rends la main : `ng build --project=cocori-ng`
 
-Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/cocori-ng;`
+Builder la lib et watch les changements : `ng build --project=cocori-ng --watch`
 
-Générer un lien symbolique vers les sources de la lib : `npm link ;`
+Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/cocori-ng`
 
-✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par NPM) :**
+Générer un lien symbolique vers les sources de la lib : `npm link`
 
-```
+✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par npm) :**
+
+```javascript
 npm i
-ng build --project=cocori-ng ou npm run lib:build /** Commande qui build la lib et rends la main */
-cd dist/cocori-ng ;
-puis
-npm link ;
+ng build --project=cocori-ng /** Commande qui build la lib et rends la main */
+cd dist/cocori-ng
+npm link
 ```
 
-⚠️ On n'utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
+⚠️ On n utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-✨ **Depuis le projet client qui utilise Cocori-ng** :
+✨ **Utiliser la lib depuis un autre projet client en local** :
 
-```
-npm i
+```javascript
 npm link cocori-ng
 ```
 
 _Puis lancer la commande de build du project cible (npm build, npm run...)_
 
-⚠️ La commande `npm link @cocori-ng/lib` doit être relancée après chaque `npm i` car ce denier détruit les liens symboliques créés pour ier cocori-ng au projet client.
-
-## Créer un lien `Link` vers la lib pour développer / tester une application en local 
-
-Développer sur la lib Cocori-ng et sur le projet client en même temps (avec watch) :
-
-Commande qui build la lib et se mets en écoute (rebuild auto si sauvegarde d'un fichier) : 
-```npm run lib``` (commande à exécuter si vous souhaitez dev sur la lib)
-
-Créer un lien symbolique vers la lib :
-```
-cd dist\cocori-ng
-npm link (#sudo avant si linux)
-```
-
-Projet cible :
-
-`npm link @cocori-ng/lib`
+⚠️ Depuis le projet client, la commande `npm link cocori-ng` doit être relancée après chaque commande d'install `npm i` ou tout ajout d'une nouvelle lib. Ces commandes cassent le lien symbolique créé pour lier cocori-ng au projet client.
 
 ⚠️ angular.json :
 
@@ -105,19 +74,12 @@ Projet cible :
 
 ⚠️ package.json :
 
-- installer les dépendances manquantes (penser à refaire npm link @cocori-ng/lib)
+- installer les dépendances manquantes (penser ensuite à refaire npm link cocori-ng)
 
-Prendre exemple avec les dépendances d'un autre projet web tels que Boulle ou Atlantx (fichier package.json )
 
-Librairies requises  :
+### Projet web de la librairie
 
-"@angular/cdk": "^12.0.3",
-"@angular/material": "^12.0.3",
-"@angular/flex-layout": "^12.0.0-beta.34",
-
-- Démarrer le projet frontend :
-
-## Lancer le projet pour tester les composants de la lib...
+*Pour tester les composants de la lib ou en créer de nouveaux*
 
 ✨#frontend démarrer le build en mode watch
 ng build --project=cocori-ng --watch (ou npm run lib)
@@ -386,6 +348,13 @@ Mettre à jour plusieurs package en une seule fois : `ng update name-package1 na
 - si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
 
 ⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
+
+
+### Gestion plusieurs versions de NodeJs en local 
+
+Si besoins, installer l'outils NVM pour gérer différentes version de nodejs sur le poste
+🔗 https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
+
 
 ## Angular Tips
 
