@@ -24,7 +24,7 @@ npm install -g @angular/cli@latest
 
 🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
 
-### CLI generate d`Angular schematics :
+### CLI generate d Angular schematics :
 
 exemple generate new component :
 ```
