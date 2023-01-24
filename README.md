@@ -1,32 +1,29 @@
-# ✨CocoriLibrary : projet library
+# ✨Cocori-ng 
 
-2 projets : un projet de type library et un projet web angular classique permettant de dév et tester les composants de la lib
+**Cocori-ng is an Angular full of great components & utilites based on Material **
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
 
-Version actuelle d'Angular : 14.1.1 (Juillet 2022)
-Version actuelle d'Angular : 13.3.4 (Avril 2022)
-Version actuelle d'Angular : 13.0.3 (Nov 2021)
-Version actuelle d'Angular : 12.0.3 (Août 2021)
+2 projets :
+- un projet de type library
+- un projet web angular classique permettant de dév et tester les composants de la lib
+
+Montée de version d'Angular :
+- version 14.1.1 (Juillet 2022)
+- version 13.3.4 (Avril 2022)
+- version 13.0.3 (Nov 2021)
+- version 12.0.3 (Août 2021)
 
 Version Node : 16.10.0
 Version NPM : 7.24.0
 
-# [Installation du poste de travail]
+
+### Installation du poste de travail
 
 - installer NVM pour gérer différentes version de nodejs sur le poste
   tuto : https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
 
-## New project
 
-- ng new my-first-project
-
-si erreur lors de la création d'un nouveau projet :
-Odd numbered Node.js versions will not enter LTS status and should not be used for production
-
-Arrêter et dowgrader la version de nodejs via l'outils NVM puis essayer à nouveau. Le message ne doit pas s'afficher.
-
-## Update Angular CLI version Globally
+### Update Angular CLI version Globally
 
 npm uninstall -g angular-cli
 npm cache verify (if npm > 5)
@@ -390,12 +387,13 @@ Mettre à jour plusieurs package en une seule fois : `ng update name-package1 na
 
 ⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
 
-## Angular Tips & Ressources + Aides + Help !
+## Angular Tips
 
-// dynamically-create-nested-objects
+**How to dynamically create nested objects using object names given by an array**
+
 https://stackoverflow.com/questions/5484673/javascript-how-to-dynamically-create-nested-objects-using-object-names-given-by
 
-`FlexLayout : affecter une classe css en fonction de la taille de l'écran ? `
+**FlexLayout : affecter une classe css en fonction de la taille de l écran ?**
 
 exemple :
 https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
@@ -404,81 +402,75 @@ https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
 [ngClass.lt-md]="'zone-left-mobile'"
 ```
 
-`Détecter si on est en taille mobile avec la lib FlexLayout ? `
+**Détecter si on est en taille mobile avec la lib FlexLayout ?**
 
-ngOninit() {
-if (this.mediaObserver.isActive('lt-md')) {
-/// vue mobile par exemple
-}
-}
+    ngOninit() {
+    	if (this.mediaObserver.isActive('lt-md')) {
+    		/// vue mobile par exemple
+    	}
+    }
 
-`Détecter la taille de l'écran côté component avec la lib FlexLayout ? `
+**Détecter la taille de l`écran côté component avec la lib FlexLayout ?**
 
 https://github.com/angular/flex-layout/wiki/MediaObserver
 
-exemple :
-
-constructor(private mediaObserver: MediaObserver,) { }
-
-private getAlias = (MediaChange: MediaChange[]) => {
-return MediaChange[0].mqAlias;
-};
-
-private eventMediaChange() {
-this.mediaObserver
-.asObservable()
-.pipe(
-distinctUntilChanged(
-(x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
-)
-)
-.subscribe((change) => {
-change.forEach((item) => {
-this.activeMediaQuery = item
-? `'${item.mqAlias}' = (${item.mediaQuery})`
-: '';
-
-        if (item.mqAlias === 'lt-md') {
-          this.loadMobileContent();
-        }
-      });
-    });
-
-}
-
-`Référence un composant enfant et accès à ces propriétés depuis un composant parent`
-
-@ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
-
-`Typescript : callback function`
-
-model :
-
+*exemple :*
+```javascript
+    private eventMediaChange() {
+        this.mediaObserver
+          .asObservable()
+          .pipe(
+            takeUntil(this.destroy$),
+            distinctUntilChanged(
+              (x: MediaChange[], y: MediaChange[]) => this.flexLayoutService.getAlias(x) === this.flexLayoutService.getAlias(y)
+            )
+          )
+          .subscribe((change) => {
+            change.forEach((item) => {
+    
+              if (item.mqAlias === 'lt-md' && this.typeMedia !== 'mobile') {
+                this.typeMedia = 'mobile'
+                this.loadMobileContent();
+              } else if ((item.mqAlias === 'md' || item.mqAlias === 'gt-md') && this.typeMedia !== 'desktop') {
+                this.typeMedia = 'desktop'
+                this.loadDesktopContent()
+              }
+            });
+          });
+      }
 ```
+
+**Référence un composant enfant et accès à ces propriétés depuis un composant parent**
+
+```javascript
+@ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
+```
+
+**Typescript : type function**
+
+*model :*
+```javascript
 export interface HeaderMenuItem {
     callback: Function;
 }
 ```
 
-component :
+*component :*
 
-```
+```javascript
 callback: () => this.my_function()
 ```
 
-`Angular : récupérer la valeur d'un paramètre contenu de l'url (ex : get id param : http://url?id=toto)`
+**Angular : récupérer la valeur d un paramètre contenu de l url (ex : get id param : http://url?id=toto)**
 
-```
+```javascript
 this.subscriptions.add(
     this.route.queryParams.subscribe(params => {
     this.pageId = params['id']
-
-    if (this.pageId) this.titreModal = "Modification de la page"
-    })
 )
 ```
 
-`Angular : change URL params sans refresh`
+**Angular : change URL params sans refresh**
 
 ```
 this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
