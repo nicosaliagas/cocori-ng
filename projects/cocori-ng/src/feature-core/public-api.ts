@@ -19,6 +19,7 @@ export * from './service/helper/url-helper';
 export * from './service/helper/helper-uploader.service';
 export * from './service/wysiwyg.service';
 export * from './service/datasource.service';
+export * from './service/string.service';
 
 
 /** Models */

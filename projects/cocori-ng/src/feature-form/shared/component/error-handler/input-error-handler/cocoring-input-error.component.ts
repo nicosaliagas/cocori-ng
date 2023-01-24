@@ -4,7 +4,8 @@ import { BroadcastEventService, ValidatorsService, ValidtionError } from 'cocori
 import { merge, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { ConfigEvents, DefaultConfigComponent } from '../../../../core';
+import { DefaultConfigComponent } from '../../../../core/config/config.components';
+import { ConfigEvents } from '../../../../core/config/config.events';
 
 @Component({
     selector: '[error-handler]',

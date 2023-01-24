@@ -10,7 +10,7 @@ Version actuelle d'Angular : 13.0.3 (Nov 2021)
 Version actuelle d'Angular : 12.0.3 (Août 2021)
 
 Version Node : 16.10.0
-Version NPM : 7.24.0 
+Version NPM : 7.24.0
 
 # [Installation du poste de travail]
 
@@ -62,7 +62,6 @@ Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/co
 
 Générer un lien symbolique vers les sources de la lib : `npm link ;`
 
-
 ✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par NPM) :**
 
 ```
@@ -79,7 +78,7 @@ npm link ;
 
 ```
 npm i
-npm link @cocori-ng/lib
+npm link cocori-ng
 ```
 
 _Puis lancer la commande de build du project cible (npm build, npm run...)_
@@ -362,11 +361,11 @@ https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o
 
 - faire `ng update [nom du package]` (archiver le fichier package.json entre chaque commande)
 
-✔️ Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin 
+✔️ Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin
 (ex : `ng update @angular/cdk --force`)
 
 ex : problème de version avec Typescript
- `Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").`
+`Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").`
 
 ✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
 
@@ -381,16 +380,16 @@ ex : problème de version avec Typescript
     💪 We analyzed your package.json and everything seems to be in order. Good work!
 
 ✔️ Mettre à jours, en plus les autres librairies de "package.json > dependencies" telles que :
-    (pour savoir si le package doit être mis à jour, laisser la souris sur le nom du package pour que sa version actuelle apparaîsse et la comparer avec celle du projet)
+(pour savoir si le package doit être mis à jour, laisser la souris sur le nom du package pour que sa version actuelle apparaîsse et la comparer avec celle du projet)
 
-  - @angular/flex-layout
-  - @r-tek/colr_pickr
-  - @tinymce/tinymce-angular
-  - ng-gallery
-  - ngx-mask
-  - etc...
+- @angular/flex-layout
+- @r-tek/colr_pickr
+- @tinymce/tinymce-angular
+- ng-gallery
+- ngx-mask
+- etc...
 
-  Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
+Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
 
 - si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
 
@@ -413,9 +412,9 @@ https://github.com/angular/flex-layout/wiki/ngClass-API#responsive-features
 `Détecter si on est en taille mobile avec la lib FlexLayout ? `
 
 ngOninit() {
-  if (this.mediaObserver.isActive('lt-md')) {
-    /// vue mobile par exemple
-  }
+if (this.mediaObserver.isActive('lt-md')) {
+/// vue mobile par exemple
+}
 }
 
 `Détecter la taille de l'écran côté component avec la lib FlexLayout ? `
@@ -431,24 +430,25 @@ return MediaChange[0].mqAlias;
 };
 
 private eventMediaChange() {
-  this.mediaObserver
-  .asObservable()
-  .pipe(
-    distinctUntilChanged(
-      (x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
-    )
-  )
-  .subscribe((change) => {
-    change.forEach((item) => {
-        this.activeMediaQuery = item
-          ? `'${item.mqAlias}' = (${item.mediaQuery})`
-          : '';
+this.mediaObserver
+.asObservable()
+.pipe(
+distinctUntilChanged(
+(x: MediaChange[], y: MediaChange[]) => this.getAlias(x) === this.getAlias(y)
+)
+)
+.subscribe((change) => {
+change.forEach((item) => {
+this.activeMediaQuery = item
+? `'${item.mqAlias}' = (${item.mediaQuery})`
+: '';
 
         if (item.mqAlias === 'lt-md') {
           this.loadMobileContent();
         }
       });
     });
+
 }
 
 `Référence un composant enfant et accès à ces propriétés depuis un composant parent`
@@ -607,7 +607,7 @@ Diff dates :
 ```
   const date1 = luxon.DateTime.fromISO(api.meeting.startsAt)
   const date2 = luxon.DateTime.fromISO(api.meeting.endsAt)
-  
+
   const diff: any = date2.diff(date1, "minutes").toObject()
 
   console.log(diff['minutes'])
@@ -616,7 +616,6 @@ Diff dates :
 `Replace all :`
 
 `` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
-
 
 `Unselect material button (enlever le focus)`
 
@@ -627,22 +626,21 @@ ou mettre onclick="this.blur()"
 `Groupby rxjs`
 
 from(this.confPage.widgets).pipe(
-    groupBy((widget: CustomType) => {
-        return <number>widget.zone
-    }),
-    mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+groupBy((widget: CustomType) => {
+return <number>widget.zone
+}),
+mergeMap(group => zip(of(group.key), group.pipe(toArray())))
 ).subscribe((group: [number | null, CustomType[]]) => {
-    console.log("new group >>> ", group)
+console.log("new group >>> ", group)
 })
-
 
 `Observable : call rest api and return new Observable :`
 
 getEventInfos(): Observable<EventInfosModel> {
-    if (this.eventInfos) {
-        return of(this.eventInfos)
-    } else {
-        var subject = new Subject<EventInfosModel>();
+if (this.eventInfos) {
+return of(this.eventInfos)
+} else {
+var subject = new Subject<EventInfosModel>();
 
         this.httpService.get(`${this.environmentService.appServerPath}/event-infos`).subscribe(
             (datas: any) => {
@@ -653,46 +651,80 @@ getEventInfos(): Observable<EventInfosModel> {
 
         return subject.asObservable();
     }
+
 }
 
 `Exemple subscribe next / error`
 
 this.getMappedDatasApi<WHeader>().pipe(
-    takeUntil(this.destroy$),
-    filter((datas: any[]) => datas.length > 0),
-  ).subscribe({
-    next: this.handleUpdateResponse.bind(this),
-    error: this.handleError.bind(this)
-  }
+takeUntil(this.destroy$),
+filter((datas: any[]) => datas.length > 0),
+).subscribe({
+next: this.handleUpdateResponse.bind(this),
+error: this.handleError.bind(this)
+}
 )
 
 `Scroll event avec material`
 
 const content: any = document.querySelector('.mat-sidenav-content');
 const scroll$ = fromEvent(content, 'scroll').pipe(
-  throttleTime(10), // only emit every 10 ms
-  map(() => content.scrollTop), // get vertical scroll position
-  pairwise(), // look at this and the last emitted element
-  map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), // compare this and the last element to figure out scrolling direction
-  distinctUntilChanged(), // only emit when scrolling direction changed
-  share(), // share a single subscription to the underlying sequence in case of multiple subscribers
+throttleTime(10), // only emit every 10 ms
+map(() => content.scrollTop), // get vertical scroll position
+pairwise(), // look at this and the last emitted element
+map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), // compare this and the last element to figure out scrolling direction
+distinctUntilChanged(), // only emit when scrolling direction changed
+share(), // share a single subscription to the underlying sequence in case of multiple subscribers
 );
 
 const goingUp$ = scroll$.pipe(
-  filter(direction => direction === Direction.Up)
+filter(direction => direction === Direction.Up)
 );
 
 const goingDown$ = scroll$.pipe(
-  filter(direction => direction === Direction.Down)
+filter(direction => direction === Direction.Down)
 );
 
 goingUp$.subscribe(() => console.log('scrolling up'))
 goingDown$.subscribe(() => console.log('scrolling down'))
 
-
 `Component input avec set`
 
 @Input()
-set refresh(test: string) {
+set refresh(test: string) { }
 
-}
+`Javascript array empty or remove all`
+
+a.splice(0,a.length)
+
+`Catch erreurs dans les appels api Observable/rxjs`
+
+(<any>this.httpService.post(`apiUrl`, datas, SkipHeaders.TRUE)).pipe(
+catchError(err => {
+return throwError(() => err.error)
+// return of(true)
+}),
+).subscribe((datas: any) => {})
+
+`Group by property of an object`
+
+itemsToAdd : array of TodoItem
+
+const groupByListId: Object = itemsToAdd.reduce((r: any, a: TodoItem) => {
+    r[a.todoListId] = r[a.todoListId] || [];
+    r[a.todoListId].push(a);
+
+    return r;
+}, Object.create(null));
+
+
+`Extract certain properties from all objects in array`
+
+(<TodoItem[]>items).map(({id, name}) => ({id, name}))
+
+
+`IndexedDb : boucler sur des promesses`
+
+await Promise.all(flagsToSync.map(async (flag: Flag) => {
+
+}))
