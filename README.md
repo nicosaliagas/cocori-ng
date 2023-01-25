@@ -223,7 +223,7 @@ le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les
 
 ``.p-x-25`` : ``padding: 25px;``
 
-*Article Medium : *
+*Article Medium :*
 
 ``🔗 https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f``
 
