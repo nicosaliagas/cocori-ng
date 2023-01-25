@@ -285,19 +285,25 @@ Détails du fichier *cocoring-colorpicker.directive.ts* :
 <div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
 ```
 
+### Poids des librairies d'un projet front :
 
+**Buts :**
+**- Visualiser les libraires les plus gourmandes d un projet**
+**- Optimiser le chargement du projet**
 
-### Optimize Bundle Size
+Installer le bundle analyser de Webpack : 
 
-https://medium.com/angular-in-depth/optimize-angular-bundle-size-in-4-steps-4a3b3737bf45
+``npm install -g webpack-bundle-analyzer``
 
-Installer le bundle analyser de Webpack
+Build l application avec l option stats : 
 
-npm install -g webpack-bundle-analyzer
+``ng build --stats-json``
 
-build : ng build --stats-json
+Lancer l interface avec les stats :
 
-lancer l'interface avec les stats : webpack-bundle-analyzer dist/EventBoulle/stats.json
+``webpack-bundle-analyzer dist/[project_name]/stats.json``
+
+Source : [Lien](https://indepth.dev/posts/1217/how-to-reuse-common-layouts-in-angular-using-router)
 
 ## Tests e2e via Cypress
 
