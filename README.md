@@ -211,23 +211,27 @@ puis
 
 ### Styles : classes margin et padding générées via mixins
 
-source : https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f
-
 le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les margin et padding
 
-ex de classes css :
+*exemple d utilisation des classes css :*
 
-.m-b-15 ==> pour margin-bottom: 15px;
-.m-x-30 ==> pour margin: 30px;
+``.m-b-15`` : ``margin-bottom: 15px;``
 
-ou
+``.m-x-30`` : ``margin: 30px;``
 
-.p-l-10 ==> pour padding-left: 10px;
-.p-x-25 ==> pour padding: 25px;
+``.p-l-10`` :  ``padding-left: 10px;``
 
-## 🔹 Config des boutons de formulaire dynamique avec Cocori-ng
+``.p-x-25`` : ``padding: 25px;``
 
-`Bouton classique - non submit - avec callback sur le clique du bouton `
+*Article Medium : *
+``🔗 https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f``
+
+
+### Fluent reactive form *(à enrichir)*
+
+**- génération de boutons de formulaire :**
+
+- Bouton classique - non submit - avec callback sur le clique du bouton
 
 ```
 .addButton('Annuler', config => config
@@ -238,41 +242,52 @@ ou
 )
 ```
 
-`Bouton de validation - type submit `
+- Bouton de validation - type submit - avec callback sur le clique du bouton
 
 ```
 .addButton('Appliquer', config => config
   .isTypeSubmit()
   .icon('check')
   .outputCallback({
-    callback: () => console.log('callback sur le fait que mon bouton vient d'être ajouté à la vue')
+    callback: () => console.log("callback sur le fait que mon bouton vient d'être ajouté à la vue")
   })
 )
 ```
 
-## Librairie Utilisée
+### Exemple d encapsulation d une lib js dans un composant Angular
 
-- Angular Material
-- Angular Material Design Icons
-- FakerJs : fake datas
-  npm install faker --save-dev
-  npm install @types/faker --save-dev
-- Gallery : https://github.com/MurhafSousli/ngx-gallery
+#### Librairie color picker
 
-`Utiliser le color picker dans un projet`
+**- Installation et référencement**
 
-doc lib : https://www.cssscript.com/chrome-devtools-color-picker/
+Source : [Lien vers la lib](https://www.cssscript.com/chrome-devtools-color-picker)
 
-- installer la lib color picker (tjrs depuis la racine du projet cible) : `npm i @r-tek/colr_pickr --save`
-- référencer la lib dans le fichier angular.json :
-  > architect / build / options / styles : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"]
-  > architect / build / options / scripts : ["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]
+- installer la librairie : ``npm i @r-tek/colr_pickr --save``
 
----
+- référencer la librairie dans le fichier ``angular.json`` :
 
-## Optimize Bundle Size
+  architect/build/options/styles :
 
----
+  ``["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.css"]``
+
+  architect/build/options/scripts :
+
+  ``["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]``
+
+**- Création de la directive**
+
+Détails du fichier *cocoring-colorpicker.directive.ts* : 
+``projects\cocori-ng\src\feature-form\shared\directive\color-picker\cocoring-colorpicker.directive.ts``
+
+**- Utilisation de la directive**
+
+```HTML
+<div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
+```
+
+
+
+### Optimize Bundle Size
 
 https://medium.com/angular-in-depth/optimize-angular-bundle-size-in-4-steps-4a3b3737bf45
 
