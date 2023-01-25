@@ -24,7 +24,7 @@ npm install -g @angular/cli@latest
 
 🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
 
-### CLI generate d Angular schematics :
+### CLI generate d`Angular schematics :
 
 exemple generate new component :
 ```
@@ -82,63 +82,80 @@ _Puis lancer la commande de build du project cible (npm build, npm run...)_
 
 *Pour tester les composants de la lib ou en créer de nouveaux*
 
-✨#frontend démarrer le build en mode watch
-ng build --project=cocori-ng --watch (ou npm run lib)
+✨Builder le projet avec l`option watch :
 
-✨#frontend local + backend local
-ng serve --configuration "local" --port 5050 -o
+``ng build --project=cocori-ng --watch``
 
-(implémentation si htpps : ng serve --ssl --configuration "local" --port 5050)
+✨Lancer le projet front :
 
-## ✨publish on npm
+``ng serve --configuration "local"``
 
-`URL vers NPM`
-https://www.npmjs.com/package/cocori-ng
+Si htpps : 
 
-`Incrémenter la version`
-Fichier : `projects\cocori-ng\package.json` (propriété `version`)
+``ng serve --ssl --configuration "local"``
 
-`Build la lib prod`
-ng build --project=cocori-ng --configuration production
+### ✨Publier la lib sur Npm
 
-`Publish on NPM`
-(npm whoami : check if connected as nicosaliagas)
-cd dist/cocori-ng
-npm publish --access public
+**Url du dépôt Npm**
 
-## Packager la lib
+🔗https://www.npmjs.com/package/cocori-ng
 
-After building your library with `ng build --project=cocori-ng`, go to the dist folder `cd dist/cocori-ng` and run `npm pack`.
+**Incrémenter la version de la lib**
 
-## 🔹 Styles et Thème de la lib
+Fichier : ``projects\cocori-ng\package.json`` (propriété ``version``)
 
-- De quoi parle t'on ?
+**Builder la lib**
+
+``ng build --project=cocori-ng --configuration production``
+
+**Publish on Npm**
+
+Check if connected as nicosaliagas : ``npm whoami``
+Publier sur Npm :
+``cd dist/cocori-ng``
+``npm publish --access public``
+
+### Packager la lib
+
+Build the library : ``ng build --project=cocori-ng``
+Aller dans le dossier dist : ``cd dist/cocori-ng`` puis lancer ``npm pack``
+
+Le fichier ``cocori-ng-[version].tgz`` est généré
+
+
+### Styles et Thème de la lib
+
+**- De quoi parle t on ?**
 
 Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
 
-Tous ces styles sont réunis dans un fichier scss : `cocori-ng.theme.scss`
+Tous ces styles sont réunis dans un fichier scss : ``cocori-ng.theme.scss``
 
-Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéficier des styles de la lib et de les consommer ou de les redéfinir dans son projet web.
+Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéficier des styles de la lib et de les consommer et de les redéfinir dans son projet web.
 
-Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet cible. Ainsi les composants de la lib seront aux couleurs du projets cibles.
+Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet client. Ainsi les composants de la lib seront aux couleurs du projets client.
 
-- Comment charger les styles et paramétrer le thème de la lib dans mon projet :
+**- Comment charger les styles et paramétrer le thème de la lib dans mon projet client :**
 
-Depuis le thème principal de mon projet :
+Depuis le thème principal de mon projet client :
 
-on importe le thème et tous les fichiers scss de la lib : `@import 'cocori-ng/cocori-ng.theme.scss';`
+on importe le thème et tous les fichiers scss de la lib :
+
+``@import "./node_modules/cocori-ng/cocori-ng.theme.scss";``
 
 on charge le thème de la lib avec les palettes de couleurs du site en paramètre :
+   - le thème du site
+   - la palette de couleurs vertes (pour les notifs succès par exemple)
+   - la palette de couleurs bleues
 
-    - le thème du site
-    - la palette de couleurs vertes (pour les notifs succès par exemple)
-    - la palette de couleurs bleues
+exemple :
 
-exemple : `@include cocori-ng-theme($theme-principal, $palette-green, $palette-blue);`
+``@include cocori-ng-theme($theme-principal, $palette-green, $palette-blue);``
 
-- Utiliser une mixin dans un fichier scss de mon projet :
+- Exemple d'utilisation une mixin de la lib cocori-ng dans mon projet client :
 
-on importe les mixins depuis la lib : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
+on importe les mixins depuis la lib dans un fichier scss de mon projet client :
+``@import "./node_modules/cocori-ng/src/assets/mixins";``
 
 puis par exemple :
 
@@ -146,18 +163,18 @@ puis par exemple :
 .main {
     padding: 2.25rem 2.25rem 0.75rem;
 
-    /* j'utilise une mixin */
+    /* j'utilise la mixin */
     @include for-phone-only {
         padding: 0.75rem;
     }
   }
 ```
 
-- 🎨 Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ?
+**- Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ? 🎨**
 
-1. Définir ses couleurs dans son fchier \_variables.scss
+- Définir sa palette dans un fichier _variables.scss
 
-exemple différents contrastes de couleur orange :
+*exemple différents contrastes de couleur orange :*
 
 ```
 $mat-orange: (
@@ -173,7 +190,7 @@ $mat-orange: (
 );
 ```
 
-2. Initialiser sa palette dans son thème.scss
+- Initialiser sa palette dans son thème.scss
 
 ```
 $palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
