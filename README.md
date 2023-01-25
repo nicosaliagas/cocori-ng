@@ -495,6 +495,20 @@ https://github.com/angular/flex-layout/wiki/MediaObserver
 @ViewChild(CocoringDatagridComponent, { static: false }) cocoringDatagridComponent!: CocoringDatagridComponent;
 ```
 
+**Detect when a child element in Angular is rendered and access it**
+```javascript
+private myElement: ElementRef;
+  @ViewChild('mySelector', {static : false}) set content(content: ElementRef) {
+    if(content) { // initially setter gets called with undefined
+      // debugger;
+      this.myElement = content;
+    }
+  }
+  
+<div #mySelector *ngIf="initiallyFalseThenAfterDbResponseIsTrue"></div>
+```
+
+
 **Typescript : type function**
 
 *model :*
