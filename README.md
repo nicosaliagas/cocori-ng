@@ -304,25 +304,75 @@ Lancer l interface avec les stats :
 
 ``webpack-bundle-analyzer dist/[project_name]/stats.json``
 
-Source : [Lien](https://indepth.dev/posts/1217/how-to-reuse-common-layouts-in-angular-using-router)
+Source : [Optimize Angular bundle size in 4 steps](https://indepth.dev/posts/1217/how-to-reuse-common-layouts-in-angular-using-router)
 
 ## Tests e2e via Cypress
 
-npm install cypress --save-dev
+Installation : ``npm install cypress --save-dev``
 
-> run : npx cypress open
-> record tests e2e : npx cypress run --record --key 84330dcb-1088-4e89-bfc4-72d1c3f63c13
+Ouverture de l'interface : ``npx cypress open``
 
-`connecteurs`
-https://example.cypress.io/commands/connectors
+*Exemple de code :*
 
-`lire un fichier json`
-https://example.cypress.io/commands/files
+** Se mettre en écoute d un point d API **
 
-`Conserver le localstorage entre les tests CypressJs`
-https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1
+```javascript
+/// <reference types="Cypress" />
 
-## Nouveau projet Angular avec installation de la lib Cocori-ng
+describe("Modifier les informations de son profil", () => {
+  var interceptPrivateProfileApi = (userId) => {
+    cy.interceptApi({
+      method: "GET",
+      url: `/users/${userId}/profile`,
+    }).as("getProfile");
+  };
+
+  var getprivateProfile = () =>
+    cy
+      .wait("@getProfile")
+      .then((interception) => cy.wrap(interception.response.body));
+
+  it(`⚡️ Etapes d'exécution des tests`, () => {
+    /** scénario de connexion au site */
+    auth.login(email, password).then((userId) => {
+      clickEntryAccount(userId);
+    });
+  });
+
+  var clickEntryAccount = (userId) => {
+    cy.log(`⚡️Clique sur l'entrée de menu : Compte`);
+
+    /** avant d'être rediriger sur une autre page
+     *  on se met en écoute du point d'API qui sera appeler sur la nouvelle page
+    */
+    interceptPrivateProfileApi(userId);
+
+    cy.get("mat-list").contains("Compte").click();
+
+    /** On test la nouvelle url */
+    cy.get("page-profil-compte").should("exist");
+
+    /**
+     *  ce point d'API est exécuté au chargement de la page pour récupérer et afficher les données utilisateur
+     *  on attends qu'il se finisse pour récupérer les données et continuer les tests de la page avec ces données
+    */
+    getprivateProfile().then((datas) => {
+      /** les tests continuent avec les datas retournées par le point d'API */
+      /** tester que les valeurs s'affichent bien dans la page etc... */
+    });
+  };
+});
+```
+
+Doc sur les connecteurs : [Connectors](https://example.cypress.io/commands/connectors)
+
+Doc lecture d un fichier Json : [Files](https://example.cypress.io/commands/files)
+
+Doc conserver le localstorage entre les tests Cypress :
+[How to preserve localStorage between Cypress tests ](https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1)
+
+
+### Nouveau projet Angular avec installation de la lib Cocori-ng
 
 - ng new my-project
 - install librairies:
