@@ -177,49 +177,39 @@ puis par exemple :
 *exemple différents contrastes de couleur orange :*
 
 ```
-$mat-orange: (
-  main: #ffc107,
-  lighter: #fadb7b,
-  darker: #be9004,
-  200: #ffc107,
-  contrast: (
-    main: #000000,
-    lighter: #000000,
-    darker: #000000,
-  )
+$mat-primary: (
+  main: #8c8c8c,
+  lighter: #f2f2f2,
+  darker: #3c4043,
+  contrast:
+    (
+      main: #000000,
+      lighter: #000000,
+      darker: #000000,
+    ),
 );
 ```
 
-- Initialiser sa palette dans son thème.scss
-
 ```
-$palette-orange: mat.define-palette($mat-orange, main, lighter, darker);
+$palette-primary: mat.define-palette($mat-primary, main, lighter, darker);
 ```
 
-3. L'utiliser dans sa feuille de style :
+- L utiliser dans sa feuille de style :
 
-import material : `@use "~@angular/material" as mat;`
-import des variables, où se trouvent les palettes de couleur : `@import 'variables';`
+import material : ``@use "~@angular/material" as mat;``
+
+import des variables, où se trouvent les palettes de couleur : ``@import 'variables';``
 
 puis
 
-```
-.fab-color {
-    background-color: mat.get-color-from-palette($palette-blue, main);
+```css
+.lives-title {
+  font-weight: 700;
+  color: mat.get-color-from-palette($palette-primary, darker);
 }
 ```
 
-4. Utiliser les mixin de cocori-ng dans un projet client :
-
-import des mixins : `@import "@cocori-ng/lib/src/lib/assets/mixins";`
-
-```
-@include for-phone-only {
-  width: 0;
-}
-```
-
-## 🔹 Styles : classes margin et padding générées via mixins
+### Styles : classes margin et padding générées via mixins
 
 source : https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f
 
