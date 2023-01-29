@@ -372,60 +372,35 @@ Doc conserver le localstorage entre les tests Cypress :
 [How to preserve localStorage between Cypress tests ](https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1)
 
 
-### Nouveau projet Angular avec installation de la lib Cocori-ng
+### ✨ Monter la version des libraries d'un projet
 
-- ng new my-project
-- install librairies:
-  - ng add @angular/material
-  - npm i @angular/flex-layout @tinymce/tinymce-angular spark-md5
-- dans angular.json : architect.build.options.preserveSymlinks = true
-- npm link @cocori-ng/lib (après avoir créé le lien symbolique vers la lib cocoring)
+- exécuter la commande : ``ng update`` pour voir les package angular à mettre à jour
 
-## Montée de version majeure d'Angular et angular-cli sur un projet
+- faire ``ng update [nom du package]`` (archiver le fichier package.json entre chaque commande)
 
-- s'il s'agit d'une version majeur d'Angular ex : passage du version 11 vers 12 ou 12 vers 13 ...
-  - mettre à jour la version d'Angular cli sur le serveur de ci/cd [documentation Cocorisoft](https://bitbucket.org/cocorisoft/cocorisoft/src/master/ci-cd/Configuration%20CI-CD.md)
-- étapes à suivre pour faire une montée de version d'Angular : https://update.angular.io/?l=3&v=11.0-12.0
-- ng update pour voir les packages à mettre à jour
-- ex : ng update @angular/cdk @angular/flex-layout @angular/material
-
-## ✨ Monter la version des libraries d'un projet #upgrade
-
-- exécuter la commande : `ng update` pour voir les package angular à mettre à jour
-
-- faire `ng update [nom du package]` (archiver le fichier package.json entre chaque commande)
-
-✔️ Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin
+- Si erreur lors du `ng update`, ne pas hésiter de refaire la commande avec ` --force` à la fin
 (ex : `ng update @angular/cdk --force`)
 
 ex : problème de version avec Typescript
-`Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").`
+```
+Package "@angular-devkit/build-angular" has an incompatible peer dependency to "typescript" (requires ">=4.4.3 <4.7", would install "4.7.4").
+```
 
-✔️ Les packages angular seront à mettre à jour les uns après les autres en premier.
+- Les packages angular seront à mettre à jour les uns après les autres en premier.
 
 ⚠️ Faire un commit et tester entre chaque update.
 
-✔️ Le package angular/material est en général à mettre à jour en 1er (dépendance avec le cdk)
+- Le package angular/material est en général à mettre à jour en 1er (dépendance avec le cdk)
 
-✔️ Relancer la commande `ng update` pour vérifier que tout soit ok
+- Relancer la commande `ng update` pour vérifier que tout soit ok
 
     Message de confirmation :
 
-    💪 We analyzed your package.json and everything seems to be in order. Good work!
+    ``We analyzed your package.json and everything seems to be in order. Good work!``
 
-✔️ Mettre à jours, en plus les autres librairies de "package.json > dependencies" telles que :
-(pour savoir si le package doit être mis à jour, laisser la souris sur le nom du package pour que sa version actuelle apparaîsse et la comparer avec celle du projet)
+- Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
 
-- @angular/flex-layout
-- @r-tek/colr_pickr
-- @tinymce/tinymce-angular
-- ng-gallery
-- ngx-mask
-- etc...
-
-Mettre à jour plusieurs package en une seule fois : `ng update name-package1 name-package2 name-package3` ...
-
-- si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : `npm install rxjs@latest`
+- si certains package ne se mettent pas à jour (via la commande `ng update [nom du package]` ) : ``npm install rxjs@latest``
 
 ⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
 
@@ -436,7 +411,7 @@ Si besoins, installer l'outils NVM pour gérer différentes version de nodejs su
 🔗 https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
 
 
-## Angular Tips
+### Angular Tips
 
 **How to dynamically create nested objects using object names given by an array**
 
@@ -533,32 +508,30 @@ this.subscriptions.add(
 )
 ```
 
-**Angular : change URL params sans refresh**
+**Change URL params without refresh**
 
 ```
 this.urlHelperService.updateParamsUrlWithoutRefresh({ id: null })
 ```
 
-`Change detection : déclencher les changements de variables dans la vue manuellement`
+**Change detection : déclencher les changements de variables dans la vue manuellement**
 
 ```
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush
-  ...
-
-constructor(private cdr: ChangeDetectorRef)
-
-🔹this.cdr.detectChanges()
-
-dans les appels Http :
-🔹catchError((err: any) => {
-  this.cdr.detectChanges()
-  return throwError(err);
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'page-channel',
+  templateUrl: './channel.component.html',
+  styleUrls: ['./channel.component.scss'],
 })
 
+constructor(private cdr: ChangeDetectorRef) { }
+
+/** Forcer le changement dans la vue */
+this.cdr.detectChanges()
 ```
 
-`Loop object properties | Iterate through object properties`
+**Loop object properties | Iterate through object properties**
 
 ```
 Object.entries(values).forEach(([key, value]) => {
@@ -566,7 +539,7 @@ Object.entries(values).forEach(([key, value]) => {
 })
 ```
 
-`Scss : bordure not full width`
+**Scss : bordure not full width**
 
 ```
 .border {
@@ -584,13 +557,13 @@ Object.entries(values).forEach(([key, value]) => {
 }
 ```
 
-`Material Icon : outlined style`
+**Material Icon : outlined style**
 
 ```
 <mat-icon fontSet="material-icons-outlined">filter_alt</mat-icon>
 ```
 
-`Material Icon : use in css `
+**Material Icon : use in css**
 
 ```
 li {
@@ -601,15 +574,15 @@ li {
   }
 ```
 
-`Reactive form : ne pas émettre l'évènement de maj au setValue`
+**Reactive form : ne pas émettre l'évènement de maj au setValue**
 
 ```
 form.get('control').setValue('', {emitEvent: false})
 ```
 
-`Unsubscribe vs Subscribe`
+**Subscribe / Unsubscribe**
 
-⚠️ Pensez à se désabonner de tous les subscribe !
+⚠️ Se désabonner de tous les subscribe !
 
 ```
 @Component({
@@ -640,7 +613,7 @@ export class FlightsComponent implements OnDestroy, OnInit {
 
 ```
 
-`DateTime/luxon : date functions helper :`
+**DateTime/luxon : date functions helper :**
 
 > > https://github.com/moment/luxon/blob/master/docs/formatting.md
 
