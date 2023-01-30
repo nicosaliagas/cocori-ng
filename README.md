@@ -9,18 +9,18 @@
 
 ---
 
-2 projets :
-- un projet de type library
-- un projet web angular classique permettant de dév et tester les composants de la lib
+Two projects :
+- the library
+- the web project in order to view, test and develop the components of the lib
 
-Montée de version d'Angular :
-- version 14.1.1 (Juillet 2022)
-- version 13.3.4 (Avril 2022)
-- version 13.0.3 (Nov 2021)
-- version 12.0.3 (Août 2021)
+Upgrade versions of Angular :
+- version 14.1.1 (July 2022)
+- version 13.3.4 (April 2022)
+- version 13.0.3 (November 2021)
+- version 12.0.3 (August 2021)
 
-Version Node : 16.10.0
-Version NPM : 7.24.0
+Node : 16.10.0
+Npm : 7.24.0
 
 ### Update Angular CLI version Globally
 
