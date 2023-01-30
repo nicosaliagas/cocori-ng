@@ -1,6 +1,11 @@
 # ✨Cocori-ng 
 
-**Cocori-ng is an Angular full of great components & utilites based on Material**
+<p dir="auto" align="center">
+  <a target="_blank" rel="noopener noreferrer" href="https://angular.io/assets/images/logos/angular/angular.svg"><img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular-logo" style="max-width: 100%;" width="120px" height="120px"></a>
+  <br>
+  <i>Cocori-ng is an Angular full of great components & utilites based on Material</i>
+  <br>
+</p>
 
 
 2 projets :
