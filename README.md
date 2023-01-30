@@ -94,7 +94,7 @@ Si htpps :
 
 ``ng serve --ssl --configuration "local"``
 
-### ✨Publier la lib sur Npm
+### Publier la lib sur Npm
 
 **Url du dépôt Npm**
 
@@ -122,8 +122,9 @@ Aller dans le dossier dist : ``cd dist/cocori-ng`` puis lancer ``npm pack``
 
 Le fichier ``cocori-ng-[version].tgz`` est généré
 
+---
 
-### Styles et Thème de la lib
+## ✨ Styles et Thèmes de la lib
 
 **- De quoi parle t on ?**
 
@@ -254,10 +255,12 @@ le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les
   })
 )
 ```
+---
 
-### Exemple d encapsulation d une lib js dans un composant Angular
 
-#### Librairie color picker
+## Encapsuler une lib Js dans un composant Angular
+
+#### Exemple avec la librairie : Color Picker
 
 **- Installation et référencement**
 
@@ -286,7 +289,7 @@ Détails du fichier *cocoring-colorpicker.directive.ts* :
 <div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
 ```
 
-### Poids des librairies d'un projet front :
+### Poids des librairies d un projet front :
 
 **Buts :**
 **- Visualiser les libraires les plus gourmandes d un projet**
@@ -306,7 +309,10 @@ Lancer l interface avec les stats :
 
 Source : [Optimize Angular bundle size in 4 steps](https://indepth.dev/posts/1217/how-to-reuse-common-layouts-in-angular-using-router)
 
-## Tests e2e via Cypress
+---
+
+
+## ✨ Tests e2e avec Cypress
 
 Installation : ``npm install cypress --save-dev``
 
@@ -371,8 +377,9 @@ Doc lecture d un fichier Json : [Files](https://example.cypress.io/commands/file
 Doc conserver le localstorage entre les tests Cypress :
 [How to preserve localStorage between Cypress tests ](https://dev.to/javierbrea/how-to-preserve-localstorage-between-cypress-tests-19o1)
 
+---
 
-### ✨ Monter la version des libraries d'un projet
+## ✨ Monter la version des libraries d'un projet
 
 - exécuter la commande : ``ng update`` pour voir les package angular à mettre à jour
 
@@ -410,8 +417,10 @@ Package "@angular-devkit/build-angular" has an incompatible peer dependency to "
 Si besoins, installer l'outils NVM pour gérer différentes version de nodejs sur le poste
 🔗 https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
 
+---
 
-### Angular Tips
+
+## ✨ Angular / Javascript Tips
 
 **How to dynamically create nested objects using object names given by an array**
 
