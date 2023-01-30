@@ -2,7 +2,6 @@
 
 <p dir="auto" align="center">
   <a target="_blank" rel="noopener noreferrer" href="https://angular.io/assets/images/logos/angular/angular.svg"><img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular-logo" style="max-width: 100%;" width="120px" height="120px"></a>
-  <a title="Google Inc., Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Google_Material_Design_Logo.svg"><img width="100" alt="Google Material Design Logo" style="margin: 10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Material_Design_Logo.svg/128px-Google_Material_Design_Logo.svg.png"></a>
   <br>
   <i>Cocori-ng is an Angular full of great components & utilites based on Material</i>
   <br>
