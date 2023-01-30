@@ -615,7 +615,7 @@ export class FlightsComponent implements OnDestroy, OnInit {
 
 **DateTime/luxon : date functions helper :**
 
-> > https://github.com/moment/luxon/blob/master/docs/formatting.md
+[Lien vers la doc](https://github.com/moment/luxon/blob/master/docs/formatting.md)
 
 Date to DateTime : `DateTime.fromJSDate(startDate)`
 
@@ -636,118 +636,101 @@ Diff dates :
   console.log(diff['minutes'])
 ```
 
-`Replace all :`
+**Javascript : Replace all occurences :**
 
-`` myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
+``myStringVar.replace(new RegExp(`${searchVar}`), replaceVar)  ``
 
-`Unselect material button (enlever le focus)`
 
-Mettre "cdkFocusRegionstart" sur un autre élément
+**Unselect material button (enlever le focus) :**
 
-ou mettre onclick="this.blur()"
+Mettre ``cdkFocusRegionstart`` sur un autre élément Html 
+ou mettre ``onclick="this.blur()"``
 
-`Groupby rxjs`
-
+**RxJs : Groupby**
+```
 from(this.confPage.widgets).pipe(
-groupBy((widget: CustomType) => {
-return <number>widget.zone
+	groupBy((widget: CustomType) => {
+	return <number>widget.zone
 }),
 mergeMap(group => zip(of(group.key), group.pipe(toArray())))
 ).subscribe((group: [number | null, CustomType[]]) => {
-console.log("new group >>> ", group)
+	console.log("new group >>> ", group)
 })
+```
 
-`Observable : call rest api and return new Observable :`
-
+**Observable : call rest api and return new Observable :**
+```
 getEventInfos(): Observable<EventInfosModel> {
-if (this.eventInfos) {
-return of(this.eventInfos)
-} else {
-var subject = new Subject<EventInfosModel>();
+	if (this.eventInfos) {
+	return of(this.eventInfos)
+	} else {
+		var subject = new Subject<EventInfosModel>();
 
-        this.httpService.get(`${this.environmentService.appServerPath}/event-infos`).subscribe(
+        this.httpService.get(`url`).subscribe(
             (datas: any) => {
                 this.eventInfos = datas
-
                 subject.next(datas);
             })
-
         return subject.asObservable();
     }
-
 }
+```
 
-`Exemple subscribe next / error`
-
+**Exemple subscribe next / error**
+```
 this.getMappedDatasApi<WHeader>().pipe(
-takeUntil(this.destroy$),
+	takeUntil(this.destroy$),
 filter((datas: any[]) => datas.length > 0),
 ).subscribe({
-next: this.handleUpdateResponse.bind(this),
-error: this.handleError.bind(this)
-}
+	next: this.handleUpdateResponse.bind(this),
+	error: this.handleError.bind(this)
+	}
 )
+```
 
-`Scroll event avec material`
-
+**Scroll event avec material**
+```
 const content: any = document.querySelector('.mat-sidenav-content');
+
 const scroll$ = fromEvent(content, 'scroll').pipe(
-throttleTime(10), // only emit every 10 ms
-map(() => content.scrollTop), // get vertical scroll position
-pairwise(), // look at this and the last emitted element
-map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), // compare this and the last element to figure out scrolling direction
-distinctUntilChanged(), // only emit when scrolling direction changed
-share(), // share a single subscription to the underlying sequence in case of multiple subscribers
+	throttleTime(10), // only emit every 10 ms
+	map(() => content.scrollTop), // get vertical scroll position
+	pairwise(), // look at this and the last emitted element
+	// compare this and the last element to figure out scrolling direction
+	map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)), 
+	distinctUntilChanged(), // only emit when scrolling direction changed
+	// share a single subscription to the underlying sequence in case of multiple subscribers
+	share(), 
 );
 
 const goingUp$ = scroll$.pipe(
-filter(direction => direction === Direction.Up)
+	filter(direction => direction === Direction.Up)
 );
 
 const goingDown$ = scroll$.pipe(
-filter(direction => direction === Direction.Down)
+	filter(direction => direction === Direction.Down)
 );
 
 goingUp$.subscribe(() => console.log('scrolling up'))
+
 goingDown$.subscribe(() => console.log('scrolling down'))
+```
 
-`Component input avec set`
+**Javascript : remove all elements from an array**
 
-@Input()
-set refresh(test: string) { }
+a.splice(0, a.length)
 
-`Javascript array empty or remove all`
-
-a.splice(0,a.length)
-
-`Catch erreurs dans les appels api Observable/rxjs`
-
-(<any>this.httpService.post(`apiUrl`, datas, SkipHeaders.TRUE)).pipe(
+**Catch erreurs dans les appels api Observable/rxjs**
+```
+this.httpService.post(`apiUrl`, datas, SkipHeaders.TRUE).pipe(
 catchError(err => {
-return throwError(() => err.error)
-// return of(true)
+	return throwError(() => err.error)
 }),
-).subscribe((datas: any) => {})
+).subscribe((datas: any) => { ... })
+```
 
-`Group by property of an object`
+**Extract certain properties from all objects in array**
+```
+(<Object[]>items).map(( { id, name } ) => ( { id, name } ))
+```
 
-itemsToAdd : array of TodoItem
-
-const groupByListId: Object = itemsToAdd.reduce((r: any, a: TodoItem) => {
-    r[a.todoListId] = r[a.todoListId] || [];
-    r[a.todoListId].push(a);
-
-    return r;
-}, Object.create(null));
-
-
-`Extract certain properties from all objects in array`
-
-(<TodoItem[]>items).map(({id, name}) => ({id, name}))
-
-
-`IndexedDb : boucler sur des promesses`
-
-await Promise.all(flagsToSync.map(async (flag: Flag) => {
-
-}))
