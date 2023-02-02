@@ -9,12 +9,12 @@
 
 
 # Table of Contents
-1. [Before starting](#example)
+1. [Before starting](#before)
 
 
 ---
 
-### Before starting : <a name="introduction"></a>
+### Before starting : <a name="before"></a>
 
 
 Two projects :
