@@ -14,6 +14,7 @@
 	1. [Library Web Interface](#librarywebinterface)
 	2. [How to publish on Npm?](#publishnpm)
 	3. [How to Package the library?](#packagelib)
+3. [Styles & Themes of the library](#stylesthemes)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -131,9 +132,9 @@ Le fichier ``cocori-ng-[version].tgz`` est généré
 
 ---
 
-## Styles & Themes of the library
+## Styles & Themes of the library: <a name="stylesthemes"></a>
 
-**- De quoi parle t on ?**
+**Documentation**
 
 Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
 
