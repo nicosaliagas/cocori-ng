@@ -7,7 +7,15 @@
   <br>
 </p>
 
+
+# Table of Contents
+1. [Before starting](#example)
+
+
 ---
+
+### Before starting : <a name="introduction"></a>
+
 
 Two projects :
 - the library
@@ -29,16 +37,6 @@ npm cache verify (if npm > 5)
 npm install -g @angular/cli@latest
 
 🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
-
-### CLI generate d`Angular schematics :
-
-exemple generate new component :
-```
-ng g component cocoring-cms-image-upload --display-block=true --skip-import=true --style=scss
-```
-
-🔗https://angular.io/cli/generate
-
 
 ### Utilisation de la lib cocori-ng :
 
@@ -295,7 +293,7 @@ Détails du fichier *cocoring-colorpicker.directive.ts* :
 <div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
 ```
 
-### Poids des librairies d un projet front :
+## Poids des librairies d un projet front :
 
 **Buts :**
 **- Visualiser les libraires les plus gourmandes d un projet**
@@ -427,6 +425,16 @@ Si besoins, installer l'outils NVM pour gérer différentes version de nodejs su
 
 
 ## ✨ Angular / Javascript Tips
+
+
+**CLI generate of Angular schematics :**
+
+exemple generate new component :
+```
+ng g component my_comp_name --display-block=true --skip-import=true --style=scss
+```
+
+All the commands : 🔗https://angular.io/cli/generate
 
 **How to dynamically create nested objects using object names given by an array**
 
