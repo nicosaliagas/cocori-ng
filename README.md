@@ -19,6 +19,7 @@
 	2. [How to use color palettes defined from its theme in its component styles?](#usecolorpalette)
 	3. [Mixins : classes margin & padding](#mixins)
 4. [Fluent reactive form *(à enrichir)*](#reactiveform)
+5. [Wrapping a javascript lib in an Angular component](#wrapjslib)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -268,11 +269,11 @@ le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les
 ---
 
 
-## Encapsuler une lib Js dans un composant Angular
+## Wrapping a javascript lib in an Angular component: <a name="wrapjslib"></a>
 
 #### Exemple avec la librairie : Color Picker
 
-**- Installation et référencement**
+**Installation et référencement**
 
 Source : [Lien vers la lib](https://www.cssscript.com/chrome-devtools-color-picker)
 
@@ -288,12 +289,12 @@ Source : [Lien vers la lib](https://www.cssscript.com/chrome-devtools-color-pick
 
   ``["./node_modules/@r-tek/colr_pickr/build/colr_pickr.min.js"]``
 
-**- Création de la directive**
+**Création de la directive**
 
 Détails du fichier *cocoring-colorpicker.directive.ts* : 
 ``projects\cocori-ng\src\feature-form\shared\directive\color-picker\cocoring-colorpicker.directive.ts``
 
-**- Utilisation de la directive**
+**Utilisation de la directive**
 
 ```HTML
 <div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
