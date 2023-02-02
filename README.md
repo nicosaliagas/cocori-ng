@@ -336,7 +336,7 @@ Ouverture de l'interface : ``npx cypress open``
 
 *Exemple de code :*
 
-** Se mettre en écoute d un point d API **
+**Se mettre en écoute d un point d API**
 
 ```javascript
 /// <reference types="Cypress" />
