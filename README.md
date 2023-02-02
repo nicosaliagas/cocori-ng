@@ -23,6 +23,8 @@
 6. [Optimize Angular bundle size](#bundlesize)
 7. [End-to-end testing with Cypress](#cypress)
 8. [Upgrade front libraries of a project](#upgrade)
+	1. [Deals with several versions of NodeJs](#nvm)
+9. [Angular / Javascript Tips](#tips)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -426,16 +428,13 @@ Package "@angular-devkit/build-angular" has an incompatible peer dependency to "
 ⚠️ Pensez à mettre à jour les versions des libs dans le fichier package.json de la lib `projects\cocori-ng\package.json` (propriété : peerDependencies) ⚠️
 
 
-### Gestion plusieurs versions de NodeJs en local 
+### Deals with several versions of NodeJs: <a name="nvm"></a>
 
 Si besoins, installer l'outils NVM pour gérer différentes version de nodejs sur le poste
 🔗 https://dev.to/skaytech/how-to-install-node-version-manager-nvm-for-windows-10-4nbi
 
----
 
-
-## ✨ Angular / Javascript Tips
-
+## Angular / Javascript Tips: <a name="tips"></a>
 
 **CLI generate of Angular schematics :**
 
