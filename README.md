@@ -16,6 +16,8 @@
 	3. [How to Package the library?](#packagelib)
 3. [Styles & Themes of the library](#stylesthemes)
 	1. [How to load the styles and set the theme of the lib from a client project?](#loadstylesthemes)
+	2. [How to use color palettes defined from its theme in its component styles?](#usecolorpalette)
+	3. [Mixins : classes margin & padding](#mixins)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -178,7 +180,7 @@ puis par exemple :
   }
 ```
 
-**- Comment utiliser des palettes de couleurs définies depuis son thème dans ses styles ? 🎨**
+### How to use color palettes defined from its theme in its component styles? <a name="usecolorpalette"></a>
 
 - Définir sa palette dans un fichier _variables.scss
 
@@ -217,7 +219,7 @@ puis
 }
 ```
 
-### Styles : classes margin et padding générées via mixins
+### Mixins : classes margin & padding: <a name="mixins"></a>
 
 le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les margin et padding
 
