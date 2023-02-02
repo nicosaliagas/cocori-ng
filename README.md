@@ -15,6 +15,7 @@
 	2. [How to publish on Npm?](#publishnpm)
 	3. [How to Package the library?](#packagelib)
 3. [Styles & Themes of the library](#stylesthemes)
+	1. [How to load the styles and set the theme of the lib from a client project?](#loadstylesthemes)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -134,8 +135,6 @@ Le fichier ``cocori-ng-[version].tgz`` est généré
 
 ## Styles & Themes of the library: <a name="stylesthemes"></a>
 
-**Documentation**
-
 Cocori-ng exporte des feuilles de styles partagées, des mixins et un thème.
 
 Tous ces styles sont réunis dans un fichier scss : ``cocori-ng.theme.scss``
@@ -144,7 +143,7 @@ Importer ce fichier thème dans un projet web permet à l'utilisateur de bénéf
 
 Le thème de la lib permets de styliser les composants (du moins une partie) avec les couleurs du thème principal du projet client. Ainsi les composants de la lib seront aux couleurs du projets client.
 
-**- Comment charger les styles et paramétrer le thème de la lib dans mon projet client :**
+### How to load the styles and set the theme of the lib from a client project? <a name="loadstylesthemes"></a>
 
 Depuis le thème principal de mon projet client :
 
