@@ -20,6 +20,8 @@
 	3. [Mixins : classes margin & padding](#mixins)
 4. [Fluent reactive form *(à enrichir)*](#reactiveform)
 5. [Wrapping a javascript lib in an Angular component](#wrapjslib)
+6. [Optimize Angular bundle size](#bundlesize)
+7. [End-to-end testing with Cypress](#cypress)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -300,7 +302,7 @@ Détails du fichier *cocoring-colorpicker.directive.ts* :
 <div class="circle-color" [cocoring-colorpicker]="color" (onColorChange)="onColorChange($event)"></div>
 ```
 
-## Poids des librairies d un projet front :
+## Optimize Angular bundle size: <a name="bundlesize"></a>
 
 **Buts :**
 **- Visualiser les libraires les plus gourmandes d un projet**
@@ -323,7 +325,7 @@ Source : [Optimize Angular bundle size in 4 steps](https://indepth.dev/posts/121
 ---
 
 
-## ✨ Tests e2e avec Cypress
+## End-to-end testing with Cypress: <a name="cypress"></a>
 
 Installation : ``npm install cypress --save-dev``
 
