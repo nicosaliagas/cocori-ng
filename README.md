@@ -10,7 +10,7 @@
 
 # Table of Contents
 1. [Prerequisites](#prerequisites)
-2. [Setting Up the Library](#settingUp)
+2. [Setting Up the Library](#settingup)
 
 ---
 
@@ -38,7 +38,7 @@ npm install -g @angular/cli@latest
 
 🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
 
-### Setting Up the Library :  <a name="settingUp"></a>
+### Setting Up the Library :  <a name="settingup"></a>
 
 *Lancer les commandes depuis la racine du projet web, là où se trouve le fichier `package.json` (pas dans le dossier `projects`)*
 
