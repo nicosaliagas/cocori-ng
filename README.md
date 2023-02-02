@@ -12,6 +12,7 @@
 1. [Prerequisites](#prerequisites)
 2. [Setting Up the Library](#settingup)
 	1. [Library Web Interface](#librarywebinterface)
+	1. [How to publish on Npm?](#publishnpm)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -99,7 +100,7 @@ Si htpps :
 
 ``ng serve --ssl --configuration "local"``
 
-### Publier la lib sur Npm
+### How to publish on Npm? : <a name="publishnpm"></a> 
 
 **Url du dépôt Npm**
 
