@@ -12,7 +12,8 @@
 1. [Prerequisites](#prerequisites)
 2. [Setting Up the Library](#settingup)
 	1. [Library Web Interface](#librarywebinterface)
-	1. [How to publish on Npm?](#publishnpm)
+	2. [How to publish on Npm?](#publishnpm)
+	3. [How to Package the library?](#packagelib)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -106,22 +107,22 @@ Si htpps :
 
 🔗https://www.npmjs.com/package/cocori-ng
 
-**Incrémenter la version de la lib**
+**Increment the version of the library**
 
 Fichier : ``projects\cocori-ng\package.json`` (propriété ``version``)
 
-**Builder la lib**
+**Build the library**
 
 ``ng build --project=cocori-ng --configuration production``
 
-**Publish on Npm**
+**Publish it on Npm**
 
 Check if connected as nicosaliagas : ``npm whoami``
 Publier sur Npm :
 ``cd dist/cocori-ng``
 ``npm publish --access public``
 
-### Packager la lib
+### How to Package the library? : <a name="packagelib"></a>
 
 Build the library : ``ng build --project=cocori-ng``
 Aller dans le dossier dist : ``cd dist/cocori-ng`` puis lancer ``npm pack``
@@ -130,7 +131,7 @@ Le fichier ``cocori-ng-[version].tgz`` est généré
 
 ---
 
-## ✨ Styles et Thèmes de la lib
+## Styles & Themes of the library
 
 **- De quoi parle t on ?**
 
