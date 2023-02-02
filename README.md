@@ -18,6 +18,7 @@
 	1. [How to load the styles and set the theme of the lib from a client project?](#loadstylesthemes)
 	2. [How to use color palettes defined from its theme in its component styles?](#usecolorpalette)
 	3. [Mixins : classes margin & padding](#mixins)
+4. [Fluent reactive form *(à enrichir)*](#reactiveform)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -238,9 +239,9 @@ le fichier `_margins-paddings.scss` génère un ensemble de classes css pour les
 ``🔗 https://medium.com/@jerrythimothy/margins-paddings-sass-mixin-16460c32507f``
 
 
-### Fluent reactive form *(à enrichir)*
+## Fluent reactive form *(à enrichir)*: <a name="reactiveform"></a>
 
-**- génération de boutons de formulaire :**
+**Génération de boutons de formulaire :**
 
 - Bouton classique - non submit - avec callback sur le clique du bouton
 
