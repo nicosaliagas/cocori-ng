@@ -9,19 +9,19 @@
 
 
 # Table of Contents
-1. [Before starting](#before)
-
+1. [Prerequisites](#prerequisites)
+2. [Setting Up the Library](#settingUp)
 
 ---
 
-### Before starting : <a name="before"></a>
+### Prerequisites : <a name="prerequisites"></a>
 
 
-Two projects :
+**Two projects :**
 - the library
 - the web project in order to view, test and develop the components of the lib
 
-Upgrade versions of Angular :
+**Upgrade versions of Angular :**
 - version 14.1.1 (July 2022)
 - version 13.3.4 (April 2022)
 - version 13.0.3 (November 2021)
@@ -30,7 +30,7 @@ Upgrade versions of Angular :
 Node : 16.10.0
 Npm : 7.24.0
 
-### Update Angular CLI version Globally
+**Update Angular CLI version Globally**
 
 npm uninstall -g angular-cli
 npm cache verify (if npm > 5)
@@ -38,7 +38,7 @@ npm install -g @angular/cli@latest
 
 🔗 https://www.angularjswiki.com/angular/update-angular-cli-version-ng-update-to-latest-6-7-versions/#:~:text=Steps%20To%20update%20Angular%20CLI,angular%2Fcli%40latest%20command
 
-### Utilisation de la lib cocori-ng :
+### Setting Up the Library :  <a name="settingUp"></a>
 
 *Lancer les commandes depuis la racine du projet web, là où se trouve le fichier `package.json` (pas dans le dossier `projects`)*
 
