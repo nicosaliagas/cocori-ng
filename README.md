@@ -11,7 +11,7 @@
 # Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Setting Up the Library](#settingup)
-
+	1. [Library Web Interface](#librarywebinterface)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -53,7 +53,7 @@ Puis se mettre dans le dossier de génération du livrable de la lib `cd dist/co
 
 Générer un lien symbolique vers les sources de la lib : `npm link`
 
-✨ **Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par npm) :**
+**Récapitulatif des commandes pour utiliser les sources de cocori-ng dans un autre projet en local (sans passer par npm) :**
 
 ```javascript
 npm i
@@ -64,7 +64,7 @@ npm link
 
 ⚠️ On n utilise pas la commande `npm build` pour compiler Cocori-ng car Cocori-ng est composé de plusieurs sous-projets.
 
-✨ **Utiliser la lib depuis un autre projet client en local** :
+**Utiliser la lib depuis un autre projet client en local** :
 
 ```javascript
 npm link cocori-ng
@@ -83,7 +83,7 @@ _Puis lancer la commande de build du project cible (npm build, npm run...)_
 - installer les dépendances manquantes (penser ensuite à refaire npm link cocori-ng)
 
 
-### Projet web de la librairie
+### Library Web Interface : <a name="librarywebinterface"></a> 
 
 *Pour tester les composants de la lib ou en créer de nouveaux*
 
