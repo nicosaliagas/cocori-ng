@@ -22,6 +22,7 @@
 5. [Wrapping a javascript lib in an Angular component](#wrapjslib)
 6. [Optimize Angular bundle size](#bundlesize)
 7. [End-to-end testing with Cypress](#cypress)
+8. [Upgrade front libraries of a project](#upgrade)
 ---
 
 ## Prerequisites : <a name="prerequisites"></a>
@@ -392,7 +393,7 @@ Doc conserver le localstorage entre les tests Cypress :
 
 ---
 
-## ✨ Monter la version des libraries d'un projet
+## Upgrade front libraries of a project: <a name="upgrade"></a>
 
 - exécuter la commande : ``ng update`` pour voir les package angular à mettre à jour
 
